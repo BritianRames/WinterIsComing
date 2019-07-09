@@ -8,13 +8,6 @@
     #include <iostream>
 
     #include "../utils/termcolor.hpp"
-    #include "../ast/AbstractSyntaxTree.hpp"
-    #include "../ast/node/ASTNode.hpp"
-    #include "../ast/node/node-subtypes/leaf-node/ASTLeafNode.hpp"
-    #include "../ast/node/node-subtypes/symbol-table-node/ASTSymbolTableNode.hpp"
-    #include "../ast/node/node-subtypes/operator-node/ASTArithmeticNode.hpp"
-    #include "../ast/node/node-subtypes/operator-node/ASTRelationalNode.hpp"
-    #include "../ast/node/node-subtypes/clause-node/ASTClauseNode.hpp"
     #include "../symbol-table/SymbolTable.hpp"
     #include "../code-generator/CodeGenerator.hpp"
 
@@ -24,20 +17,10 @@
     extern int level;
     extern int yylineno;
 
-    wic::GSymbolTable* gst;
-    wic::SSymbolTable* sst;
-    wic::LSymbolTable* lst;
 
-    wic::AbstractSyntaxTree* ast;
-    wic::CodeGenerator* cg;
-
-    wic::ASTMainNode* main_ = new wic::ASTMainNode();
-    wic::ASTBodyNode* main_body = new wic::ASTBodyNode();
 
 %}
 
-/* Definición de tipo de valores */
-%define api.value.type { void * }
 
 /* Declaración de tokens */
 
@@ -100,7 +83,6 @@ main: input {
 		main_->add_body(main_body);
 		ast->tree_build(main_);
 		ast->to_code(cg);
-		//$$ = ast->tree_build(main_);
 	    }
 
 input: instr END_OF_INSTR {

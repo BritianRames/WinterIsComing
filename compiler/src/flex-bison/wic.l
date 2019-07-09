@@ -15,16 +15,11 @@
     #include <string>
 
     #include "../symbol-table/SymbolTablePack.hpp"
-    #include "../ast/node/node-subtypes/leaf-node/ASTLeafNode.hpp"
-    #include "../ast/node/node-subtypes/symbol-table-node/ASTSymbolTableNode.hpp"
-    #include "../ast/node/ASTNode.hpp"
-    #include "../ast/node/node-subtypes/operator-node/ASTOperatorNode.hpp"
     #include "wic.tab.h"
 
     int level = 0;
     int enter_special = 1;
 
-    wic::ASTNode* node;
 
     /* Declaraciones de funciones */
 
@@ -45,8 +40,6 @@ break                         (break)
 return                        (return)
 void                          (void)
 fun                           (fun)
-global                        (global)
-static                        (static)
 
 /* Valores segun el tipo de dato */
 int_val                       {digit}+
@@ -147,14 +140,6 @@ id                            {letter}({letter}|{digit})*
                               }
 {fun}                         {
                                 return FUN;
-                              }
-{global}                      {
-                                //printf("%s is a GLOBAL\n", yytext);
-                                return GLOBAL;
-                              }
-{static}                         {
-                                //printf("%s is a STATIC\n", yytext);
-                                return STATIC;
                               }
 
 
