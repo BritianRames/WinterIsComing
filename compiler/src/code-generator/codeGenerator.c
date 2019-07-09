@@ -115,15 +115,15 @@ void startControlStructure(){
   //Including --> (
 }
 
-void logicalOperate(var a, var b, char* operator){
+void logicalOperate(int a, int b, char* operator){
   
 }
 
-void logicalOperate(var a, char* b, char* operator){
+void logicalOperate(int a, char* b, char* operator){
   
 }
 
-void logicalOperate(char* a, var b, char* operator){
+void logicalOperate(char* a, int b, char* operator){
   
 }
 
