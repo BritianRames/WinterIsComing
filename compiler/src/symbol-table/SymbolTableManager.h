@@ -14,6 +14,7 @@ void openScopeInSymbolTable();
 void closeScopeInSymbolTable();
 void _removeLocalVariablesFromSymbolTable();
 int _getLabel();
+void printSymbolTable();
 
 
 struct Symbol

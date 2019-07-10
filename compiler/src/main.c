@@ -4,6 +4,6 @@
 
 int main() {
     insertVariableInSymbolTable("pepe");
-    // Llamamos al printSymbolTable();
+    printVariable("pepe")
     generateAssignValueToGlobalVariable("pepe", 2);
 }
