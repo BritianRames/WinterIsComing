@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include "CodeGenerator.h"
-
+#include "../symbol-table/SymbolTableManager.h"
 //********************************************************Assignation Code**********************************************************/
 
 void generateAssignValueToGlobalVariable(char* variable_id, int value){
