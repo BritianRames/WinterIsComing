@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "CodeGenerator.h"
 
 //********************************************************Assignation Code**********************************************************/
 
