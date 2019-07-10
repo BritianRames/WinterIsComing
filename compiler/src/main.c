@@ -3,8 +3,10 @@
 
 int main() {
     openFile();
+
     printSymbolTable();
     insertVariableInSymbolTable("aaa");
     printSymbolTable();
+
     generateAssignValueToGlobalVariable("aaa", 2);
 }

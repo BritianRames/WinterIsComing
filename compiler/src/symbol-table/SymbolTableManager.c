@@ -1,11 +1,11 @@
 #include "SymbolTableManager.h"
+#include "StackManager.h"
 
 struct Symbol* firstSymbol;
 struct Symbol* lastSymbol;
 struct Symbol* lastFunc;
 int tableSize = 0;
 
-int tablePointer = 12000; //default Stackpointer R7
 int currentScope = 0;
 int lasLabel = 0;
 
@@ -18,7 +18,7 @@ void insertVariableInSymbolTable(char* id){
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = symbol->scope == 0 ? 'g' : 'l';
-    symbol->address = symbol->type == 'g' ? _getStaticAddressFromSymbolTable() : _getRelativeAddressFromSymbolTable();
+    symbol->address = symbol->type == 'g' ? _getNextStaticAddressFromSymbolTable() : _getNextRelativeAddressFromSymbolTable();
 
     strcpy(symbol->id, id);
 
@@ -35,7 +35,7 @@ void insertParameterInSymbolTable(char *id){
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
-    symbol->address = _getRelativeAddressFromSymbolTable();
+    symbol->address = _getNextRelativeAddressFromSymbolTable();
 
     strcpy(symbol->id, id);
 
@@ -79,13 +79,12 @@ void _incrementNumberOfLocalVariablesAndParameters(){
     else if(lastSymbol->type == 'l') lastFunc->numberOfLocalVariables++;
 }
 
-int _getRelativeAddressFromSymbolTable(){
+int _getNextRelativeAddressFromSymbolTable(){
     return (lastFunc->numberOfLocalVariables + lastFunc->numberOfParameters + 1) * 4;
 }
 
-int _getStaticAddressFromSymbolTable() {
-    tablePointer = tablePointer - 4;
-    return tablePointer;
+int _getNextStaticAddressFromSymbolTable() {
+    return getNextStackPointer();
 }
 
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2){
@@ -135,7 +134,7 @@ void closeScopeInSymbolTable(){
 int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
-        if(currentSymbol->id == id){
+        if(currentSymbol->id == id, currentSymbol->type == 'g'){
             return currentSymbol->address;
         }
         currentSymbol = currentSymbol->previousSymbol;
@@ -145,12 +144,7 @@ int getVariableAddressFromSymbolTable(char* id){
 }
 
 void printSymbolTable(){
-<<<<<<< HEAD
     struct Symbol* currentSymbol = firstSymbol;
-=======
-    struct Symbol* currentSymbol = lastSymbol;
-    printf("sfsdf");
->>>>>>> 006c640e3dc275ca64ab73ff0a2528315a00253e
     for(int i = tableSize; i > 0; i--){
         printf("-----------SYMBOL -> %d----------\n",i);
         printf("ADDRESS -> %d\n",currentSymbol->address);
