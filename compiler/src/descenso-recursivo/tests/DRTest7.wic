@@ -8,4 +8,3 @@ pivote > 1 || pivote <= 2 && 1 == 1??:
             a = a + base
             break
     int prueba = 100
-

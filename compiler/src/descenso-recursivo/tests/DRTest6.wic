@@ -7,5 +7,3 @@ pivote > 1 || pivote <= 2 && 1 == 1??:
         a < 100 ??:
             a = a + base
     int prueba = 100
-
-
