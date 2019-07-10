@@ -73,7 +73,7 @@ void _linkSymbolToSymbolTable(struct Symbol* symbol){
         symbol->previousSymbol = lastSymbol;
     }
     
-    if(symbol->type == "f") lastFunc = symbol;
+    if(symbol->type == 'f') lastFunc = symbol;
     lastSymbol = symbol; 
     tableSize++;
 }

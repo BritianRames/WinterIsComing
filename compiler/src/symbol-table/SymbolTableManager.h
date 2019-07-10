@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 void insertVariableInSymbolTable(char *id);
 void insertParameterInSymbolTable(char *id);
 void insertFunctionSymbolTable(char *id);
