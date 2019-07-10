@@ -14,9 +14,10 @@ flex:
 
 compile:
 					/usr/bin/gcc -Wall -Wextra -g -o wic \
+					main.c \
 					symbol-table/SymbolTableManager.c \
 					code-generator/CodeGeneratorManager.c \
-					code-generator/CodePrinter.c main.c
+					code-generator/CodePrinter.c
 
 					#gcc -o wic build/lex.yy.c build/wic.tab.c -lfl -lm
 					#/usr/bin/g++ -std=gnu++11 -c build/wic.tab.c build/lex.yy.c
