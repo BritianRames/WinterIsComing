@@ -3,6 +3,19 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+struct Symbol
+{
+    char *id;
+    int address; //absolute or relative
+    char type;
+    int scope;
+    int label;
+    int numberOfParameters;
+    int numberOfLocalVariables;
+    struct Symbol *previousSymbol;
+    struct Symbol *nextSymbol;
+};
+
 void insertVariableInSymbolTable(char *id);
 void insertParameterInSymbolTable(char *id);
 void insertFunctionSymbolTable(char *id);
@@ -20,17 +33,3 @@ void closeScopeInSymbolTable();
 void _removeLocalVariablesFromSymbolTable();
 int _getLabel();
 void printSymbolTable();
-
-
-struct Symbol
-{
-    char *id;
-    int address; //absolute or relative
-    char type;
-    int scope;
-    int label;
-    int numberOfParameters;
-    int numberOfLocalVariables;
-    struct Symbol *previousSymbol;
-    struct Symbol *nextSymbol;
-};
