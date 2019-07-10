@@ -61,7 +61,7 @@ void insertFunctionSymbolTable(char *id){
     
 }
 
-void _linkSymbolToSymbolTable(struct Symbol* symbol){
+void _linkSymbolToSymbolTable(struct Symbol* symbol) {
     _incrementNumberOfLocalVariablesAndParameters();
     if(tableSize == 0) firstSymbol = symbol;
     else {
