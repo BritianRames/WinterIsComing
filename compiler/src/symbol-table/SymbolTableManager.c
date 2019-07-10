@@ -135,3 +135,14 @@ void closeScopeInSymbolTable(){
     _removeLocalVariablesFromSymbolTable();
     currentScope--;
 }
+
+int getVariableAddressFromTable(char* id){
+    struct Symbol* currentSymbol = lastSymbol;
+    for(int i = tableSize; i > 0; i--){
+        if(currentSymbol->id == id){
+            return currentSymbol->address;
+        }
+    }
+    printf("\nERROR\n")
+    return -1;
+}
