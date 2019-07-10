@@ -138,13 +138,14 @@ int getVariableAddressFromSymbolTable(char* id){
         if(currentSymbol->id == id){
             return currentSymbol->address;
         }
+        currentSymbol = currentSymbol->previousSymbol;
     }
     printf("ERROR\n");
     return -1;
 }
 
 void printSymbolTable(){
-    struct Symbol* currentSymbol = lastSymbol;
+    struct Symbol* currentSymbol = firstSymbol;
     for(int i = tableSize; i > 0; i--){
         printf("-----------SYMBOL -> %d----------\n",i);
         printf("ADDRESS -> %d\n",currentSymbol->address);
@@ -155,6 +156,7 @@ void printSymbolTable(){
         printf("SCOPE -> %d\n",currentSymbol->scope);
         printf("TYPE -> %c\n",currentSymbol->type);
         printf("---------------------------------\n",i);
+        currentSymbol = currentSymbol->nextSymbol;
     }
 }
 
