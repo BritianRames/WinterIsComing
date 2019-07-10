@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "symboltablemanager.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "codegeneratormanager.h": "c"
   }
 }
