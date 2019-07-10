@@ -146,3 +146,19 @@ int getVariableAddressFromTable(char* id){
     printf("ERROR\n");
     return -1;
 }
+
+void printSymbolTable(){
+    struct Symbol* currentSymbol = lastSymbol;
+    for(int i = tableSize; i > 0; i--){
+        printf("-----------SYMBOL -> %d----------\n",i);
+        printf("ADDRESS -> %d\n",currentSymbol->address);
+        printf("ID -> %c\n",currentSymbol->id);
+        printf("LABEL -> %d\n",currentSymbol->label);
+        printf("NLOCALV -> %d\n",currentSymbol->numberOfLocalVariables);
+        printf("NPARAM -> %d\n",currentSymbol->numberOfParameters);
+        printf("SCOPE -> %d\n",currentSymbol->scope);
+        printf("TYPE -> %c\n",currentSymbol->type);
+        printf("---------------------------------\n",i);
+    }
+}
+
