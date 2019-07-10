@@ -44,7 +44,6 @@ int main(int argc, char** argv) {
 }
 
 int getChar() {
-
     return yylex();
 }
 
@@ -70,15 +69,16 @@ void input () {
 	if (l == ID || l == INT_TYPE || l == BOOL_TYPE || l == REAL_TYPE || l == INT_VAL || l == REAL_VAL || l == BOOL_VAL || l == BREAK) {
 		instr();
 		input();
-	}else if (l != CLOSE_CONTEXT_TAG) {
-		printf("ERROR en input\n");
+	}else {
+		printf("NO HAY MÁS INSTRUCCIONES INTERNAS AL WHILE\n");
 	}
-	//el else if de arriba se puede borrar?
 }
 
 void instr () {
     if(l == ID){
+		match(l);
 		if(l == ASSIGN){
+			match(ASSIGN);
 			term();
 			match(END_OF_INSTR);
 		} else if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
@@ -88,7 +88,7 @@ void instr () {
 				anid_while();
 			} else {
 				//ERROR
-				match(1000);
+				printf("ERROR[TERM]\n");
 			}
 		}
 	}else if(l == BREAK){
@@ -103,10 +103,10 @@ void instr () {
 				anid_while();
 			} else {
 				//ERROR
-				match(1000);
+				printf("ERROR[TERM]\n");
 			}
 		} else {
-			match(1000);
+			printf("ERROR[TERM]\n");
 		}
 	}else if(l == INT_TYPE || l == BOOL_TYPE || l == REAL_TYPE){
 		match(l);
@@ -116,49 +116,7 @@ void instr () {
 		match(END_OF_INSTR);
 	}
 }
-/*
-void instr () {
-    if(l == BREAK){
-        match(l);
-        match(END_OF_INSTR);
-    }else if (l == ID) {
-		match(ID);
-        if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
-            preanid_while();
-			anid_while();
-        } else {
-            match(ASSIGN);
-            term();
-            match(END_OF_INSTR);
-        }
-	}else if(l == INT_TYPE || l == BOOL_TYPE || l == REAL_TYPE){
-        match(l);
-		match(ID);
-        match(ASSIGN);
-		term();
-		match(END_OF_INSTR);
-    } else if(l == INT_VAL || l == REAL_VAL || l == BOOL_VAL){
-        match(l);
-        if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
-            preanid_while();
-        }
-		anid_while(); 
-	} else {
-        printf("ERROR[instr]: Algo va mal con la inicialización de una instrucción.\n");
-    }
-}
- 
-void preanid_while(){
-	match(l);
-	if(l == INT_VAL || l == REAL_VAL || l == BOOL_VAL){
-		match(l);
-	} else if (l == ID){
-		match(ID);
-	} else {
-		printf("ERROR[instr]: Expresión de while no correcta.\n");
-	}
-}
-*/
+
 void anid_while(){
 	match(FOR_WHILE_CLAUSE);
 	match(HEADER_END);
@@ -183,9 +141,9 @@ void term () {
 		data_value();
 	} else if(l == ID){
 		match(ID);
-		printf("\n        [%s]       \n",terminals[l-257]);
 	} else {
-		match(1000);
+		printf("ERROR[TERM]\n");
+		//match(1000);
 	}
 	if(l == SUM || l == SUBSTRACT || l == PRODUCT || l == DIVIDE){
 		match(l);
@@ -208,10 +166,7 @@ void data_value () {
 void match(int terminal) {
     if(l == terminal) {
         printf("Simbolo %s\n",terminals[l-257]);
-		printf("\n--SE-confirma-> %s\n",terminals[l-257]);
-        l = getChar();
-		printf("----SIGUIENTE----%s-------\n",terminals[l-257]);
-		
+		l = getChar();
     } else {
         printf("Error: Expected character %s != Actual character %s\n", terminals[terminal-257], terminals[l-257]);
         fails++;

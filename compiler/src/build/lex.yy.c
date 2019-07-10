@@ -1,6 +1,5 @@
-#line 2 "./build/lex.yy.c"
 
-#line 4 "./build/lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -355,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 38
-#define YY_END_OF_BUFFER 39
+#define YY_NUM_RULES 71
+#define YY_END_OF_BUFFER 72
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -364,34 +363,41 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[78] =
+static const flex_int16_t yy_accept[133] =
     {   0,
-        0,    0,    0,    0,    1,    1,   39,   37,    3,   12,
-       20,   37,   31,   32,   16,   14,   15,   37,   17,    6,
-       27,   25,   13,   23,   37,   33,   29,   30,   33,   33,
-       33,   33,   33,   37,   35,   36,    2,    1,    1,   22,
-       18,   34,    7,    7,    6,   26,   21,   24,   28,   33,
-       33,   33,   33,   33,   33,   33,   19,   35,    1,    7,
-       33,   33,   33,    9,   33,   33,   33,   11,   33,   33,
-       10,   33,    8,    4,   33,    5,    0
+        0,    0,    0,    0,    0,    0,   57,   57,   60,   60,
+        1,    1,   72,   70,   69,    3,   34,   59,   24,   22,
+       27,   56,   53,   54,   20,   18,   52,   19,   47,   21,
+       10,   45,   39,   17,   37,   44,   55,   42,   43,   41,
+       48,   49,   29,   55,   55,   55,   55,   55,   55,   55,
+       55,   50,   28,   51,   67,   68,   67,   63,   64,   57,
+       58,   57,   60,   61,    2,    1,    1,   69,   36,   32,
+       23,   25,   65,   26,   62,   11,   11,   10,   30,   40,
+       35,   38,   31,   46,   55,   55,   55,   55,   55,   55,
+       55,   55,   55,   55,   55,   55,   33,   66,   63,   57,
+
+       60,    1,   11,   55,   55,   55,   55,   55,    9,   13,
+        4,   55,   55,   55,   55,   15,   55,   16,   55,   55,
+       14,   55,   12,    8,    6,   55,   55,   55,    7,   55,
+        5,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
+        1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    3,    4,    1,    1,    1,    1,    5,    1,    6,
-        7,    8,    9,    1,   10,   11,   12,   13,   13,   13,
-       13,   13,   13,   13,   13,   13,   13,   14,    1,   15,
-       16,   17,   18,    1,   19,   19,   19,   19,   19,   19,
-       19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
-       19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
-       20,    1,   21,    1,    1,    1,   22,   23,   19,   19,
+        1,    4,    5,    6,    7,    1,    8,    9,   10,   11,
+       12,   13,   14,   15,   16,   17,   18,   19,   20,   20,
+       20,   20,   20,   20,   20,   20,   20,   21,    1,   22,
+       23,   24,   25,    1,   26,   26,   26,   27,   26,   26,
+       26,   26,   28,   26,   26,   26,   26,   26,   26,   26,
+       26,   26,   26,   26,   29,   26,   26,   26,   26,   26,
+       30,   31,   32,   33,   26,    1,   34,   35,   36,   37,
 
-       24,   25,   19,   19,   26,   19,   27,   28,   19,   29,
-       30,   19,   19,   31,   32,   33,   34,   19,   19,   19,
-       19,   19,    1,   35,    1,    1,    1,    1,    1,    1,
+       38,   39,   26,   40,   41,   26,   42,   43,   26,   44,
+       45,   26,   26,   46,   47,   48,   49,   50,   51,   26,
+       26,   26,   52,   53,   54,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -408,74 +414,116 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[36] =
+static const YY_CHAR yy_meta[55] =
     {   0,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    3,    1,    1,    1,    1,    1,    3,    1,
-        1,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    1
+        1,    1,    2,    1,    1,    3,    1,    1,    1,    4,
+        1,    1,    1,    1,    1,    1,    1,    1,    5,    6,
+        1,    1,    1,    1,    1,    6,    6,    6,    6,    1,
+        4,    1,    1,    5,    5,    6,    6,    6,    6,    6,
+        6,    6,    6,    5,    6,    5,    6,    5,    6,    5,
+        6,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[82] =
+static const flex_int16_t yy_base[142] =
     {   0,
-        0,    0,   91,   90,   34,   36,   91,   94,   94,   94,
-       74,   84,   94,   94,   94,   94,   94,   29,   94,   30,
-       94,   72,   71,   70,   67,    0,   94,   94,   14,   62,
-       54,   58,   50,   45,    0,   94,   94,   76,   75,   94,
-       94,   94,   64,   63,   35,   94,   94,   94,   94,    0,
-       45,   50,   45,   39,   25,   37,   94,    0,   67,   56,
-       40,   44,   25,    0,   28,   21,   30,    0,   26,   28,
-        0,   20,    0,    0,   21,    0,   94,   58,   61,   46,
-       64
+        0,    0,   52,   53,  187,  186,   47,   48,  182,  181,
+       56,   58,  186,  191,  183,  191,  161,  191,  191,  191,
+      174,  191,  191,  191,  169,  167,  163,  163,   46,  191,
+       54,  191,   45,  155,   52,  152,    0,    0,    0,    0,
+      191,  191,  191,   35,   32,   48,  132,  137,  136,  127,
+      127,  191,  118,  191,  191,  191,  155,    0,  191,  191,
+      191,    0,    0,  191,  191,  165,  164,  165,  191,  191,
+      191,  191,  191,  191,  191,   64,   66,   70,  191,  191,
+      191,  191,  191,  191,    0,  121,  127,  130,  119,  119,
+      117,  112,  108,   54,  109,  116,  191,  191,    0,  191,
+
+        0,  152,   72,  112,  120,  107,  104,  104,    0,    0,
+        0,  107,   97,   98,   64,    0,   58,    0,   58,   60,
+        0,   50,    0,    0,    0,   51,   50,   44,    0,   26,
+        0,  191,  102,  108,  114,  120,  126,  128,  134,  138,
+      143
     } ;
 
-static const flex_int16_t yy_def[82] =
+static const flex_int16_t yy_def[142] =
     {   0,
-       77,    1,   78,   78,   79,   79,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   80,   77,   77,   80,   80,
-       80,   80,   80,   77,   81,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   80,
-       80,   80,   80,   80,   80,   80,   77,   81,   77,   77,
-       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
-       80,   80,   80,   80,   80,   80,    0,   77,   77,   77,
-       77
+      132,    1,  133,  133,  134,  134,  135,  135,  136,  136,
+      137,  137,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  138,  138,  138,  138,
+      132,  132,  132,  138,  138,  138,  138,  138,  138,  138,
+      138,  132,  132,  132,  132,  132,  132,  139,  132,  132,
+      132,  140,  141,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  132,  132,  139,  132,
+
+      141,  132,  132,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,    0,  132,  132,  132,  132,  132,  132,  132,  132,
+      132
     } ;
 
-static const flex_int16_t yy_nxt[130] =
+static const flex_int16_t yy_nxt[246] =
     {   0,
-        8,    9,   10,   11,   12,   13,   14,   15,   16,   17,
-       18,   19,   20,   21,   22,   23,   24,   25,   26,   27,
-       28,   26,   29,   26,   30,   31,   26,   26,   26,   26,
-       32,   26,   33,   26,   34,   38,   39,   38,   39,   42,
-       44,   43,   45,   51,   52,   44,   65,   45,   50,   76,
-       75,   73,   74,   73,   72,   71,   70,   66,   35,   35,
-       35,   37,   37,   37,   58,   69,   58,   68,   60,   59,
-       67,   64,   63,   62,   61,   60,   43,   59,   59,   57,
-       56,   55,   54,   53,   49,   48,   47,   46,   41,   40,
-       77,   36,   36,    7,   77,   77,   77,   77,   77,   77,
+       14,   15,   16,   14,   17,   18,   19,   20,   21,   22,
+       23,   24,   25,   26,   27,   28,   29,   30,   31,   31,
+       32,   33,   34,   35,   36,   37,   38,   39,   40,   41,
+       14,   42,   43,   37,   44,   45,   37,   37,   46,   37,
+       47,   37,   37,   48,   37,   49,   37,   50,   37,   51,
+       37,   52,   53,   54,   56,   56,   61,   61,   66,   67,
+       66,   67,   75,  131,   76,   76,   79,   80,   57,   57,
+       77,   88,   78,   78,   82,   83,   89,   62,   62,   86,
+       87,   90,   76,   76,  103,  103,   77,  112,   78,   78,
+      103,  103,  130,  129,  128,  127,   91,  123,  126,  125,
 
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77
+      124,  113,   55,   55,   55,   55,   55,   55,   58,   58,
+       58,   58,   58,   58,   60,   60,   60,   60,   60,   60,
+       63,   63,   63,   63,   63,   63,   65,   65,   65,   65,
+       65,   65,   85,   85,   99,  123,   99,   99,   99,   99,
+      100,  100,  100,  101,  101,  122,  101,  101,  101,  121,
+      120,  119,  118,  117,  116,  102,  115,  114,  111,  110,
+      109,  108,  107,  106,  105,  104,   68,  102,  102,   98,
+       97,   96,   95,   94,   93,   92,   84,   81,   74,   73,
+       72,   71,   70,   69,   68,  132,   64,   64,   59,   59,
+       13,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132
     } ;
 
-static const flex_int16_t yy_chk[130] =
+static const flex_int16_t yy_chk[246] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    5,    5,    6,    6,   18,
-       20,   18,   20,   29,   29,   45,   55,   45,   80,   75,
-       72,   70,   69,   67,   66,   65,   63,   55,   78,   78,
-       78,   79,   79,   79,   81,   62,   81,   61,   60,   59,
-       56,   54,   53,   52,   51,   44,   43,   39,   38,   34,
-       33,   32,   31,   30,   25,   24,   23,   22,   12,   11,
-        7,    4,    3,   77,   77,   77,   77,   77,   77,   77,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    3,    4,    7,    8,   11,   11,
+       12,   12,   29,  130,   29,   29,   33,   33,    3,    4,
+       31,   45,   31,   31,   35,   35,   45,    7,    8,   44,
+       44,   46,   76,   76,   77,   77,   78,   94,   78,   78,
+      103,  103,  128,  127,  126,  122,   46,  120,  119,  117,
 
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77
+      115,   94,  133,  133,  133,  133,  133,  133,  134,  134,
+      134,  134,  134,  134,  135,  135,  135,  135,  135,  135,
+      136,  136,  136,  136,  136,  136,  137,  137,  137,  137,
+      137,  137,  138,  138,  139,  114,  139,  139,  139,  139,
+      140,  140,  140,  141,  141,  113,  141,  141,  141,  112,
+      108,  107,  106,  105,  104,  102,   96,   95,   93,   92,
+       91,   90,   89,   88,   87,   86,   68,   67,   66,   57,
+       53,   51,   50,   49,   48,   47,   36,   34,   28,   27,
+       26,   25,   21,   17,   15,   13,   10,    9,    6,    5,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
+      132,  132,  132,  132,  132
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -492,51 +540,31 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "./FLEX/descenso_recursivo.l"
+#line 1 "flex-bison/wic.l"
+/* Ajustes iniciales */
 
 
-#line 4 "./FLEX/descenso_recursivo.l"
-  #include <string.h>
-  int numlin = 1;
-  int level = 0;
-  int countSpaces(char* pattern);
-  void error(char*, char);
-
-  #define END_OF_INSTR 257
-  #define RETURN 258
-  #define BREAK 259
-  #define INT_VAL 261
-  #define REAL_VAL 262
-  #define BOOL_VAL 263
-  #define INT_TYPE 264
-  #define REAL_TYPE 265
-  #define BOOL_TYPE 266
-  #define ASSIGN 267
-  #define SUM 268
-  #define SUBSTRACT 269
-  #define PRODUCT 270
-  #define DIVIDE 271
-  #define AND 272
-  #define OR 273
-  #define NOT 274
-  #define EQUALS 275
-  #define NOT_EQUALS 276
-  #define GREATER 277
-  #define GREATER_EQUALS 278
-  #define LESS 279
-  #define LESS_EQUALS 280
-  #define HEADER_END 281
-  #define FOR_WHILE_CLAUSE 282
-  #define SQUARE_BRACKET_OPEN 283
-  #define SQUARE_BRACKET_CLOSE 284
-  #define PARETHESES_OPEN 285
-  #define PARETHESES_CLOSE 286
-  #define ID 287
-  #define OPEN_CONTEXT_TAG 288
-  #define CLOSE_CONTEXT_TAG 289
 
 
-#line 540 "./build/lex.yy.c"
+
+#line 12 "flex-bison/wic.l"
+
+    /* Declaraciones */
+
+    #include <string>
+
+    #include "../symbol-table/SymbolTablePack.hpp"
+    #include "wic.tab.h"
+
+    int level = 0;
+    int enter_special = 1;
+
+
+    /* Declaraciones de funciones */
+
+    int countSpaces(char* pattern);
+
+#line 568 "lex.yy.c"
 /* Definiciones regulares */
 /* Expresiones regulares reutilizables */
 /* Palabras reservadas */
@@ -545,11 +573,14 @@ char *yytext;
 /* Expresiones regulares para estructuras de control y bucles */
 /* Expresiones regulares delimitadoras */
 /* Identificador */
-#line 549 "./build/lex.yy.c"
+#line 577 "lex.yy.c"
 
 #define INITIAL 0
-#define COMMENT_LINE 1
-#define CHECK_LVL 2
+#define COMMENT_BLOCK 1
+#define COMMENT_LINE 2
+#define CHAR_STATE 3
+#define STRING_STATE 4
+#define CHECK_LVL 5
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -764,9 +795,20 @@ YY_DECL
 		}
 
 	{
-#line 80 "./FLEX/descenso_recursivo.l"
+#line 69 "flex-bison/wic.l"
 
-#line 770 "./build/lex.yy.c"
+#line 71 "flex-bison/wic.l"
+  if (enter_special) {
+    BEGIN(CHECK_LVL);
+    enter_special = 0;
+  }
+
+
+   /* Reglas de traducción */
+
+   /* Cambios de ámbito */
+
+#line 812 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -793,13 +835,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 78 )
+				if ( yy_current_state >= 133 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 94 );
+		while ( yy_base[yy_current_state] != 191 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -826,29 +868,29 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 81 "./FLEX/descenso_recursivo.l"
+#line 81 "flex-bison/wic.l"
 {
-                                //printf("Procesando... \n<%s>\n", yytext);
+                                printf("Procesando... \n<%s>\n", yytext);
                                 int level_change = countSpaces(yytext);
-                                //printf("%d\n", level_change);
+                                printf("%d\n", level_change);
 
                                 if (level < level_change) {
                                   level++;
                                   if (level != level_change) yyless(0);
-                                  //printf("Level <OPEN_CONTEXT_TAG> : %d\n", level);
+                                  printf("Level <OPEN_CONTEXT_TAG> : %d\n", level);
                                   return OPEN_CONTEXT_TAG;
                                 } else if (level > level_change) {
                                    level--;
                                    if (level != level_change) yyless(0);
-                                   //printf("Level <CLOSE_CONTEXT_TAG> : %d\n", level);
+                                   printf("Level <CLOSE_CONTEXT_TAG> : %d\n", level);
                                    return CLOSE_CONTEXT_TAG;
                                 }
-                                //printf("Level : %d\n", level);
+                                printf("Level : %d\n", level);
                                 BEGIN(INITIAL);
                               }
 	YY_BREAK
 case YY_STATE_EOF(CHECK_LVL):
-#line 100 "./FLEX/descenso_recursivo.l"
+#line 100 "flex-bison/wic.l"
 {
                                 if (level > 0) {
                                   level--;
@@ -858,16 +900,19 @@ case YY_STATE_EOF(CHECK_LVL):
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 106 "./FLEX/descenso_recursivo.l"
+#line 106 "flex-bison/wic.l"
 {
-                                //printf("Vamos para atrás\n");
+                                printf("Vamos para atrás\n");
                                 BEGIN(INITIAL);
                                 yyless(0);
                               }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(COMMENT_BLOCK):
 case YY_STATE_EOF(COMMENT_LINE):
-#line 111 "./FLEX/descenso_recursivo.l"
+case YY_STATE_EOF(CHAR_STATE):
+case YY_STATE_EOF(STRING_STATE):
+#line 111 "flex-bison/wic.l"
 {
                                 BEGIN(CHECK_LVL);
                               }
@@ -875,310 +920,592 @@ case YY_STATE_EOF(COMMENT_LINE):
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 117 "./FLEX/descenso_recursivo.l"
+#line 114 "flex-bison/wic.l"
 {
                                 BEGIN(CHECK_LVL);
                                 yyless(0);
-                                //printf("%s is a END_OF_INSTR\n", yytext);
-                                numlin++;
+                                printf("Nueva línea\n");
+                                yylineno++;
                                 return END_OF_INSTR;
                               }
 	YY_BREAK
+/* Reglas para las palabras reservadas */
 case 4:
 YY_RULE_SETUP
-#line 124 "./FLEX/descenso_recursivo.l"
+#line 123 "flex-bison/wic.l"
+{
+                                //printf("%s is a NEW\n", yytext);
+                                return NEW;
+                              }
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 127 "flex-bison/wic.l"
+{
+                                //printf("%s is a CONTINUE\n", yytext);
+                                return CONTINUE;
+                              }
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 131 "flex-bison/wic.l"
 {
                                 //printf("%s is a BREAK\n", yytext);
                                 return BREAK;
                               }
 	YY_BREAK
-case 5:
+case 7:
 YY_RULE_SETUP
-#line 128 "./FLEX/descenso_recursivo.l"
+#line 135 "flex-bison/wic.l"
 {
                                 //printf("%s is a RETURN\n", yytext);
                                 return RETURN;
                               }
 	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 132 "./FLEX/descenso_recursivo.l"
-{
-                                //yylval.integer = atoi(yytext);
-                                //printf("%d is a INT_VAL\n", yylval.integer);
-                                //printf("%s is a INT_VAL\n", yytext);
-                                return INT_VAL;
-                              }
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 139 "./FLEX/descenso_recursivo.l"
-{
-                                //yylval.real = atof(yytext);
-                                //printf("%f is a REAL_VAL\n", yylval.real);
-                                //printf("%s is a REAL_VAL\n", yytext);
-                                return REAL_VAL;
-                              }
-	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 145 "./FLEX/descenso_recursivo.l"
+#line 139 "flex-bison/wic.l"
 {
-                                //if (strcmp("true", yytext) == 0) yylval.boolean = '\x01';
-                                //else yylval.boolean = '\x00';
-                                //printf("%d is a BOOL_VAL\n", yylval.boolean);
-                                //printf("%s is a BOOL_VAL\n", yytext);
-                                return BOOL_VAL;
+                                return VOID;
                               }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 153 "./FLEX/descenso_recursivo.l"
+#line 142 "flex-bison/wic.l"
 {
-                                //printf("%s is a INT_TYPE\n", yytext);
-                                //yylval.string = (char*)malloc(yyleng);
-                                //strcpy(yylval.string, yytext);
-                                return INT_TYPE;
+                                return FUN;
                               }
 	YY_BREAK
+/* Reglas para los valores segun el tipo de dato */
 case 10:
 YY_RULE_SETUP
-#line 159 "./FLEX/descenso_recursivo.l"
+#line 148 "flex-bison/wic.l"
 {
-                                //printf("%s is a REAL_TYPE\n", yytext);
-                                //yylval.string = (char*)malloc(yyleng);
-                                //strcpy(yylval.string, yytext);
-                                return REAL_TYPE;
+                                wic::data_value data_v;
+                                data_v.int_val = atoi(yytext);
+                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::INT, &data_v));
+                                return INT_VAL;
                               }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 165 "./FLEX/descenso_recursivo.l"
+#line 155 "flex-bison/wic.l"
 {
-                                //printf("%s is a BOOL_TYPE\n", yytext);
-                                //yylval.string = (char*)malloc(yyleng);
-                                //strcpy(yylval.string, yytext);
-                                return BOOL_TYPE;
+                                wic::data_value data_v;
+                                data_v.real_val = atof(yytext);
+                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::REAL, &data_v));
+                                return REAL_VAL;
                               }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 173 "./FLEX/descenso_recursivo.l"
+#line 161 "flex-bison/wic.l"
 {
-                              printf("");
+                                wic::data_value data_v;
+                                if (strcmp("true", yytext) == 0) data_v.bool_val = true;
+                                else data_v.bool_val = false;
+                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::BOOL, &data_v));
+                                return BOOL_VAL;
                               }
 	YY_BREAK
+/* Reglas segun el tipo de dato */
 case 13:
 YY_RULE_SETUP
-#line 176 "./FLEX/descenso_recursivo.l"
+#line 171 "flex-bison/wic.l"
+{
+                                return INT_TYPE;
+                              }
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 174 "flex-bison/wic.l"
+{
+                                return REAL_TYPE;
+                              }
+	YY_BREAK
+case 15:
+YY_RULE_SETUP
+#line 177 "flex-bison/wic.l"
+{
+                                return BOOL_TYPE;
+                              }
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 180 "flex-bison/wic.l"
+{
+                                return CHAR_TYPE;
+                              }
+	YY_BREAK
+/* Regla de asignación */
+case 17:
+YY_RULE_SETUP
+#line 186 "flex-bison/wic.l"
 {
                                 //printf("%s is an ASSIGN\n", yytext);
                                 return ASSIGN;
                               }
 	YY_BREAK
-case 14:
+/* Reglas para los operadores aritméticos */
+case 18:
 YY_RULE_SETUP
-#line 181 "./FLEX/descenso_recursivo.l"
+#line 193 "flex-bison/wic.l"
 {
                                 //printf("%s is a SUM\n", yytext);
                                 return SUM;
                               }
 	YY_BREAK
-case 15:
+case 19:
 YY_RULE_SETUP
-#line 185 "./FLEX/descenso_recursivo.l"
+#line 197 "flex-bison/wic.l"
 {
                                 //printf("%s is a SUBSTRACT\n", yytext);
                                 return SUBSTRACT;
                               }
 	YY_BREAK
-case 16:
+case 20:
 YY_RULE_SETUP
-#line 189 "./FLEX/descenso_recursivo.l"
+#line 201 "flex-bison/wic.l"
 {
                                 //printf("%s is a PRODUCT\n", yytext);
                                 return PRODUCT;
                               }
 	YY_BREAK
-case 17:
+case 21:
 YY_RULE_SETUP
-#line 193 "./FLEX/descenso_recursivo.l"
+#line 205 "flex-bison/wic.l"
 {
                                 //printf("%s is a DIVIDE\n", yytext);
                                 return DIVIDE;
-                              }               
+                              }
 	YY_BREAK
-case 18:
+case 22:
 YY_RULE_SETUP
-#line 197 "./FLEX/descenso_recursivo.l"
+#line 209 "flex-bison/wic.l"
+{
+                                //printf("%s is a MODULUS\n", yytext);
+                                return MODULUS;
+                              }
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 213 "flex-bison/wic.l"
+{
+                                //printf("%s is a POWER\n", yytext);
+                                return POWER;
+                              }
+	YY_BREAK
+case 24:
+YY_RULE_SETUP
+#line 217 "flex-bison/wic.l"
+{
+                                //printf("%s is a RADICAL\n", yytext);
+                                return RADICAL;
+                              }
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 221 "flex-bison/wic.l"
+{
+                                //printf("%s is a INCREMENT\n", yytext);
+                                return INCREMENT;
+                              }
+	YY_BREAK
+case 26:
+YY_RULE_SETUP
+#line 225 "flex-bison/wic.l"
+{
+                                //printf("%s is a DECREMENT\n", yytext);
+                                return DECREMENT;
+                              }
+	YY_BREAK
+/* Reglas para los operadores bit a bit */
+case 27:
+YY_RULE_SETUP
+#line 232 "flex-bison/wic.l"
+{
+                                //printf("%s is a AND_BIT\n", yytext);
+                                return AND_BIT;
+                              }
+	YY_BREAK
+case 28:
+YY_RULE_SETUP
+#line 236 "flex-bison/wic.l"
+{
+                                //printf("%s is a OR_BIT\n", yytext);
+                                return OR_BIT;
+                              }
+	YY_BREAK
+case 29:
+YY_RULE_SETUP
+#line 240 "flex-bison/wic.l"
+{
+                                //printf("%s is a XOR_BIT\n", yytext);
+                                return XOR_BIT;
+                              }
+	YY_BREAK
+case 30:
+YY_RULE_SETUP
+#line 244 "flex-bison/wic.l"
+{
+                                //printf("%s is a LEFT_SHIFT\n", yytext);
+                                return LEFT_SHIFT;
+                              }
+	YY_BREAK
+case 31:
+YY_RULE_SETUP
+#line 248 "flex-bison/wic.l"
+{
+                                //printf("%s is a RIGHT_SHIFT\n", yytext);
+                                return RIGHT_SHIFT;
+                              }
+	YY_BREAK
+/* Reglas para los operadores lógicos */
+case 32:
+YY_RULE_SETUP
+#line 255 "flex-bison/wic.l"
 {
                                 //printf("%s is a AND\n", yytext);
                                 return AND;
                               }
 	YY_BREAK
-case 19:
+case 33:
 YY_RULE_SETUP
-#line 201 "./FLEX/descenso_recursivo.l"
+#line 259 "flex-bison/wic.l"
 {
                                 //printf("%s is a OR\n", yytext);
                                 return OR;
                               }
 	YY_BREAK
-case 20:
+case 34:
 YY_RULE_SETUP
-#line 205 "./FLEX/descenso_recursivo.l"
+#line 263 "flex-bison/wic.l"
 {
                                 //printf("%s is a NOT\n", yytext);
                                 return NOT;
                               }
 	YY_BREAK
-case 21:
+case 35:
 YY_RULE_SETUP
-#line 209 "./FLEX/descenso_recursivo.l"
+#line 267 "flex-bison/wic.l"
 {
                                 //printf("%s is a EQUALS\n", yytext);
                                 return EQUALS;
                               }
 	YY_BREAK
-case 22:
+case 36:
 YY_RULE_SETUP
-#line 213 "./FLEX/descenso_recursivo.l"
+#line 271 "flex-bison/wic.l"
 {
                                 //printf("%s is a NOT_EQUALS\n", yytext);
                                 return NOT_EQUALS;
                               }
 	YY_BREAK
-case 23:
+case 37:
 YY_RULE_SETUP
-#line 217 "./FLEX/descenso_recursivo.l"
+#line 275 "flex-bison/wic.l"
 {
                                 //printf("%s is a GREATER\n", yytext);
                                 return GREATER;
                               }
 	YY_BREAK
-case 24:
+case 38:
 YY_RULE_SETUP
-#line 221 "./FLEX/descenso_recursivo.l"
+#line 279 "flex-bison/wic.l"
 {
                                 //printf("%s is a GREATER_EQUALS\n", yytext);
                                 return GREATER_EQUALS;
                               }
 	YY_BREAK
-case 25:
+case 39:
 YY_RULE_SETUP
-#line 225 "./FLEX/descenso_recursivo.l"
+#line 283 "flex-bison/wic.l"
 {
                                 //printf("%s is a LESS\n", yytext);
                                 return LESS;
                               }
 	YY_BREAK
-case 26:
+case 40:
 YY_RULE_SETUP
-#line 229 "./FLEX/descenso_recursivo.l"
+#line 287 "flex-bison/wic.l"
 {
                                 //printf("%s is a LESS_EQUALS\n", yytext);
                                 return LESS_EQUALS;
-                              }     
+                              }
 	YY_BREAK
-case 27:
+/* Reglas para los operadores de array */
+case 41:
 YY_RULE_SETUP
-#line 234 "./FLEX/descenso_recursivo.l"
+#line 294 "flex-bison/wic.l"
+{
+                                //printf("%s is an UNION\n", yytext);
+                                return UNION;
+                              }
+	YY_BREAK
+case 42:
+YY_RULE_SETUP
+#line 298 "flex-bison/wic.l"
+{
+                                //printf("%s is a DIFFERENCE\n", yytext);
+                                return DIFFERENCE;
+                              }
+	YY_BREAK
+case 43:
+YY_RULE_SETUP
+#line 302 "flex-bison/wic.l"
+{
+                                //printf("%s is an INTERSECTION\n", yytext);
+                                return INTERSECTION;
+                              }
+	YY_BREAK
+/* Expresiones regulares para estructuras de control y bucles */
+case 44:
+YY_RULE_SETUP
+#line 309 "flex-bison/wic.l"
+{
+                                //printf("%s is an IF_CLAUSE\n", yytext);
+                                return IF_CLAUSE;
+                              }
+	YY_BREAK
+case 45:
+YY_RULE_SETUP
+#line 313 "flex-bison/wic.l"
 {
                                 //printf("%s is an HEADER_END\n", yytext);
                                 return HEADER_END;
                               }
 	YY_BREAK
-case 28:
+case 46:
 YY_RULE_SETUP
-#line 238 "./FLEX/descenso_recursivo.l"
+#line 317 "flex-bison/wic.l"
 {
                                 //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
                                 return FOR_WHILE_CLAUSE;
-                              } 
+                              }
 	YY_BREAK
-case 29:
+case 47:
 YY_RULE_SETUP
-#line 242 "./FLEX/descenso_recursivo.l"
+#line 321 "flex-bison/wic.l"
 {
+                                //printf("%s is an ELSE_IF_FOR_WHILE_CLAUSE\n", yytext);
+                                return ELSE_IF_FOR_WHILE_CLAUSE;
+                              }
+	YY_BREAK
+/* Expresiones regulares delimitadoras */
+case 48:
+YY_RULE_SETUP
+#line 329 "flex-bison/wic.l"
+{//
+//
+//
+//
                                 //printf("%s is an SQUARE_BRACKET_OPEN\n", yytext);
                                 return SQUARE_BRACKET_OPEN;
                               }
 	YY_BREAK
-case 30:
+case 49:
 YY_RULE_SETUP
-#line 246 "./FLEX/descenso_recursivo.l"
+#line 336 "flex-bison/wic.l"
 {
                                 //printf("%s is an SQUARE_BRACKET_CLOSE\n", yytext);
                                 return SQUARE_BRACKET_CLOSE;
-                              }   
+
+                              }
 	YY_BREAK
-case 31:
+case 50:
 YY_RULE_SETUP
-#line 251 "./FLEX/descenso_recursivo.l"
+#line 341 "flex-bison/wic.l"
+{
+                                //printf("%s is an CURLY_BRACKET_OPEN\n", yytext);
+                                return CURLY_BRACKET_OPEN;
+                              }
+	YY_BREAK
+case 51:
+YY_RULE_SETUP
+#line 345 "flex-bison/wic.l"
+{
+                                //printf("%s is an CURLY_BRACKET_CLOSE\n", yytext);
+                                return CURLY_BRACKET_CLOSE;
+                              }
+	YY_BREAK
+case 52:
+YY_RULE_SETUP
+#line 349 "flex-bison/wic.l"
+{
+                                //printf("%s is an ELEM_SEPARATOR\n", yytext);
+                                return ELEM_SEPARATOR;
+                              }
+	YY_BREAK
+case 53:
+YY_RULE_SETUP
+#line 353 "flex-bison/wic.l"
 {
                                 //printf("%s is an PARETHESES_OPEN\n", yytext);
                                 return PARETHESES_OPEN;
                               }
 	YY_BREAK
-case 32:
+case 54:
 YY_RULE_SETUP
-#line 255 "./FLEX/descenso_recursivo.l"
+#line 357 "flex-bison/wic.l"
 {
                                 //printf("%s is an PARETHESES_CLOSE\n", yytext);
                                 return PARETHESES_CLOSE;
-                              }  
-	YY_BREAK
-case 33:
-YY_RULE_SETUP
-#line 259 "./FLEX/descenso_recursivo.l"
-{
-                                //printf("%s is a ID\n", yytext);
-                                //yylval.string = (char*)malloc(yyleng);
-                                //strcpy(yylval.string, yytext);
-                                return ID;
-                              }   
-	YY_BREAK
-case 34:
-YY_RULE_SETUP
-#line 265 "./FLEX/descenso_recursivo.l"
-{
-                                BEGIN(COMMENT_LINE);
-                                //printf("COMMENT_LINE_START\n");
-                              } 
-	YY_BREAK
-case 35:
-YY_RULE_SETUP
-#line 269 "./FLEX/descenso_recursivo.l"
-{
-                                //printf("THIS IS A COMMENT_LINE\n");
                               }
 	YY_BREAK
-case 36:
-/* rule 36 can match eol */
+/* Identificador */
+case 55:
 YY_RULE_SETUP
-#line 272 "./FLEX/descenso_recursivo.l"
+#line 364 "flex-bison/wic.l"
 {
-                                //printf("COMMENT_LINE_END\n");
-                                //yylineno++;
+                                std::string id = yytext;
+                                yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
+                                return ID;
+                              }
+	YY_BREAK
+/* Reglas para los caracteres */
+case 56:
+YY_RULE_SETUP
+#line 372 "flex-bison/wic.l"
+{
+                                 BEGIN(CHAR_STATE);
+                                 return CHAR_QUOTE;
+                              }
+	YY_BREAK
+case 57:
+/* rule 57 can match eol */
+YY_RULE_SETUP
+#line 376 "flex-bison/wic.l"
+{
+                                wic::data_value data_v;
+                                if (yytext[0] == '\\')
+                                {
+                                    if (yytext[1] == '0') data_v.char_val = '\0';
+                                    else if (yytext[1] == 'a') data_v.char_val = '\a';
+                                    else if (yytext[1] == 'b') data_v.char_val = '\b';
+                                    else if (yytext[1] == 't') data_v.char_val = '\t';
+                                    else if (yytext[1] == 'n') data_v.char_val = '\n';
+                                    else if (yytext[1] == 'v') data_v.char_val = '\v';
+                                    else if (yytext[1] == 'f') data_v.char_val = '\f';
+                                    else if (yytext[1] == 'r') data_v.char_val = '\r';
+                                    else if (yytext[1] == '\"') data_v.char_val = '\"';
+                                    else if (yytext[1] == '\'') data_v.char_val = '\'';
+                                    else if (yytext[1] == '\\') data_v.char_val = '\\';
+                                }
+                                else
+                                {
+                                    data_v.char_val = yytext[0];
+                                }
+                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::CHAR, &data_v));
+                                return CHAR_VAL;
+                              }
+	YY_BREAK
+case 58:
+YY_RULE_SETUP
+#line 399 "flex-bison/wic.l"
+{
                                 BEGIN(INITIAL);
-                                //confio en que no seas malvado y 
-                                //se acabe el fichero inmediatamente 
-                                //despues del comentario
-                              }   
+                                return CHAR_QUOTE;
+                              }
 	YY_BREAK
-case 37:
+/* Reglas para los strings */
+case 59:
 YY_RULE_SETUP
-#line 280 "./FLEX/descenso_recursivo.l"
+#line 405 "flex-bison/wic.l"
 {
-                                error("caracter raro", yytext[0]);
-                              }                          
+                                BEGIN(STRING_STATE);
+                                return STRING_QUOTE;
+                              }
 	YY_BREAK
-case 38:
+case 60:
+/* rule 60 can match eol */
 YY_RULE_SETUP
-#line 283 "./FLEX/descenso_recursivo.l"
+#line 409 "flex-bison/wic.l"
+{
+                                wic::data_value data_v ;
+                                data_v.str_val = new char[yyleng];
+                                data_v.str_val = strcpy(data_v.str_val, yytext);
+                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::STRING, &data_v));
+                                return STRING_VAL;
+                              }
+	YY_BREAK
+case 61:
+YY_RULE_SETUP
+#line 416 "flex-bison/wic.l"
+{
+                                BEGIN(INITIAL);
+                                return STRING_QUOTE;
+                              }
+	YY_BREAK
+/* Reglas para los comentarios */
+case 62:
+YY_RULE_SETUP
+#line 423 "flex-bison/wic.l"
+{ BEGIN(COMMENT_LINE); }
+	YY_BREAK
+case 63:
+YY_RULE_SETUP
+#line 424 "flex-bison/wic.l"
+{ }
+	YY_BREAK
+case 64:
+/* rule 64 can match eol */
+YY_RULE_SETUP
+#line 425 "flex-bison/wic.l"
+{
+                                yylineno++;
+                                BEGIN(INITIAL);
+                              }
+	YY_BREAK
+#line 429 "flex-bison/wic.l"
+/* Do error */
+	YY_BREAK
+case 65:
+YY_RULE_SETUP
+#line 432 "flex-bison/wic.l"
+{ BEGIN(COMMENT_BLOCK); }
+	YY_BREAK
+case 66:
+YY_RULE_SETUP
+#line 433 "flex-bison/wic.l"
+{
+                                BEGIN(INITIAL);
+                              }
+	YY_BREAK
+case 67:
+YY_RULE_SETUP
+#line 436 "flex-bison/wic.l"
+
+	YY_BREAK
+case 68:
+/* rule 68 can match eol */
+YY_RULE_SETUP
+#line 437 "flex-bison/wic.l"
+{ yylineno++; }
+	YY_BREAK
+#line 438 "flex-bison/wic.l"
+/* Do error */
+	YY_BREAK
+case 69:
+YY_RULE_SETUP
+#line 441 "flex-bison/wic.l"
+{
+                                printf("Esto es un tabulado\n");
+                              }
+	YY_BREAK
+/* Unknowns & errors */
+case 70:
+YY_RULE_SETUP
+#line 446 "flex-bison/wic.l"
+{
+                                printf("<%s> is an unknown\n", yytext);
+                              }
+	YY_BREAK
+case 71:
+YY_RULE_SETUP
+#line 450 "flex-bison/wic.l"
 ECHO;
 	YY_BREAK
-#line 1182 "./build/lex.yy.c"
+#line 1509 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1473,7 +1800,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 78 )
+			if ( yy_current_state >= 133 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1501,11 +1828,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 78 )
+		if ( yy_current_state >= 133 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 77);
+	yy_is_jam = (yy_current_state == 132);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2181,12 +2508,10 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 283 "./FLEX/descenso_recursivo.l"
+#line 450 "flex-bison/wic.l"
 
 
-void error(char* mens, char character) {
-  printf("Error lexico en linea %i: %s [%c]\n",numlin,mens, character);
-}
+/* Funciones y declaraciones auxiliares */
 
 int countSpaces(char* pattern) {
   int i = 0;
@@ -2199,3 +2524,4 @@ int countSpaces(char* pattern) {
   }
   return total;
 }
+

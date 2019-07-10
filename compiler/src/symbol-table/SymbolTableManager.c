@@ -9,9 +9,9 @@ int tablePointer = 12000; //default Stackpointer R7
 int currentScope = 0;
 int lasLabel = 0;
 
-void insertVariableInSymbolTable(char *id){
+void insertVariableInSymbolTable(char* id){
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
-
+    printf("ESTOYLLEGANDO");
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
@@ -62,7 +62,6 @@ void insertFunctionSymbolTable(char *id){
 }
 
 void _linkSymbolToSymbolTable(struct Symbol* symbol) {
-    _incrementNumberOfLocalVariablesAndParameters();
     if(tableSize == 0) firstSymbol = symbol;
     else {
         lastSymbol->nextSymbol = symbol;
@@ -71,6 +70,7 @@ void _linkSymbolToSymbolTable(struct Symbol* symbol) {
     
     if(symbol->type == 'f') lastFunc = symbol;
     lastSymbol = symbol; 
+    _incrementNumberOfLocalVariablesAndParameters();
     tableSize++;
 }
 
@@ -145,7 +145,12 @@ int getVariableAddressFromSymbolTable(char* id){
 }
 
 void printSymbolTable(){
+<<<<<<< HEAD
     struct Symbol* currentSymbol = firstSymbol;
+=======
+    struct Symbol* currentSymbol = lastSymbol;
+    printf("sfsdf");
+>>>>>>> 006c640e3dc275ca64ab73ff0a2528315a00253e
     for(int i = tableSize; i > 0; i--){
         printf("-----------SYMBOL -> %d----------\n",i);
         printf("ADDRESS -> %d\n",currentSymbol->address);

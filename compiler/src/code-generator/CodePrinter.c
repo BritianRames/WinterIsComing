@@ -2,7 +2,7 @@
 
 FILE *f;
 
-void opeFile(){
+void openFile(){
   f = fopen("file.txt", "w");
 }
 

@@ -2,6 +2,9 @@
 #include "code-generator/CodeGeneratorManager.h"
 
 int main() {
-    insertVariableInSymbolTable("pepe");
-    generateAssignValueToGlobalVariable("pepe", 2);
+    openFile();
+    printSymbolTable();
+    insertVariableInSymbolTable("aaa");
+    printSymbolTable();
+    generateAssignValueToGlobalVariable("aaa", 2);
 }

@@ -3,5 +3,5 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void opeFile();
+void openFile();
 int generateAssignation(int address, int value);
