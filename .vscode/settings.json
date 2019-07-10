@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    "symboltablemanager.h": "c"
+    "symboltablemanager.h": "c",
+    "stdio.h": "c"
   }
 }

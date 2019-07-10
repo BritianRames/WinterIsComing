@@ -1,4 +1,7 @@
-//********************************************************Assignation Code**********************************************************/
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 void generateAssignValueToGlobalVariable(char* variable_id, int value);
 
@@ -18,8 +21,7 @@ void assignFunctionReturnValue(char *variable, char *function);
 
 
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-/*
+/**********************************************************************************************************************************
 
 void substract(int a, int b);
 

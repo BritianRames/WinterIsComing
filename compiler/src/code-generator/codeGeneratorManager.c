@@ -1,9 +1,5 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdio.h>
 #include "../symbol-table/SymbolTableManager.h"
-//********************************************************Assignation Code**********************************************************/
+#include "CodeGeneratorManager.h"
 
 void generateAssignValueToGlobalVariable(char* variable_id, int value){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);

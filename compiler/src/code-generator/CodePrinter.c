@@ -1,8 +1,5 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdio.h>
 #include "../symbol-table/SymbolTableManager.h"
+#include "CodePrinter.h"
 
 FILE *f;
 
