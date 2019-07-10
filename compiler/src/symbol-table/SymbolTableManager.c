@@ -143,6 +143,6 @@ int getVariableAddressFromTable(char* id){
             return currentSymbol->address;
         }
     }
-    printf("\nERROR\n")
+    printf("ERROR\n");
     return -1;
 }
