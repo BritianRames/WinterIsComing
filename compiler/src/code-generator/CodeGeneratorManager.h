@@ -21,7 +21,7 @@ void assignFunctionReturnValue(char *variable, char *function);
 
 
 
-/**********************************************************************************************************************************
+/*/**********************************************************************************************************************************
 
 void substract(int a, int b);
 
@@ -57,6 +57,4 @@ void logicalOperate(int a, char* b, char* operator);
 
 void logicalOperate(char* a, int b, char* operator);
 
-void logicalOperate(char* a, char* b, char* operator);
-
-*/
+void logicalOperate(char* a, char* b, char* operator);*/

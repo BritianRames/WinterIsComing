@@ -5,6 +5,7 @@
 void generateAssignValueToGlobalVariable(char* variable_id, int value){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
   generateAssignation(variable_address, value);
+    printSymbolTable();
 }
 
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
