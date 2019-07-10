@@ -132,7 +132,7 @@ void closeScopeInSymbolTable(){
     currentScope--;
 }
 
-int getVariableAddressFromTable(char* id){
+int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
         if(currentSymbol->id == id){

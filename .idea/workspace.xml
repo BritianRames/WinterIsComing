@@ -34,10 +34,8 @@
     <list default="true" id="1aca1b1c-243e-4cc3-bb82-d2b948c414f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/codeGeneratorManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/codeGeneratorManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h" afterDir="false" />
@@ -56,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="52" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="52" />
+            <state relative-caret-position="510">
+              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -65,8 +63,59 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="31" selection-start-column="31" selection-end-column="31" />
+            <state relative-caret-position="882">
+              <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="747">
+              <caret line="59" column="56" selection-start-line="59" selection-start-column="56" selection-end-line="59" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="55" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -80,62 +129,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/Makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#2#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/Main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -143,6 +136,7 @@
       <find>&quot;</find>
       <find>linksymboltosy</find>
       <find>_incrementNumberOfLocalVariablesAndParameters()</find>
+      <find>getVariable</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -160,14 +154,14 @@
       <list>
         <option value="$PROJECT_DIR$/compiler/src/code-generator/codeGeneratorMager.h" />
         <option value="$PROJECT_DIR$/compiler/src/Main.cpp" />
-        <option value="$PROJECT_DIR$/compiler/src/Makefile" />
-        <option value="$PROJECT_DIR$/compiler/src/main.c" />
-        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h" />
-        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" />
-        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" />
-        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" />
+        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" />
+        <option value="$PROJECT_DIR$/compiler/src/Makefile" />
+        <option value="$PROJECT_DIR$/compiler/src/main.c" />
+        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" />
+        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h" />
+        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" />
       </list>
     </option>
   </component>
@@ -261,7 +255,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1562718492098</updated>
-      <workItem from="1562718493347" duration="4712000" />
+      <workItem from="1562718493347" duration="5521000" />
     </task>
     <task id="LOCAL-00001" summary="[+] Refractor">
       <created>1562722783478</created>
@@ -270,18 +264,32 @@
       <option name="project" value="LOCAL" />
       <updated>1562722783478</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[+] Refractor">
+      <created>1562724411096</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1562724411096</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[+] Refractor">
+      <created>1562724552155</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1562724552155</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4712000" />
+    <option name="totallyTimeSpent" value="5521000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2497332" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.2497332" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TeamCity" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4994664" weight="0.32899022" />
@@ -304,7 +312,7 @@
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2497332" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2497332" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TeamCity" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4994664" weight="0.32899022" />
@@ -351,38 +359,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="52" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="31" selection-start-column="31" selection-end-column="31" />
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+        <state relative-caret-position="747">
+          <caret line="59" column="56" selection-start-line="59" selection-start-column="56" selection-end-line="59" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -393,19 +380,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
+    <entry file="file://$PROJECT_DIR$/compiler/src/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="270">
+          <caret line="18" column="55" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
           <folding>
-            <element signature="e#2#35#0" expanded="true" />
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
+    <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="510">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
