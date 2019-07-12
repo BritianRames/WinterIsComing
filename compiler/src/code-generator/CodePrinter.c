@@ -28,7 +28,7 @@ void printFunctionLabel(int label){
 }
 
 void printCodeToAssignParametersValueInStack(int numberOfParameters, int stackPointer){
-  for(int i = 1; i >= numberOfParameters; i++){
+  for(int i = 1; i <= numberOfParameters; i++){
     fprintf(f, "I(%d) = R%d;\n", stackPointer + 4 * (i - 1), i);
   }
 }
@@ -38,6 +38,18 @@ void printReturnValue(int stackPointer, int valueToReturn){
   fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
   fprintf(f, "R1 = P(%d);\n", returnLabelAddress);
   fprintf(f, "GT(R1);");
+}
+
+void printRecoverRegistersValue(int registerFramePointer){
+  for(int i = 0; i <= 7; i--){
+    fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
+  }
+}
+
+void printSaveRegistersValue(int registerFramePointer){
+  for(int i = 0; i <= 7; i--){
+    fprintf(f, "I(%d) = R%d;\n", registerFramePointer + ((i - 1) * 4), i);
+  }
 }
 
 

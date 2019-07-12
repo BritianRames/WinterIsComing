@@ -4,4 +4,21 @@
 #include <stdio.h>
 
 void openFile();
-int generateAssignation(int address, int value);
+
+void printGlobalVariableValueAssignation(int address, int value);
+
+void printGlobalVariableVariableAsignation(int variable_address, int value_address);
+
+void printUpdateFramePointer();
+
+void printUpdateStackPointer(int offset);
+
+void printFunctionLabel(int label);
+
+void printCodeToAssignParametersValueInStack(int numberOfParameters, int stackPointer);
+
+void printReturnValue(int stackPointer, int valueToReturn);
+
+void printRecoverRegistersValue(int registerFramePointer);
+
+void printSaveRegistersValue(int registerFramePointer);
