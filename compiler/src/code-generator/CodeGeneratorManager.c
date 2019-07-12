@@ -33,25 +33,21 @@ void generateFunctionReturnVariableCode(char* variableToReturn){
   struct Symbol* variable = getVariableFromSymbolTable(variableToReturn);
   int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
 
-  printReturnVariable(getCurrentStackPointer(), address, );
+  printReturnVariable(getCurrentStackPointer(), address);
 }
 
-
 void generateAssignValueToVariableAssignationCode(char *variable_id, int value){
-  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
-  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
-
-  printCodeToAssignValueToVariable(address, value);
+  printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
 }
 
 void generateAssignVariableToVariableCode(char* variable_id, char value_id){
+  printCodeToAssignVariableToVariable(_getVariableAddress(variable_id), _getVariableAddress(value_id));
+}
+
+int _getVariableAddress(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
-
-  struct Symbol* value = getVariableFromSymbolTable(variable_id);
-  int value_address = value->type == 'g' ? value->address : getCurrentStackPointer - value->address * 4;
-  
-  printCodeToAssignVariableToVariable(address, value_address);
+  return address;
 }
 
 void generateReturnValueCode(int value){
