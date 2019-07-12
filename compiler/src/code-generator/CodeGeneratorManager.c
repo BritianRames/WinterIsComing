@@ -19,28 +19,30 @@ void generateFunctionHeaderCode(){
 }
 //Update lv number
 
-void generateFunctionReturnValueCode(int value){
-  printReturnValue();
-}
-
-void generateFunctionReturnVariableCode(char* variableToReturn){
-  printReturnVariable(getVariableAddressFromSymbolTable(variableToReturn));
-}
-
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
   int value_address = getVariableAddressFromTable(value_id);
   printGlobalVariableVariableAsignation(variable_address, value_address);
 }
 
-void generateAssignValueToLocalVariableCode(char *local_variable_id, int value){
-  //int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id);
-  //printLocalVariableValueAssignation(local_variable_id, value);
+void generateFunctionReturnValueCode(int value){
+  printReturnValue(getCurrentStackPointer(), value);
 }
 
-void generateAssignVariableToLocalVariableCode(char* variable_id, char value_id){
-  //int variable_address = getVariableAddressFromTable(variable_id) -->   use symbol table
-  //int value_address = getVariableAddressFromTable(value_id)
+void generateFunctionReturnVariableCode(char* variableToReturn){
+  printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variableToReturn));
+}
+
+
+void generateAssignValueToLocalVariableAssignationCode(char *local_variable_id, int value){
+  int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id) * 4;
+  printCodeToAssignLocalVariableValueInStack(local_variable_address, value);
+}
+
+void generateAssignLocalVariableToLocalVariableCode(char* local_variable_id, char value_id){
+  int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id) * 4;
+  int value_address = getVariableAddressFromSymbolTable(value_id) * 4;
+  printCodeToAssignLocalVariableVariableInStack(local_variable_address, value_address);
   //int value = getValueFromStack(value_address)
   //generateAssignationCode(variable_address, value)
 }

@@ -18,7 +18,7 @@ void insertVariableInSymbolTable(char* id){
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = symbol->scope == 0 ? 'g' : 'l';
-    symbol->address = symbol->type == 'g' ? _getNextStaticAddressFromSymbolTable() : _getNextRelativeAddressFromSymbolTable();
+    symbol->address = symbol->type == 'g' ? _getNextStaticAddressFromSymbolTable() : _getNextLocalVariableAddressFromSymbolTable();
 
     strcpy(symbol->id, id);
 
@@ -35,7 +35,7 @@ void insertParameterInSymbolTable(char *id){
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
-    symbol->address = _getNextRelativeAddressFromSymbolTable();
+    symbol->address = _getNextParametersAddressFromSymbolTable();
 
     strcpy(symbol->id, id);
 
@@ -79,8 +79,14 @@ void _incrementNumberOfLocalVariablesAndParameters(){
     else if(lastSymbol->type == 'l') lastFunc->numberOfLocalVariables++;
 }
 
-int _getNextRelativeAddressFromSymbolTable(){
-    return (lastFunc->numberOfLocalVariables + lastFunc->numberOfParameters + 1) * 4;
+int _getNextLocalVariableAddressFromSymbolTable(){
+    lastFunc->numberOfLocalVariables++;
+    return (lastFunc->numberOfLocalVariables);
+}
+
+int _getNextParametersAddressFromSymbolTable(){
+    lastFunc ->numberOfParameters++;
+    return (lastFunc->numberOfParameters);
 }
 
 int _getNextStaticAddressFromSymbolTable() {

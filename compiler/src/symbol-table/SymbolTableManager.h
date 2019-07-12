@@ -16,23 +16,20 @@ struct Symbol
     struct Symbol *nextSymbol;
 };
 
-void insertVariableInSymbolTable(char *id);
+void insertVariableInSymbolTable(char* id);
 void insertParameterInSymbolTable(char *id);
 void insertFunctionSymbolTable(char *id);
-
-bool _existSymbolInSymbolTable(struct Symbol *symbol);
-void _linkSymbolToSymbolTable(struct Symbol *symbol);
+void _linkSymbolToSymbolTable(struct Symbol* symbol);
 void _incrementNumberOfLocalVariablesAndParameters();
+int _getNextLocalVariableAddressFromSymbolTable();
+int _getNextParametersAddressFromSymbolTable();
+int _getNextStaticAddressFromSymbolTable();
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2);
-
-int _getRelativeAddressFromSymbolTable();
-int _getStaticAddressFromSymbolTable();
-
+bool _existSymbolInSymbolTable(struct Symbol* symbol);
+void _removeLocalVariablesFromSymbolTable();
+int _getNextLabel();
 void openScopeInSymbolTable();
 void closeScopeInSymbolTable();
-void _removeLocalVariablesFromSymbolTable();
-int _getLabel();
-void printSymbolTable();
-
 int getVariableAddressFromSymbolTable(char* id);
 struct Symbol* getLastFunctionFromSymbolTable();
+void printSymbolTable();
