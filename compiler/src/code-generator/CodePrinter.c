@@ -52,6 +52,18 @@ void printSaveRegistersValue(int registerFramePointer){
   }
 }
 
+void printCodeToAssignLocalVariableValueInStack(int offset, int value){
+  fprintf(f, "R0 = R7 - %d;\n", offset); //Returned value in R0
+  fprintf(f, "I(R0) = %d;\n", value); //Returned value in R0
+}
+
+void printCodeToAssignLocalVariableVariableInStack(int offset, int value_offset){
+  fprintf(f, "R0 = R7 - %d;\n", offset); //Returned value in R0
+  fprintf(f, "R1 = R7 - %d;\n", value_offset); //Returned value in R0
+  fprintf(f, "R1 = I(R1);\n"); //Returned value in R0
+  fprintf(f, "I(R0) = R1;\n"); //Returned value in R0
+} //+ globals
+
 
 //Funtion Generation Code:::
 
