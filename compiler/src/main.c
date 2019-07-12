@@ -4,15 +4,20 @@
 int main() {
     openFile();
 
-    
     insertVariableInSymbolTable("aaa");
 
     generateAssignValueToGlobalVariable("aaa", 2);
     insertFunctionSymbolTable("miFuncion");
+    openScopeInSymbolTable();
     insertParameterInSymbolTable("Param1");
     insertParameterInSymbolTable("Param2");
-    
+
     generateFunctionHeaderCode();
+    insertVariableInSymbolTable("bbb");
+    generateAssignValueToVariableCode("bbb", 2);
     generateFunctionReturnValueCode(3);
-    printSymbolTable();
+    closeScopeInSymbolTable();
+    insertVariableInSymbolTable("ccc");
+    generateAssignValueToGlobalVariable("ccc", 2);
+    //printSymbolTable();
 }

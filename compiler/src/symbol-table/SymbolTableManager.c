@@ -85,8 +85,8 @@ int _getNextLocalVariableAddressFromSymbolTable(){
 }
 
 int _getNextParametersAddressFromSymbolTable(){
-    lastFunc ->numberOfParameters++;
-    return (lastFunc->numberOfParameters);
+    //lastFunc ->numberOfParameters++;
+    return (lastFunc->numberOfParameters + 1);
 }
 
 int _getNextStaticAddressFromSymbolTable() {
@@ -140,8 +140,10 @@ void closeScopeInSymbolTable(){
 int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
-        if(currentSymbol->id == id && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+            printf("no se estaba metiendo pesado %d", currentSymbol->address);
             return currentSymbol->address;
+            
         }
         currentSymbol = currentSymbol->previousSymbol;
     }
@@ -150,14 +152,15 @@ int getVariableAddressFromSymbolTable(char* id){
 }
 
 struct Symbol* getVariableFromSymbolTable(char* id){
-        struct Symbol* currentSymbol = lastSymbol;
+    struct Symbol* currentSymbol = lastSymbol;
+    printf("symbol: %s, %c\n", currentSymbol->id, currentSymbol->type);
+    printSymbolTable();
     for(int i = tableSize; i > 0; i--){
-        if(currentSymbol->id == id && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
             return currentSymbol;
         }
         currentSymbol = currentSymbol->previousSymbol;
     }
-    printf("ERROR\n");
     return -1;
 }
 
@@ -167,16 +170,16 @@ struct Symbol* getLastFunctionFromSymbolTable(){
 
 void printSymbolTable(){
     struct Symbol* currentSymbol = firstSymbol;
-    for(int i = tableSize; i > 0; i--){
-        printf("-----------SYMBOL -> %d----------\n",i);
+    for(int i = 0; i < tableSize; i++){
+        printf("-----------SYMBOL (SIZE %d) -> %d------------\n",tableSize, i);
         printf("ADDRESS -> %d\n",currentSymbol->address);
-        printf("ID -> %c\n",currentSymbol->id);
+        printf("ID -> %s\n",currentSymbol->id);
         printf("LABEL -> %d\n",currentSymbol->label);
         printf("NLOCALV -> %d\n",currentSymbol->numberOfLocalVariables);
         printf("NPARAM -> %d\n",currentSymbol->numberOfParameters);
         printf("SCOPE -> %d\n",currentSymbol->scope);
         printf("TYPE -> %c\n",currentSymbol->type);
-        printf("---------------------------------\n",i);
+        printf("--------------------------------------------\n",i);
         currentSymbol = currentSymbol->nextSymbol;
     }
 }
