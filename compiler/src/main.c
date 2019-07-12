@@ -4,9 +4,15 @@
 int main() {
     openFile();
 
-    printSymbolTable();
+    
     insertVariableInSymbolTable("aaa");
-    printSymbolTable();
 
     generateAssignValueToGlobalVariable("aaa", 2);
+    insertFunctionSymbolTable("miFuncion");
+    insertParameterInSymbolTable("Param1");
+    insertParameterInSymbolTable("Param2");
+    
+    generateFunctionHeaderCode();
+    generateFunctionReturnValueCode(3);
+    printSymbolTable();
 }
