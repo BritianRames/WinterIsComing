@@ -1,10 +1,10 @@
 #include "StackManager.h"
 
-int stackPointer = 12000;
-int framePointer = 12000; //TODO
+int stackPointer = 73728;
+int framePointer = 73728; //TODO
 
 int getNextStackPointer(stackPointer){
-  stackPointer = stackPointer + 4;
+  stackPointer = stackPointer - 4;
   return stackPointer;
 }
 

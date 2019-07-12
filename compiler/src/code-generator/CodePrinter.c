@@ -40,6 +40,30 @@ void printReturnValue(int stackPointer, int valueToReturn){
   fprintf(f, "GT(R1);");
 }
 
+void printHeaderOfIfInstruction(int reg, int cond_value, int else_label){
+  fprintf(f, "R%d = %d;\n", reg, cond_value);
+  fprintf(f, "IF(!R%d) GT(%d);\n", cond_value, label);
+}
+
+void printMiddleOfIfInstruction(int exit_label, int else_label){
+  fprintf(f, "GT(%d);\n", exit_label);
+  fprintf(f, "L %d:\n", else_label);
+}
+
+void printEndOfIfInstruction(int exit_label){
+  fprintf(f, "L %d:\n", exit_label);
+}  
+
+void printHeaderOfWhileInstruction(int begin_label, int reg, int cond_value, int exit_label){
+  fprintf(f, "L %d:\n", begin_label);
+  fprintf(f, "R%d = %d;\n", reg, cond_value);
+  fprintf(f, "IF(!R%d) GT(%d)", reg, exit_label);
+}
+
+void printEndOfWhileInstruction(int begin_label, int exit_label){
+  fprintf(f, "GT(%d)", begin_label);
+  fprintf(f, "L %d:\n", exit_label);
+}
 
 //Funtion Generation Code:::
 

@@ -33,6 +33,39 @@ void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id
   int printGlobalVariableVariableAsignation(variable_address, value_address);
 }
 
+void generateIfHeader(int reg, int cond_value){
+  //TODO
+  int else_label = _getNextLabel();
+  printHeaderOfIfInstruction(reg, cond_value, else_label);
+}
+
+void generateIfElse(){
+  //TODO
+  int else_label = _getCurrentLabel();
+  int exit_label = _getNextLabel();
+  printMiddleOfIfInstruction(exit_label, else_label);
+}
+
+void generateIfEnd(){
+  //TODO
+  int exit_label = _getCurrentLabel();
+  printEndOfIfInstruction(exit_label);
+}
+
+void generateWhileHeader(int reg, int cond_value){
+  //TODO
+  int begin_label = _getNextLabel();
+  int end_label = begin_label;
+  printHeaderOfWhileInstruction(reg, cond_value, begin_label, end_label);
+}
+
+void generateWhileEnd(){
+  //TODO
+  int begin_label = _getCurrentLabel();
+  int end_label = _getNextLabel();
+  printEndOfWhileInstruction(begin_label, end_label);
+}
+
 void generateAssignValueToLocalVariableCode(char *local_variable_id, int value){
   //int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id);
   //printLocalVariableValueAssignation(local_variable_id, value);

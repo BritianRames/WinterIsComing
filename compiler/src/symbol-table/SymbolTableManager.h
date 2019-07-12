@@ -31,7 +31,8 @@ int _getStaticAddressFromSymbolTable();
 void openScopeInSymbolTable();
 void closeScopeInSymbolTable();
 void _removeLocalVariablesFromSymbolTable();
-int _getLabel();
+int _getCurrentLabel();
+int _getNextLabel();
 void printSymbolTable();
 
 int getVariableAddressFromSymbolTable(char* id);

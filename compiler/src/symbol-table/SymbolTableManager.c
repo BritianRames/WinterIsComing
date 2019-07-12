@@ -117,6 +117,10 @@ void _removeLocalVariablesFromSymbolTable(){
     }
 }
 
+int _getCurrentLabel(){
+    return lastLabel;
+}
+
 int _getNextLabel(){
     lastLabel++;
     return lastLabel;
