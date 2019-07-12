@@ -63,7 +63,7 @@ void printCodeToAssignValueToVariable(int address, int value){
   fprintf(f, "I(%d) = %d;\n", address, value); //Returned value in R0
 }
 
-void printCodeToAssignVariableToVagitriable(int address, int value_address){
+void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "R1 = I(%d);\n", value_address); //Returned value in R0
   fprintf(f, "I(%d) = R1;\n", address); //Returned value in R0
 }
