@@ -43,11 +43,8 @@ void printReturnValue(int stackPointer, int valueToReturn){
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
   //If local
-<<<<<<< HEAD
-  int variableAddress = getVariableAddressFromSymbolTable() * 4 + returnLabelAddress;
-=======
-  int variableAddress = getVariableAddressFromSymbolTable()*4 + returnLabelAddress;
->>>>>>> f60813047e9f779eab95e592189b448d2a0acf62
+  //int variableAddress = getVariableAddressFromSymbolTable()*4 + returnLabelAddress;
+
   //Else ---
   int valueToReturn = 0;
   fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
