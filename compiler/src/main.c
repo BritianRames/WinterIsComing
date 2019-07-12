@@ -3,7 +3,6 @@
 
 int main() {
     openFile();
-
     
     insertVariableInSymbolTable("aaa");
 

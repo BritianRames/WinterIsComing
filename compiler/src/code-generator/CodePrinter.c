@@ -7,12 +7,12 @@ void openFile(){
 }
 
 void printGlobalVariableValueAssignation(int address, int value){
-  fprintf(f, "I(%d) = R0;\n", address, value);
+  fprintf(f, "I(%d) = %d;\n", address, value);
 }
 
 void printGlobalVariableVariableAsignation(int variable_address, int value_address){
   fprintf(f, "R0 = I(%d);\n", value_address);
-  fprintf(f, "I(%d) = R0;\n", variable_address, value_address);
+  fprintf(f, "I(%d) = R0;\n", variable_address);
 }
 
 void printUpdateFramePointer(){
