@@ -1,5 +1,5 @@
 #include "SymbolTableManager.h"
-#include "StackManager.h"
+#include "../code-generator/StackManager.h"
 
 struct Symbol* firstSymbol;
 struct Symbol* lastSymbol;

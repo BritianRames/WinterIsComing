@@ -8,8 +8,8 @@
     #include <iostream>
 
     #include "../utils/termcolor.hpp"
-    #include "../symbol-table/SymbolTable.hpp"
-    #include "../code-generator/CodeGenerator.hpp"
+    #include "../symbol-table/SymbolTableManager.h"
+    #include "../code-generator/CodeGeneratorManager.h"
 
     int yylex(void);
     void yyerror(char const *);
@@ -80,10 +80,9 @@
 /* Definición de gramáticas */
 
 main: input {
-		main_->add_body(main_body);
-		ast->tree_build(main_);
-		ast->to_code(cg);
+		printf("main");
 	    }
+
 
 input: instr END_OF_INSTR {
 			    ASTNode* node = reinterpret_cast<ASTNode *>($1);
@@ -516,3 +515,4 @@ data_value: INT_VAL
 data_vector: CURLY_BRACKET_OPEN args CURLY_BRACKET_CLOSE
 
 %%
+
