@@ -34,17 +34,21 @@ void generateFunctionReturnVariableCode(char* variableToReturn){
 }
 
 
-void generateAssignValueToLocalVariableAssignationCode(char *local_variable_id, int value){
-  int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id) * 4;
-  printCodeToAssignLocalVariableValueInStack(local_variable_address, value);
+void generateAssignValueToVariableAssignationCode(char *variable_id, int value){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
+
+  printCodeToAssignValueToVariable(address, value);
 }
 
-void generateAssignLocalVariableToLocalVariableCode(char* local_variable_id, char value_id){
-  int local_variable_address = getVariableAddressFromSymbolTable(local_variable_id) * 4;
-  int value_address = getVariableAddressFromSymbolTable(value_id) * 4;
-  printCodeToAssignLocalVariableVariableInStack(local_variable_address, value_address);
-  //int value = getValueFromStack(value_address)
-  //generateAssignationCode(variable_address, value)
+void generateAssignVariableToVariableCode(char* variable_id, char value_id){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
+
+  struct Symbol* value = getVariableFromSymbolTable(variable_id);
+  int value_address = value->type == 'g' ? value->address : getCurrentStackPointer - value->address * 4;
+  
+  printCodeToAssignVariableToVariable(address, value_address);
 }
 
 void generateReturnValueCode(int value){

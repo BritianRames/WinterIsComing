@@ -13,6 +13,15 @@ flex:
 					mv lex.yy.* build
 
 compile:
+<<<<<<< HEAD
+					/usr/bin/gcc -Wall -Wextra -g -o wic \
+					main.c \
+					symbol-table/SymbolTableManager.c \
+					code-generator/CodeGeneratorManager.c \
+					code-generator/CodePrinter.c \
+					code-generator/StackManager.c
+					
+=======
 					gcc main.c symbol-table/SymbolTableManager.c code-generator/CodeGeneratorManager.c code-generator/CodePrinter.c code-generator/StackManager.c
 					#/usr/bin/gcc -Wall -Wextra -g -o wic \
 					#main.c \
@@ -21,6 +30,7 @@ compile:
 					#code-generator/CodePrinter.c \
 					#code-generator/StackManager.c
 
+>>>>>>> f60813047e9f779eab95e592189b448d2a0acf62
 					#gcc -o wic build/lex.yy.c build/wic.tab.c -lfl -lm
 					#/usr/bin/g++ -std=gnu++11 -c build/wic.tab.c build/lex.yy.c
 					#mv *.o build

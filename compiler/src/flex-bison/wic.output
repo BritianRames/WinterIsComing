@@ -1,0 +1,3573 @@
+Terminals unused in grammar
+
+   NEW
+   CONTINUE
+   BREAK
+
+
+Gramática
+
+    0 $accept: main $end
+
+    1 main: input
+
+    2 input: instr END_OF_INSTR
+    3      | OPEN_CONTEXT_TAG instr CLOSE_CONTEXT_TAG input
+
+    4 data_init: GLOBAL data_type
+    5          | STATIC data_type
+    6          | data_type
+    7          | GLOBAL array_init
+    8          | STATIC array_init
+    9          | array_init
+
+   10 array_init: data_type SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
+   11           | data_type SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE
+
+   12 data_type: INT_TYPE
+   13          | REAL_TYPE
+   14          | BOOL_TYPE
+   15          | CHAR_TYPE
+   16          | VOID
+
+   17 instr: data_init ID
+   18      | data_init ID ASSIGN expr
+   19      | ID array_access
+   20      | ID array_access ASSIGN expr
+   21      | if_instr
+   22      | for_instr
+   23      | while_instr
+   24      | expr
+   25      | fun_init
+   26      | fun_call
+   27      | /* vacío */
+
+   28 params: params ELEM_SEPARATOR data_type ID
+   29       | data_type ID
+
+   30 args: args ELEM_SEPARATOR expr
+   31     | expr
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR
+
+   34 fun_call: ID PARETHESES_OPEN args PARETHESES_CLOSE END_OF_INSTR
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   37                    | /* vacío */
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   39                | /* vacío */
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   42                  | /* vacío */
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   44              | /* vacío */
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   47                 | /* vacío */
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   49             | /* vacío */
+
+   50 array_access: SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
+
+   51 expr: ID ASSIGN expr
+   52     | expr SUM term
+   53     | expr SUBSTRACT term
+   54     | INCREMENT ID
+   55     | ID INCREMENT
+   56     | DECREMENT ID
+   57     | ID DECREMENT
+   58     | expr LESS term
+   59     | expr LESS_EQUALS term
+   60     | expr GREATER term
+   61     | expr GREATER_EQUALS term
+   62     | expr EQUALS term
+   63     | expr NOT_EQUALS term
+   64     | expr AND term
+   65     | expr OR term
+   66     | NOT term
+   67     | expr AND_BIT term
+   68     | expr OR_BIT term
+   69     | expr XOR_BIT term
+   70     | expr LEFT_SHIFT term
+   71     | expr RIGHT_SHIFT term
+   72     | expr UNION term
+   73     | expr DIFFERENCE term
+   74     | expr INTERSECTION term
+   75     | term
+   76     | data_vector
+
+   77 term: ID
+   78     | term PRODUCT power
+   79     | term DIVIDE power
+   80     | term MODULUS power
+   81     | power
+
+   82 power: power RADICAL factor
+   83      | power POWER factor
+   84      | factor
+
+   85 factor: PARETHESES_OPEN expr PARETHESES_CLOSE
+   86       | data_value
+
+   87 data_value: INT_VAL
+   88           | SUBSTRACT INT_VAL
+   89           | REAL_VAL
+   90           | SUBSTRACT REAL_VAL
+   91           | BOOL_VAL
+   92           | CHAR_QUOTE CHAR_VAL CHAR_QUOTE
+   93           | STRING_QUOTE STRING_VAL STRING_QUOTE
+
+   94 data_vector: CURLY_BRACKET_OPEN args CURLY_BRACKET_CLOSE
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+NEW (258)
+CONTINUE (259)
+BREAK (260)
+RETURN (261) 32
+FUN (262) 32 33
+GLOBAL (263) 4 7
+STATIC (264) 5 8
+INT_VAL (265) 10 50 87 88
+REAL_VAL (266) 89 90
+BOOL_VAL (267) 91
+CHAR_VAL (268) 92
+STRING_VAL (269) 93
+INT_TYPE (270) 12
+REAL_TYPE (271) 13
+BOOL_TYPE (272) 14
+CHAR_TYPE (273) 15
+VOID (274) 16
+ASSIGN (275) 18 20 51
+SUM (276) 52
+SUBSTRACT (277) 53 88 90
+PRODUCT (278) 78
+DIVIDE (279) 79
+MODULUS (280) 80
+POWER (281) 83
+RADICAL (282) 82
+INCREMENT (283) 54 55
+DECREMENT (284) 56 57
+AND (285) 64
+OR (286) 65
+NOT (287) 66
+EQUALS (288) 62
+NOT_EQUALS (289) 63
+GREATER (290) 60
+GREATER_EQUALS (291) 61
+LESS (292) 58
+LESS_EQUALS (293) 59
+AND_BIT (294) 67
+OR_BIT (295) 68
+XOR_BIT (296) 69
+LEFT_SHIFT (297) 70
+RIGHT_SHIFT (298) 71
+UNION (299) 72
+DIFFERENCE (300) 73
+INTERSECTION (301) 74
+IF_CLAUSE (302) 45 46 48
+FOR_WHILE_CLAUSE (303) 35 36 38 40 41 43
+HEADER_END (304) 32 35 36 38 40 41 43 45 46 48
+ELSE_IF_FOR_WHILE_CLAUSE (305) 36 38 41 43 46 48
+SQUARE_BRACKET_OPEN (306) 10 11 50
+SQUARE_BRACKET_CLOSE (307) 10 11 50
+CURLY_BRACKET_OPEN (308) 94
+CURLY_BRACKET_CLOSE (309) 94
+ELEM_SEPARATOR (310) 28 30
+PARETHESES_OPEN (311) 32 33 34 85
+PARETHESES_CLOSE (312) 32 33 34 85
+END_OF_INSTR (313) 2 32 33 34 35 36 38 40 41 43 45 46 48
+OPEN_CONTEXT_TAG (314) 3 32 35 36 38 40 41 43 45 46 48
+CLOSE_CONTEXT_TAG (315) 3 32 35 36 38 40 41 43 45 46 48
+CHAR_QUOTE (316) 92
+STRING_QUOTE (317) 93
+ID (318) 17 18 19 20 28 29 32 33 34 51 54 55 56 57 77
+
+
+No terminales con las reglas donde aparecen
+
+$accept (64)
+    en la izquierda: 0
+main (65)
+    en la izquierda: 1, en la derecha: 0
+input (66)
+    en la izquierda: 2 3, en la derecha: 1 3 32 35 36 38 40 41 43 45
+    46 48
+data_init (67)
+    en la izquierda: 4 5 6 7 8 9, en la derecha: 17 18
+array_init (68)
+    en la izquierda: 10 11, en la derecha: 7 8 9
+data_type (69)
+    en la izquierda: 12 13 14 15 16, en la derecha: 4 5 6 10 11 28
+    29 32 33
+instr (70)
+    en la izquierda: 17 18 19 20 21 22 23 24 25 26 27, en la derecha:
+    2 3
+params (71)
+    en la izquierda: 28 29, en la derecha: 28 32 33
+args (72)
+    en la izquierda: 30 31, en la derecha: 30 34 94
+fun_init (73)
+    en la izquierda: 32 33, en la derecha: 25
+fun_call (74)
+    en la izquierda: 34, en la derecha: 26
+while_instr (75)
+    en la izquierda: 35, en la derecha: 23
+while_middle_blocks (76)
+    en la izquierda: 36 37, en la derecha: 35 36
+while_end_block (77)
+    en la izquierda: 38 39, en la derecha: 35
+for_instr (78)
+    en la izquierda: 40, en la derecha: 22
+for_middle_blocks (79)
+    en la izquierda: 41 42, en la derecha: 40 41
+for_end_block (80)
+    en la izquierda: 43 44, en la derecha: 40
+if_instr (81)
+    en la izquierda: 45, en la derecha: 21
+if_middle_blocks (82)
+    en la izquierda: 46 47, en la derecha: 45 46
+if_end_block (83)
+    en la izquierda: 48 49, en la derecha: 45
+array_access (84)
+    en la izquierda: 50, en la derecha: 19 20
+expr (85)
+    en la izquierda: 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66
+    67 68 69 70 71 72 73 74 75 76, en la derecha: 18 20 24 30 31 32
+    35 36 40 41 45 46 51 52 53 58 59 60 61 62 63 64 65 67 68 69 70
+    71 72 73 74 85
+term (86)
+    en la izquierda: 77 78 79 80 81, en la derecha: 52 53 58 59 60
+    61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 78 79 80
+power (87)
+    en la izquierda: 82 83 84, en la derecha: 78 79 80 81 82 83
+factor (88)
+    en la izquierda: 85 86, en la derecha: 82 83 84
+data_value (89)
+    en la izquierda: 87 88 89 90 91 92 93, en la derecha: 86
+data_vector (90)
+    en la izquierda: 94, en la derecha: 76
+
+
+estado 0
+
+    0 $accept: . main $end
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    main         ir al estado 22
+    input        ir al estado 23
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 1
+
+   32 fun_init: FUN . data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN . data_type ID PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR
+
+    INT_TYPE   desplazar e ir al estado 7
+    REAL_TYPE  desplazar e ir al estado 8
+    BOOL_TYPE  desplazar e ir al estado 9
+    CHAR_TYPE  desplazar e ir al estado 10
+    VOID       desplazar e ir al estado 11
+
+    data_type  ir al estado 39
+
+
+estado 2
+
+    4 data_init: GLOBAL . data_type
+    7          | GLOBAL . array_init
+
+    INT_TYPE   desplazar e ir al estado 7
+    REAL_TYPE  desplazar e ir al estado 8
+    BOOL_TYPE  desplazar e ir al estado 9
+    CHAR_TYPE  desplazar e ir al estado 10
+    VOID       desplazar e ir al estado 11
+
+    array_init  ir al estado 40
+    data_type   ir al estado 41
+
+
+estado 3
+
+    5 data_init: STATIC . data_type
+    8          | STATIC . array_init
+
+    INT_TYPE   desplazar e ir al estado 7
+    REAL_TYPE  desplazar e ir al estado 8
+    BOOL_TYPE  desplazar e ir al estado 9
+    CHAR_TYPE  desplazar e ir al estado 10
+    VOID       desplazar e ir al estado 11
+
+    array_init  ir al estado 42
+    data_type   ir al estado 43
+
+
+estado 4
+
+   87 data_value: INT_VAL .
+
+    $default  reduce usando la regla 87 (data_value)
+
+
+estado 5
+
+   89 data_value: REAL_VAL .
+
+    $default  reduce usando la regla 89 (data_value)
+
+
+estado 6
+
+   91 data_value: BOOL_VAL .
+
+    $default  reduce usando la regla 91 (data_value)
+
+
+estado 7
+
+   12 data_type: INT_TYPE .
+
+    $default  reduce usando la regla 12 (data_type)
+
+
+estado 8
+
+   13 data_type: REAL_TYPE .
+
+    $default  reduce usando la regla 13 (data_type)
+
+
+estado 9
+
+   14 data_type: BOOL_TYPE .
+
+    $default  reduce usando la regla 14 (data_type)
+
+
+estado 10
+
+   15 data_type: CHAR_TYPE .
+
+    $default  reduce usando la regla 15 (data_type)
+
+
+estado 11
+
+   16 data_type: VOID .
+
+    $default  reduce usando la regla 16 (data_type)
+
+
+estado 12
+
+   88 data_value: SUBSTRACT . INT_VAL
+   90           | SUBSTRACT . REAL_VAL
+
+    INT_VAL   desplazar e ir al estado 44
+    REAL_VAL  desplazar e ir al estado 45
+
+
+estado 13
+
+   54 expr: INCREMENT . ID
+
+    ID  desplazar e ir al estado 46
+
+
+estado 14
+
+   56 expr: DECREMENT . ID
+
+    ID  desplazar e ir al estado 47
+
+
+estado 15
+
+   66 expr: NOT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 49
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 16
+
+   94 data_vector: CURLY_BRACKET_OPEN . args CURLY_BRACKET_CLOSE
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    args         ir al estado 51
+    expr         ir al estado 52
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 17
+
+   85 factor: PARETHESES_OPEN . expr PARETHESES_CLOSE
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 53
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 18
+
+    3 input: OPEN_CONTEXT_TAG . instr CLOSE_CONTEXT_TAG input
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 54
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 19
+
+   92 data_value: CHAR_QUOTE . CHAR_VAL CHAR_QUOTE
+
+    CHAR_VAL  desplazar e ir al estado 55
+
+
+estado 20
+
+   93 data_value: STRING_QUOTE . STRING_VAL STRING_QUOTE
+
+    STRING_VAL  desplazar e ir al estado 56
+
+
+estado 21
+
+   19 instr: ID . array_access
+   20      | ID . array_access ASSIGN expr
+   34 fun_call: ID . PARETHESES_OPEN args PARETHESES_CLOSE END_OF_INSTR
+   51 expr: ID . ASSIGN expr
+   55     | ID . INCREMENT
+   57     | ID . DECREMENT
+   77 term: ID .
+
+    ASSIGN               desplazar e ir al estado 57
+    INCREMENT            desplazar e ir al estado 58
+    DECREMENT            desplazar e ir al estado 59
+    SQUARE_BRACKET_OPEN  desplazar e ir al estado 60
+    PARETHESES_OPEN      desplazar e ir al estado 61
+
+    $default  reduce usando la regla 77 (term)
+
+    array_access  ir al estado 62
+
+
+estado 22
+
+    0 $accept: main . $end
+
+    $end  desplazar e ir al estado 63
+
+
+estado 23
+
+    1 main: input .
+
+    $default  reduce usando la regla 1 (main)
+
+
+estado 24
+
+   17 instr: data_init . ID
+   18      | data_init . ID ASSIGN expr
+
+    ID  desplazar e ir al estado 64
+
+
+estado 25
+
+    9 data_init: array_init .
+
+    $default  reduce usando la regla 9 (data_init)
+
+
+estado 26
+
+    6 data_init: data_type .
+   10 array_init: data_type . SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
+   11           | data_type . SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE
+
+    SQUARE_BRACKET_OPEN  desplazar e ir al estado 65
+
+    $default  reduce usando la regla 6 (data_init)
+
+
+estado 27
+
+    2 input: instr . END_OF_INSTR
+
+    END_OF_INSTR  desplazar e ir al estado 66
+
+
+estado 28
+
+   25 instr: fun_init .
+
+    $default  reduce usando la regla 25 (instr)
+
+
+estado 29
+
+   26 instr: fun_call .
+
+    $default  reduce usando la regla 26 (instr)
+
+
+estado 30
+
+   23 instr: while_instr .
+
+    $default  reduce usando la regla 23 (instr)
+
+
+estado 31
+
+   22 instr: for_instr .
+
+    $default  reduce usando la regla 22 (instr)
+
+
+estado 32
+
+   21 instr: if_instr .
+
+    $default  reduce usando la regla 21 (instr)
+
+
+estado 33
+
+   24 instr: expr .
+   35 while_instr: expr . FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+   40 for_instr: expr . FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+   45 if_instr: expr . IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM               desplazar e ir al estado 67
+    SUBSTRACT         desplazar e ir al estado 68
+    AND               desplazar e ir al estado 69
+    OR                desplazar e ir al estado 70
+    EQUALS            desplazar e ir al estado 71
+    NOT_EQUALS        desplazar e ir al estado 72
+    GREATER           desplazar e ir al estado 73
+    GREATER_EQUALS    desplazar e ir al estado 74
+    LESS              desplazar e ir al estado 75
+    LESS_EQUALS       desplazar e ir al estado 76
+    AND_BIT           desplazar e ir al estado 77
+    OR_BIT            desplazar e ir al estado 78
+    XOR_BIT           desplazar e ir al estado 79
+    LEFT_SHIFT        desplazar e ir al estado 80
+    RIGHT_SHIFT       desplazar e ir al estado 81
+    UNION             desplazar e ir al estado 82
+    DIFFERENCE        desplazar e ir al estado 83
+    INTERSECTION      desplazar e ir al estado 84
+    IF_CLAUSE         desplazar e ir al estado 85
+    FOR_WHILE_CLAUSE  desplazar e ir al estado 86
+
+    $default  reduce usando la regla 24 (instr)
+
+
+estado 34
+
+   75 expr: term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 75 (expr)
+
+
+estado 35
+
+   81 term: power .
+   82 power: power . RADICAL factor
+   83      | power . POWER factor
+
+    POWER    desplazar e ir al estado 90
+    RADICAL  desplazar e ir al estado 91
+
+    $default  reduce usando la regla 81 (term)
+
+
+estado 36
+
+   84 power: factor .
+
+    $default  reduce usando la regla 84 (power)
+
+
+estado 37
+
+   86 factor: data_value .
+
+    $default  reduce usando la regla 86 (factor)
+
+
+estado 38
+
+   76 expr: data_vector .
+
+    $default  reduce usando la regla 76 (expr)
+
+
+estado 39
+
+   32 fun_init: FUN data_type . ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type . ID PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR
+
+    ID  desplazar e ir al estado 92
+
+
+estado 40
+
+    7 data_init: GLOBAL array_init .
+
+    $default  reduce usando la regla 7 (data_init)
+
+
+estado 41
+
+    4 data_init: GLOBAL data_type .
+   10 array_init: data_type . SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
+   11           | data_type . SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE
+
+    SQUARE_BRACKET_OPEN  desplazar e ir al estado 65
+
+    $default  reduce usando la regla 4 (data_init)
+
+
+estado 42
+
+    8 data_init: STATIC array_init .
+
+    $default  reduce usando la regla 8 (data_init)
+
+
+estado 43
+
+    5 data_init: STATIC data_type .
+   10 array_init: data_type . SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
+   11           | data_type . SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE
+
+    SQUARE_BRACKET_OPEN  desplazar e ir al estado 65
+
+    $default  reduce usando la regla 5 (data_init)
+
+
+estado 44
+
+   88 data_value: SUBSTRACT INT_VAL .
+
+    $default  reduce usando la regla 88 (data_value)
+
+
+estado 45
+
+   90 data_value: SUBSTRACT REAL_VAL .
+
+    $default  reduce usando la regla 90 (data_value)
+
+
+estado 46
+
+   54 expr: INCREMENT ID .
+
+    $default  reduce usando la regla 54 (expr)
+
+
+estado 47
+
+   56 expr: DECREMENT ID .
+
+    $default  reduce usando la regla 56 (expr)
+
+
+estado 48
+
+   77 term: ID .
+
+    $default  reduce usando la regla 77 (term)
+
+
+estado 49
+
+   66 expr: NOT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 66 (expr)
+
+
+estado 50
+
+   51 expr: ID . ASSIGN expr
+   55     | ID . INCREMENT
+   57     | ID . DECREMENT
+   77 term: ID .
+
+    ASSIGN     desplazar e ir al estado 57
+    INCREMENT  desplazar e ir al estado 58
+    DECREMENT  desplazar e ir al estado 59
+
+    $default  reduce usando la regla 77 (term)
+
+
+estado 51
+
+   30 args: args . ELEM_SEPARATOR expr
+   94 data_vector: CURLY_BRACKET_OPEN args . CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_CLOSE  desplazar e ir al estado 93
+    ELEM_SEPARATOR       desplazar e ir al estado 94
+
+
+estado 52
+
+   31 args: expr .
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+
+    $default  reduce usando la regla 31 (args)
+
+
+estado 53
+
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+   85 factor: PARETHESES_OPEN expr . PARETHESES_CLOSE
+
+    SUM               desplazar e ir al estado 67
+    SUBSTRACT         desplazar e ir al estado 68
+    AND               desplazar e ir al estado 69
+    OR                desplazar e ir al estado 70
+    EQUALS            desplazar e ir al estado 71
+    NOT_EQUALS        desplazar e ir al estado 72
+    GREATER           desplazar e ir al estado 73
+    GREATER_EQUALS    desplazar e ir al estado 74
+    LESS              desplazar e ir al estado 75
+    LESS_EQUALS       desplazar e ir al estado 76
+    AND_BIT           desplazar e ir al estado 77
+    OR_BIT            desplazar e ir al estado 78
+    XOR_BIT           desplazar e ir al estado 79
+    LEFT_SHIFT        desplazar e ir al estado 80
+    RIGHT_SHIFT       desplazar e ir al estado 81
+    UNION             desplazar e ir al estado 82
+    DIFFERENCE        desplazar e ir al estado 83
+    INTERSECTION      desplazar e ir al estado 84
+    PARETHESES_CLOSE  desplazar e ir al estado 95
+
+
+estado 54
+
+    3 input: OPEN_CONTEXT_TAG instr . CLOSE_CONTEXT_TAG input
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 96
+
+
+estado 55
+
+   92 data_value: CHAR_QUOTE CHAR_VAL . CHAR_QUOTE
+
+    CHAR_QUOTE  desplazar e ir al estado 97
+
+
+estado 56
+
+   93 data_value: STRING_QUOTE STRING_VAL . STRING_QUOTE
+
+    STRING_QUOTE  desplazar e ir al estado 98
+
+
+estado 57
+
+   51 expr: ID ASSIGN . expr
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 99
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 58
+
+   55 expr: ID INCREMENT .
+
+    $default  reduce usando la regla 55 (expr)
+
+
+estado 59
+
+   57 expr: ID DECREMENT .
+
+    $default  reduce usando la regla 57 (expr)
+
+
+estado 60
+
+   50 array_access: SQUARE_BRACKET_OPEN . INT_VAL SQUARE_BRACKET_CLOSE
+
+    INT_VAL  desplazar e ir al estado 100
+
+
+estado 61
+
+   34 fun_call: ID PARETHESES_OPEN . args PARETHESES_CLOSE END_OF_INSTR
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    args         ir al estado 101
+    expr         ir al estado 52
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 62
+
+   19 instr: ID array_access .
+   20      | ID array_access . ASSIGN expr
+
+    ASSIGN  desplazar e ir al estado 102
+
+    $default  reduce usando la regla 19 (instr)
+
+
+estado 63
+
+    0 $accept: main $end .
+
+    $default  aceptar
+
+
+estado 64
+
+   17 instr: data_init ID .
+   18      | data_init ID . ASSIGN expr
+
+    ASSIGN  desplazar e ir al estado 103
+
+    $default  reduce usando la regla 17 (instr)
+
+
+estado 65
+
+   10 array_init: data_type SQUARE_BRACKET_OPEN . INT_VAL SQUARE_BRACKET_CLOSE
+   11           | data_type SQUARE_BRACKET_OPEN . SQUARE_BRACKET_CLOSE
+
+    INT_VAL               desplazar e ir al estado 104
+    SQUARE_BRACKET_CLOSE  desplazar e ir al estado 105
+
+
+estado 66
+
+    2 input: instr END_OF_INSTR .
+
+    $default  reduce usando la regla 2 (input)
+
+
+estado 67
+
+   52 expr: expr SUM . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 106
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 68
+
+   53 expr: expr SUBSTRACT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 107
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 69
+
+   64 expr: expr AND . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 108
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 70
+
+   65 expr: expr OR . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 109
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 71
+
+   62 expr: expr EQUALS . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 110
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 72
+
+   63 expr: expr NOT_EQUALS . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 111
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 73
+
+   60 expr: expr GREATER . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 112
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 74
+
+   61 expr: expr GREATER_EQUALS . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 113
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 75
+
+   58 expr: expr LESS . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 114
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 76
+
+   59 expr: expr LESS_EQUALS . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 115
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 77
+
+   67 expr: expr AND_BIT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 116
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 78
+
+   68 expr: expr OR_BIT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 117
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 79
+
+   69 expr: expr XOR_BIT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 118
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 80
+
+   70 expr: expr LEFT_SHIFT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 119
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 81
+
+   71 expr: expr RIGHT_SHIFT . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 120
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 82
+
+   72 expr: expr UNION . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 121
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 83
+
+   73 expr: expr DIFFERENCE . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 122
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 84
+
+   74 expr: expr INTERSECTION . term
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+    ID               desplazar e ir al estado 48
+
+    term        ir al estado 123
+    power       ir al estado 35
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 85
+
+   45 if_instr: expr IF_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+    HEADER_END  desplazar e ir al estado 124
+
+
+estado 86
+
+   35 while_instr: expr FOR_WHILE_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+   40 for_instr: expr FOR_WHILE_CLAUSE . expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    HEADER_END          desplazar e ir al estado 125
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 126
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 87
+
+   78 term: term PRODUCT . power
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+
+    power       ir al estado 127
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 88
+
+   79 term: term DIVIDE . power
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+
+    power       ir al estado 128
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 89
+
+   80 term: term MODULUS . power
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+
+    power       ir al estado 129
+    factor      ir al estado 36
+    data_value  ir al estado 37
+
+
+estado 90
+
+   83 power: power POWER . factor
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+
+    factor      ir al estado 130
+    data_value  ir al estado 37
+
+
+estado 91
+
+   82 power: power RADICAL . factor
+
+    INT_VAL          desplazar e ir al estado 4
+    REAL_VAL         desplazar e ir al estado 5
+    BOOL_VAL         desplazar e ir al estado 6
+    SUBSTRACT        desplazar e ir al estado 12
+    PARETHESES_OPEN  desplazar e ir al estado 17
+    CHAR_QUOTE       desplazar e ir al estado 19
+    STRING_QUOTE     desplazar e ir al estado 20
+
+    factor      ir al estado 131
+    data_value  ir al estado 37
+
+
+estado 92
+
+   32 fun_init: FUN data_type ID . PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type ID . PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR
+
+    PARETHESES_OPEN  desplazar e ir al estado 132
+
+
+estado 93
+
+   94 data_vector: CURLY_BRACKET_OPEN args CURLY_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 94 (data_vector)
+
+
+estado 94
+
+   30 args: args ELEM_SEPARATOR . expr
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 133
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 95
+
+   85 factor: PARETHESES_OPEN expr PARETHESES_CLOSE .
+
+    $default  reduce usando la regla 85 (factor)
+
+
+estado 96
+
+    3 input: OPEN_CONTEXT_TAG instr CLOSE_CONTEXT_TAG . input
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 134
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 97
+
+   92 data_value: CHAR_QUOTE CHAR_VAL CHAR_QUOTE .
+
+    $default  reduce usando la regla 92 (data_value)
+
+
+estado 98
+
+   93 data_value: STRING_QUOTE STRING_VAL STRING_QUOTE .
+
+    $default  reduce usando la regla 93 (data_value)
+
+
+estado 99
+
+   51 expr: ID ASSIGN expr .
+   52     | expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+
+    $default  reduce usando la regla 51 (expr)
+
+
+estado 100
+
+   50 array_access: SQUARE_BRACKET_OPEN INT_VAL . SQUARE_BRACKET_CLOSE
+
+    SQUARE_BRACKET_CLOSE  desplazar e ir al estado 135
+
+
+estado 101
+
+   30 args: args . ELEM_SEPARATOR expr
+   34 fun_call: ID PARETHESES_OPEN args . PARETHESES_CLOSE END_OF_INSTR
+
+    ELEM_SEPARATOR    desplazar e ir al estado 94
+    PARETHESES_CLOSE  desplazar e ir al estado 136
+
+
+estado 102
+
+   20 instr: ID array_access ASSIGN . expr
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 137
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 103
+
+   18 instr: data_init ID ASSIGN . expr
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 138
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 104
+
+   10 array_init: data_type SQUARE_BRACKET_OPEN INT_VAL . SQUARE_BRACKET_CLOSE
+
+    SQUARE_BRACKET_CLOSE  desplazar e ir al estado 139
+
+
+estado 105
+
+   11 array_init: data_type SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 11 (array_init)
+
+
+estado 106
+
+   52 expr: expr SUM term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 52 (expr)
+
+
+estado 107
+
+   53 expr: expr SUBSTRACT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 53 (expr)
+
+
+estado 108
+
+   64 expr: expr AND term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 64 (expr)
+
+
+estado 109
+
+   65 expr: expr OR term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 65 (expr)
+
+
+estado 110
+
+   62 expr: expr EQUALS term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 62 (expr)
+
+
+estado 111
+
+   63 expr: expr NOT_EQUALS term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 63 (expr)
+
+
+estado 112
+
+   60 expr: expr GREATER term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 60 (expr)
+
+
+estado 113
+
+   61 expr: expr GREATER_EQUALS term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 61 (expr)
+
+
+estado 114
+
+   58 expr: expr LESS term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 58 (expr)
+
+
+estado 115
+
+   59 expr: expr LESS_EQUALS term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 59 (expr)
+
+
+estado 116
+
+   67 expr: expr AND_BIT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 67 (expr)
+
+
+estado 117
+
+   68 expr: expr OR_BIT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 68 (expr)
+
+
+estado 118
+
+   69 expr: expr XOR_BIT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 69 (expr)
+
+
+estado 119
+
+   70 expr: expr LEFT_SHIFT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 70 (expr)
+
+
+estado 120
+
+   71 expr: expr RIGHT_SHIFT term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 71 (expr)
+
+
+estado 121
+
+   72 expr: expr UNION term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 72 (expr)
+
+
+estado 122
+
+   73 expr: expr DIFFERENCE term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 73 (expr)
+
+
+estado 123
+
+   74 expr: expr INTERSECTION term .
+   78 term: term . PRODUCT power
+   79     | term . DIVIDE power
+   80     | term . MODULUS power
+
+    PRODUCT  desplazar e ir al estado 87
+    DIVIDE   desplazar e ir al estado 88
+    MODULUS  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 74 (expr)
+
+
+estado 124
+
+   45 if_instr: expr IF_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+    END_OF_INSTR  desplazar e ir al estado 140
+
+
+estado 125
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+
+    END_OF_INSTR  desplazar e ir al estado 141
+
+
+estado 126
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+    HEADER_END      desplazar e ir al estado 142
+
+
+estado 127
+
+   78 term: term PRODUCT power .
+   82 power: power . RADICAL factor
+   83      | power . POWER factor
+
+    POWER    desplazar e ir al estado 90
+    RADICAL  desplazar e ir al estado 91
+
+    $default  reduce usando la regla 78 (term)
+
+
+estado 128
+
+   79 term: term DIVIDE power .
+   82 power: power . RADICAL factor
+   83      | power . POWER factor
+
+    POWER    desplazar e ir al estado 90
+    RADICAL  desplazar e ir al estado 91
+
+    $default  reduce usando la regla 79 (term)
+
+
+estado 129
+
+   80 term: term MODULUS power .
+   82 power: power . RADICAL factor
+   83      | power . POWER factor
+
+    POWER    desplazar e ir al estado 90
+    RADICAL  desplazar e ir al estado 91
+
+    $default  reduce usando la regla 80 (term)
+
+
+estado 130
+
+   83 power: power POWER factor .
+
+    $default  reduce usando la regla 83 (power)
+
+
+estado 131
+
+   82 power: power RADICAL factor .
+
+    $default  reduce usando la regla 82 (power)
+
+
+estado 132
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN . params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type ID PARETHESES_OPEN . params PARETHESES_CLOSE END_OF_INSTR
+
+    INT_TYPE   desplazar e ir al estado 7
+    REAL_TYPE  desplazar e ir al estado 8
+    BOOL_TYPE  desplazar e ir al estado 9
+    CHAR_TYPE  desplazar e ir al estado 10
+    VOID       desplazar e ir al estado 11
+
+    data_type  ir al estado 143
+    params     ir al estado 144
+
+
+estado 133
+
+   30 args: args ELEM_SEPARATOR expr .
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+
+    $default  reduce usando la regla 30 (args)
+
+
+estado 134
+
+    3 input: OPEN_CONTEXT_TAG instr CLOSE_CONTEXT_TAG input .
+
+    $default  reduce usando la regla 3 (input)
+
+
+estado 135
+
+   50 array_access: SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 50 (array_access)
+
+
+estado 136
+
+   34 fun_call: ID PARETHESES_OPEN args PARETHESES_CLOSE . END_OF_INSTR
+
+    END_OF_INSTR  desplazar e ir al estado 145
+
+
+estado 137
+
+   20 instr: ID array_access ASSIGN expr .
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+
+    $default  reduce usando la regla 20 (instr)
+
+
+estado 138
+
+   18 instr: data_init ID ASSIGN expr .
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+
+    $default  reduce usando la regla 18 (instr)
+
+
+estado 139
+
+   10 array_init: data_type SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 10 (array_init)
+
+
+estado 140
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 146
+
+
+estado 141
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 147
+
+
+estado 142
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+    END_OF_INSTR  desplazar e ir al estado 148
+
+
+estado 143
+
+   29 params: data_type . ID
+
+    ID  desplazar e ir al estado 149
+
+
+estado 144
+
+   28 params: params . ELEM_SEPARATOR data_type ID
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params . PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type ID PARETHESES_OPEN params . PARETHESES_CLOSE END_OF_INSTR
+
+    ELEM_SEPARATOR    desplazar e ir al estado 150
+    PARETHESES_CLOSE  desplazar e ir al estado 151
+
+
+estado 145
+
+   34 fun_call: ID PARETHESES_OPEN args PARETHESES_CLOSE END_OF_INSTR .
+
+    $default  reduce usando la regla 34 (fun_call)
+
+
+estado 146
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 152
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 147
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 153
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 148
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 154
+
+
+estado 149
+
+   29 params: data_type ID .
+
+    $default  reduce usando la regla 29 (params)
+
+
+estado 150
+
+   28 params: params ELEM_SEPARATOR . data_type ID
+
+    INT_TYPE   desplazar e ir al estado 7
+    REAL_TYPE  desplazar e ir al estado 8
+    BOOL_TYPE  desplazar e ir al estado 9
+    CHAR_TYPE  desplazar e ir al estado 10
+    VOID       desplazar e ir al estado 11
+
+    data_type  ir al estado 155
+
+
+estado 151
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+   33         | FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE . END_OF_INSTR
+
+    HEADER_END    desplazar e ir al estado 156
+    END_OF_INSTR  desplazar e ir al estado 157
+
+
+estado 152
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG if_middle_blocks if_end_block
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 158
+
+
+estado 153
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG while_middle_blocks while_end_block
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 159
+
+
+estado 154
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 160
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 155
+
+   28 params: params ELEM_SEPARATOR data_type . ID
+
+    ID  desplazar e ir al estado 161
+
+
+estado 156
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 162
+
+
+estado 157
+
+   33 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR .
+
+    $default  reduce usando la regla 33 (fun_init)
+
+
+estado 158
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG . if_middle_blocks if_end_block
+
+    $default  reduce usando la regla 47 (if_middle_blocks)
+
+    if_middle_blocks  ir al estado 163
+
+
+estado 159
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG . while_middle_blocks while_end_block
+
+    $default  reduce usando la regla 37 (while_middle_blocks)
+
+    while_middle_blocks  ir al estado 164
+
+
+estado 160
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG for_middle_blocks for_end_block
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 165
+
+
+estado 161
+
+   28 params: params ELEM_SEPARATOR data_type ID .
+
+    $default  reduce usando la regla 28 (params)
+
+
+estado 162
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 166
+
+
+estado 163
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks . if_end_block
+   46 if_middle_blocks: if_middle_blocks . ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    ELSE_IF_FOR_WHILE_CLAUSE  desplazar e ir al estado 167
+
+    $default  reduce usando la regla 49 (if_end_block)
+
+    if_end_block  ir al estado 168
+
+
+estado 164
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks . while_end_block
+   36 while_middle_blocks: while_middle_blocks . ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    ELSE_IF_FOR_WHILE_CLAUSE  desplazar e ir al estado 169
+
+    $default  reduce usando la regla 39 (while_end_block)
+
+    while_end_block  ir al estado 170
+
+
+estado 165
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG . for_middle_blocks for_end_block
+
+    $default  reduce usando la regla 42 (for_middle_blocks)
+
+    for_middle_blocks  ir al estado 171
+
+
+estado 166
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 172
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 167
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE . expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE . IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    IF_CLAUSE           desplazar e ir al estado 173
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 174
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 168
+
+   45 if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG if_middle_blocks if_end_block .
+
+    $default  reduce usando la regla 45 (if_instr)
+
+
+estado 169
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE . expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE . FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    FOR_WHILE_CLAUSE    desplazar e ir al estado 175
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 176
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 170
+
+   35 while_instr: expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG while_middle_blocks while_end_block .
+
+    $default  reduce usando la regla 35 (while_instr)
+
+
+estado 171
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks . for_end_block
+   41 for_middle_blocks: for_middle_blocks . ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    ELSE_IF_FOR_WHILE_CLAUSE  desplazar e ir al estado 177
+
+    $default  reduce usando la regla 44 (for_end_block)
+
+    for_end_block  ir al estado 178
+
+
+estado 172
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
+
+    RETURN  desplazar e ir al estado 179
+
+
+estado 173
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    HEADER_END  desplazar e ir al estado 180
+
+
+estado 174
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr . IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+    IF_CLAUSE       desplazar e ir al estado 181
+
+
+estado 175
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    HEADER_END  desplazar e ir al estado 182
+
+
+estado 176
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr . FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM               desplazar e ir al estado 67
+    SUBSTRACT         desplazar e ir al estado 68
+    AND               desplazar e ir al estado 69
+    OR                desplazar e ir al estado 70
+    EQUALS            desplazar e ir al estado 71
+    NOT_EQUALS        desplazar e ir al estado 72
+    GREATER           desplazar e ir al estado 73
+    GREATER_EQUALS    desplazar e ir al estado 74
+    LESS              desplazar e ir al estado 75
+    LESS_EQUALS       desplazar e ir al estado 76
+    AND_BIT           desplazar e ir al estado 77
+    OR_BIT            desplazar e ir al estado 78
+    XOR_BIT           desplazar e ir al estado 79
+    LEFT_SHIFT        desplazar e ir al estado 80
+    RIGHT_SHIFT       desplazar e ir al estado 81
+    UNION             desplazar e ir al estado 82
+    DIFFERENCE        desplazar e ir al estado 83
+    INTERSECTION      desplazar e ir al estado 84
+    FOR_WHILE_CLAUSE  desplazar e ir al estado 183
+
+
+estado 177
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE . expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE . FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    FOR_WHILE_CLAUSE    desplazar e ir al estado 184
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 185
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 178
+
+   40 for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG for_middle_blocks for_end_block .
+
+    $default  reduce usando la regla 40 (for_instr)
+
+
+estado 179
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN . expr END_OF_INSTR CLOSE_CONTEXT_TAG
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 186
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 180
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 187
+
+
+estado 181
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    HEADER_END  desplazar e ir al estado 188
+
+
+estado 182
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 189
+
+
+estado 183
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    HEADER_END  desplazar e ir al estado 190
+
+
+estado 184
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    HEADER_END  desplazar e ir al estado 191
+
+
+estado 185
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr . FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM               desplazar e ir al estado 67
+    SUBSTRACT         desplazar e ir al estado 68
+    AND               desplazar e ir al estado 69
+    OR                desplazar e ir al estado 70
+    EQUALS            desplazar e ir al estado 71
+    NOT_EQUALS        desplazar e ir al estado 72
+    GREATER           desplazar e ir al estado 73
+    GREATER_EQUALS    desplazar e ir al estado 74
+    LESS              desplazar e ir al estado 75
+    LESS_EQUALS       desplazar e ir al estado 76
+    AND_BIT           desplazar e ir al estado 77
+    OR_BIT            desplazar e ir al estado 78
+    XOR_BIT           desplazar e ir al estado 79
+    LEFT_SHIFT        desplazar e ir al estado 80
+    RIGHT_SHIFT       desplazar e ir al estado 81
+    UNION             desplazar e ir al estado 82
+    DIFFERENCE        desplazar e ir al estado 83
+    INTERSECTION      desplazar e ir al estado 84
+    FOR_WHILE_CLAUSE  desplazar e ir al estado 192
+
+
+estado 186
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr . END_OF_INSTR CLOSE_CONTEXT_TAG
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+    END_OF_INSTR    desplazar e ir al estado 193
+
+
+estado 187
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 194
+
+
+estado 188
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 195
+
+
+estado 189
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 196
+
+
+estado 190
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 197
+
+
+estado 191
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 198
+
+
+estado 192
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE . expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 50
+
+    expr         ir al estado 199
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 193
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 200
+
+
+estado 194
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 201
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 195
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 202
+
+
+estado 196
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 203
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 197
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 204
+
+
+estado 198
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 205
+
+
+estado 199
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr . HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+   52 expr: expr . SUM term
+   53     | expr . SUBSTRACT term
+   58     | expr . LESS term
+   59     | expr . LESS_EQUALS term
+   60     | expr . GREATER term
+   61     | expr . GREATER_EQUALS term
+   62     | expr . EQUALS term
+   63     | expr . NOT_EQUALS term
+   64     | expr . AND term
+   65     | expr . OR term
+   67     | expr . AND_BIT term
+   68     | expr . OR_BIT term
+   69     | expr . XOR_BIT term
+   70     | expr . LEFT_SHIFT term
+   71     | expr . RIGHT_SHIFT term
+   72     | expr . UNION term
+   73     | expr . DIFFERENCE term
+   74     | expr . INTERSECTION term
+
+    SUM             desplazar e ir al estado 67
+    SUBSTRACT       desplazar e ir al estado 68
+    AND             desplazar e ir al estado 69
+    OR              desplazar e ir al estado 70
+    EQUALS          desplazar e ir al estado 71
+    NOT_EQUALS      desplazar e ir al estado 72
+    GREATER         desplazar e ir al estado 73
+    GREATER_EQUALS  desplazar e ir al estado 74
+    LESS            desplazar e ir al estado 75
+    LESS_EQUALS     desplazar e ir al estado 76
+    AND_BIT         desplazar e ir al estado 77
+    OR_BIT          desplazar e ir al estado 78
+    XOR_BIT         desplazar e ir al estado 79
+    LEFT_SHIFT      desplazar e ir al estado 80
+    RIGHT_SHIFT     desplazar e ir al estado 81
+    UNION           desplazar e ir al estado 82
+    DIFFERENCE      desplazar e ir al estado 83
+    INTERSECTION    desplazar e ir al estado 84
+    HEADER_END      desplazar e ir al estado 206
+
+
+estado 200
+
+   32 fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 32 (fun_init)
+
+
+estado 201
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 207
+
+
+estado 202
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 208
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 203
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 209
+
+
+estado 204
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 210
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 205
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 211
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 206
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END . END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    END_OF_INSTR  desplazar e ir al estado 212
+
+
+estado 207
+
+   48 if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 48 (if_end_block)
+
+
+estado 208
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 213
+
+
+estado 209
+
+   38 while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 38 (while_end_block)
+
+
+estado 210
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 214
+
+
+estado 211
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 215
+
+
+estado 212
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR . OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
+
+    OPEN_CONTEXT_TAG  desplazar e ir al estado 216
+
+
+estado 213
+
+   46 if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 46 (if_middle_blocks)
+
+
+estado 214
+
+   36 while_middle_blocks: while_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 36 (while_middle_blocks)
+
+
+estado 215
+
+   43 for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 43 (for_end_block)
+
+
+estado 216
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG . input CLOSE_CONTEXT_TAG
+
+    FUN                 desplazar e ir al estado 1
+    GLOBAL              desplazar e ir al estado 2
+    STATIC              desplazar e ir al estado 3
+    INT_VAL             desplazar e ir al estado 4
+    REAL_VAL            desplazar e ir al estado 5
+    BOOL_VAL            desplazar e ir al estado 6
+    INT_TYPE            desplazar e ir al estado 7
+    REAL_TYPE           desplazar e ir al estado 8
+    BOOL_TYPE           desplazar e ir al estado 9
+    CHAR_TYPE           desplazar e ir al estado 10
+    VOID                desplazar e ir al estado 11
+    SUBSTRACT           desplazar e ir al estado 12
+    INCREMENT           desplazar e ir al estado 13
+    DECREMENT           desplazar e ir al estado 14
+    NOT                 desplazar e ir al estado 15
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 16
+    PARETHESES_OPEN     desplazar e ir al estado 17
+    OPEN_CONTEXT_TAG    desplazar e ir al estado 18
+    CHAR_QUOTE          desplazar e ir al estado 19
+    STRING_QUOTE        desplazar e ir al estado 20
+    ID                  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 27 (instr)
+
+    input        ir al estado 217
+    data_init    ir al estado 24
+    array_init   ir al estado 25
+    data_type    ir al estado 26
+    instr        ir al estado 27
+    fun_init     ir al estado 28
+    fun_call     ir al estado 29
+    while_instr  ir al estado 30
+    for_instr    ir al estado 31
+    if_instr     ir al estado 32
+    expr         ir al estado 33
+    term         ir al estado 34
+    power        ir al estado 35
+    factor       ir al estado 36
+    data_value   ir al estado 37
+    data_vector  ir al estado 38
+
+
+estado 217
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input . CLOSE_CONTEXT_TAG
+
+    CLOSE_CONTEXT_TAG  desplazar e ir al estado 218
+
+
+estado 218
+
+   41 for_middle_blocks: for_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG .
+
+    $default  reduce usando la regla 41 (for_middle_blocks)
