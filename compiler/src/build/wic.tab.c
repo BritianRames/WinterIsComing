@@ -73,8 +73,8 @@
     #include <iostream>
 
     #include "../utils/termcolor.hpp"
-    #include "../symbol-table/SymbolTable.hpp"
-    #include "../code-generator/CodeGenerator.hpp"
+    #include "../symbol-table/SymbolTableManager.h"
+    #include "../code-generator/CodeGeneratorManager.h"
 
     int yylex(void);
     void yyerror(char const *);
@@ -503,16 +503,16 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    82,    82,    88,    92,    96,   103,   110,   117,   118,
-     119,   121,   122,   124,   130,   136,   142,   148,   155,   158,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,   177,
-     185,   193,   194,   196,   208,   210,   215,   225,   228,   230,
-     232,   234,   239,   242,   244,   246,   248,   263,   269,   271,
-     273,   275,   277,   296,   305,   314,   315,   316,   317,   318,
-     327,   336,   345,   354,   363,   372,   381,   390,   398,   399,
-     400,   401,   402,   403,   404,   405,   406,   407,   409,   424,
-     433,   442,   451,   453,   462,   463,   465,   466,   468,   474,
-     482,   488,   496,   502,   509,   516
+       0,    82,    82,    87,    91,    95,   102,   109,   116,   117,
+     118,   120,   121,   123,   129,   135,   141,   147,   154,   157,
+     166,   167,   168,   169,   170,   171,   172,   173,   174,   176,
+     184,   192,   193,   195,   207,   209,   214,   224,   227,   229,
+     231,   233,   238,   241,   243,   245,   247,   262,   268,   270,
+     272,   274,   276,   295,   304,   313,   314,   315,   316,   317,
+     326,   335,   344,   353,   362,   371,   380,   389,   397,   398,
+     399,   400,   401,   402,   403,   404,   405,   406,   408,   423,
+     432,   441,   450,   452,   461,   462,   464,   465,   467,   473,
+     481,   487,   495,   501,   508,   515
 };
 #endif
 
@@ -1501,32 +1501,30 @@ yyreduce:
         case 2:
 #line 82 "flex-bison/wic.y" /* yacc.c:1646  */
     {
-		main_->add_body(main_body);
-		ast->tree_build(main_);
-		ast->to_code(cg);
+		printf("main");
 	    }
-#line 1509 "wic.tab.c" /* yacc.c:1646  */
+#line 1507 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 88 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 87 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 			    ASTNode* node = reinterpret_cast<ASTNode *>((yyvsp[-1]));
 			    main_body->add_instr(node);
 			  }
-#line 1518 "wic.tab.c" /* yacc.c:1646  */
+#line 1516 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 92 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 91 "flex-bison/wic.y" /* yacc.c:1646  */
     {wic::ASTBodyNode* body_ = reinterpret_cast<wic::ASTBodyNode *>((yyvsp[-3]));
 					       wic::ASTNode* instr = reinterpret_cast<wic::ASTNode* >((yyvsp[-1]));
 					       body_->add_instr(instr);}
-#line 1526 "wic.tab.c" /* yacc.c:1646  */
+#line 1524 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 96 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 95 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>((yyvsp[0]));
 						    entry_d->var.global = true;
@@ -1534,11 +1532,11 @@ yyreduce:
 						    entry_d->var.local = false;
 						    (yyval) = entry_d;
 						  }
-#line 1538 "wic.tab.c" /* yacc.c:1646  */
+#line 1536 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 103 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 102 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>((yyvsp[0]));
 						    entry_d->var.global = false;
@@ -1546,11 +1544,11 @@ yyreduce:
 						    entry_d->var.local = false;
 						    (yyval) = entry_d;
     						  }
-#line 1550 "wic.tab.c" /* yacc.c:1646  */
+#line 1548 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 110 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 109 "flex-bison/wic.y" /* yacc.c:1646  */
     {
     						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>((yyvsp[0]));
     						    entry_d->var.global = false;
@@ -1558,74 +1556,74 @@ yyreduce:
     						    entry_d->var.local = true;
     						    (yyval) = entry_d;
      						  }
-#line 1562 "wic.tab.c" /* yacc.c:1646  */
+#line 1560 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 124 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 123 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    wic::entry_data* entry_d = new wic::entry_data();
 						    entry_d->var.type = wic::INT;
 						    entry_d->var.size = 4;
 						    (yyval) = entry_d;
 						  }
-#line 1573 "wic.tab.c" /* yacc.c:1646  */
+#line 1571 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 130 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 129 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    wic::entry_data* entry_d = new wic::entry_data();
 						    entry_d->var.type = wic::REAL;
 						    entry_d->var.size = 4;
 						    (yyval) = entry_d;
 						  }
-#line 1584 "wic.tab.c" /* yacc.c:1646  */
+#line 1582 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 136 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 135 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    wic::entry_data* entry_d = new wic::entry_data();
 						    entry_d->var.type = wic::BOOL;
 						    entry_d->var.size = 1;
 						    (yyval) = entry_d;
 						  }
-#line 1595 "wic.tab.c" /* yacc.c:1646  */
+#line 1593 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 142 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 141 "flex-bison/wic.y" /* yacc.c:1646  */
     {
     						    wic::entry_data* entry_d = new wic::entry_data();
     						    entry_d->var.type = wic::CHAR;
     						    entry_d->var.size = 1;
     						    (yyval) = entry_d;
     						  }
-#line 1606 "wic.tab.c" /* yacc.c:1646  */
+#line 1604 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 148 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 147 "flex-bison/wic.y" /* yacc.c:1646  */
     {
     						    wic::entry_data* entry_d = new wic::entry_data();
 						    entry_d->var.type = wic::VOID;
 						    entry_d->var.size = 4;
 						    (yyval) = entry_d;
     						  }
-#line 1617 "wic.tab.c" /* yacc.c:1646  */
+#line 1615 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 155 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 154 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						    (yyval) = ast->tree_build((yyvsp[-1]), (yyvsp[0]));
 						  }
-#line 1625 "wic.tab.c" /* yacc.c:1646  */
+#line 1623 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 158 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 157 "flex-bison/wic.y" /* yacc.c:1646  */
     {
     						    wic::ASTNode* id = ast->tree_build((yyvsp[-3]), (yyvsp[-2]));
 
@@ -1635,41 +1633,41 @@ yyreduce:
     						    ast->print();
     						    std::cout << std::endl;
     						  }
-#line 1639 "wic.tab.c" /* yacc.c:1646  */
+#line 1637 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 167 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 166 "flex-bison/wic.y" /* yacc.c:1646  */
     { printf("Término (VectorVal)");}
-#line 1645 "wic.tab.c" /* yacc.c:1646  */
+#line 1643 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 169 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 168 "flex-bison/wic.y" /* yacc.c:1646  */
     {(yyval) = ((yyvsp[0]));}
-#line 1651 "wic.tab.c" /* yacc.c:1646  */
+#line 1649 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 171 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 170 "flex-bison/wic.y" /* yacc.c:1646  */
     {(yyval) = ((yyvsp[0]));}
-#line 1657 "wic.tab.c" /* yacc.c:1646  */
+#line 1655 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 172 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 171 "flex-bison/wic.y" /* yacc.c:1646  */
     { (yyval) = ((yyvsp[0])); }
-#line 1663 "wic.tab.c" /* yacc.c:1646  */
+#line 1661 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 173 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 172 "flex-bison/wic.y" /* yacc.c:1646  */
     { (yyval) =((yyvsp[0])); }
-#line 1669 "wic.tab.c" /* yacc.c:1646  */
+#line 1667 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 177 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 176 "flex-bison/wic.y" /* yacc.c:1646  */
     {
         										wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>((yyvsp[-1]));
         										wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>((yyvsp[0]));
@@ -1678,11 +1676,11 @@ yyreduce:
 												params->add_params(id);
 												(yyval) = ast->tree_build(params);
 											}
-#line 1682 "wic.tab.c" /* yacc.c:1646  */
+#line 1680 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 185 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 184 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 						wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>((yyvsp[-1]));
         				wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>((yyvsp[0]));
@@ -1690,11 +1688,11 @@ yyreduce:
 						wic::ASTParamNode* params = new wic::ASTParamNode(id);
 						(yyval) = ast->tree_build(params);
 					}
-#line 1694 "wic.tab.c" /* yacc.c:1646  */
+#line 1692 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 198 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 197 "flex-bison/wic.y" /* yacc.c:1646  */
     {
         wic::ASTNode* id = ast->tree_build((yyvsp[-12]),(yyvsp[-11]));
 		printf("HOLA MUNDO\n");
@@ -1705,19 +1703,19 @@ yyreduce:
 		wic::ASTFunctionNode* func = new wic::ASTFunctionNode(id->get_id(),id->get_data_type(),param,body,ret);
 		(yyval) = ast->tree_build(func);
      }
-#line 1709 "wic.tab.c" /* yacc.c:1646  */
+#line 1707 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 211 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 210 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 
 								}
-#line 1717 "wic.tab.c" /* yacc.c:1646  */
+#line 1715 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 251 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 250 "flex-bison/wic.y" /* yacc.c:1646  */
     {
       		     wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode *>((yyvsp[-8]));
       		     wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode *>((yyvsp[-3]));
@@ -1729,27 +1727,27 @@ yyreduce:
 
 		     (yyval) = ast->tree_build(if_);
 		   }
-#line 1733 "wic.tab.c" /* yacc.c:1646  */
+#line 1731 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 264 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 263 "flex-bison/wic.y" /* yacc.c:1646  */
     {
         					  wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode *>((yyvsp[-6]));
       						  wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode* >((yyvsp[-1]));
       						  (yyval) = new wic::ASTIfNode(expr, input);
       					       }
-#line 1743 "wic.tab.c" /* yacc.c:1646  */
+#line 1741 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 272 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 271 "flex-bison/wic.y" /* yacc.c:1646  */
     { (yyval) = ((yyvsp[-2])); }
-#line 1749 "wic.tab.c" /* yacc.c:1646  */
+#line 1747 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 278 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 277 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 					    wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>((yyvsp[-2]));
 
@@ -1768,11 +1766,11 @@ yyreduce:
 					lst->show(id->get_id());
 
 			  	}
-#line 1772 "wic.tab.c" /* yacc.c:1646  */
+#line 1770 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 297 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 296 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
 				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1781,11 +1779,11 @@ yyreduce:
 				 	sum->to_code(cg);
 				    	(yyval) = ast->tree_build(sum);
 				}
-#line 1785 "wic.tab.c" /* yacc.c:1646  */
+#line 1783 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 306 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 305 "flex-bison/wic.y" /* yacc.c:1646  */
     {
                                 	wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
                                         wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1794,11 +1792,11 @@ yyreduce:
 
                                         (yyval) = ast->tree_build(sub);
 			  	}
-#line 1798 "wic.tab.c" /* yacc.c:1646  */
+#line 1796 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 319 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 318 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1807,11 +1805,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(less);
  				}
-#line 1811 "wic.tab.c" /* yacc.c:1646  */
+#line 1809 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 328 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 327 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1820,11 +1818,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(less_equal);
  				}
-#line 1824 "wic.tab.c" /* yacc.c:1646  */
+#line 1822 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 337 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 336 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1833,11 +1831,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(greater);
  				}
-#line 1837 "wic.tab.c" /* yacc.c:1646  */
+#line 1835 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 346 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 345 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1846,11 +1844,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(greater_equal);
  				}
-#line 1850 "wic.tab.c" /* yacc.c:1646  */
+#line 1848 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 355 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 354 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1859,11 +1857,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(equal);
  				}
-#line 1863 "wic.tab.c" /* yacc.c:1646  */
+#line 1861 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 364 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 363 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1872,11 +1870,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(not_equal);
  				}
-#line 1876 "wic.tab.c" /* yacc.c:1646  */
+#line 1874 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 373 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 372 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1885,11 +1883,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(and_);
  				}
-#line 1889 "wic.tab.c" /* yacc.c:1646  */
+#line 1887 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 382 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 381 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1898,11 +1896,11 @@ yyreduce:
 
  					(yyval) = ast->tree_build(or_);
  				}
-#line 1902 "wic.tab.c" /* yacc.c:1646  */
+#line 1900 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 391 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 390 "flex-bison/wic.y" /* yacc.c:1646  */
     {
  					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
 
@@ -1910,17 +1908,17 @@ yyreduce:
 
  					(yyval) = ast->tree_build(not_);
  				}
-#line 1914 "wic.tab.c" /* yacc.c:1646  */
+#line 1912 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 406 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 405 "flex-bison/wic.y" /* yacc.c:1646  */
     { (yyval) = ((yyvsp[0])); }
-#line 1920 "wic.tab.c" /* yacc.c:1646  */
+#line 1918 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 410 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 409 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>((yyvsp[0]));
 				    	std::cout << "Factor : ID (name=" << id->get_id() << ")" << std::endl;
@@ -1935,11 +1933,11 @@ yyreduce:
 				    	}
 				    		(yyval) = ast->tree_build(id);
 			  	}
-#line 1939 "wic.tab.c" /* yacc.c:1646  */
+#line 1937 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 425 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 424 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
 				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1948,11 +1946,11 @@ yyreduce:
 
 				    	(yyval) = ast->tree_build(prod);
 			  	}
-#line 1952 "wic.tab.c" /* yacc.c:1646  */
+#line 1950 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 434 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 433 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
 				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1961,11 +1959,11 @@ yyreduce:
 
 				    	(yyval) = ast->tree_build(div);
 			  	}
-#line 1965 "wic.tab.c" /* yacc.c:1646  */
+#line 1963 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 443 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 442 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
 				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1974,11 +1972,11 @@ yyreduce:
 
 				    	(yyval) = ast->tree_build(mod);
 			  	}
-#line 1978 "wic.tab.c" /* yacc.c:1646  */
+#line 1976 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 454 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 453 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>((yyvsp[-2]));
 				    	wic::ASTNode* factor = reinterpret_cast<wic::ASTNode *>((yyvsp[0]));
@@ -1987,21 +1985,21 @@ yyreduce:
 
 				    	(yyval) = ast->tree_build(radical);
 			  	}
-#line 1991 "wic.tab.c" /* yacc.c:1646  */
+#line 1989 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 469 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 468 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[0]));
 				    	std::cout << "Factor : INT(value=" << node->get_data_value().int_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2001 "wic.tab.c" /* yacc.c:1646  */
+#line 1999 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 475 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 474 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[0]));
 				    	int val = -node->get_data_value().int_val;
@@ -2009,21 +2007,21 @@ yyreduce:
 				    	std::cout << "Factor: NEG_INT(value=" << node->get_data_value().int_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2013 "wic.tab.c" /* yacc.c:1646  */
+#line 2011 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 483 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 482 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[0]));
 				    	std::cout << "Factor : REAL(value=" << node->get_data_value().real_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2023 "wic.tab.c" /* yacc.c:1646  */
+#line 2021 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 489 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 488 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[0]));
 				    	float val = -node->get_data_value().real_val;
@@ -2031,42 +2029,42 @@ yyreduce:
 				    	std::cout << "Factor: NEG_REAL(value=" << node->get_data_value().real_val << ")" << std::endl;
 					(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2035 "wic.tab.c" /* yacc.c:1646  */
+#line 2033 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 497 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 496 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 			    		wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[0]));
 				    	std::cout << "Factor : BOOL(value=" << node->get_data_value().bool_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 				}
-#line 2045 "wic.tab.c" /* yacc.c:1646  */
+#line 2043 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 503 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 502 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[-1]));
 				    	std::cout << "Factor : CHAR(value=" << node->get_data_value().char_val << ",ascii="
 					    << (int)node->get_data_value().char_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2056 "wic.tab.c" /* yacc.c:1646  */
+#line 2054 "wic.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 510 "flex-bison/wic.y" /* yacc.c:1646  */
+#line 509 "flex-bison/wic.y" /* yacc.c:1646  */
     {
 			    		wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>((yyvsp[-1]));
 				    	std::cout << "Factor : STRING(value=" << node->get_data_value().str_val << ")" << std::endl;
 				    	(yyval) = reinterpret_cast<void *>(node);
 			  	}
-#line 2066 "wic.tab.c" /* yacc.c:1646  */
+#line 2064 "wic.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2070 "wic.tab.c" /* yacc.c:1646  */
+#line 2068 "wic.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2294,4 +2292,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 518 "flex-bison/wic.y" /* yacc.c:1906  */
+#line 517 "flex-bison/wic.y" /* yacc.c:1906  */
+
+
