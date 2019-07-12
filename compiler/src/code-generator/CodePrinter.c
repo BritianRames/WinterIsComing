@@ -7,7 +7,7 @@ void openFile(){
 }
 
 void printGlobalVariableValueAssignation(int address, int value){
-  fprintf(f, "MEM(%d,%d);\n", address, value);
+  fprintf(f, "I(%d) = R0;\n", address, value);
 }
 
 void printGlobalVariableVariableAsignation(int variable_address, int value_address){
@@ -36,19 +36,14 @@ void printCodeToAssignParametersValueInStack(int numberOfParameters, int stackPo
 void printReturnValue(int stackPointer, int valueToReturn){
   int returnLabelAddress = stackPointer; 
   fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
-  fprintf(f, "R1 = P(%d);\n", returnLabelAddress);
+  fprintf(f, "R1 = I(%d);\n", returnLabelAddress);
   fprintf(f, "GT(R1);");
 }
 
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
-  //If local
-  //int variableAddress = getVariableAddressFromSymbolTable()*4 + returnLabelAddress;
-
-  //Else ---
-  int valueToReturn = 0;
-  fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
-  fprintf(f, "R1 = P(%d);\n", returnLabelAddress);
+  fprintf(f, "R0 = I(%d);\n", variableAddress); //Returned value in R0
+  fprintf(f, "R1 = I(%d);\n", returnLabelAddress);
   fprintf(f, "GT(R1);");
 }
 
@@ -68,7 +63,7 @@ void printCodeToAssignValueToVariable(int address, int value){
   fprintf(f, "I(%d) = %d;\n", address, value); //Returned value in R0
 }
 
-void printCodeToAssignVariableToVariable(int address, int value_address){
+void printCodeToAssignVariableToVagitriable(int address, int value_address){
   fprintf(f, "R1 = I(%d);\n", value_address); //Returned value in R0
   fprintf(f, "I(%d) = R1;\n", address); //Returned value in R0
 }
