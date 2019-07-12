@@ -11,7 +11,7 @@ int lastLabel = 0;
 
 void insertVariableInSymbolTable(char* id){
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
-    printf("ESTOYLLEGANDO");
+    //printf("ESTOYLLEGANDO");
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
@@ -141,7 +141,7 @@ int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
         if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
-            printf("no se estaba metiendo pesado %d", currentSymbol->address);
+            //printf("no se estaba metiendo pesado %d", currentSymbol->address);
             return currentSymbol->address;
             
         }

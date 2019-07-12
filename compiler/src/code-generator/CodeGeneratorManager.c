@@ -67,3 +67,17 @@ void generateReturnVariableCode(char* variable){
   //int address = getReturnCurrentFunctionAddress()
   //generateAssignationCode(address, value) --> we have a memory position for return value (maybe better a register)
 }
+
+void generatePrintString(char* string){
+  printPrintStringCode(string);
+}
+
+void generatePrintValue(int value){
+  printPrintValueCode(value);
+}
+void generatePrintVariable(char* id){
+  
+  int addr = _getVariableAddress(id);
+  printf("FALTA ESTE METODO");
+  printPrintVariableCode(addr);
+}
