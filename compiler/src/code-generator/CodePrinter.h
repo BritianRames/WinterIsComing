@@ -14,4 +14,4 @@ void printReturnValue(int stackPointer, int valueToReturn);
 void printRecoverRegistersValue(int registerFramePointer);
 void printSaveRegistersValue(int registerFramePointer);
 void printCodeToAssignLocalVariableValueInStack(int offset, int value);
-void printCodeToAssignLocalVariableVariableInStack(int offset, int value_offset);
+void printCodeToAssignVariableToVariable(int offset, int value_offset);
