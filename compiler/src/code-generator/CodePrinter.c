@@ -40,6 +40,17 @@ void printReturnValue(int stackPointer, int valueToReturn){
   fprintf(f, "GT(R1);");
 }
 
+void printReturnVariable(int stackPointer, int variableAddress){
+  int returnLabelAddress = stackPointer; 
+  //If local
+  int variableAddress = getVariableAddressFromSymbolTable()*4 + stackPointer;
+  //Else ---
+  int valueToReturn = 0;
+  fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
+  fprintf(f, "R1 = P(%d);\n", returnLabelAddress);
+  fprintf(f, "GT(R1);");
+}
+
 void printRecoverRegistersValue(int registerFramePointer){
   for(int i = 0; i <= 7; i--){
     fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));

@@ -12,7 +12,7 @@ void generateAssignValueToGlobalVariable(char* variable_id, int value){
 void generateFunctionHeaderCode(){
   struct Symbol* function = getLastFunctionFromSymbolTable();
   int numberOfParameters = function->numberOfParameters;
-  printFunctionLabel(getLastFunctionLabel());
+  printFunctionLabel(function->label);
   printUpdateFramePointer(); // R6 = R7;
   updateStackPointer((numberOfParameters + 2) * 4); //R7 + X; TS --> stackPointer + X
   printCodeToAssignParametersValueInStack(numberOfParameters, getCurrentStackPointer());
@@ -21,7 +21,7 @@ void generateFunctionHeaderCode(){
 
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
-  int value_address = getVariableAddressFromTable(value_id);
+  int value_address = getVariableAddressFromSymbolTable(value_id);
   printGlobalVariableVariableAsignation(variable_address, value_address);
 }
 
