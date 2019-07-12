@@ -43,7 +43,7 @@ void insertParameterInSymbolTable(char *id){
 
 }
 
-void insertFunctionSymbolTable(char *id){
+void insertFunctionInSymbolTable(char *id){
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
     
     symbol->id = malloc(sizeof(char) * strlen(id));

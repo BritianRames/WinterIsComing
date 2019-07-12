@@ -10,7 +10,7 @@ void generateAssignValueToGlobalVariable(char* variable_id, int value){
 
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
-  int value_address = getVariableAddressFromTable(value_id);
+  int value_address = getVariableAddressFromSymbolTable(value_id);
   int printGlobalVariableVariableAsignation(variable_address, value_address);
 }
 

@@ -18,7 +18,7 @@ struct Symbol
 
 void insertVariableInSymbolTable(char *id);
 void insertParameterInSymbolTable(char *id);
-void insertFunctionSymbolTable(char *id);
+void insertFunctionInSymbolTable(char *id);
 
 bool _existSymbolInSymbolTable(struct Symbol *symbol);
 void _linkSymbolToSymbolTable(struct Symbol *symbol);
