@@ -30,7 +30,10 @@ void generateFunctionReturnValueCode(int value){
 }
 
 void generateFunctionReturnVariableCode(char* variableToReturn){
-  printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variableToReturn));
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
+
+  printReturnVariable(getCurrentStackPointer(), );
 }
 
 
