@@ -7,7 +7,11 @@ void openFile(){
 }
 
 void printGlobalVariableValueAssignation(int address, int value){
+<<<<<<< HEAD
   fprintf(f, "I(%d) = %d;\n", address, value);
+=======
+  fprintf(f, "I(%d) = %d; // guardamos %d en %d\n", address, value, value, address);
+>>>>>>> be6e0ff384839b68b0595729627b782b316fde8f
 }
 
 void printGlobalVariableVariableAsignation(int variable_address, int value_address){

@@ -35,7 +35,7 @@ void generateFunctionReturnVariableCode(char* variableToReturn){
   printReturnVariable(getCurrentStackPointer(), address);
 }
 
-void generateAssignValueToVariableAssignationCode(char *variable_id, int value){
+void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
 }
 
@@ -45,8 +45,13 @@ void generateAssignVariableToVariableCode(char* variable_id, char value_id){
 
 int _getVariableAddress(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
-  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
-  return address;
+  if(variable == -1) printf("\nElement not found \n");
+  else{
+    printf("%c",variable->type);
+    if (variable->type == 'g') return variable->address;
+   else return getCurrentStackPointer() - variable->address * 4;
+  }
+  return 1000;
 }
 
 void generateReturnValueCode(int value){
