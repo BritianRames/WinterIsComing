@@ -43,7 +43,7 @@ void printReturnValue(int stackPointer, int valueToReturn){
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
   //If local
-  int variableAddress = getVariableAddressFromSymbolTable()*4 + stackPointer;
+  int variableAddress = getVariableAddressFromSymbolTable() * 4 + returnLabelAddress;
   //Else ---
   int valueToReturn = 0;
   fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
@@ -63,17 +63,14 @@ void printSaveRegistersValue(int registerFramePointer){
   }
 }
 
-void printCodeToAssignLocalVariableValueInStack(int offset, int value){
-  fprintf(f, "R0 = R7 - %d;\n", offset); //Returned value in R0
-  fprintf(f, "I(R0) = %d;\n", value); //Returned value in R0
+void printCodeToAssignValueToVariable(int address, int value){
+  fprintf(f, "I(%d) = %d;\n", address, value); //Returned value in R0
 }
 
-void printCodeToAssignLocalVariableVariableInStack(int offset, int value_offset){
-  fprintf(f, "R0 = R7 - %d;\n", offset); //Returned value in R0
-  fprintf(f, "R1 = R7 - %d;\n", value_offset); //Returned value in R0
-  fprintf(f, "R1 = I(R1);\n"); //Returned value in R0
-  fprintf(f, "I(R0) = R1;\n"); //Returned value in R0
-} //+ globals
+void printCodeToAssignVariableToVariable(int address, int value_address){
+  fprintf(f, "R1 = I(%d);\n", value_address); //Returned value in R0
+  fprintf(f, "I(%d) = R1;\n", address); //Returned value in R0
+}
 
 
 //Funtion Generation Code:::

@@ -140,8 +140,20 @@ void closeScopeInSymbolTable(){
 int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
-        if(currentSymbol->id == id, currentSymbol->type == 'g'){
+        if(currentSymbol->id == id && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
             return currentSymbol->address;
+        }
+        currentSymbol = currentSymbol->previousSymbol;
+    }
+    printf("ERROR\n");
+    return -1;
+}
+
+struct Symbol* getVariableFromSymbolTable(char* id){
+        struct Symbol* currentSymbol = lastSymbol;
+    for(int i = tableSize; i > 0; i--){
+        if(currentSymbol->id == id && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+            return currentSymbol;
         }
         currentSymbol = currentSymbol->previousSymbol;
     }

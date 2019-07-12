@@ -19,7 +19,7 @@ compile:
 					code-generator/CodeGeneratorManager.c \
 					code-generator/CodePrinter.c \
 					code-generator/StackManager.c
-
+					
 					#gcc -o wic build/lex.yy.c build/wic.tab.c -lfl -lm
 					#/usr/bin/g++ -std=gnu++11 -c build/wic.tab.c build/lex.yy.c
 					#mv *.o build
