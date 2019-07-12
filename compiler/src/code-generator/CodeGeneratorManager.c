@@ -1,5 +1,6 @@
 #include "../symbol-table/SymbolTableManager.h"
 #include "CodeGeneratorManager.h"
+#include "StackManager.h"
 #include "CodePrinter.h"
 
 void generateAssignValueToGlobalVariable(char* variable_id, int value){
@@ -8,14 +9,28 @@ void generateAssignValueToGlobalVariable(char* variable_id, int value){
   printSymbolTable();
 }
 
+void generateFunctionHeaderCode(){
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  int numberOfParameters = function->numberOfParameters;
+  printFunctionLabel(getLastFunctionLabel());
+  printUpdateFramePointer(); // R6 = R7;
+  updateStackPointer((numberOfParameters + 2) * 4); //R7 + X; TS --> stackPointer + X
+  printCodeToAssignParametersValueInStack(numberOfParameters, getCurrentStackPointer());
+}
+//Update lv number
+
+void generateFunctionReturnValueCode(int value){
+  printReturnValue();
+}
+
+void generateFunctionReturnVariableCode(char* variableToReturn){
+  printReturnVariable(getVariableAddressFromSymbolTable(variableToReturn));
+}
+
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
   int value_address = getVariableAddressFromTable(value_id);
   int printGlobalVariableVariableAsignation(variable_address, value_address);
-}
-
-void generateFunctionCode(){
-  //TODO !IMPORTANT
 }
 
 void generateAssignValueToLocalVariableCode(char *local_variable_id, int value){

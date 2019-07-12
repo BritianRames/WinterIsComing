@@ -7,7 +7,7 @@ struct Symbol* lastFunc;
 int tableSize = 0;
 
 int currentScope = 0;
-int lasLabel = 0;
+int lastLabel = 0;
 
 void insertVariableInSymbolTable(char* id){
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
@@ -118,8 +118,8 @@ void _removeLocalVariablesFromSymbolTable(){
 }
 
 int _getNextLabel(){
-    lasLabel++;
-    return lasLabel;
+    lastLabel++;
+    return lastLabel;
 }
 
 void openScopeInSymbolTable(){
@@ -143,6 +143,10 @@ int getVariableAddressFromSymbolTable(char* id){
     return -1;
 }
 
+struct Symbol* getLastFunctionFromSymbolTable(){
+    return lastFunc;
+}
+
 void printSymbolTable(){
     struct Symbol* currentSymbol = firstSymbol;
     for(int i = tableSize; i > 0; i--){
@@ -158,4 +162,3 @@ void printSymbolTable(){
         currentSymbol = currentSymbol->nextSymbol;
     }
 }
-

@@ -8,6 +8,15 @@ int getNextStackPointer(stackPointer){
   return stackPointer;
 }
 
+int updateStackPointer(int offset){
+  printUpdateStackPointer(offset);
+  stackPointer = stackPointer - offset;
+}
+
+int getCurrentStackPointer(){
+  return stackPointer;
+}
+
 int getCurrentFramePointer(){ //TODO
   return 0;
 }

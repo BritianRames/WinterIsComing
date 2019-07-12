@@ -35,3 +35,4 @@ int _getLabel();
 void printSymbolTable();
 
 int getVariableAddressFromSymbolTable(char* id);
+struct Symbol* getLastFunctionFromSymbolTable();
