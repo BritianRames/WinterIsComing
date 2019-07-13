@@ -48,18 +48,103 @@
 %token <number> OPEN_CONTEXT_TAG
 %token <number> CLOSE_CONTEXT_TAG
 %token <number> STRING_QUOTE
-
 %token <string> ID
-
 
 %type <number> begin
 %start begin
 %%
 
-begin : {
-          printf("Hey");
-        }
+begin : {printf("Welcome to wic");} root
       ;
+
+
+root : declaration 
+     | function
+     ;
+
+declaration : INT VARIABLE SEMICOLON {insertVariable($<string>2);}
+            ;
+
+function : INT VARIABLE {insertFunction($<string>2);} OPENINGBRACKET {openScope();} params {closeScope();} CLOSINGBRACKET OPENINGCURLYBRACKET {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET 
+         ;
+
+params : INT VARIABLE COMMA params {insertVariable($<string>2);}
+       | INT VARIABLE {insertVariable($<string>2);}
+       | ''
+       ;
+
+codeSet : declaration codeSet
+        | instruction codeSet
+        | controlStructure codeSet
+        | declaration
+        | instruction
+        | controlStructure
+        ;
+
+instruction : assignation
+            | aritmeticOperation SEMICOLON
+            | return SEMICOLON
+            | print SEMICOLON
+            | BREAK SEMICOLON {breakCode();}
+            ;
+
+assignation : VARIABLE '=' NUMBER SEMICOLON {generateAssignStaticValueToVariableCode($<string>1,$<number>3);}
+            | VARIABLE '=' VARIABLE SEMICOLON {generateAssignStaticVriableToVariableCode($<string>1,$<string>3);}
+            | VARIABLE '=' VARIABLE OPENINGBRACKET {functionCall($<string>1,$<string>3);} functionCallParams CLOSINGBRACKET SEMICOLON 
+            ;  
+
+functionCallParams : NUMBER {setParamsValue($<number>1);}
+                   | VARIABLE {setParamsValueFromVariable($<string>1);}
+                   | NUMBER COMMA functionCallParams {setParamsValue($<number>1);}
+                   | VARIABLE COMMA functionCallParams {setParamsValueFromVariable($<string>1);}
+
+aritmeticOperation : aritmeticOperation '-' aritmeticOperation {$$ = substract($<number>1,$<number>3);}
+            | aritmeticOperation '+' aritmeticOperation {$$ = add($<number>1,$<number>3);}
+            | aritmeticOperation '*' aritmeticOperation {$$ = multiply($<number>1, $<number>3);}
+            | aritmeticOperation '/' aritmeticOperation {$$ = divide($<number>1, $<number>3);}
+            | OPENINGBRACKET aritmeticOperation CLOSINGBRACKET {$$ = $<number>2;}
+            | NUMBER {$$ = $<number>1;}
+            ;
+
+return : RETURN VARIABLE {returnVariable($<number>2);}
+       | RETURN NUMBER {returnValue($<number>2);}
+       | RETURN aritmeticOperation {returnValue($<number>2);}
+       | RETURN VARIABLE OPENINGBRACKET {functionCall($<string>1,$<string>3);} functionCallParams CLOSINGBRACKET SEMICOLON
+       ; 
+
+print : PRINT OPENINGBRACKET printableElement CLOSINGBRACKET 
+      ;
+
+printableElement : VARIABLE {printVariable($<number>1);)}
+                 | QUOTE text QUOTE {printText(($<number>1);)}
+                 | printableElement '+' printableElement {printLineJump();}
+                 ;
+
+text : TEXT {$$ = $<number>1;}
+     | ' '  {$$ = $<number>1;}
+     ;
+
+controlStructure : structuresWord OPENINGBRACKET {openScope();} logicalOperation {closingScope();} CLOSINGBRACKET OPENINGCURLYBRACKET {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET
+                 ;
+
+structuresWord : IF {startIf();}
+               | ELSE {startElse();}
+               | WHILE {startWhile();}
+               ;
+
+logicalOperation : VARIABLE logicalOperator VARIABLE {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | VARIABLE logicalOperator NUMBER {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | NUMBER logicalOperator NUMBER {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | NUMBER logicalOperator VARIABLE {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 ;
+
+logicalOperator : EQUAL {$$ = "eq"}
+                | NOTEQUAL {$$ = "neq"}
+                | GREATER {$$ = "gt"}
+                | MINOR {$$ = "mt"}
+                | GREATEREQUAL {$$ = "ge"}
+                | MINOREQUAL {$$ = "me"}
+                ;
 
 %%
 
