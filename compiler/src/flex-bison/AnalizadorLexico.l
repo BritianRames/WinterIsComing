@@ -1,7 +1,7 @@
 %{
-#include "../BISON/AnalizadorSintactico.tab.h"
-int numlin = 1;
-void error(char*, char);
+  #include "../BISON/AnalizadorSintactico.tab.h"
+  int numlin = 1;
+  void error(char*, char);
 %}
 
 %option noyywrap
