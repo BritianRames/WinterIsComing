@@ -10,6 +10,7 @@ int currentScope = 0;
 int lastLabel = 0;
 
 void insertVariableInSymbolTable(char* id){
+    // debug con prints
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
     //printf("ESTOYLLEGANDO");
     symbol->id = malloc(sizeof(char) * strlen(id));
