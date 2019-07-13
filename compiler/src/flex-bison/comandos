@@ -1,0 +1,15 @@
+flex wic.l
+
+bison -d -v -t bwic.y
+
+gcc bwic.tab.h lex.yy.c -lfl -lm
+
+--------
+
+
+
+bison -y -d bwic.y
+flex wic.l
+gcc -c y.tab.c lex.yy.c
+gcc y.tab.o lex.yy.o -o soyelputoamo
+/a.out file.wic
