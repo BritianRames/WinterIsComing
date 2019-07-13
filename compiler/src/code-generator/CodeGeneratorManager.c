@@ -355,3 +355,35 @@ void generateReturnVariableCode(char* variable){
   //int address = getReturnCurrentFunctionAddress()
   //generateAssignationCode(address, value) --> we have a memory position for return value (maybe better a register)
 }
+
+void generateSaveValueParam(int reg, int value){
+  //TODO
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  printSaveValueParam(reg, value);
+}
+
+void generateSaveVariableParam(int reg, char* variable){
+  //TODO
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  int variable_address = getVariableAddressFromTable(variable_id);
+  printSaveParam(reg, variable_address);
+}
+
+void generateCallFunction(){
+  //TODO
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  int fun_label = function->label;
+  printCallFunction(fun_label);
+}
+
+void generateBreak(){
+  //TODO
+  int label = _getCurrentLabel() + 1;
+  printBreak(label);
+}
+
+void generateContinue(){
+  //TODO
+  int label = _getCurrentLabel();
+  printContinue(label);
+}

@@ -57,4 +57,15 @@ void logicalOperate(int a, char* b, char* operator);
 
 void logicalOperate(char* a, int b, char* operator);
 
-void logicalOperate(char* a, char* b, char* operator);*/
+void logicalOperate(char* a, char* b, char* operator);
+
+void generateSaveValueParam(int reg, int value);
+
+void generateSaveVariableParam(int reg, char* variable);
+
+void generateCallFunction();
+
+void generateBreak();
+
+void generateContinue();
+*/

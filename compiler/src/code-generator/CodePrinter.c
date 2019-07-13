@@ -334,6 +334,26 @@ void printNot(int reg, int data, bool is_id){
   }
 }
 
+void printSaveValueParam(int reg, int value){
+  fprintf(f, "\tR%d = %d;\n", reg, value);
+}
+
+void printSaveVariableParam(int reg, int address){
+  fprintf(f, "\tR%d = I(%d);\n", reg, address);
+}
+
+void printCallFunction(int fun_label){
+  fprintf(f, "\tGT(%d);\n", fun_label);
+}
+
+void printBreak(int label){
+  fprintf(f, "\tGT(%d)\n", label);
+}
+
+void printContinue(int label){
+  fprintf(f, "\tGT(%d)\n", label);
+}
+
 //Funtion Generation Code:::
 
 
