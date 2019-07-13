@@ -26,6 +26,14 @@ void printQEnding() {
     fprintf(f, "END\n");
 }
 
+void printGlobalVariableValueAssignation(int address, int value) {
+
+}
+
+void printGlobalVariableVariableAssignation(int variable_address, int value_address) {
+
+}
+
 void printUpdateFramePointer(){
   fprintf(f, "R6 = R7;\n");
 }

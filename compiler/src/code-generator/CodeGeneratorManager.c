@@ -37,7 +37,7 @@ void generateFunctionHeaderCode(){
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
   int variable_address = getVariableAddressFromSymbolTable(variable_id);
   int value_address = _getNextLocalVariableAddressFromSymbolTable(value_id);
-  printGlobalVariableVariableAsignation(variable_address, value_address);
+  printGlobalVariableVariableAssignation(variable_address, value_address);
 }
 
 void generateFunctionReturnValueCode(int value){

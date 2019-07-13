@@ -6,7 +6,7 @@ int main() {
     generateQInitialization();   // Se inicializa sección del código Q
     insertVariableInSymbolTable("aaa");
 
-    printCodeToAssignValueToVariable("aaa", 2);
+    generateAssignValueToGlobalVariable("aaa", 2);
     insertFunctionSymbolTable("miFuncion");
     openScopeInSymbolTable();
     insertParameterInSymbolTable("Param1");
@@ -14,11 +14,11 @@ int main() {
 
     generateFunctionHeaderCode();
     insertVariableInSymbolTable("bbb");
-    printCodeToAssignValueToVariable("bbb", 2);
+    generateAssignValueToVariableCode("bbb", 2);
     generateFunctionReturnValueCode(3);
     closeScopeInSymbolTable();
     insertVariableInSymbolTable("ccc");
-    printCodeToAssignValueToVariable("ccc", 2);
+    generateAssignValueToGlobalVariable("ccc", 2);
     //printSymbolTable();
     generateMainFunction(); // Creamos scope de función Main
     generatePrintString("\\nhoskdjnfkndfln<dlsanalnslanla\\n");
