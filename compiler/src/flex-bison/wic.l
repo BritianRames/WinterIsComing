@@ -138,6 +138,7 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //wic::data_value data_v;
                                 //data_v.int_val = atoi(yytext);
+                                yylval.number = atoi(yytext);
                                 return INT_VAL;
                               }
 
@@ -295,6 +296,7 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //std::string id = yytext;
                                 //yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
+                                yylval.string = strdup(yytext); 
                                 return ID;
                               }
 
@@ -344,6 +346,7 @@ id                            {letter}({letter}|{digit})*
                                 //data_v.str_val = new char[yyleng];
                                 //data_v.str_val = strcpy(data_v.str_val, yytext);
                                 //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::STRING, &data_v));
+                                yylval.string = strdup(yytext);
                                 return STRING_VAL;
                               }
 <STRING_STATE>\"              {

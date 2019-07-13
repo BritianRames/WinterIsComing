@@ -22,6 +22,8 @@
 %}
 
 
+%union { int number; char* string; int float}
+
 /* Declaración de tokens */
 
 /* Tokens para las palabras reservadas */
@@ -515,4 +517,5 @@ data_value: INT_VAL
 data_vector: CURLY_BRACKET_OPEN args CURLY_BRACKET_CLOSE
 
 %%
+
 
