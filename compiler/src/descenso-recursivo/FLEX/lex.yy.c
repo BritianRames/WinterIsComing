@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 32
-#define YY_END_OF_BUFFER 33
+#define YY_NUM_RULES 38
+#define YY_END_OF_BUFFER 39
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -363,36 +363,35 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[86] =
+static const flex_int16_t yy_accept[78] =
     {   0,
-        0,    0,   33,   31,   28,   27,   31,   31,   12,   13,
-       26,   26,   21,   23,   20,   26,   26,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   10,   11,
-       31,    0,   16,    0,   29,   23,    6,    5,   25,   25,
-       25,   25,   25,   25,    2,   25,   25,   25,   25,   25,
-       25,   30,   25,   25,   25,   25,   14,    4,   25,   25,
-       25,    1,   25,   25,   30,   25,    8,   25,   19,   25,
-       25,   25,    7,   25,   22,    3,   25,   25,   25,    9,
-       25,   18,   15,   17,    0
+        0,    0,    0,    0,    1,    1,   39,   37,    3,   12,
+       20,   37,   31,   32,   16,   14,   15,   37,   17,    6,
+       27,   25,   13,   23,   37,   33,   29,   30,   33,   33,
+       33,   33,   33,   37,   35,   36,    2,    1,    1,   22,
+       18,   34,    7,    7,    6,   26,   21,   24,   28,   33,
+       33,   33,   33,   33,   33,   33,   19,   35,    1,    7,
+       33,   33,   33,    9,   33,   33,   33,   11,   33,   33,
+       10,   33,    8,    4,   33,    5,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    4,    5,    1,    1,    1,    1,    6,
-        7,    8,    9,   10,   11,    1,    8,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,   13,    1,   14,
-       15,   16,    1,    1,   17,   17,   17,   17,   17,   17,
-       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
-       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
-        1,    1,    1,    1,   18,    1,   19,   20,   21,   17,
+        1,    3,    4,    1,    1,    1,    1,    5,    1,    6,
+        7,    8,    9,    1,   10,   11,   12,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   14,    1,   15,
+       16,   17,   18,    1,   19,   19,   19,   19,   19,   19,
+       19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
+       19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
+       20,    1,   21,    1,    1,    1,   22,   23,   19,   19,
 
-       22,   23,   24,   25,   26,   17,   27,   28,   17,   29,
-       30,   31,   32,   33,   34,   35,   36,   37,   38,   17,
-       17,   17,   39,   40,   41,    1,    1,    1,    1,    1,
-        1,    1,    1,   42,    1,    1,    1,    1,    1,    1,
+       24,   25,   19,   19,   26,   19,   27,   28,   19,   29,
+       30,   19,   19,   31,   32,   33,   34,   19,   19,   19,
+       19,   19,    1,   35,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -400,7 +399,7 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
 
-        1,    1,   43,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -408,81 +407,74 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[44] =
+static const YY_CHAR yy_meta[36] =
     {   0,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
-        1,    3,    1,    1,    1,    1,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    1,    4,
-        1,    1,    1
+        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    3,    1,    1,    1,    1,    1,    3,    1,
+        1,    3,    3,    3,    3,    3,    3,    3,    3,    3,
+        3,    3,    3,    3,    1
     } ;
 
-static const flex_int16_t yy_base[90] =
+static const flex_int16_t yy_base[82] =
     {   0,
-        0,    0,  107,  108,  108,  108,  102,  102,  108,  108,
-      108,   92,  108,   91,  108,   87,   86,    0,   67,   16,
-       63,   16,   68,   64,   74,   60,   75,   68,  108,  108,
-       50,   87,  108,   87,  108,   77,  108,  108,    0,   66,
-       53,   50,   56,   49,    0,   48,   56,   46,   47,   46,
-       25,    0,   59,   55,   57,   54,    0,    0,   45,   37,
-       46,    0,   42,   42,    0,   42,    0,   40,    0,   32,
-       33,   36,    0,   42,    0,    0,   35,   31,   29,    0,
-       20,    0,    0,    0,  108,   51,   54,   43,   58
+        0,    0,   91,   90,   34,   36,   91,   94,   94,   94,
+       74,   84,   94,   94,   94,   94,   94,   29,   94,   30,
+       94,   72,   71,   70,   67,    0,   94,   94,   14,   62,
+       54,   58,   50,   45,    0,   94,   94,   76,   75,   94,
+       94,   94,   64,   63,   35,   94,   94,   94,   94,    0,
+       45,   50,   45,   39,   25,   37,   94,    0,   67,   56,
+       40,   44,   25,    0,   28,   21,   30,    0,   26,   28,
+        0,   20,    0,    0,   21,    0,   94,   58,   61,   46,
+       64
     } ;
 
-static const flex_int16_t yy_def[90] =
+static const flex_int16_t yy_def[82] =
     {   0,
-       85,    1,   85,   85,   85,   85,   86,   87,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   88,   88,   88,
-       88,   88,   88,   88,   88,   88,   88,   88,   85,   85,
-       85,   86,   85,   87,   85,   85,   85,   85,   88,   88,
-       88,   88,   88,   88,   88,   88,   88,   88,   88,   88,
-       88,   89,   88,   88,   88,   88,   88,   88,   88,   88,
-       88,   88,   88,   88,   89,   88,   88,   88,   88,   88,
-       88,   88,   88,   88,   88,   88,   88,   88,   88,   88,
-       88,   88,   88,   88,    0,   85,   85,   85,   85
+       77,    1,   78,   78,   79,   79,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   80,   77,   77,   80,   80,
+       80,   80,   80,   77,   81,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   80,
+       80,   80,   80,   80,   80,   80,   77,   81,   77,   77,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,    0,   77,   77,   77,
+       77
     } ;
 
-static const flex_int16_t yy_nxt[152] =
+static const flex_int16_t yy_nxt[130] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       12,   14,   15,   16,    4,   17,   18,    4,   18,   19,
-       18,   20,   21,   18,   18,   22,   18,   18,   23,   18,
-       24,   18,   25,   26,   18,   18,   27,   28,   29,    4,
-       30,    4,   31,   41,   44,   39,   63,   42,   84,   45,
-       64,   32,   83,   32,   34,   34,   34,   34,   65,   82,
-       65,   65,   81,   80,   79,   78,   77,   76,   75,   74,
-       73,   72,   71,   70,   69,   68,   67,   66,   62,   61,
-       60,   59,   58,   57,   56,   55,   54,   53,   36,   35,
-       33,   52,   51,   50,   49,   48,   47,   46,   43,   40,
+        8,    9,   10,   11,   12,   13,   14,   15,   16,   17,
+       18,   19,   20,   21,   22,   23,   24,   25,   26,   27,
+       28,   26,   29,   26,   30,   31,   26,   26,   26,   26,
+       32,   26,   33,   26,   34,   38,   39,   38,   39,   42,
+       44,   43,   45,   51,   52,   44,   65,   45,   50,   76,
+       75,   73,   74,   73,   72,   71,   70,   66,   35,   35,
+       35,   37,   37,   37,   58,   69,   58,   68,   60,   59,
+       67,   64,   63,   62,   61,   60,   43,   59,   59,   57,
+       56,   55,   54,   53,   49,   48,   47,   46,   41,   40,
+       77,   36,   36,    7,   77,   77,   77,   77,   77,   77,
 
-       38,   37,   36,   36,   35,   33,   85,    3,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77
     } ;
 
-static const flex_int16_t yy_chk[152] =
+static const flex_int16_t yy_chk[130] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,   20,   22,   88,   51,   20,   81,   22,
-       51,   86,   79,   86,   87,   87,   87,   87,   89,   78,
-       89,   89,   77,   74,   72,   71,   70,   68,   66,   64,
-       63,   61,   60,   59,   56,   55,   54,   53,   50,   49,
-       48,   47,   46,   44,   43,   42,   41,   40,   36,   34,
-       32,   31,   28,   27,   26,   25,   24,   23,   21,   19,
+        1,    1,    1,    1,    1,    5,    5,    6,    6,   18,
+       20,   18,   20,   29,   29,   45,   55,   45,   80,   75,
+       72,   70,   69,   67,   66,   65,   63,   55,   78,   78,
+       78,   79,   79,   79,   81,   62,   81,   61,   60,   59,
+       56,   54,   53,   52,   51,   44,   43,   39,   38,   34,
+       33,   32,   31,   30,   25,   24,   23,   22,   12,   11,
+        7,    4,    3,   77,   77,   77,   77,   77,   77,   77,
 
-       17,   16,   14,   12,    8,    7,    3,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85,   85,   85,   85,   85,   85,   85,   85,   85,   85,
-       85
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
+       77,   77,   77,   77,   77,   77,   77,   77,   77
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -499,15 +491,64 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "AnalizadorLexico.l"
-#line 2 "AnalizadorLexico.l"
-//#include "../BISON/AnalizadorSintactico.tab.h"
-int numlin = 1;
-void error(char*, char);
-#line 508 "lex.yy.c"
-#line 509 "lex.yy.c"
+#line 1 "descenso_recursivo.l"
+
+
+#line 4 "descenso_recursivo.l"
+  #include <string.h>
+  int numlin = 1;
+  int level = 0;
+  int countSpaces(char* pattern);
+  void error(char*, char);
+/*
+  #define END_OF_INSTR 257
+  #define RETURN 258
+  #define BREAK 259
+  #define INT_VAL 261
+  #define REAL_VAL 262
+  #define BOOL_VAL 263
+  #define INT_TYPE 264
+  #define REAL_TYPE 265
+  #define BOOL_TYPE 266
+  #define ASSIGN 267
+  #define SUM 268
+  #define SUBSTRACT 269
+  #define PRODUCT 270
+  #define DIVIDE 271
+  #define AND 272
+  #define OR 273
+  #define NOT 274
+  #define EQUALS 275
+  #define NOT_EQUALS 276
+  #define GREATER 277
+  #define GREATER_EQUALS 278
+  #define LESS 279
+  #define LESS_EQUALS 280
+  #define HEADER_END 281
+  #define FOR_WHILE_CLAUSE 282
+  #define SQUARE_BRACKET_OPEN 283
+  #define SQUARE_BRACKET_CLOSE 284
+  #define PARETHESES_OPEN 285
+  #define PARETHESES_CLOSE 286
+  #define ID 287
+  #define OPEN_CONTEXT_TAG 288
+  #define CLOSE_CONTEXT_TAG 289
+*/
+
+#line 539 "lex.yy.c"
+/* Definiciones regulares */
+/* Expresiones regulares reutilizables */
+/* Palabras reservadas */
+/* Valores segun el tipo de dato */
+/* Tipos de dato */
+/* Expresiones regulares para estructuras de control y bucles */
+/* Expresiones regulares delimitadoras */
+/* Identificador */
+#line 548 "lex.yy.c"
 
 #define INITIAL 0
+#define COMMENT_LINE 1
+#define CHECK_LVL 2
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -722,9 +763,9 @@ YY_DECL
 		}
 
 	{
-#line 17 "AnalizadorLexico.l"
+#line 80 "descenso_recursivo.l"
 
-#line 728 "lex.yy.c"
+#line 769 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -751,13 +792,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 86 )
+				if ( yy_current_state >= 78 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 108 );
+		while ( yy_base[yy_current_state] != 94 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -782,167 +823,361 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 18 "AnalizadorLexico.l"
-return VAR;
+#line 81 "descenso_recursivo.l"
+{
+                                //printf("Procesando... \n<%s>\n", yytext);
+                                int level_change = countSpaces(yytext);
+                                //printf("%d\n", level_change);
+
+                                if (level < level_change) {
+                                  level++;
+                                  if (level != level_change) yyless(0);
+                                  //printf("Level <OPEN_CONTEXT_TAG> : %d\n", level);
+                                  return OPEN_CONTEXT_TAG;
+                                } else if (level > level_change) {
+                                   level--;
+                                   if (level != level_change) yyless(0);
+                                   //printf("Level <CLOSE_CONTEXT_TAG> : %d\n", level);
+                                   return CLOSE_CONTEXT_TAG;
+                                }
+                                //printf("Level : %d\n", level);
+                                BEGIN(INITIAL);
+                              }
+	YY_BREAK
+case YY_STATE_EOF(CHECK_LVL):
+#line 100 "descenso_recursivo.l"
+{
+                                if (level > 0) {
+                                  level--;
+                                  return CLOSE_CONTEXT_TAG;
+                                } else return 0;
+                              }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "AnalizadorLexico.l"
-return ASIGN;
+#line 106 "descenso_recursivo.l"
+{
+                                //printf("Vamos para atrás\n");
+                                BEGIN(INITIAL);
+                                yyless(0);
+                              }
+	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(COMMENT_LINE):
+#line 111 "descenso_recursivo.l"
+{
+                                BEGIN(CHECK_LVL);
+                              }
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 20 "AnalizadorLexico.l"
-return EQUAL;
+#line 117 "descenso_recursivo.l"
+{
+                                BEGIN(CHECK_LVL);
+                                yyless(0);
+                                printf("%s is a END_OF_INSTR\n", yytext);
+                                numlin++;
+                                return END_OF_INSTR;
+                              }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "AnalizadorLexico.l"
-return NOTEQUAL;
+#line 124 "descenso_recursivo.l"
+{
+                                //printf("%s is a BREAK\n", yytext);
+                                return BREAK;
+                              }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 22 "AnalizadorLexico.l"
-return GREATEREQUAL;
+#line 128 "descenso_recursivo.l"
+{
+                                //printf("%s is a RETURN\n", yytext);
+                                return RETURN;
+                              }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "AnalizadorLexico.l"
-return SMALLEREQUAL;
+#line 132 "descenso_recursivo.l"
+{
+                                //yylval.integer = atoi(yytext);
+                                //printf("%d is a INT_VAL\n", yylval.integer);
+                                //printf("%s is a INT_VAL\n", yytext);
+                                return INT_VAL;
+                              }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "AnalizadorLexico.l"
-return WHEN;
+#line 139 "descenso_recursivo.l"
+{
+                                //yylval.real = atof(yytext);
+                                //printf("%f is a REAL_VAL\n", yylval.real);
+                                //printf("%s is a REAL_VAL\n", yytext);
+                                return REAL_VAL;
+                              }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 25 "AnalizadorLexico.l"
-return ELSE;
+#line 145 "descenso_recursivo.l"
+{
+                                //if (strcmp("true", yytext) == 0) yylval.boolean = '\x01';
+                                //else yylval.boolean = '\x00';
+                                //printf("%d is a BOOL_VAL\n", yylval.boolean);
+                                //printf("%s is a BOOL_VAL\n", yytext);
+                                return BOOL_VAL;
+                              }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "AnalizadorLexico.l"
-return WHILE;
+#line 153 "descenso_recursivo.l"
+{
+                                //printf("%s is a INT_TYPE\n", yytext);
+                                //yylval.string = (char*)malloc(yyleng);
+                                //strcpy(yylval.string, yytext);
+                                return INT_TYPE;
+                              }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 27 "AnalizadorLexico.l"
-return OPENCURLYBRACKET;
+#line 159 "descenso_recursivo.l"
+{
+                                //printf("%s is a REAL_TYPE\n", yytext);
+                                //yylval.string = (char*)malloc(yyleng);
+                                //strcpy(yylval.string, yytext);
+                                return REAL_TYPE;
+                              }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 28 "AnalizadorLexico.l"
-return CLOSECURLYBRACKET;
+#line 165 "descenso_recursivo.l"
+{
+                                //printf("%s is a BOOL_TYPE\n", yytext);
+                                //yylval.string = (char*)malloc(yyleng);
+                                //strcpy(yylval.string, yytext);
+                                return BOOL_TYPE;
+                              }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 29 "AnalizadorLexico.l"
-return OPENBRACKET;
+#line 173 "descenso_recursivo.l"
+{
+                              printf("");
+                              }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 30 "AnalizadorLexico.l"
-return CLOSEBRACKET;
+#line 176 "descenso_recursivo.l"
+{
+                                //printf("%s is an ASSIGN\n", yytext);
+                                return ASSIGN;
+                              }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 31 "AnalizadorLexico.l"
-return INT;
+#line 181 "descenso_recursivo.l"
+{
+                                //printf("%s is a SUM\n", yytext);
+                                return SUM;
+                              }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 32 "AnalizadorLexico.l"
-return STRING;
+#line 185 "descenso_recursivo.l"
+{
+                                //printf("%s is a SUBSTRACT\n", yytext);
+                                return SUBSTRACT;
+                              }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 33 "AnalizadorLexico.l"
-{ yylval.string = strdup(yytext); return STRINGLITERAL; }
+#line 189 "descenso_recursivo.l"
+{
+                                //printf("%s is a PRODUCT\n", yytext);
+                                return PRODUCT;
+                              }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 34 "AnalizadorLexico.l"
-return PRINTLN;
+#line 193 "descenso_recursivo.l"
+{
+                                //printf("%s is a DIVIDE\n", yytext);
+                                return DIVIDE;
+                              }               
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 35 "AnalizadorLexico.l"
-return RETURN;
+#line 197 "descenso_recursivo.l"
+{
+                                //printf("%s is a AND\n", yytext);
+                                return AND;
+                              }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 36 "AnalizadorLexico.l"
-return FUNC;
+#line 201 "descenso_recursivo.l"
+{
+                                //printf("%s is a OR\n", yytext);
+                                return OR;
+                              }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "AnalizadorLexico.l"
-return COLON;
+#line 205 "descenso_recursivo.l"
+{
+                                //printf("%s is a NOT\n", yytext);
+                                return NOT;
+                              }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "AnalizadorLexico.l"
-return COMMA;
+#line 209 "descenso_recursivo.l"
+{
+                                //printf("%s is a EQUALS\n", yytext);
+                                return EQUALS;
+                              }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "AnalizadorLexico.l"
-return BREAK;
+#line 213 "descenso_recursivo.l"
+{
+                                //printf("%s is a NOT_EQUALS\n", yytext);
+                                return NOT_EQUALS;
+                              }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "AnalizadorLexico.l"
-{ yylval.entero = atoi(yytext); return ENTERO; }
+#line 217 "descenso_recursivo.l"
+{
+                                //printf("%s is a GREATER\n", yytext);
+                                return GREATER;
+                              }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 41 "AnalizadorLexico.l"
-{ yylval.string = strdup(yytext); return VARIABLE; }
+#line 221 "descenso_recursivo.l"
+{
+                                //printf("%s is a GREATER_EQUALS\n", yytext);
+                                return GREATER_EQUALS;
+                              }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 42 "AnalizadorLexico.l"
-{ yylval.string = strdup(yytext); return FUNCNAME; }
+#line 225 "descenso_recursivo.l"
+{
+                                //printf("%s is a LESS\n", yytext);
+                                return LESS;
+                              }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 43 "AnalizadorLexico.l"
-return yytext[0];
+#line 229 "descenso_recursivo.l"
+{
+                                //printf("%s is a LESS_EQUALS\n", yytext);
+                                return LESS_EQUALS;
+                              }     
 	YY_BREAK
 case 27:
-/* rule 27 can match eol */
 YY_RULE_SETUP
-#line 44 "AnalizadorLexico.l"
-{numlin++; return yytext[0];}/* contin ́ua leyendo */
+#line 234 "descenso_recursivo.l"
+{
+                                //printf("%s is an HEADER_END\n", yytext);
+                                return HEADER_END;
+                              }
 	YY_BREAK
 case 28:
-#line 46 "AnalizadorLexico.l"
-case 29:
-/* rule 29 can match eol */
-#line 47 "AnalizadorLexico.l"
-case 30:
-/* rule 30 can match eol */
 YY_RULE_SETUP
-#line 47 "AnalizadorLexico.l"
-/* ignora */
+#line 238 "descenso_recursivo.l"
+{
+                                //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
+                                return FOR_WHILE_CLAUSE;
+                              } 
+	YY_BREAK
+case 29:
+YY_RULE_SETUP
+#line 242 "descenso_recursivo.l"
+{
+                                //printf("%s is an SQUARE_BRACKET_OPEN\n", yytext);
+                                return SQUARE_BRACKET_OPEN;
+                              }
+	YY_BREAK
+case 30:
+YY_RULE_SETUP
+#line 246 "descenso_recursivo.l"
+{
+                                //printf("%s is an SQUARE_BRACKET_CLOSE\n", yytext);
+                                return SQUARE_BRACKET_CLOSE;
+                              }   
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 48 "AnalizadorLexico.l"
-error("caracter raro", yytext[0]);
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-#line 49 "AnalizadorLexico.l"
-return 0; /* por defecto */
+#line 251 "descenso_recursivo.l"
+{
+                                //printf("%s is an PARETHESES_OPEN\n", yytext);
+                                return PARETHESES_OPEN;
+                              }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 50 "AnalizadorLexico.l"
+#line 255 "descenso_recursivo.l"
+{
+                                //printf("%s is an PARETHESES_CLOSE\n", yytext);
+                                return PARETHESES_CLOSE;
+                              }  
+	YY_BREAK
+case 33:
+YY_RULE_SETUP
+#line 259 "descenso_recursivo.l"
+{
+                                //printf("%s is a ID\n", yytext);
+                                //yylval.string = (char*)malloc(yyleng);
+                                //strcpy(yylval.string, yytext);
+                                return ID;
+                              }   
+	YY_BREAK
+case 34:
+YY_RULE_SETUP
+#line 265 "descenso_recursivo.l"
+{
+                                BEGIN(COMMENT_LINE);
+                                //printf("COMMENT_LINE_START\n");
+                              } 
+	YY_BREAK
+case 35:
+YY_RULE_SETUP
+#line 269 "descenso_recursivo.l"
+{
+                                //printf("THIS IS A COMMENT_LINE\n");
+                              }
+	YY_BREAK
+case 36:
+/* rule 36 can match eol */
+YY_RULE_SETUP
+#line 272 "descenso_recursivo.l"
+{
+                                //printf("COMMENT_LINE_END\n");
+                                //yylineno++;
+                                BEGIN(INITIAL);
+                                //confio en que no seas malvado y 
+                                //se acabe el fichero inmediatamente 
+                                //despues del comentario
+                              }   
+	YY_BREAK
+case 37:
+YY_RULE_SETUP
+#line 280 "descenso_recursivo.l"
+{
+                                error("caracter raro", yytext[0]);
+                              }                          
+	YY_BREAK
+case 38:
+YY_RULE_SETUP
+#line 283 "descenso_recursivo.l"
 ECHO;
 	YY_BREAK
-#line 946 "lex.yy.c"
+#line 1181 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1237,7 +1472,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 86 )
+			if ( yy_current_state >= 78 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1265,11 +1500,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 86 )
+		if ( yy_current_state >= 78 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 85);
+	yy_is_jam = (yy_current_state == 77);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1945,22 +2180,21 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 50 "AnalizadorLexico.l"
+#line 283 "descenso_recursivo.l"
 
 
 void error(char* mens, char character) {
   printf("Error lexico en linea %i: %s [%c]\n",numlin,mens, character);
 }
 
-/*unsigned int getRegister() {
-  return 1;
+int countSpaces(char* pattern) {
+  int i = 0;
+  int numSpaces = 0;
+  int total = 0;
+  while (pattern[i] != '\0') {
+    if (pattern[i] == ' ') numSpaces++;
+    if ((numSpaces % 4) == 0 && numSpaces > 0) total++;
+    i++;
+  }
+  return total;
 }
-
-unsigned int getAddress() {
-  return 90000;
-}
-
-void insertVariable(char* symbol, unsigned int address) {
-
-}*/
-
