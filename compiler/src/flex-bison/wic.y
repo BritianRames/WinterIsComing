@@ -16,7 +16,7 @@
 
     extern int level;
     extern int yylineno;
-
+    extern FILE *yyin;
 
 
 %}
@@ -72,17 +72,22 @@
 %left PRODUCT DIVIDE 
 %nonassoc INCREMENT DECREMENT
 
-%start main
+
 
 %%
 
 /* Definición de gramáticas */
 
-main: END_OF_INSTR {
+jjj:  {
 		printf("main");
 	    }
 
 %%
+
+int main(int argc, char** argv) {
+  if (argc>1) yyin=fopen(argv[1],"r");
+  yyparse();
+}
 
 //
 //input: instr END_OF_INSTR {

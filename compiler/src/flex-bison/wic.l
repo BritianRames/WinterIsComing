@@ -14,10 +14,11 @@
 
     //#include <string>
 
-    #include "wic.tab.h"
+    #include "y.tab.h"
 
     int level = 0;
     int enter_special = 1;
+    int numlin = 1;
 
 
     /* Declaraciones de funciones */
@@ -40,9 +41,9 @@ fun                           (fun)
 
 /* Valores segun el tipo de dato */
 int_val                       {digit}+
-real_val                      ({digit}+\.){digit}*|\.{digit}+
-bool_val                      (true|false)
-char_val                      [^']?|(\\[nrtvba0'"\\])
+/*real_val                      ({digit}+\.){digit}*|\.{digit}+*/
+/*bool_val                      (true|false)*/
+/*char_val                      [^']?|(\\[nrtvba0'"\\])*/
 string_val                    [^"]*
 
 /* Tipos de dato */
@@ -53,9 +54,8 @@ char_type                     (char)
 
 /* Expresiones regulares para estructuras de control y bucles */
 if                            (\?){1}
-for_while                     (\?){2}
+while                         (\?){2}
 header_end                    :
-else_if_for_while             (\.){1}
 
 /* Expresiones regulares delimitadoras */
 
@@ -112,7 +112,7 @@ id                            {letter}({letter}|{digit})*
                                 yyless(0);
                                 printf("Nueva línea\n");
                                 yylineno++;
-                                return END_OF_INSTR;
+                                return END_OF_INSTRUCTION;
                               }
 
    /* Reglas para las palabras reservadas */
@@ -142,33 +142,10 @@ id                            {letter}({letter}|{digit})*
                                 return INT_VAL;
                               }
 
-{real_val}                    {
-                                //wic::data_value data_v;
-                                //data_v.real_val = atof(yytext);
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::REAL, &data_v));
-                                return REAL_VAL;
-                              }
-{bool_val}                    {
-                                //wic::data_value data_v;
-                                //if (strcmp("true", yytext) == 0) data_v.bool_val = true;
-                                //else data_v.bool_val = false;
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::BOOL, &data_v));
-                                return BOOL_VAL;
-                              }
-
 
    /* Reglas segun el tipo de dato */
 {int_type}                    {
                                 return INT_TYPE;
-                              }
-{real_type}                   {
-                                return REAL_TYPE;
-                              }
-{bool_type}                   {
-                                return BOOL_TYPE;
-                              }
-{char_type}                   {
-                                return CHAR_TYPE;
                               }
 
 
@@ -248,13 +225,9 @@ id                            {letter}({letter}|{digit})*
                                 //printf("%s is an HEADER_END\n", yytext);
                                 return HEADER_END;
                               }
-{for_while}                   {
+{while}                       {
                                 //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
-                                return FOR_WHILE_CLAUSE;
-                              }
-{else_if_for_while}           {
-                                //printf("%s is an ELSE_IF_FOR_WHILE_CLAUSE\n", yytext);
-                                return ELSE_IF_FOR_WHILE_CLAUSE;
+                                return WHILE_CLAUSE;
                               }
 
 
@@ -278,16 +251,16 @@ id                            {letter}({letter}|{digit})*
                                 return CURLY_BRACKET_CLOSE;
                               }
 ","                           {
-                                //printf("%s is an ELEM_SEPARATOR\n", yytext);
-                                return ELEM_SEPARATOR;
+                                //printf("%s is an COMMA\n", yytext);
+                                return COMMA;
                               }
 "\("                          {
-                                //printf("%s is an PARETHESES_OPEN\n", yytext);
-                                return PARETHESES_OPEN;
+                                //printf("%s is an PARENTESIS_OPEN\n", yytext);
+                                return PARENTESIS_OPEN;
                               }
 "\)"                          {
-                                //printf("%s is an PARETHESES_CLOSE\n", yytext);
-                                return PARETHESES_CLOSE;
+                                //printf("%s is an PARENTESIS_CLOSE\n", yytext);
+                                return PARENTESIS_CLOSE;
                               }
 
 
@@ -298,41 +271,6 @@ id                            {letter}({letter}|{digit})*
                                 //yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
                                 yylval.string = strdup(yytext); 
                                 return ID;
-                              }
-
-
-  /* Reglas para los caracteres */
-\'                            {
-                                 BEGIN(CHAR_STATE);
-                                 return CHAR_QUOTE;
-                              }
-<CHAR_STATE>{char_val}        {
-                                //TODO
-                                //wic::data_value data_v;
-                                //if (yytext[0] == '\\')
-                                //{
-                                //    if (yytext[1] == '0') data_v.char_val = '\0';
-                                //    else if (yytext[1] == 'a') data_v.char_val = '\a';
-                                //    else if (yytext[1] == 'b') data_v.char_val = '\b';
-                                //    else if (yytext[1] == 't') data_v.char_val = '\t';
-                                //    else if (yytext[1] == 'n') data_v.char_val = '\n';
-                                //    else if (yytext[1] == 'v') data_v.char_val = '\v';
-                                //    else if (yytext[1] == 'f') data_v.char_val = '\f';
-                                //    else if (yytext[1] == 'r') data_v.char_val = '\r';
-                                //    else if (yytext[1] == '\"') data_v.char_val = '\"';
-                                //    else if (yytext[1] == '\'') data_v.char_val = '\'';
-                                //    else if (yytext[1] == '\\') data_v.char_val = '\\';
-                                //}
-                                //else
-                                //{
-                                //    data_v.char_val = yytext[0];
-                                //}
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::CHAR, &data_v));
-                                return CHAR_VAL;
-                              }
-<CHAR_STATE>\'                {
-                                BEGIN(INITIAL);
-                                return CHAR_QUOTE;
                               }
 
   /* Reglas para los strings */

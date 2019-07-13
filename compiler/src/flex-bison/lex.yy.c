@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 57
-#define YY_END_OF_BUFFER 58
+#define YY_NUM_RULES 48
+#define YY_END_OF_BUFFER 49
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -363,21 +363,19 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[116] =
+static const flex_int16_t yy_accept[94] =
     {   0,
-        0,    0,    0,    0,    0,    0,   42,   42,   45,   45,
-        1,    1,   58,   56,   54,    3,   55,   22,   44,   56,
-       41,   38,   39,   18,   16,   37,   17,   32,   19,    8,
-       30,   27,   15,   25,   29,   40,   33,   34,   40,   40,
-       40,   40,   40,   40,   35,   56,   36,   52,   53,   52,
-       48,   49,   42,   43,   42,   45,   46,    2,    1,    1,
-       54,   24,   20,   50,   47,    9,    9,    8,   28,   23,
-       26,   31,   40,   40,   40,   40,   40,   40,   40,   40,
-       40,   40,   21,   51,   48,   42,   45,    1,    9,   40,
-       40,   40,   40,   40,    7,   11,   40,   40,   40,   13,
+        0,    0,    0,    0,    0,    0,    0,    0,   36,   36,
+        1,    1,   49,   47,   45,    3,   46,   17,   35,   47,
+       32,   33,   13,   11,   31,   12,   47,   14,    8,   25,
+       22,   10,   20,   24,   34,   27,   28,   34,   34,   34,
+       34,   34,   29,   47,   30,   43,   44,   43,   39,   40,
+       48,   36,   37,    2,    1,    1,   45,   19,   15,   41,
+       38,    8,   23,   18,   21,   26,   34,   34,   34,   34,
+       34,   34,   16,   42,   39,   36,    1,   34,   34,    7,
+        9,   34,   34,   34,   34,    5,   34,   34,   34,    6,
+       34,    4,    0
 
-       40,   14,   40,   40,   12,   40,   10,    5,   40,   40,
-       40,    6,   40,    4,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -385,17 +383,17 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    4,    5,    6,    1,    1,    1,    7,    8,    9,
-       10,   11,   12,   13,   14,   15,   16,   17,   18,   18,
-       18,   18,   18,   18,   18,   18,   18,   19,    1,   20,
-       21,   22,   23,    1,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       25,   26,   27,    1,   24,    1,   28,   29,   30,   24,
+        1,    4,    5,    6,    1,    1,    1,    7,    1,    8,
+        9,   10,   11,   12,   13,   14,   15,   16,   16,   16,
+       16,   16,   16,   16,   16,   16,   16,   17,    1,   18,
+       19,   20,   21,    1,   22,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       23,    1,   24,    1,   22,    1,   25,   26,   27,   22,
 
-       31,   32,   24,   33,   34,   24,   35,   36,   24,   37,
-       38,   24,   24,   39,   40,   41,   42,   43,   24,   24,
-       24,   24,   44,   45,   46,    1,    1,    1,    1,    1,
+       28,   29,   22,   22,   30,   22,   31,   22,   22,   32,
+       33,   22,   22,   34,   22,   35,   36,   22,   22,   22,
+       22,   22,   37,   38,   39,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -412,105 +410,86 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[47] =
+static const YY_CHAR yy_meta[40] =
     {   0,
-        1,    1,    2,    1,    1,    3,    1,    4,    1,    1,
-        1,    1,    1,    1,    1,    1,    5,    6,    1,    1,
-        1,    1,    1,    6,    1,    4,    1,    5,    5,    6,
-        6,    6,    6,    6,    6,    6,    5,    6,    5,    6,
-        5,    6,    5,    1,    1,    1
+        1,    1,    2,    1,    1,    3,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    4,    1,    1,    1,    1,
+        1,    4,    1,    1,    4,    4,    4,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[125] =
+static const flex_int16_t yy_base[102] =
     {   0,
-        0,    0,   44,   45,  169,  168,   41,   42,  164,  163,
-       48,   50,  168,  173,  165,  173,  173,  145,  173,  158,
-      173,  173,  173,  173,  173,  149,  173,   40,  173,   46,
-      173,  142,  141,  140,  137,    0,  173,  173,   27,   36,
-       28,  122,  127,  118,  173,  111,  173,  173,  173,  142,
-        0,  173,  173,  173,    0,    0,  173,  173,  150,  149,
-      150,  173,  173,  173,  173,   54,   58,   62,  173,  173,
-      173,  173,    0,  113,  119,  121,  111,  111,  109,  104,
-       45,  102,  173,  173,    0,  173,    0,  139,   64,  106,
-      113,  101,   98,   98,    0,    0,  101,   94,  104,    0,
+        0,    0,   37,   38,  113,  112,    0,    0,  108,  107,
+       39,   41,  112,  117,  109,  117,  117,   91,  117,  102,
+      117,  117,  117,  117,   94,  117,   93,  117,   90,  117,
+       86,   85,   84,   81,    0,  117,  117,   67,   67,   63,
+       66,   69,  117,   58,  117,  117,  117,   83,    0,  117,
+      117,    0,  117,  117,   90,   89,   90,  117,  117,  117,
+      117,   75,  117,  117,  117,  117,    0,   62,   57,   56,
+       52,   51,  117,  117,    0,    0,   81,   59,   48,    0,
+        0,   46,   50,   49,   40,    0,   18,   17,   12,    0,
+       19,    0,  117,   52,   56,   60,   64,   68,   42,   72,
 
-       99,    0,   96,   89,    0,   46,    0,    0,   47,   46,
-       36,    0,   31,    0,  173,   86,   92,   98,  104,  110,
-      112,  118,  122,  127
+       76
     } ;
 
-static const flex_int16_t yy_def[125] =
+static const flex_int16_t yy_def[102] =
     {   0,
-      115,    1,  116,  116,  117,  117,  118,  118,  119,  119,
-      120,  120,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  121,  115,  115,  121,  121,
-      121,  121,  121,  121,  115,  115,  115,  115,  115,  115,
-      122,  115,  115,  115,  123,  124,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  121,  121,  121,  121,  121,  121,  121,  121,
-      121,  121,  115,  115,  122,  115,  124,  115,  115,  121,
-      121,  121,  121,  121,  121,  121,  121,  121,  121,  121,
+       93,    1,   94,   94,   95,   95,   96,   96,   97,   97,
+       98,   98,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   99,   93,   93,   99,   99,   99,
+       99,   99,   93,   93,   93,   93,   93,   93,  100,   93,
+       93,  101,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   99,   99,   99,   99,
+       99,   99,   93,   93,  100,  101,   93,   99,   99,   99,
+       99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+       99,   99,    0,   93,   93,   93,   93,   93,   93,   93,
 
-      121,  121,  121,  121,  121,  121,  121,  121,  121,  121,
-      121,  121,  121,  121,    0,  115,  115,  115,  115,  115,
-      115,  115,  115,  115
+       93
     } ;
 
-static const flex_int16_t yy_nxt[220] =
+static const flex_int16_t yy_nxt[157] =
     {   0,
        14,   15,   16,   17,   18,   19,   20,   21,   22,   23,
-       24,   25,   26,   27,   28,   29,   30,   30,   31,   32,
-       33,   34,   35,   36,   37,   14,   38,   36,   39,   40,
-       36,   41,   36,   42,   36,   36,   36,   36,   43,   36,
-       44,   36,   36,   45,   46,   47,   49,   49,   54,   54,
-       59,   60,   59,   60,   65,   78,   66,   66,   50,   50,
-       67,  114,   68,   68,   74,   75,   55,   55,   76,   79,
-       66,   66,   97,   77,   89,   89,   67,  113,   68,   68,
-       89,   89,  112,  111,  110,   98,   48,   48,   48,   48,
-       48,   48,   51,   51,   51,   51,   51,   51,   53,   53,
+       24,   25,   26,   27,   28,   29,   30,   31,   32,   33,
+       34,   35,   36,   37,   35,   38,   39,   35,   40,   41,
+       35,   35,   35,   42,   35,   35,   43,   44,   45,   47,
+       47,   55,   56,   55,   56,   67,   92,   91,   90,   89,
+       48,   48,   46,   46,   46,   46,   49,   49,   49,   49,
+       51,   51,   51,   51,   52,   52,   52,   52,   54,   54,
+       54,   54,   75,   88,   75,   75,   76,   76,   87,   76,
+       86,   85,   84,   83,   77,   82,   81,   80,   79,   78,
+       62,   57,   77,   77,   74,   73,   72,   71,   70,   69,
 
-       53,   53,   53,   53,   56,   56,   56,   56,   56,   56,
-       58,   58,   58,   58,   58,   58,   73,   73,   85,  107,
-       85,   85,   85,   85,   86,   86,   86,   87,   87,  109,
-       87,   87,   87,  108,  107,  106,  105,  104,  103,  102,
-      101,  100,   88,   99,   96,   95,   94,   93,   92,   91,
-       90,   61,   88,   88,   84,   83,   82,   81,   80,   72,
-       71,   70,   69,   64,   63,   62,   61,  115,   57,   57,
-       52,   52,   13,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115
+       68,   66,   65,   64,   63,   62,   61,   60,   59,   58,
+       57,   93,   53,   53,   50,   50,   13,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93
     } ;
 
-static const flex_int16_t yy_chk[220] =
+static const flex_int16_t yy_chk[157] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    3,    4,    7,    8,
-       11,   11,   12,   12,   28,   41,   28,   28,    3,    4,
-       30,  113,   30,   30,   39,   39,    7,    8,   40,   41,
-       66,   66,   81,   40,   67,   67,   68,  111,   68,   68,
-       89,   89,  110,  109,  106,   81,  116,  116,  116,  116,
-      116,  116,  117,  117,  117,  117,  117,  117,  118,  118,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    3,
+        4,   11,   11,   12,   12,   99,   91,   89,   88,   87,
+        3,    4,   94,   94,   94,   94,   95,   95,   95,   95,
+       96,   96,   96,   96,   97,   97,   97,   97,   98,   98,
+       98,   98,  100,   85,  100,  100,  101,  101,   84,  101,
+       83,   82,   79,   78,   77,   72,   71,   70,   69,   68,
+       62,   57,   56,   55,   48,   44,   42,   41,   40,   39,
 
-      118,  118,  118,  118,  119,  119,  119,  119,  119,  119,
-      120,  120,  120,  120,  120,  120,  121,  121,  122,  104,
-      122,  122,  122,  122,  123,  123,  123,  124,  124,  103,
-      124,  124,  124,  101,   99,   98,   97,   94,   93,   92,
-       91,   90,   88,   82,   80,   79,   78,   77,   76,   75,
-       74,   61,   60,   59,   50,   46,   44,   43,   42,   35,
-       34,   33,   32,   26,   20,   18,   15,   13,   10,    9,
-        6,    5,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-
-      115,  115,  115,  115,  115,  115,  115,  115,  115,  115,
-      115,  115,  115,  115,  115,  115,  115,  115,  115
+       38,   34,   33,   32,   31,   29,   27,   25,   20,   18,
+       15,   13,   10,    9,    6,    5,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -540,7 +519,7 @@ char *yytext;
 
     //#include <string>
 
-    #include "wic.tab.h"
+    #include "y.tab.h"
 
     int level = 0;
     int enter_special = 1;
@@ -550,16 +529,19 @@ char *yytext;
 
     int countSpaces(char* pattern);
 
-#line 554 "lex.yy.c"
+#line 533 "lex.yy.c"
 /* Definiciones regulares */
 /* Expresiones regulares reutilizables */
 /* Palabras reservadas */
 /* Valores segun el tipo de dato */
+/*real_val                      ({digit}+\.){digit}*|\.{digit}+*/
+/*bool_val                      (true|false)*/
+/*char_val                      [^']?|(\\[nrtvba0'"\\])*/
 /* Tipos de dato */
 /* Expresiones regulares para estructuras de control y bucles */
 /* Expresiones regulares delimitadoras */
 /* Identificador */
-#line 563 "lex.yy.c"
+#line 545 "lex.yy.c"
 
 #define INITIAL 0
 #define COMMENT_BLOCK 1
@@ -781,9 +763,9 @@ YY_DECL
 		}
 
 	{
-#line 66 "wic.l"
+#line 65 "wic.l"
 
-#line 68 "wic.l"
+#line 67 "wic.l"
   if (enter_special) {
     BEGIN(CHECK_LVL);
     enter_special = 0;
@@ -794,7 +776,7 @@ YY_DECL
 
    /* Cambios de ámbito */
 
-#line 798 "lex.yy.c"
+#line 780 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -821,13 +803,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 116 )
+				if ( yy_current_state >= 94 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 173 );
+		while ( yy_base[yy_current_state] != 117 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -854,7 +836,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 78 "wic.l"
+#line 77 "wic.l"
 {
                                 //printf("Procesando... \n<%s>\n", yytext);
                                 int level_change = countSpaces(yytext);
@@ -876,7 +858,7 @@ YY_RULE_SETUP
                               }
 	YY_BREAK
 case YY_STATE_EOF(CHECK_LVL):
-#line 97 "wic.l"
+#line 96 "wic.l"
 {
                                 if (level > 0) {
                                   level--;
@@ -886,7 +868,7 @@ case YY_STATE_EOF(CHECK_LVL):
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 103 "wic.l"
+#line 102 "wic.l"
 {
                                 printf("Vamos para atrás\n");
                                 BEGIN(INITIAL);
@@ -898,7 +880,7 @@ case YY_STATE_EOF(COMMENT_BLOCK):
 case YY_STATE_EOF(COMMENT_LINE):
 case YY_STATE_EOF(CHAR_STATE):
 case YY_STATE_EOF(STRING_STATE):
-#line 108 "wic.l"
+#line 107 "wic.l"
 {
                                 BEGIN(CHECK_LVL);
                               }
@@ -906,19 +888,19 @@ case YY_STATE_EOF(STRING_STATE):
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 111 "wic.l"
+#line 110 "wic.l"
 {
                                 BEGIN(CHECK_LVL);
                                 yyless(0);
                                 printf("Nueva línea\n");
                                 yylineno++;
-                                return END_OF_INSTR;
+                                return END_OF_INSTRUCTION;
                               }
 	YY_BREAK
 /* Reglas para las palabras reservadas */
 case 4:
 YY_RULE_SETUP
-#line 120 "wic.l"
+#line 119 "wic.l"
 {
                                 //printf("%s is a CONTINUE\n", yytext);
                                 return CONTINUE;
@@ -926,7 +908,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 124 "wic.l"
+#line 123 "wic.l"
 {
                                 //printf("%s is a BREAK\n", yytext);
                                 return BREAK;
@@ -934,7 +916,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 128 "wic.l"
+#line 127 "wic.l"
 {
                                 //printf("%s is a RETURN\n", yytext);
                                 return RETURN;
@@ -942,7 +924,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 132 "wic.l"
+#line 131 "wic.l"
 {
                                 return FUN;
                               }
@@ -950,7 +932,7 @@ YY_RULE_SETUP
 /* Reglas para los valores segun el tipo de dato */
 case 8:
 YY_RULE_SETUP
-#line 138 "wic.l"
+#line 137 "wic.l"
 {
                                 //TODO
                                 //wic::data_value data_v;
@@ -958,266 +940,216 @@ YY_RULE_SETUP
                                 return INT_VAL;
                               }
 	YY_BREAK
+/* Reglas segun el tipo de dato */
 case 9:
 YY_RULE_SETUP
-#line 145 "wic.l"
-{
-                                //wic::data_value data_v;
-                                //data_v.real_val = atof(yytext);
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::REAL, &data_v));
-                                return REAL_VAL;
-                              }
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 151 "wic.l"
-{
-                                //wic::data_value data_v;
-                                //if (strcmp("true", yytext) == 0) data_v.bool_val = true;
-                                //else data_v.bool_val = false;
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::BOOL, &data_v));
-                                return BOOL_VAL;
-                              }
-	YY_BREAK
-/* Reglas segun el tipo de dato */
-case 11:
-YY_RULE_SETUP
-#line 161 "wic.l"
+#line 146 "wic.l"
 {
                                 return INT_TYPE;
                               }
 	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 164 "wic.l"
-{
-                                return REAL_TYPE;
-                              }
-	YY_BREAK
-case 13:
-YY_RULE_SETUP
-#line 167 "wic.l"
-{
-                                return BOOL_TYPE;
-                              }
-	YY_BREAK
-case 14:
-YY_RULE_SETUP
-#line 170 "wic.l"
-{
-                                return CHAR_TYPE;
-                              }
-	YY_BREAK
 /* Regla de asignación */
-case 15:
+case 10:
 YY_RULE_SETUP
-#line 176 "wic.l"
+#line 152 "wic.l"
 {
                                 //printf("%s is an ASSIGN\n", yytext);
                                 return ASSIGN;
                               }
 	YY_BREAK
 /* Reglas para los operadores aritméticos */
-case 16:
+case 11:
 YY_RULE_SETUP
-#line 183 "wic.l"
+#line 159 "wic.l"
 {
                                 //printf("%s is a SUM\n", yytext);
                                 return SUM;
                               }
 	YY_BREAK
-case 17:
+case 12:
 YY_RULE_SETUP
-#line 187 "wic.l"
+#line 163 "wic.l"
 {
                                 //printf("%s is a SUBSTRACT\n", yytext);
                                 return SUBSTRACT;
                               }
 	YY_BREAK
-case 18:
+case 13:
 YY_RULE_SETUP
-#line 191 "wic.l"
+#line 167 "wic.l"
 {
                                 //printf("%s is a PRODUCT\n", yytext);
                                 return PRODUCT;
                               }
 	YY_BREAK
-case 19:
+case 14:
 YY_RULE_SETUP
-#line 195 "wic.l"
+#line 171 "wic.l"
 {
                                 //printf("%s is a DIVIDE\n", yytext);
                                 return DIVIDE;
                               }
 	YY_BREAK
 /* Reglas para los operadores lógicos */
-case 20:
+case 15:
 YY_RULE_SETUP
-#line 203 "wic.l"
+#line 179 "wic.l"
 {
                                 //printf("%s is a AND\n", yytext);
                                 return AND;
                               }
 	YY_BREAK
-case 21:
+case 16:
 YY_RULE_SETUP
-#line 207 "wic.l"
+#line 183 "wic.l"
 {
                                 //printf("%s is a OR\n", yytext);
                                 return OR;
                               }
 	YY_BREAK
-case 22:
+case 17:
 YY_RULE_SETUP
-#line 211 "wic.l"
+#line 187 "wic.l"
 {
                                 //printf("%s is a NOT\n", yytext);
                                 return NOT;
                               }
 	YY_BREAK
-case 23:
+case 18:
 YY_RULE_SETUP
-#line 215 "wic.l"
+#line 191 "wic.l"
 {
                                 //printf("%s is a EQUALS\n", yytext);
                                 return EQUALS;
                               }
 	YY_BREAK
-case 24:
+case 19:
 YY_RULE_SETUP
-#line 219 "wic.l"
+#line 195 "wic.l"
 {
                                 //printf("%s is a NOT_EQUALS\n", yytext);
                                 return NOT_EQUALS;
                               }
 	YY_BREAK
-case 25:
+case 20:
 YY_RULE_SETUP
-#line 223 "wic.l"
+#line 199 "wic.l"
 {
                                 //printf("%s is a GREATER\n", yytext);
                                 return GREATER;
                               }
 	YY_BREAK
-case 26:
+case 21:
 YY_RULE_SETUP
-#line 227 "wic.l"
+#line 203 "wic.l"
 {
                                 //printf("%s is a GREATER_EQUALS\n", yytext);
                                 return GREATER_EQUALS;
                               }
 	YY_BREAK
-case 27:
+case 22:
 YY_RULE_SETUP
-#line 231 "wic.l"
+#line 207 "wic.l"
 {
                                 //printf("%s is a LESS\n", yytext);
                                 return LESS;
                               }
 	YY_BREAK
-case 28:
+case 23:
 YY_RULE_SETUP
-#line 235 "wic.l"
+#line 211 "wic.l"
 {
                                 //printf("%s is a LESS_EQUALS\n", yytext);
                                 return LESS_EQUALS;
                               }
 	YY_BREAK
 /* Expresiones regulares para estructuras de control y bucles */
-case 29:
+case 24:
 YY_RULE_SETUP
-#line 243 "wic.l"
+#line 219 "wic.l"
 {
                                 //printf("%s is an IF_CLAUSE\n", yytext);
                                 return IF_CLAUSE;
                               }
 	YY_BREAK
-case 30:
+case 25:
 YY_RULE_SETUP
-#line 247 "wic.l"
+#line 223 "wic.l"
 {
                                 //printf("%s is an HEADER_END\n", yytext);
                                 return HEADER_END;
                               }
 	YY_BREAK
-case 31:
+case 26:
 YY_RULE_SETUP
-#line 251 "wic.l"
+#line 227 "wic.l"
 {
                                 //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
-                                return FOR_WHILE_CLAUSE;
-                              }
-	YY_BREAK
-case 32:
-YY_RULE_SETUP
-#line 255 "wic.l"
-{
-                                //printf("%s is an ELSE_IF_FOR_WHILE_CLAUSE\n", yytext);
-                                return ELSE_IF_FOR_WHILE_CLAUSE;
+                                return WHILE_CLAUSE;
                               }
 	YY_BREAK
 /* Expresiones regulares delimitadoras */
-case 33:
+case 27:
 YY_RULE_SETUP
-#line 263 "wic.l"
+#line 235 "wic.l"
 {
                                 //printf("%s is an SQUARE_BRACKET_OPEN\n", yytext);
                                 return SQUARE_BRACKET_OPEN;
                               }
 	YY_BREAK
-case 34:
+case 28:
 YY_RULE_SETUP
-#line 267 "wic.l"
+#line 239 "wic.l"
 {
                                 //printf("%s is an SQUARE_BRACKET_CLOSE\n", yytext);
                                 return SQUARE_BRACKET_CLOSE;
 
                               }
 	YY_BREAK
-case 35:
+case 29:
 YY_RULE_SETUP
-#line 272 "wic.l"
+#line 244 "wic.l"
 {
                                 //printf("%s is an CURLY_BRACKET_OPEN\n", yytext);
                                 return CURLY_BRACKET_OPEN;
                               }
 	YY_BREAK
-case 36:
+case 30:
 YY_RULE_SETUP
-#line 276 "wic.l"
+#line 248 "wic.l"
 {
                                 //printf("%s is an CURLY_BRACKET_CLOSE\n", yytext);
                                 return CURLY_BRACKET_CLOSE;
                               }
 	YY_BREAK
-case 37:
+case 31:
 YY_RULE_SETUP
-#line 280 "wic.l"
+#line 252 "wic.l"
 {
-                                //printf("%s is an ELEM_SEPARATOR\n", yytext);
-                                return ELEM_SEPARATOR;
+                                //printf("%s is an COMMA\n", yytext);
+                                return COMMA;
                               }
 	YY_BREAK
-case 38:
+case 32:
 YY_RULE_SETUP
-#line 284 "wic.l"
+#line 256 "wic.l"
 {
-                                //printf("%s is an PARETHESES_OPEN\n", yytext);
-                                return PARETHESES_OPEN;
+                                //printf("%s is an PARENTESIS_OPEN\n", yytext);
+                                return PARENTESIS_OPEN;
                               }
 	YY_BREAK
-case 39:
+case 33:
 YY_RULE_SETUP
-#line 288 "wic.l"
+#line 260 "wic.l"
 {
-                                //printf("%s is an PARETHESES_CLOSE\n", yytext);
-                                return PARETHESES_CLOSE;
+                                //printf("%s is an PARENTESIS_CLOSE\n", yytext);
+                                return PARENTESIS_CLOSE;
                               }
 	YY_BREAK
 /* Identificador */
-case 40:
+case 34:
 YY_RULE_SETUP
-#line 295 "wic.l"
+#line 267 "wic.l"
 {
                                 //TODO
                                 //std::string id = yytext;
@@ -1225,65 +1157,19 @@ YY_RULE_SETUP
                                 return ID;
                               }
 	YY_BREAK
-/* Reglas para los caracteres */
-case 41:
-YY_RULE_SETUP
-#line 304 "wic.l"
-{
-                                 BEGIN(CHAR_STATE);
-                                 return CHAR_QUOTE;
-                              }
-	YY_BREAK
-case 42:
-/* rule 42 can match eol */
-YY_RULE_SETUP
-#line 308 "wic.l"
-{
-                                //TODO
-                                //wic::data_value data_v;
-                                //if (yytext[0] == '\\')
-                                //{
-                                //    if (yytext[1] == '0') data_v.char_val = '\0';
-                                //    else if (yytext[1] == 'a') data_v.char_val = '\a';
-                                //    else if (yytext[1] == 'b') data_v.char_val = '\b';
-                                //    else if (yytext[1] == 't') data_v.char_val = '\t';
-                                //    else if (yytext[1] == 'n') data_v.char_val = '\n';
-                                //    else if (yytext[1] == 'v') data_v.char_val = '\v';
-                                //    else if (yytext[1] == 'f') data_v.char_val = '\f';
-                                //    else if (yytext[1] == 'r') data_v.char_val = '\r';
-                                //    else if (yytext[1] == '\"') data_v.char_val = '\"';
-                                //    else if (yytext[1] == '\'') data_v.char_val = '\'';
-                                //    else if (yytext[1] == '\\') data_v.char_val = '\\';
-                                //}
-                                //else
-                                //{
-                                //    data_v.char_val = yytext[0];
-                                //}
-                                //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::CHAR, &data_v));
-                                return CHAR_VAL;
-                              }
-	YY_BREAK
-case 43:
-YY_RULE_SETUP
-#line 332 "wic.l"
-{
-                                BEGIN(INITIAL);
-                                return CHAR_QUOTE;
-                              }
-	YY_BREAK
 /* Reglas para los strings */
-case 44:
+case 35:
 YY_RULE_SETUP
-#line 338 "wic.l"
+#line 275 "wic.l"
 {
                                 BEGIN(STRING_STATE);
                                 return STRING_QUOTE;
                               }
 	YY_BREAK
-case 45:
-/* rule 45 can match eol */
+case 36:
+/* rule 36 can match eol */
 YY_RULE_SETUP
-#line 342 "wic.l"
+#line 279 "wic.l"
 {
                                 //TODO
                                 //wic::data_value data_v ;
@@ -1293,91 +1179,91 @@ YY_RULE_SETUP
                                 return STRING_VAL;
                               }
 	YY_BREAK
-case 46:
+case 37:
 YY_RULE_SETUP
-#line 350 "wic.l"
+#line 287 "wic.l"
 {
                                 BEGIN(INITIAL);
                                 return STRING_QUOTE;
                               }
 	YY_BREAK
 /* Reglas para los comentarios */
-case 47:
+case 38:
 YY_RULE_SETUP
-#line 357 "wic.l"
+#line 294 "wic.l"
 { BEGIN(COMMENT_LINE); }
 	YY_BREAK
-case 48:
+case 39:
 YY_RULE_SETUP
-#line 358 "wic.l"
+#line 295 "wic.l"
 { }
 	YY_BREAK
-case 49:
-/* rule 49 can match eol */
+case 40:
+/* rule 40 can match eol */
 YY_RULE_SETUP
-#line 359 "wic.l"
+#line 296 "wic.l"
 {
                                 yylineno++;
                                 BEGIN(INITIAL);
                               }
 	YY_BREAK
-#line 363 "wic.l"
+#line 300 "wic.l"
 /* Do error */
 	YY_BREAK
-case 50:
+case 41:
 YY_RULE_SETUP
-#line 366 "wic.l"
+#line 303 "wic.l"
 { BEGIN(COMMENT_BLOCK); }
 	YY_BREAK
-case 51:
+case 42:
 YY_RULE_SETUP
-#line 367 "wic.l"
+#line 304 "wic.l"
 {
                                 BEGIN(INITIAL);
                               }
 	YY_BREAK
-case 52:
+case 43:
 YY_RULE_SETUP
-#line 370 "wic.l"
+#line 307 "wic.l"
 
 	YY_BREAK
-case 53:
-/* rule 53 can match eol */
+case 44:
+/* rule 44 can match eol */
 YY_RULE_SETUP
-#line 371 "wic.l"
+#line 308 "wic.l"
 { yylineno++; }
 	YY_BREAK
-#line 372 "wic.l"
+#line 309 "wic.l"
 /* Do error */
 	YY_BREAK
-case 54:
+case 45:
 YY_RULE_SETUP
-#line 375 "wic.l"
+#line 312 "wic.l"
 {
                                 printf("Esto es un tabulado\n");
                               }
 	YY_BREAK
-case 55:
+case 46:
 YY_RULE_SETUP
-#line 378 "wic.l"
+#line 315 "wic.l"
 {
                                 printf("Esto es un espacio");
                               }
 	YY_BREAK
 /* Unknowns & errors */
-case 56:
+case 47:
 YY_RULE_SETUP
-#line 383 "wic.l"
+#line 320 "wic.l"
 {
                                 printf("<%s> is an unknown\n", yytext);
                               }
 	YY_BREAK
-case 57:
+case 48:
 YY_RULE_SETUP
-#line 387 "wic.l"
+#line 324 "wic.l"
 ECHO;
 	YY_BREAK
-#line 1381 "lex.yy.c"
+#line 1267 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1672,7 +1558,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 116 )
+			if ( yy_current_state >= 94 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1700,11 +1586,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 116 )
+		if ( yy_current_state >= 94 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 115);
+	yy_is_jam = (yy_current_state == 93);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2380,7 +2266,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 387 "wic.l"
+#line 324 "wic.l"
 
 
 /* Funciones y declaraciones auxiliares */

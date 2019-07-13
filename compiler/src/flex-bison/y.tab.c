@@ -62,30 +62,18 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "wic.y" /* yacc.c:339  */
+#line 1 "bwic.y" /* yacc.c:339  */
 
+  #include <stdio.h>
+  #include <string.h>
+  #include <stdlib.h>
+  #include <stdbool.h>
+  extern FILE *yyin;
+  int yydebug = 1;
+  void yyerror (char const*);
+  char* stringWithNewline(char*);
 
-    /* Declaraciones */
-
-    #include <math.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    //#include <iostream>
-
-    //#include "../utils/termcolor.hpp"
-    //#include "../symbol-table/SymbolTableManager.h"
-    //#include "../code-generator/CodeGeneratorManager.h"
-
-    int yylex(void);
-    void yyerror(char const * s);
-
-    extern int level;
-    extern int yylineno;
-
-
-
-
-#line 89 "wic.tab.c" /* yacc.c:339  */
+#line 77 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -104,12 +92,12 @@
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "wic.tab.h".  */
-#ifndef YY_YY_WIC_TAB_H_INCLUDED
-# define YY_YY_WIC_TAB_H_INCLUDED
+   by #include "y.tab.h".  */
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -120,73 +108,96 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NEW = 258,
-    CONTINUE = 259,
-    BREAK = 260,
-    RETURN = 261,
-    FUN = 262,
-    GLOBAL = 263,
-    STATIC = 264,
-    INT_VAL = 265,
-    REAL_VAL = 266,
-    BOOL_VAL = 267,
-    CHAR_VAL = 268,
-    STRING_VAL = 269,
-    INT_TYPE = 270,
-    REAL_TYPE = 271,
-    BOOL_TYPE = 272,
-    CHAR_TYPE = 273,
-    VOID = 274,
-    ASSIGN = 275,
-    SUM = 276,
-    SUBSTRACT = 277,
-    PRODUCT = 278,
-    DIVIDE = 279,
-    MODULUS = 280,
-    POWER = 281,
-    RADICAL = 282,
-    INCREMENT = 283,
-    DECREMENT = 284,
-    AND = 285,
-    OR = 286,
-    NOT = 287,
-    EQUALS = 288,
-    NOT_EQUALS = 289,
-    GREATER = 290,
-    GREATER_EQUALS = 291,
-    LESS = 292,
-    LESS_EQUALS = 293,
-    AND_BIT = 294,
-    OR_BIT = 295,
-    XOR_BIT = 296,
-    LEFT_SHIFT = 297,
-    RIGHT_SHIFT = 298,
-    UNION = 299,
-    DIFFERENCE = 300,
-    INTERSECTION = 301,
-    IF_CLAUSE = 302,
-    FOR_WHILE_CLAUSE = 303,
-    HEADER_END = 304,
-    ELSE_IF_FOR_WHILE_CLAUSE = 305,
-    SQUARE_BRACKET_OPEN = 306,
-    SQUARE_BRACKET_CLOSE = 307,
-    CURLY_BRACKET_OPEN = 308,
-    CURLY_BRACKET_CLOSE = 309,
-    ELEM_SEPARATOR = 310,
-    PARETHESES_OPEN = 311,
-    PARETHESES_CLOSE = 312,
-    END_OF_INSTR = 313,
-    OPEN_CONTEXT_TAG = 314,
-    CLOSE_CONTEXT_TAG = 315,
-    CHAR_QUOTE = 316,
-    STRING_QUOTE = 317,
-    ID = 318
+    CONTINUE = 258,
+    BREAK = 259,
+    RETURN = 260,
+    FUN = 261,
+    INT_VAL = 262,
+    STRING_VAL = 263,
+    INT_TYPE = 264,
+    STRING_TYPE = 265,
+    ASSIGN = 266,
+    SUM = 267,
+    SUBSTRACT = 268,
+    PRODUCT = 269,
+    DIVIDE = 270,
+    AND = 271,
+    OR = 272,
+    NOT = 273,
+    EQUALS = 274,
+    NOT_EQUALS = 275,
+    GREATER = 276,
+    GREATER_EQUALS = 277,
+    LESS = 278,
+    LESS_EQUALS = 279,
+    IF_CLAUSE = 280,
+    WHILE_CLAUSE = 281,
+    HEADER_END = 282,
+    SQUARE_BRACKET_OPEN = 283,
+    SQUARE_BRACKET_CLOSE = 284,
+    CURLY_BRACKET_OPEN = 285,
+    CURLY_BRACKET_CLOSE = 286,
+    COMMA = 287,
+    PARENTESIS_OPEN = 288,
+    PARENTESIS_CLOSE = 289,
+    END_OF_INSTRUCTION = 290,
+    OPEN_CONTEXT_TAG = 291,
+    CLOSE_CONTEXT_TAG = 292,
+    STRING_QUOTE = 293,
+    ID = 294
   };
 #endif
+/* Tokens.  */
+#define CONTINUE 258
+#define BREAK 259
+#define RETURN 260
+#define FUN 261
+#define INT_VAL 262
+#define STRING_VAL 263
+#define INT_TYPE 264
+#define STRING_TYPE 265
+#define ASSIGN 266
+#define SUM 267
+#define SUBSTRACT 268
+#define PRODUCT 269
+#define DIVIDE 270
+#define AND 271
+#define OR 272
+#define NOT 273
+#define EQUALS 274
+#define NOT_EQUALS 275
+#define GREATER 276
+#define GREATER_EQUALS 277
+#define LESS 278
+#define LESS_EQUALS 279
+#define IF_CLAUSE 280
+#define WHILE_CLAUSE 281
+#define HEADER_END 282
+#define SQUARE_BRACKET_OPEN 283
+#define SQUARE_BRACKET_CLOSE 284
+#define CURLY_BRACKET_OPEN 285
+#define CURLY_BRACKET_CLOSE 286
+#define COMMA 287
+#define PARENTESIS_OPEN 288
+#define PARENTESIS_CLOSE 289
+#define END_OF_INSTRUCTION 290
+#define OPEN_CONTEXT_TAG 291
+#define CLOSE_CONTEXT_TAG 292
+#define STRING_QUOTE 293
+#define ID 294
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 12 "bwic.y" /* yacc.c:355  */
+ int number; char* string; 
+
+#line 198 "y.tab.c" /* yacc.c:355  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -196,11 +207,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_WIC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 204 "wic.tab.c" /* yacc.c:358  */
+#line 215 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -440,23 +451,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   1
+#define YYLAST   0
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  64
+#define YYNTOKENS  40
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  4
+#define YYNSTATES  3
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   318
+#define YYMAXUTOK   294
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -494,16 +505,14 @@ static const yytype_uint8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    59,    60,    61,    62,    63
+      35,    36,    37,    38,    39
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    79,    79
+       0,    58,    58
 };
 #endif
 
@@ -512,19 +521,15 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "NEW", "CONTINUE", "BREAK", "RETURN",
-  "FUN", "GLOBAL", "STATIC", "INT_VAL", "REAL_VAL", "BOOL_VAL", "CHAR_VAL",
-  "STRING_VAL", "INT_TYPE", "REAL_TYPE", "BOOL_TYPE", "CHAR_TYPE", "VOID",
-  "ASSIGN", "SUM", "SUBSTRACT", "PRODUCT", "DIVIDE", "MODULUS", "POWER",
-  "RADICAL", "INCREMENT", "DECREMENT", "AND", "OR", "NOT", "EQUALS",
+  "$end", "error", "$undefined", "CONTINUE", "BREAK", "RETURN", "FUN",
+  "INT_VAL", "STRING_VAL", "INT_TYPE", "STRING_TYPE", "ASSIGN", "SUM",
+  "SUBSTRACT", "PRODUCT", "DIVIDE", "AND", "OR", "NOT", "EQUALS",
   "NOT_EQUALS", "GREATER", "GREATER_EQUALS", "LESS", "LESS_EQUALS",
-  "AND_BIT", "OR_BIT", "XOR_BIT", "LEFT_SHIFT", "RIGHT_SHIFT", "UNION",
-  "DIFFERENCE", "INTERSECTION", "IF_CLAUSE", "FOR_WHILE_CLAUSE",
-  "HEADER_END", "ELSE_IF_FOR_WHILE_CLAUSE", "SQUARE_BRACKET_OPEN",
+  "IF_CLAUSE", "WHILE_CLAUSE", "HEADER_END", "SQUARE_BRACKET_OPEN",
   "SQUARE_BRACKET_CLOSE", "CURLY_BRACKET_OPEN", "CURLY_BRACKET_CLOSE",
-  "ELEM_SEPARATOR", "PARETHESES_OPEN", "PARETHESES_CLOSE", "END_OF_INSTR",
-  "OPEN_CONTEXT_TAG", "CLOSE_CONTEXT_TAG", "CHAR_QUOTE", "STRING_QUOTE",
-  "ID", "$accept", "main", YY_NULLPTR
+  "COMMA", "PARENTESIS_OPEN", "PARENTESIS_CLOSE", "END_OF_INSTRUCTION",
+  "OPEN_CONTEXT_TAG", "CLOSE_CONTEXT_TAG", "STRING_QUOTE", "ID", "$accept",
+  "begin", YY_NULLPTR
 };
 #endif
 
@@ -536,17 +541,14 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308,   309,   310,   311,   312,   313,   314,
-     315,   316,   317,   318
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294
 };
 # endif
 
-#define YYPACT_NINF -59
+#define YYPACT_NINF -1
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-59)))
+  (!!((Yystate) == (-1)))
 
 #define YYTABLE_NINF -1
 
@@ -557,7 +559,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -58,   -59,     1,   -59
+      -1,     0,    -1
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -565,19 +567,19 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     2,     0,     1
+       2,     0,     1
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -59,   -59
+      -1,    -1
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2
+      -1,     1
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -585,31 +587,31 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     3
+       2
 };
 
 static const yytype_uint8 yycheck[] =
 {
-      58,     0
+       0
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    58,    65,     0
+       0,    41,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    64,    65
+       0,    40,    41
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1
+       0,     2,     0
 };
 
 
@@ -1286,15 +1288,15 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 79 "wic.y" /* yacc.c:1646  */
+#line 58 "bwic.y" /* yacc.c:1646  */
     {
-		printf("main");
-	    }
-#line 1294 "wic.tab.c" /* yacc.c:1646  */
+          printf("Hey");
+        }
+#line 1296 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1298 "wic.tab.c" /* yacc.c:1646  */
+#line 1300 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1522,444 +1524,16 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 83 "wic.y" /* yacc.c:1906  */
+#line 63 "bwic.y" /* yacc.c:1906  */
 
 
-//
-//input: instr END_OF_INSTR {
-//			    ASTNode* node = reinterpret_cast<ASTNode *>($1);
-//			    main_body->add_instr(node);
-//			  }
-//    | OPEN_CONTEXT_TAG instr CLOSE_CONTEXT_TAG input {wic::ASTBodyNode* body_ = reinterpret_cast<wic::ASTBodyNode *>($1);
-//					       wic::ASTNode* instr = reinterpret_cast<wic::ASTNode* >($3);
-//					       body_->add_instr(instr);}
-//
-//data_init: GLOBAL data_type			  {
-//						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>($2);
-//						    entry_d->var.global = true;
-//						    entry_d->var.stat = false;
-//						    entry_d->var.local = false;
-//						    $$ = entry_d;
-//						  }
-//    | STATIC data_type				  {
-//						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>($2);
-//						    entry_d->var.global = false;
-//						    entry_d->var.stat = true;
-//						    entry_d->var.local = false;
-//						    $$ = entry_d;
-//    						  }
-//    | data_type					  {
-//    						    wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>($1);
-//    						    entry_d->var.global = false;
-//    						    entry_d->var.stat = false;
-//    						    entry_d->var.local = true;
-//    						    $$ = entry_d;
-//     						  }
-//    | GLOBAL array_init
-//    | STATIC array_init
-//    | array_init
-//
-//array_init: data_type SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
-//    | data_type SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE
-//
-//data_type: INT_TYPE				  {
-//						    wic::entry_data* entry_d = new wic::entry_data();
-//						    entry_d->var.type = wic::INT;
-//						    entry_d->var.size = 4;
-//						    $$ = entry_d;
-//						  }
-//    | REAL_TYPE					  {
-//						    wic::entry_data* entry_d = new wic::entry_data();
-//						    entry_d->var.type = wic::REAL;
-//						    entry_d->var.size = 4;
-//						    $$ = entry_d;
-//						  }
-//    | BOOL_TYPE 				  {
-//						    wic::entry_data* entry_d = new wic::entry_data();
-//						    entry_d->var.type = wic::BOOL;
-//						    entry_d->var.size = 1;
-//						    $$ = entry_d;
-//						  }
-//    | CHAR_TYPE                                   {
-//    						    wic::entry_data* entry_d = new wic::entry_data();
-//    						    entry_d->var.type = wic::CHAR;
-//    						    entry_d->var.size = 1;
-//    						    $$ = entry_d;
-//    						  }
-//    | VOID					  {
-//    						    wic::entry_data* entry_d = new wic::entry_data();
-//						    entry_d->var.type = wic::VOID;
-//						    entry_d->var.size = 4;
-//						    $$ = entry_d;
-//    						  }
-//
-//instr: data_init ID                               {
-//						    $$ = ast->tree_build($1, $2);
-//						  }
-//    | data_init ID ASSIGN expr                    {
-//    						    wic::ASTNode* id = ast->tree_build($1, $2);
-//
-//    						    wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($4);
-//    						    wic::ASTAssignNode* assign = new wic::ASTAssignNode(id->get_data_type(), id, expr);
-//    						    $$ = ast->tree_build(assign);
-//    						    ast->print();
-//    						    std::cout << std::endl;
-//    						  }
-//    | ID array_access                             { printf("Término (VectorVal)");}
-//    | ID array_access ASSIGN expr
-//    | if_instr {$$ = ($1);}
-//    | for_instr
-//    | while_instr {$$ = ($1);}
-//    | expr { $$ = ($1); }
-//    | fun_init { $$ =($1); }
-//    | fun_call
-//    | /* empty */
-//
-//params: params ELEM_SEPARATOR data_type ID 	{
-//        										wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>($3);
-//        										wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>($4);
-//        										id->set_data_type(entry_d->var.type);
-//												wic::ASTParamNode* params = reinterpret_cast<wic::ASTParamNode *>($1);
-//												params->add_params(id);
-//												$$ = ast->tree_build(params);
-//											}
-//    | data_type ID	{
-//						wic::entry_data* entry_d = reinterpret_cast<wic::entry_data *>($1);
-//        				wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>($2);
-//        				id->set_data_type(entry_d->var.type);
-//						wic::ASTParamNode* params = new wic::ASTParamNode(id);
-//						$$ = ast->tree_build(params);
-//					}
-//
-//args: args ELEM_SEPARATOR expr
-//    | expr
-//
-//fun_init: FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input RETURN expr END_OF_INSTR CLOSE_CONTEXT_TAG
-//     {
-//        wic::ASTNode* id = ast->tree_build($2,$3);
-//		printf("HOLA MUNDO\n");
-//		wic::ASTParamNode* param = reinterpret_cast<wic::ASTParamNode *>($5);
-//		wic::ASTBodyNode* body = reinterpret_cast<wic::ASTBodyNode *>($10);
-//		wic::ASTIDNode* expr = reinterpret_cast<wic::ASTIDNode *>($12);
-//		wic::ASTReturnNode* ret = new wic::ASTReturnNode(expr);
-//		wic::ASTFunctionNode* func = new wic::ASTFunctionNode(id->get_id(),id->get_data_type(),param,body,ret);
-//		$$ = ast->tree_build(func);
-//     }
-//    | FUN data_type ID PARETHESES_OPEN params PARETHESES_CLOSE END_OF_INSTR
-//
-//fun_call: ID PARETHESES_OPEN args PARETHESES_CLOSE END_OF_INSTR
-//								{
-//
-//								}
-//
-//while_instr: expr /*{ wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode* >($1); }*/ FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input /*{ wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode* >($7); }*/ CLOSE_CONTEXT_TAG
-//      while_middle_blocks /*{ wic::ASTWhileNode* whilemid_= reinterpret_cast<wic::ASTWhileNode* >($10); }*/
-//      while_end_block /*{
-//							wic::ASTBodyNode* welse_ = reinterpret_cast<wic::ASTBody *>($12);
-//							wic::ASTWhileNode* while_ = new wic::ASTWhileNode(expr, input, welse_);
-//							while_->add_mid_block(whilemid_);
-//				    		$$ = ast->tree_build(while_);
-//					  }*/
-//
-//while_middle_blocks: while_middle_blocks
-//      ELSE_IF_FOR_WHILE_CLAUSE expr /*{ wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode* <($3); }*/ FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input /*{ wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode* >($8); }*/ CLOSE_CONTEXT_TAG /*{ $$ = wic::ASTWhileNode* while_ = new wic::ASTWhileNode(expr, input); }*/
-//    | /* empty */
-//
-//while_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG /*{ $$ = ($5); }*/
-//    | /* empty */
-//
-//for_instr: expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
-//      for_middle_blocks
-//      for_end_block
-//
-//for_middle_blocks: for_middle_blocks
-//      ELSE_IF_FOR_WHILE_CLAUSE expr FOR_WHILE_CLAUSE expr HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
-//    | /* empty */
-//
-//for_end_block: ELSE_IF_FOR_WHILE_CLAUSE FOR_WHILE_CLAUSE HEADER_END END_OF_INSTR
-//     OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
-//    | /* empty */
-//
-//if_instr: expr IF_CLAUSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG
-//      if_middle_blocks
-//      if_end_block {
-//      		     wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode *>($1);
-//      		     wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode *>($6);
-//      		     wic::ASTIfNode* ifmid_= reinterpret_cast<wic::ASTIfNode *>($8);
-//		     wic::ASTBodyNode* else_ = reinterpret_cast<wic::ASTBodyNode *>($9);
-//
-//		     wic::ASTIfNode* if_ = new wic::ASTIfNode(expr, input, else_);
-//		     if_->add_mid_block(ifmid_);
-//
-//		     $$ = ast->tree_build(if_);
-//		   }
-//
-//if_middle_blocks: if_middle_blocks ELSE_IF_FOR_WHILE_CLAUSE expr IF_CLAUSE HEADER_END END_OF_INSTR
-//      OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG {
-//        					  wic::ASTRelationalNode* expr = reinterpret_cast<wic::ASTRelationalNode *>($3);
-//      						  wic::ASTBodyNode* input = reinterpret_cast<wic::ASTBodyNode* >($8);
-//      						  $$ = new wic::ASTIfNode(expr, input);
-//      					       }
-//    | /* empty */
-//
-//if_end_block: ELSE_IF_FOR_WHILE_CLAUSE IF_CLAUSE HEADER_END END_OF_INSTR
-//    OPEN_CONTEXT_TAG input CLOSE_CONTEXT_TAG { $$ = ($5); }
-//    | /* empty */
-//
-//array_access: SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
-//
-//expr: ID ASSIGN expr
-//				{
-//					    wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>($1);
-//
-//					    if (!id->is_registered()) {
-//						std::cout << termcolor::red << termcolor::bold
-//							<< "[!] Error: " << termcolor::reset << "\'" << id->get_id()
-//							<< "\' was not declared in this scope"
-//							<< std::endl;
-//						exit(-1);
-//				    	}
-//
-//				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//				    	wic::ASTAssignNode* assign = new wic::ASTAssignNode(id->get_data_type(), id, term);
-//
-//				 	$$ = ast->tree_build(assign);
-//					lst->show(id->get_id());
-//
-//			  	}
-//    | expr SUM term
-//             			{
-//				    	wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-//				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-//				    	wic::ASTSumNode* sum = new wic::ASTSumNode(expr, term);
-//				 	sum->to_code(cg);
-//				    	$$ = ast->tree_build(sum);
-//				}
-//    | expr SUBSTRACT term
-//    				{
-//                                	wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-//                                        wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-//                                        wic::ASTSubNode* sub = new wic::ASTSubNode(expr, term);
-//
-//                                        $$ = ast->tree_build(sub);
-//			  	}
-//    | INCREMENT ID
-//    | ID INCREMENT
-//    | DECREMENT ID
-//    | ID DECREMENT
-//    | expr LESS term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTLessNode* less = new wic::ASTLessNode(expr, term);
-//
-// 					$$ = ast->tree_build(less);
-// 				}
-//    | expr LESS_EQUALS term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTLessEqualNode* less_equal = new wic::ASTLessEqualNode(expr, term);
-//
-// 					$$ = ast->tree_build(less_equal);
-// 				}
-//    | expr GREATER term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTGreaterNode* greater = new wic::ASTGreaterNode(expr, term);
-//
-// 					$$ = ast->tree_build(greater);
-// 				}
-//    | expr GREATER_EQUALS term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTGreaterEqualNode* greater_equal = new wic::ASTGreaterEqualNode(expr, term);
-//
-// 					$$ = ast->tree_build(greater_equal);
-// 				}
-//    | expr EQUALS term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTEqualNode* equal = new wic::ASTEqualNode(expr, term);
-//
-// 					$$ = ast->tree_build(equal);
-// 				}
-//    | expr NOT_EQUALS term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTNotEqualNode* not_equal = new wic::ASTNotEqualNode(expr, term);
-//
-// 					$$ = ast->tree_build(not_equal);
-// 				}
-//    | expr AND term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTAndNode* and_ = new wic::ASTAndNode(expr, term);
-//
-// 					$$ = ast->tree_build(and_);
-// 				}
-//    | expr OR term
-// 				{
-// 					wic::ASTNode* expr = reinterpret_cast<wic::ASTNode *>($1);
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($3);
-//
-// 					wic::ASTOrNode* or_ = new wic::ASTOrNode(expr, term);
-//
-// 					$$ = ast->tree_build(or_);
-// 				}
-//    | NOT term
-// 				{
-// 					wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($2);
-//
-// 					wic::ASTNotNode* not_ = new wic::ASTNotNode(term);
-//
-// 					$$ = ast->tree_build(not_);
-// 				}
-//    | expr AND_BIT term
-//    | expr OR_BIT term
-//    | expr XOR_BIT term
-//    | expr LEFT_SHIFT term
-//    | expr RIGHT_SHIFT term
-//    | expr UNION term
-//    | expr DIFFERENCE term
-//    | expr INTERSECTION term
-//    | term { $$ = ($1); }
-//    | data_vector
-//
-//term: ID
-//				{
-//				    	wic::ASTIDNode* id = reinterpret_cast<wic::ASTIDNode *>($1);
-//				    	std::cout << "Factor : ID (name=" << id->get_id() << ")" << std::endl;
-//
-//				    	if (!id->is_registered())
-//				    	{
-//						std::cout << termcolor::red << termcolor::bold
-//							<< "[!] Error: " << termcolor::reset << "\'" << id->get_id()
-//      						  	<< "\' was not declared in this scope"
-//      						  	<< std::endl;
-//      						  	exit(-1);
-//				    	}
-//				    		$$ = ast->tree_build(id);
-//			  	}
-//    | term PRODUCT power
-//				{
-//				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($1);
-//				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>($3);
-//
-//				    	wic::ASTProdNode* prod = new wic::ASTProdNode(term, power);
-//
-//				    	$$ = ast->tree_build(prod);
-//			  	}
-//    | term DIVIDE power
-//                      		{
-//				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($1);
-//				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>($3);
-//
-//				    	wic::ASTDivNode* div = new wic::ASTDivNode(term, power);
-//
-//				    	$$ = ast->tree_build(div);
-//			  	}
-//    | term MODULUS power
-//	      			{
-//				    	wic::ASTNode* term = reinterpret_cast<wic::ASTNode *>($1);
-//				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>($3);
-//
-//				    	wic::ASTModNode* mod = new wic::ASTModNode(term, power);
-//
-//				    	$$ = ast->tree_build(mod);
-//			  	}
-//    | power
-//
-//power: power RADICAL factor
-//                  		{
-//				    	wic::ASTNode* power = reinterpret_cast<wic::ASTNode *>($1);
-//				    	wic::ASTNode* factor = reinterpret_cast<wic::ASTNode *>($3);
-//
-//				    	wic::ASTRadicalNode* radical = new wic::ASTRadicalNode(power, factor);
-//
-//				    	$$ = ast->tree_build(radical);
-//			  	}
-//    | power POWER factor
-//    | factor
-//
-//factor: PARETHESES_OPEN expr PARETHESES_CLOSE
-//    | data_value
-//
-//data_value: INT_VAL
-// 				{
-//				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($1);
-//				    	std::cout << "Factor : INT(value=" << node->get_data_value().int_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//			  	}
-//    | SUBSTRACT INT_VAL
-//    				{
-//				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($2);
-//				    	int val = -node->get_data_value().int_val;
-//				    	node->set_data_value((void*)&val);
-//				    	std::cout << "Factor: NEG_INT(value=" << node->get_data_value().int_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//			  	}
-//    | REAL_VAL
-//                      		{
-//				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($1);
-//				    	std::cout << "Factor : REAL(value=" << node->get_data_value().real_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//			  	}
-//    | SUBSTRACT REAL_VAL
-//                      		{
-//				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($2);
-//				    	float val = -node->get_data_value().real_val;
-//				    	node->set_data_value((void*)&val);
-//				    	std::cout << "Factor: NEG_REAL(value=" << node->get_data_value().real_val << ")" << std::endl;
-//					$$ = reinterpret_cast<void *>(node);
-//			  	}
-//    | BOOL_VAL
-//                      		{
-//			    		wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($1);
-//				    	std::cout << "Factor : BOOL(value=" << node->get_data_value().bool_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//				}
-//    | CHAR_QUOTE CHAR_VAL CHAR_QUOTE
-//    				{
-//				    	wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($2);
-//				    	std::cout << "Factor : CHAR(value=" << node->get_data_value().char_val << ",ascii="
-//					    << (int)node->get_data_value().char_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//			  	}
-//    | STRING_QUOTE STRING_VAL STRING_QUOTE
-//    				{
-//			    		wic::ASTLeafNode* node = reinterpret_cast<wic::ASTLeafNode *>($2);
-//				    	std::cout << "Factor : STRING(value=" << node->get_data_value().str_val << ")" << std::endl;
-//				    	$$ = reinterpret_cast<void *>(node);
-//			  	}
-//
-//data_vector: CURLY_BRACKET_OPEN args CURLY_BRACKET_CLOSE
-//
-//%%
-//
-//
+int main(int argc, char** argv) {
+  printf("Hola");
+  if (argc>1) yyin=fopen(argv[1],"r");
+  yyparse();
+}
 
-void yyerror(char const *s){
-	fprintf(stderr,"ERROR SINTACTICO []: %s\n");
+
+void yyerror (char const *s) {
+  fprintf (stderr, "ERROR SINTACTICO []: \n");
 }
