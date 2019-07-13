@@ -11,7 +11,7 @@
 %}
 
 %union { int number; char* string; }
-
+//////////NOTA PARA TODO EL MUNDO (FUTURO) - > CREO QUE AL FINAL DE UNA INSTRUCCION QUE LE SIGUE UN CLOSE CONTEXT TAG, NO SE IMPRIME END_OF_INSTRUCTION
 %token <number> CONTINUE
 %token <number> BREAK
 %token <number> RETURN
@@ -62,14 +62,14 @@ root : declaration
      | function
      ;
 
-declaration : INT VARIABLE SEMICOLON {insertVariable($<string>2);}
+declaration : INT_TYPE ID END_OF_INSTRUCTION {insertVariable($<string>2);}
             ;
 
-function : INT VARIABLE {insertFunction($<string>2);} OPENINGBRACKET {openScope();} params {closeScope();} CLOSINGBRACKET OPENINGCURLYBRACKET {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET 
+function : FUN ID {insertFunction($<string>2);} PARENTESIS_OPEN {openScope();} params {closeScope();} PARENTESIS_CLOSE {openScope();} HEADER_END END_OF_INSTRUCTION OPEN_CONTEXT_TAG codeSet CLOSE_CONTEXT_TAG {closingScope();} 
          ;
 
-params : INT VARIABLE COMMA params {insertVariable($<string>2);}
-       | INT VARIABLE {insertVariable($<string>2);}
+params : INT_TYPE ID params {insertVariable($<string>2);}
+       | COMMA INT_TYPE ID params
        | ''
        ;
 
@@ -82,40 +82,40 @@ codeSet : declaration codeSet
         ;
 
 instruction : assignation
-            | aritmeticOperation SEMICOLON
-            | return SEMICOLON
-            | print SEMICOLON
-            | BREAK SEMICOLON {breakCode();}
+            | aritmeticOperation END_OF_INSTRUCTION
+            | return END_OF_INSTRUCTION
+            | print END_OF_INSTRUCTION
+            | BREAK END_OF_INSTRUCTION{breakCode();}
             ;
 
-assignation : VARIABLE '=' NUMBER SEMICOLON {generateAssignStaticValueToVariableCode($<string>1,$<number>3);}
-            | VARIABLE '=' VARIABLE SEMICOLON {generateAssignStaticVriableToVariableCode($<string>1,$<string>3);}
-            | VARIABLE '=' VARIABLE OPENINGBRACKET {functionCall($<string>1,$<string>3);} functionCallParams CLOSINGBRACKET SEMICOLON 
+assignation : ID '=' INT_VAL END_OF_INSTRUCTION{generateAssignStaticValueToVariableCode($<string>1,$<number>3);}
+            | ID '=' ID END_OF_INSTRUCTION {generateAssignStaticVriableToVariableCode($<string>1,$<string>3);}
+            | ID '=' ID PARENTESIS_OPEN {functionCall($<string>1,$<string>3);} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
             ;  
 
-functionCallParams : NUMBER {setParamsValue($<number>1);}
-                   | VARIABLE {setParamsValueFromVariable($<string>1);}
-                   | NUMBER COMMA functionCallParams {setParamsValue($<number>1);}
-                   | VARIABLE COMMA functionCallParams {setParamsValueFromVariable($<string>1);}
+functionCallParams : INT_VAL {setParamsValue($<number>1);}
+                   | ID {setParamsValueFromVariable($<string>1);}
+                   | INT_VAL COMMA functionCallParams {setParamsValue($<number>1);}
+                   | ID COMMA functionCallParams {setParamsValueFromVariable($<string>1);}
 
 aritmeticOperation : aritmeticOperation '-' aritmeticOperation {$$ = substract($<number>1,$<number>3);}
             | aritmeticOperation '+' aritmeticOperation {$$ = add($<number>1,$<number>3);}
             | aritmeticOperation '*' aritmeticOperation {$$ = multiply($<number>1, $<number>3);}
             | aritmeticOperation '/' aritmeticOperation {$$ = divide($<number>1, $<number>3);}
-            | OPENINGBRACKET aritmeticOperation CLOSINGBRACKET {$$ = $<number>2;}
-            | NUMBER {$$ = $<number>1;}
+            | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {$$ = $<number>2;}
+            | INT_VAL {$$ = $<number>1;}
             ;
 
-return : RETURN VARIABLE {returnVariable($<number>2);}
-       | RETURN NUMBER {returnValue($<number>2);}
+return : RETURN ID {returnVariable($<number>2);}
+       | RETURN INT_VAL {returnValue($<number>2);}
        | RETURN aritmeticOperation {returnValue($<number>2);}
-       | RETURN VARIABLE OPENINGBRACKET {functionCall($<string>1,$<string>3);} functionCallParams CLOSINGBRACKET SEMICOLON
+       | RETURN ID PARENTESIS_OPEN {functionCall($<string>1,$<string>3);} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
        ; 
 
-print : PRINT OPENINGBRACKET printableElement CLOSINGBRACKET 
-      ;
+print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE 
+      ; 
 
-printableElement : VARIABLE {printVariable($<number>1);)}
+printableElement : ID {printVariable($<number>1);)}
                  | QUOTE text QUOTE {printText(($<number>1);)}
                  | printableElement '+' printableElement {printLineJump();}
                  ;
@@ -124,7 +124,7 @@ text : TEXT {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : structuresWord OPENINGBRACKET {openScope();} logicalOperation {closingScope();} CLOSINGBRACKET OPENINGCURLYBRACKET {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET
+controlStructure : structuresWord PARENTESIS_OPEN {openScope();} logicalOperation {closingScope();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET
                  ;
 
 structuresWord : IF {startIf();}
@@ -132,18 +132,18 @@ structuresWord : IF {startIf();}
                | WHILE {startWhile();}
                ;
 
-logicalOperation : VARIABLE logicalOperator VARIABLE {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | VARIABLE logicalOperator NUMBER {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | NUMBER logicalOperator NUMBER {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | NUMBER logicalOperator VARIABLE {logicalOperate(($<number>1),($<number>3),($<string>1))}
+logicalOperation : ID logicalOperator ID {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | ID logicalOperator INT_VAL {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | INT_VAL logicalOperator INT_VAL {logicalOperate(($<number>1),($<number>3),($<string>1))}
+                 | INT_VAL logicalOperator ID {logicalOperate(($<number>1),($<number>3),($<string>1))}
                  ;
 
-logicalOperator : EQUAL {$$ = "eq"}
-                | NOTEQUAL {$$ = "neq"}
+logicalOperator : EQUALS {$$ = "eq"}
+                | NOT_EQUALS {$$ = "neq"}
                 | GREATER {$$ = "gt"}
-                | MINOR {$$ = "mt"}
-                | GREATEREQUAL {$$ = "ge"}
-                | MINOREQUAL {$$ = "me"}
+                | LESS {$$ = "mt"}
+                | GREATER_EQUALs {$$ = "ge"}
+                | LESS_EQUALS {$$ = "me"}
                 ;
 
 %%
