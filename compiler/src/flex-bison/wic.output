@@ -1,0 +1,174 @@
+Terminales no usados en la gramática
+
+   NEW
+   CONTINUE
+   BREAK
+   RETURN
+   FUN
+   GLOBAL
+   STATIC
+   INT_VAL
+   REAL_VAL
+   BOOL_VAL
+   CHAR_VAL
+   STRING_VAL
+   INT_TYPE
+   REAL_TYPE
+   BOOL_TYPE
+   CHAR_TYPE
+   VOID
+   ASSIGN
+   SUM
+   SUBSTRACT
+   PRODUCT
+   DIVIDE
+   MODULUS
+   POWER
+   RADICAL
+   INCREMENT
+   DECREMENT
+   AND
+   OR
+   NOT
+   EQUALS
+   NOT_EQUALS
+   GREATER
+   GREATER_EQUALS
+   LESS
+   LESS_EQUALS
+   AND_BIT
+   OR_BIT
+   XOR_BIT
+   LEFT_SHIFT
+   RIGHT_SHIFT
+   UNION
+   DIFFERENCE
+   INTERSECTION
+   IF_CLAUSE
+   FOR_WHILE_CLAUSE
+   HEADER_END
+   ELSE_IF_FOR_WHILE_CLAUSE
+   SQUARE_BRACKET_OPEN
+   SQUARE_BRACKET_CLOSE
+   CURLY_BRACKET_OPEN
+   CURLY_BRACKET_CLOSE
+   ELEM_SEPARATOR
+   PARETHESES_OPEN
+   PARETHESES_CLOSE
+   OPEN_CONTEXT_TAG
+   CLOSE_CONTEXT_TAG
+   CHAR_QUOTE
+   STRING_QUOTE
+   ID
+
+
+Gramática
+
+    0 $accept: main $end
+
+    1 main: END_OF_INSTR
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+NEW (258)
+CONTINUE (259)
+BREAK (260)
+RETURN (261)
+FUN (262)
+GLOBAL (263)
+STATIC (264)
+INT_VAL (265)
+REAL_VAL (266)
+BOOL_VAL (267)
+CHAR_VAL (268)
+STRING_VAL (269)
+INT_TYPE (270)
+REAL_TYPE (271)
+BOOL_TYPE (272)
+CHAR_TYPE (273)
+VOID (274)
+ASSIGN (275)
+SUM (276)
+SUBSTRACT (277)
+PRODUCT (278)
+DIVIDE (279)
+MODULUS (280)
+POWER (281)
+RADICAL (282)
+INCREMENT (283)
+DECREMENT (284)
+AND (285)
+OR (286)
+NOT (287)
+EQUALS (288)
+NOT_EQUALS (289)
+GREATER (290)
+GREATER_EQUALS (291)
+LESS (292)
+LESS_EQUALS (293)
+AND_BIT (294)
+OR_BIT (295)
+XOR_BIT (296)
+LEFT_SHIFT (297)
+RIGHT_SHIFT (298)
+UNION (299)
+DIFFERENCE (300)
+INTERSECTION (301)
+IF_CLAUSE (302)
+FOR_WHILE_CLAUSE (303)
+HEADER_END (304)
+ELSE_IF_FOR_WHILE_CLAUSE (305)
+SQUARE_BRACKET_OPEN (306)
+SQUARE_BRACKET_CLOSE (307)
+CURLY_BRACKET_OPEN (308)
+CURLY_BRACKET_CLOSE (309)
+ELEM_SEPARATOR (310)
+PARETHESES_OPEN (311)
+PARETHESES_CLOSE (312)
+END_OF_INSTR (313) 1
+OPEN_CONTEXT_TAG (314)
+CLOSE_CONTEXT_TAG (315)
+CHAR_QUOTE (316)
+STRING_QUOTE (317)
+ID (318)
+
+
+No terminales con las reglas donde aparecen
+
+$accept (64)
+    en la izquierda: 0
+main (65)
+    en la izquierda: 1, en la derecha: 0
+
+
+Estado 0
+
+    0 $accept: . main $end
+
+    END_OF_INSTR  desplazar e ir al estado 1
+
+    main  ir al estado 2
+
+
+Estado 1
+
+    1 main: END_OF_INSTR .
+
+    $default  reduce usando la regla 1 (main)
+
+
+Estado 2
+
+    0 $accept: main . $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 3
+
+    0 $accept: main $end .
+
+    $default  aceptar
