@@ -12,7 +12,7 @@
 
     /* Declaraciones */
 
-    #include <string>
+    //#include <string>
 
     #include "wic.tab.h"
 
@@ -376,6 +376,9 @@ id                            {letter}({letter}|{digit})*
 
 "\t"+                          {
                                 printf("Esto es un tabulado\n");
+                              }
+" "                           {
+                                printf("Esto es un espacio");
                               }
 
    /* Unknowns & errors */
