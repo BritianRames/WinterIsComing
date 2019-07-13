@@ -3,14 +3,9 @@
 
 int main() {
     openFile();
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> be6e0ff384839b68b0595729627b782b316fde8f
     insertVariableInSymbolTable("aaa");
 
-    generateAssignValueToGlobalVariable("aaa", 2);
+    printCodeToAssignValueToVariable("aaa", 2);
     insertFunctionSymbolTable("miFuncion");
     openScopeInSymbolTable();
     insertParameterInSymbolTable("Param1");
@@ -18,10 +13,10 @@ int main() {
 
     generateFunctionHeaderCode();
     insertVariableInSymbolTable("bbb");
-    generateAssignValueToVariableCode("bbb", 2);
+    printCodeToAssignValueToVariable("bbb", 2);
     generateFunctionReturnValueCode(3);
     closeScopeInSymbolTable();
     insertVariableInSymbolTable("ccc");
-    generateAssignValueToGlobalVariable("ccc", 2);
+    printCodeToAssignValueToVariable("ccc", 2);
     //printSymbolTable();
 }

@@ -6,19 +6,6 @@ void openFile(){
   f = fopen("file.txt", "w");
 }
 
-void printGlobalVariableValueAssignation(int address, int value){
-<<<<<<< HEAD
-  fprintf(f, "I(%d) = %d;\n", address, value);
-=======
-  fprintf(f, "I(%d) = %d; // guardamos %d en %d\n", address, value, value, address);
->>>>>>> be6e0ff384839b68b0595729627b782b316fde8f
-}
-
-void printGlobalVariableVariableAsignation(int variable_address, int value_address){
-  fprintf(f, "R0 = I(%d);\n", value_address);
-  fprintf(f, "I(%d) = R0;\n", variable_address);
-}
-
 void printUpdateFramePointer(){
   fprintf(f, "R6 = R7;\n");
 }
