@@ -261,9 +261,6 @@ static void yy_flex_free YY_PROTO(( void * ));
 
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
-
-#define yywrap() 1
-#define YY_SKIP_YYWRAP
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
@@ -285,25 +282,18 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 71
-#define YY_END_OF_BUFFER 72
-static yyconst short int yy_accept[133] =
+#define YY_NUM_RULES 32
+#define YY_END_OF_BUFFER 33
+static yyconst short int yy_accept[74] =
     {   0,
-        0,    0,    0,    0,    0,    0,   57,   57,   60,   60,
-        1,    1,   72,   70,   69,    3,   34,   59,   24,   22,
-       27,   56,   53,   54,   20,   18,   52,   19,   47,   21,
-       10,   45,   39,   17,   37,   44,   55,   42,   43,   41,
-       48,   49,   29,   55,   55,   55,   55,   55,   55,   55,
-       55,   50,   28,   51,   67,   68,   67,   63,   64,   57,
-       58,   57,   60,   61,    2,    1,    1,   69,   36,   32,
-       23,   25,   65,   26,   62,   11,   11,   10,   30,   40,
-       35,   38,   31,   46,   55,   55,   55,   55,   55,   55,
-       55,   55,   55,   55,   55,   55,   33,   66,   63,   57,
-
-       60,    1,   11,   55,   55,   55,   55,   55,    9,   13,
-        4,   55,   55,   55,   55,   15,   55,   16,   55,   55,
-       14,   55,   12,    8,    6,   55,   55,   55,    7,   55,
-        5,    0
+       26,   26,   33,   31,   29,   28,    8,   16,   14,   15,
+       27,   20,   26,   24,   21,    5,   31,    4,   25,   26,
+       25,   25,   25,   25,   25,   25,   25,   25,   12,   13,
+       31,    3,   26,   24,    7,    2,    6,   25,   25,   25,
+       25,    9,   25,   25,   25,   25,   25,    0,   25,   25,
+       25,    1,   25,   25,   25,   25,   30,   25,   10,   19,
+       25,   25,   25,   25,   30,   23,   17,   25,   25,   11,
+       18,   22,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -311,18 +301,18 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    4,    5,    6,    7,    1,    8,    9,   10,   11,
-       12,   13,   14,   15,   16,   17,   18,   19,   20,   20,
-       20,   20,   20,   20,   20,   20,   20,   21,    1,   22,
-       23,   24,   25,    1,   26,   26,   26,   27,   26,   26,
-       26,   26,   28,   26,   26,   26,   26,   26,   26,   26,
-       26,   26,   26,   26,   29,   26,   26,   26,   26,   26,
-       30,   31,   32,   33,   26,    1,   34,   35,   36,   37,
+        1,    2,    4,    5,    6,    1,    1,    1,    1,    7,
+        8,    9,    9,   10,   11,    1,    9,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12,    1,   13,   14,
+       15,   16,    1,    1,   17,   17,   17,   17,   17,   17,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+        1,    1,    1,    1,   18,    1,   19,   20,   21,   17,
 
-       38,   39,   26,   40,   41,   26,   42,   43,   26,   44,
-       45,   26,   26,   46,   47,   48,   49,   50,   51,   26,
-       26,   26,   52,   53,   54,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       22,   23,   24,   25,   26,   17,   27,   28,   17,   29,
+       17,   30,   17,   31,   32,   33,   34,   17,   35,   17,
+       17,   17,   36,   18,   37,    1,    1,    1,    1,    1,
+        1,    1,    1,   38,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -330,7 +320,7 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
 
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,   39,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -338,116 +328,72 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[55] =
+static yyconst int yy_meta[40] =
     {   0,
-        1,    1,    2,    1,    1,    3,    1,    1,    1,    4,
-        1,    1,    1,    1,    1,    1,    1,    1,    5,    6,
-        1,    1,    1,    1,    1,    6,    6,    6,    6,    1,
-        4,    1,    1,    5,    5,    6,    6,    6,    6,    6,
-        6,    6,    6,    5,    6,    5,    6,    5,    6,    5,
-        6,    1,    1,    1
+        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        3,    3,    1,    1,    1,    1,    3,    3,    3,    3,
+        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
+        3,    3,    3,    3,    3,    1,    1,    1,    1
     } ;
 
-static yyconst short int yy_base[142] =
+static yyconst short int yy_base[77] =
     {   0,
-        0,    0,   52,   53,  187,  186,   47,   48,  182,  181,
-       56,   58,  186,  191,  183,  191,  161,  191,  191,  191,
-      174,  191,  191,  191,  169,  167,  163,  163,   46,  191,
-       54,  191,   45,  155,   52,  152,    0,    0,    0,    0,
-      191,  191,  191,   35,   32,   48,  132,  137,  136,  127,
-      127,  191,  118,  191,  191,  191,  155,    0,  191,  191,
-      191,    0,    0,  191,  191,  165,  164,  165,  191,  191,
-      191,  191,  191,  191,  191,   64,   66,   70,  191,  191,
-      191,  191,  191,  191,    0,  121,  127,  130,  119,  119,
-      117,  112,  108,   54,  109,  116,  191,  191,    0,  191,
-
-        0,  152,   72,  112,  120,  107,  104,  104,    0,    0,
-        0,  107,   97,   98,   64,    0,   58,    0,   58,   60,
-        0,   50,    0,    0,    0,   51,   50,   44,    0,   26,
-        0,  191,  102,  108,  114,  120,  126,  128,  134,  138,
-      143
+        0,    0,   83,   84,   84,   84,   67,   84,   84,   84,
+       84,   84,    0,   69,   84,   65,   64,   63,    0,    0,
+       46,   48,   41,   17,   43,   51,   39,   46,   84,   84,
+       32,   84,    0,   57,   84,   84,   84,    0,   46,   35,
+       37,    0,   32,   38,   30,   31,   35,   54,   40,   36,
+       36,    0,   27,   21,   28,   25,    0,   25,    0,    0,
+       18,   19,   19,   23,    0,    0,    0,   15,   19,    0,
+        0,    0,   84,   39,   38,   46
     } ;
 
-static yyconst short int yy_def[142] =
+static yyconst short int yy_def[77] =
     {   0,
-      132,    1,  133,  133,  134,  134,  135,  135,  136,  136,
-      137,  137,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  138,  138,  138,  138,
-      132,  132,  132,  138,  138,  138,  138,  138,  138,  138,
-      138,  132,  132,  132,  132,  132,  132,  139,  132,  132,
-      132,  140,  141,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  138,  138,  138,  138,  138,  138,
-      138,  138,  138,  138,  138,  138,  132,  132,  139,  132,
-
-      141,  132,  132,  138,  138,  138,  138,  138,  138,  138,
-      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
-      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
-      138,    0,  132,  132,  132,  132,  132,  132,  132,  132,
-      132
+       73,    1,   73,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   74,   74,   73,   73,   73,   73,   75,   74,
+       75,   75,   75,   75,   75,   75,   75,   75,   73,   73,
+       73,   73,   74,   74,   73,   73,   73,   75,   75,   75,
+       75,   75,   75,   75,   75,   75,   75,   73,   75,   75,
+       75,   75,   75,   75,   75,   75,   76,   75,   75,   75,
+       75,   75,   75,   75,   76,   75,   75,   75,   75,   75,
+       75,   75,    0,   73,   73,   73
     } ;
 
-static yyconst short int yy_nxt[246] =
+static yyconst short int yy_nxt[124] =
     {   0,
-       14,   15,   16,   14,   17,   18,   19,   20,   21,   22,
-       23,   24,   25,   26,   27,   28,   29,   30,   31,   31,
-       32,   33,   34,   35,   36,   37,   38,   39,   40,   41,
-       14,   42,   43,   37,   44,   45,   37,   37,   46,   37,
-       47,   37,   37,   48,   37,   49,   37,   50,   37,   51,
-       37,   52,   53,   54,   56,   56,   61,   61,   66,   67,
-       66,   67,   75,  131,   76,   76,   79,   80,   57,   57,
-       77,   88,   78,   78,   82,   83,   89,   62,   62,   86,
-       87,   90,   76,   76,  103,  103,   77,  112,   78,   78,
-      103,  103,  130,  129,  128,  127,   91,  123,  126,  125,
+        4,    5,    6,    7,    8,    4,    9,   10,   11,   12,
+       13,   14,   15,   16,   17,   18,   19,   20,   19,   21,
+       19,   22,   23,   19,   19,   24,   19,   19,   19,   25,
+       26,   27,   19,   19,   28,   29,   30,    4,   31,   42,
+       38,   33,   72,   71,   70,   43,   65,   69,   65,   68,
+       67,   66,   64,   63,   62,   61,   60,   59,   58,   57,
+       56,   55,   54,   53,   52,   51,   50,   49,   34,   48,
+       47,   46,   45,   44,   41,   40,   39,   37,   36,   35,
+       34,   32,   73,    3,   73,   73,   73,   73,   73,   73,
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
 
-      124,  113,   55,   55,   55,   55,   55,   55,   58,   58,
-       58,   58,   58,   58,   60,   60,   60,   60,   60,   60,
-       63,   63,   63,   63,   63,   63,   65,   65,   65,   65,
-       65,   65,   85,   85,   99,  123,   99,   99,   99,   99,
-      100,  100,  100,  101,  101,  122,  101,  101,  101,  121,
-      120,  119,  118,  117,  116,  102,  115,  114,  111,  110,
-      109,  108,  107,  106,  105,  104,   68,  102,  102,   98,
-       97,   96,   95,   94,   93,   92,   84,   81,   74,   73,
-       72,   71,   70,   69,   68,  132,   64,   64,   59,   59,
-       13,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   73
     } ;
 
-static yyconst short int yy_chk[246] =
+static yyconst short int yy_chk[124] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    3,    4,    7,    8,   11,   11,
-       12,   12,   29,  130,   29,   29,   33,   33,    3,    4,
-       31,   45,   31,   31,   35,   35,   45,    7,    8,   44,
-       44,   46,   76,   76,   77,   77,   78,   94,   78,   78,
-      103,  103,  128,  127,  126,  122,   46,  120,  119,  117,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,   24,
+       75,   74,   69,   68,   64,   24,   76,   63,   76,   62,
+       61,   58,   56,   55,   54,   53,   51,   50,   49,   48,
+       47,   46,   45,   44,   43,   41,   40,   39,   34,   31,
+       28,   27,   26,   25,   23,   22,   21,   18,   17,   16,
+       14,    7,    3,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
 
-      115,   94,  133,  133,  133,  133,  133,  133,  134,  134,
-      134,  134,  134,  134,  135,  135,  135,  135,  135,  135,
-      136,  136,  136,  136,  136,  136,  137,  137,  137,  137,
-      137,  137,  138,  138,  139,  114,  139,  139,  139,  139,
-      140,  140,  140,  141,  141,  113,  141,  141,  141,  112,
-      108,  107,  106,  105,  104,  102,   96,   95,   93,   92,
-       91,   90,   89,   88,   87,   86,   68,   67,   66,   57,
-       53,   51,   50,   49,   48,   47,   36,   34,   28,   27,
-       26,   25,   21,   17,   15,   13,   10,    9,    6,    5,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132,  132,  132,  132,  132,  132,
-      132,  132,  132,  132,  132
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
+       73,   73,   73
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -461,45 +407,11 @@ static char *yy_last_accepting_cpos;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "wic.l"
+#line 1 "lexy.l"
 #define INITIAL 0
-/* Ajustes iniciales */
-#define COMMENT_BLOCK 1
-
-#define COMMENT_LINE 2
-
-#define CHAR_STATE 3
-
-#define STRING_STATE 4
-
-#define CHECK_LVL 5
-
-#line 12 "wic.l"
-
-    /* Declaraciones */
-
-    #include <string>
-
-    #include "../symbol-table/SymbolTablePack.hpp"
-    #include "wic.tab.h"
-
-    int level = 0;
-    int enter_special = 1;
-
-
-    /* Declaraciones de funciones */
-
-    int countSpaces(char* pattern);
-
-/* Definiciones regulares */
-/* Expresiones regulares reutilizables */
-/* Palabras reservadas */
-/* Valores segun el tipo de dato */
-/* Tipos de dato */
-/* Expresiones regulares para estructuras de control y bucles */
-/* Expresiones regulares delimitadoras */
-/* Identificador */
-#line 503 "lex.yy.c"
+#line 2 "lexy.l"
+void error(char*);
+#line 415 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -650,19 +562,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 69 "wic.l"
-
-  if (enter_special) {
-    BEGIN(CHECK_LVL);
-    enter_special = 0;
-  }
+#line 15 "lexy.l"
 
 
-   /* Reglas de traducción */
-
-   /* Cambios de ámbito */
-
-#line 666 "lex.yy.c"
+#line 569 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -713,13 +616,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 133 )
+				if ( yy_current_state >= 74 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 191 );
+		while ( yy_base[yy_current_state] != 84 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -747,639 +650,166 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 80 "wic.l"
-{
-                                printf("Procesando... \n<%s>\n", yytext);
-                                int level_change = countSpaces(yytext);
-                                printf("%d\n", level_change);
-
-                                if (level < level_change) {
-                                  level++;
-                                  if (level != level_change) yyless(0);
-                                  printf("Level <OPEN_CONTEXT_TAG> : %d\n", level);
-                                  return OPEN_CONTEXT_TAG;
-                                } else if (level > level_change) {
-                                   level--;
-                                   if (level != level_change) yyless(0);
-                                   printf("Level <CLOSE_CONTEXT_TAG> : %d\n", level);
-                                   return CLOSE_CONTEXT_TAG;
-                                }
-                                printf("Level : %d\n", level);
-                                BEGIN(INITIAL);
-                              }
-	YY_BREAK
-case YY_STATE_EOF(CHECK_LVL):
-#line 99 "wic.l"
-{
-                                if (level > 0) {
-                                  level--;
-                                  return CLOSE_CONTEXT_TAG;
-                                } else return 0;
-                              }
+#line 17 "lexy.l"
+{return INT;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 105 "wic.l"
-{
-                                printf("Vamos para atrás\n");
-                                BEGIN(INITIAL);
-                                yyless(0);
-                              }
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(COMMENT_BLOCK):
-case YY_STATE_EOF(COMMENT_LINE):
-case YY_STATE_EOF(CHAR_STATE):
-case YY_STATE_EOF(STRING_STATE):
-#line 110 "wic.l"
-{
-                                BEGIN(CHECK_LVL);
-                              }
+#line 18 "lexy.l"
+return EQUAL;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 113 "wic.l"
-{
-                                BEGIN(CHECK_LVL);
-                                yyless(0);
-                                printf("Nueva línea\n");
-                                yylineno++;
-                                return END_OF_INSTR;
-                              }
+#line 19 "lexy.l"
+return NOTEQUAL;
 	YY_BREAK
-/* Reglas para las palabras reservadas */
 case 4:
 YY_RULE_SETUP
-#line 122 "wic.l"
-{
-                                //printf("%s is a NEW\n", yytext);
-                                return NEW;
-                              }
+#line 20 "lexy.l"
+return GREATER;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 126 "wic.l"
-{
-                                //printf("%s is a CONTINUE\n", yytext);
-                                return CONTINUE;
-                              }
+#line 21 "lexy.l"
+return MINOR;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 130 "wic.l"
-{
-                                //printf("%s is a BREAK\n", yytext);
-                                return BREAK;
-                              }
+#line 22 "lexy.l"
+return GREATEREQUAL;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 134 "wic.l"
-{
-                                //printf("%s is a RETURN\n", yytext);
-                                return RETURN;
-                              }
+#line 23 "lexy.l"
+return MINOREQUAL;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 138 "wic.l"
-{
-                                return VOID;
-                              }
+#line 24 "lexy.l"
+return OPPOSITE;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 141 "wic.l"
-{
-                                return FUN;
-                              }
+#line 25 "lexy.l"
+return IF;
 	YY_BREAK
-/* Reglas para los valores segun el tipo de dato */
 case 10:
 YY_RULE_SETUP
-#line 147 "wic.l"
-{
-                                wic::data_value data_v;
-                                data_v.int_val = atoi(yytext);
-                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::INT, &data_v));
-                                return INT_VAL;
-                              }
+#line 26 "lexy.l"
+return ELSE;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 154 "wic.l"
-{
-                                wic::data_value data_v;
-                                data_v.real_val = atof(yytext);
-                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::REAL, &data_v));
-                                return REAL_VAL;
-                              }
+#line 27 "lexy.l"
+return WHILE;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 160 "wic.l"
-{
-                                wic::data_value data_v;
-                                if (strcmp("true", yytext) == 0) data_v.bool_val = true;
-                                else data_v.bool_val = false;
-                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::BOOL, &data_v));
-                                return BOOL_VAL;
-                              }
+#line 28 "lexy.l"
+return OPENINGCURLYBRACKET;
 	YY_BREAK
-/* Reglas segun el tipo de dato */
 case 13:
 YY_RULE_SETUP
-#line 170 "wic.l"
-{
-                                return INT_TYPE;
-                              }
+#line 29 "lexy.l"
+return CLOSINGCURLYBRACKET;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 173 "wic.l"
-{
-                                return REAL_TYPE;
-                              }
+#line 30 "lexy.l"
+return OPENINGBRACKET;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 176 "wic.l"
-{
-                                return BOOL_TYPE;
-                              }
+#line 31 "lexy.l"
+return CLOSINGBRACKET;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 179 "wic.l"
-{
-                                return CHAR_TYPE;
-                              }
+#line 32 "lexy.l"
+return QUOTE;	
 	YY_BREAK
-/* Regla de asignación */
 case 17:
 YY_RULE_SETUP
-#line 185 "wic.l"
-{
-                                //printf("%s is an ASSIGN\n", yytext);
-                                return ASSIGN;
-                              }
+#line 33 "lexy.l"
+return PRINT;
 	YY_BREAK
-/* Reglas para los operadores aritméticos */
 case 18:
 YY_RULE_SETUP
-#line 192 "wic.l"
-{
-                                //printf("%s is a SUM\n", yytext);
-                                return SUM;
-                              }
+#line 34 "lexy.l"
+return RETURN;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 196 "wic.l"
-{
-                                //printf("%s is a SUBSTRACT\n", yytext);
-                                return SUBSTRACT;
-                              }
+#line 35 "lexy.l"
+return FUNC;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 200 "wic.l"
-{
-                                //printf("%s is a PRODUCT\n", yytext);
-                                return PRODUCT;
-                              }
+#line 36 "lexy.l"
+return COMMA;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 204 "wic.l"
-{
-                                //printf("%s is a DIVIDE\n", yytext);
-                                return DIVIDE;
-                              }
+#line 37 "lexy.l"
+return SEMICOLON;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 208 "wic.l"
-{
-                                //printf("%s is a MODULUS\n", yytext);
-                                return MODULUS;
-                              }
+#line 38 "lexy.l"
+return STRING;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 212 "wic.l"
-{
-                                //printf("%s is a POWER\n", yytext);
-                                return POWER;
-                              }
+#line 39 "lexy.l"
+return BREAK;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 216 "wic.l"
-{
-                                //printf("%s is a RADICAL\n", yytext);
-                                return RADICAL;
-                              }
+#line 41 "lexy.l"
+{ yylval.num = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 220 "wic.l"
-{
-                                //printf("%s is a INCREMENT\n", yytext);
-                                return INCREMENT;
-                              }
+#line 42 "lexy.l"
+{ yylval.string = strdup(yytext); return VARIABLE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 224 "wic.l"
-{
-                                //printf("%s is a DECREMENT\n", yytext);
-                                return DECREMENT;
-                              }
+#line 43 "lexy.l"
+{ yylval.string = strdup(yytext); return TEXT; }
 	YY_BREAK
-/* Reglas para los operadores bit a bit */
 case 27:
 YY_RULE_SETUP
-#line 231 "wic.l"
-{
-                                //printf("%s is a AND_BIT\n", yytext);
-                                return AND_BIT;
-                              }
+#line 44 "lexy.l"
+return yytext[0];
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 235 "wic.l"
-{
-                                //printf("%s is a OR_BIT\n", yytext);
-                                return OR_BIT;
-                              }
+#line 45 "lexy.l"
+{numlin++; /* continua leyendo */}
 	YY_BREAK
 case 29:
-YY_RULE_SETUP
-#line 239 "wic.l"
-{
-                                //printf("%s is a XOR_BIT\n", yytext);
-                                return XOR_BIT;
-                              }
-	YY_BREAK
+#line 47 "lexy.l"
 case 30:
 YY_RULE_SETUP
-#line 243 "wic.l"
-{
-                                //printf("%s is a LEFT_SHIFT\n", yytext);
-                                return LEFT_SHIFT;
-                              }
+#line 47 "lexy.l"
+/* ignora */
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 247 "wic.l"
-{
-                                //printf("%s is a RIGHT_SHIFT\n", yytext);
-                                return RIGHT_SHIFT;
-                              }
+#line 48 "lexy.l"
+error("caracter raro");
 	YY_BREAK
-/* Reglas para los operadores lógicos */
+case YY_STATE_EOF(INITIAL):
+#line 49 "lexy.l"
+return 0;   /* por defecto */
+	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 254 "wic.l"
-{
-                                //printf("%s is a AND\n", yytext);
-                                return AND;
-                              }
-	YY_BREAK
-case 33:
-YY_RULE_SETUP
-#line 258 "wic.l"
-{
-                                //printf("%s is a OR\n", yytext);
-                                return OR;
-                              }
-	YY_BREAK
-case 34:
-YY_RULE_SETUP
-#line 262 "wic.l"
-{
-                                //printf("%s is a NOT\n", yytext);
-                                return NOT;
-                              }
-	YY_BREAK
-case 35:
-YY_RULE_SETUP
-#line 266 "wic.l"
-{
-                                //printf("%s is a EQUALS\n", yytext);
-                                return EQUALS;
-                              }
-	YY_BREAK
-case 36:
-YY_RULE_SETUP
-#line 270 "wic.l"
-{
-                                //printf("%s is a NOT_EQUALS\n", yytext);
-                                return NOT_EQUALS;
-                              }
-	YY_BREAK
-case 37:
-YY_RULE_SETUP
-#line 274 "wic.l"
-{
-                                //printf("%s is a GREATER\n", yytext);
-                                return GREATER;
-                              }
-	YY_BREAK
-case 38:
-YY_RULE_SETUP
-#line 278 "wic.l"
-{
-                                //printf("%s is a GREATER_EQUALS\n", yytext);
-                                return GREATER_EQUALS;
-                              }
-	YY_BREAK
-case 39:
-YY_RULE_SETUP
-#line 282 "wic.l"
-{
-                                //printf("%s is a LESS\n", yytext);
-                                return LESS;
-                              }
-	YY_BREAK
-case 40:
-YY_RULE_SETUP
-#line 286 "wic.l"
-{
-                                //printf("%s is a LESS_EQUALS\n", yytext);
-                                return LESS_EQUALS;
-                              }
-	YY_BREAK
-/* Reglas para los operadores de array */
-case 41:
-YY_RULE_SETUP
-#line 293 "wic.l"
-{
-                                //printf("%s is an UNION\n", yytext);
-                                return UNION;
-                              }
-	YY_BREAK
-case 42:
-YY_RULE_SETUP
-#line 297 "wic.l"
-{
-                                //printf("%s is a DIFFERENCE\n", yytext);
-                                return DIFFERENCE;
-                              }
-	YY_BREAK
-case 43:
-YY_RULE_SETUP
-#line 301 "wic.l"
-{
-                                //printf("%s is an INTERSECTION\n", yytext);
-                                return INTERSECTION;
-                              }
-	YY_BREAK
-/* Expresiones regulares para estructuras de control y bucles */
-case 44:
-YY_RULE_SETUP
-#line 308 "wic.l"
-{
-                                //printf("%s is an IF_CLAUSE\n", yytext);
-                                return IF_CLAUSE;
-                              }
-	YY_BREAK
-case 45:
-YY_RULE_SETUP
-#line 312 "wic.l"
-{
-                                //printf("%s is an HEADER_END\n", yytext);
-                                return HEADER_END;
-                              }
-	YY_BREAK
-case 46:
-YY_RULE_SETUP
-#line 316 "wic.l"
-{
-                                //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
-                                return FOR_WHILE_CLAUSE;
-                              }
-	YY_BREAK
-case 47:
-YY_RULE_SETUP
-#line 320 "wic.l"
-{
-                                //printf("%s is an ELSE_IF_FOR_WHILE_CLAUSE\n", yytext);
-                                return ELSE_IF_FOR_WHILE_CLAUSE;
-                              }
-	YY_BREAK
-/* Expresiones regulares delimitadoras */
-case 48:
-YY_RULE_SETUP
-#line 328 "wic.l"
-{//
-//
-//
-//
-                                //printf("%s is an SQUARE_BRACKET_OPEN\n", yytext);
-                                return SQUARE_BRACKET_OPEN;
-                              }
-	YY_BREAK
-case 49:
-YY_RULE_SETUP
-#line 335 "wic.l"
-{
-                                //printf("%s is an SQUARE_BRACKET_CLOSE\n", yytext);
-                                return SQUARE_BRACKET_CLOSE;
-
-                              }
-	YY_BREAK
-case 50:
-YY_RULE_SETUP
-#line 340 "wic.l"
-{
-                                //printf("%s is an CURLY_BRACKET_OPEN\n", yytext);
-                                return CURLY_BRACKET_OPEN;
-                              }
-	YY_BREAK
-case 51:
-YY_RULE_SETUP
-#line 344 "wic.l"
-{
-                                //printf("%s is an CURLY_BRACKET_CLOSE\n", yytext);
-                                return CURLY_BRACKET_CLOSE;
-                              }
-	YY_BREAK
-case 52:
-YY_RULE_SETUP
-#line 348 "wic.l"
-{
-                                //printf("%s is an ELEM_SEPARATOR\n", yytext);
-                                return ELEM_SEPARATOR;
-                              }
-	YY_BREAK
-case 53:
-YY_RULE_SETUP
-#line 352 "wic.l"
-{
-                                //printf("%s is an PARETHESES_OPEN\n", yytext);
-                                return PARETHESES_OPEN;
-                              }
-	YY_BREAK
-case 54:
-YY_RULE_SETUP
-#line 356 "wic.l"
-{
-                                //printf("%s is an PARETHESES_CLOSE\n", yytext);
-                                return PARETHESES_CLOSE;
-                              }
-	YY_BREAK
-/* Identificador */
-case 55:
-YY_RULE_SETUP
-#line 363 "wic.l"
-{
-                                std::string id = yytext;
-                                yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
-                                return ID;
-                              }
-	YY_BREAK
-/* Reglas para los caracteres */
-case 56:
-YY_RULE_SETUP
-#line 371 "wic.l"
-{
-                                 BEGIN(CHAR_STATE);
-                                 return CHAR_QUOTE;
-                              }
-	YY_BREAK
-case 57:
-YY_RULE_SETUP
-#line 375 "wic.l"
-{
-                                wic::data_value data_v;
-                                if (yytext[0] == '\\')
-                                {
-                                    if (yytext[1] == '0') data_v.char_val = '\0';
-                                    else if (yytext[1] == 'a') data_v.char_val = '\a';
-                                    else if (yytext[1] == 'b') data_v.char_val = '\b';
-                                    else if (yytext[1] == 't') data_v.char_val = '\t';
-                                    else if (yytext[1] == 'n') data_v.char_val = '\n';
-                                    else if (yytext[1] == 'v') data_v.char_val = '\v';
-                                    else if (yytext[1] == 'f') data_v.char_val = '\f';
-                                    else if (yytext[1] == 'r') data_v.char_val = '\r';
-                                    else if (yytext[1] == '\"') data_v.char_val = '\"';
-                                    else if (yytext[1] == '\'') data_v.char_val = '\'';
-                                    else if (yytext[1] == '\\') data_v.char_val = '\\';
-                                }
-                                else
-                                {
-                                    data_v.char_val = yytext[0];
-                                }
-                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::CHAR, &data_v));
-                                return CHAR_VAL;
-                              }
-	YY_BREAK
-case 58:
-YY_RULE_SETUP
-#line 398 "wic.l"
-{
-                                BEGIN(INITIAL);
-                                return CHAR_QUOTE;
-                              }
-	YY_BREAK
-/* Reglas para los strings */
-case 59:
-YY_RULE_SETUP
-#line 404 "wic.l"
-{
-                                BEGIN(STRING_STATE);
-                                return STRING_QUOTE;
-                              }
-	YY_BREAK
-case 60:
-YY_RULE_SETUP
-#line 408 "wic.l"
-{
-                                wic::data_value data_v ;
-                                data_v.str_val = new char[yyleng];
-                                data_v.str_val = strcpy(data_v.str_val, yytext);
-                                yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::STRING, &data_v));
-                                return STRING_VAL;
-                              }
-	YY_BREAK
-case 61:
-YY_RULE_SETUP
-#line 415 "wic.l"
-{
-                                BEGIN(INITIAL);
-                                return STRING_QUOTE;
-                              }
-	YY_BREAK
-/* Reglas para los comentarios */
-case 62:
-YY_RULE_SETUP
-#line 422 "wic.l"
-{ BEGIN(COMMENT_LINE); }
-	YY_BREAK
-case 63:
-YY_RULE_SETUP
-#line 423 "wic.l"
-{ }
-	YY_BREAK
-case 64:
-YY_RULE_SETUP
-#line 424 "wic.l"
-{
-                                yylineno++;
-                                BEGIN(INITIAL);
-                              }
-	YY_BREAK
-#line 428 "wic.l"
-/* Do error */
-	YY_BREAK
-case 65:
-YY_RULE_SETUP
-#line 431 "wic.l"
-{ BEGIN(COMMENT_BLOCK); }
-	YY_BREAK
-case 66:
-YY_RULE_SETUP
-#line 432 "wic.l"
-{
-                                BEGIN(INITIAL);
-                              }
-	YY_BREAK
-case 67:
-YY_RULE_SETUP
-#line 435 "wic.l"
-
-	YY_BREAK
-case 68:
-YY_RULE_SETUP
-#line 436 "wic.l"
-{ yylineno++; }
-	YY_BREAK
-#line 437 "wic.l"
-/* Do error */
-	YY_BREAK
-case 69:
-YY_RULE_SETUP
-#line 440 "wic.l"
-{
-                                printf("Esto es un tabulado\n");
-                              }
-	YY_BREAK
-/* Unknowns & errors */
-case 70:
-YY_RULE_SETUP
-#line 445 "wic.l"
-{
-                                printf("<%s> is an unknown\n", yytext);
-                              }
-	YY_BREAK
-case 71:
-YY_RULE_SETUP
-#line 449 "wic.l"
+#line 51 "lexy.l"
 ECHO;
 	YY_BREAK
-#line 1383 "lex.yy.c"
+#line 813 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1669,7 +1099,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 133 )
+			if ( yy_current_state >= 74 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1704,11 +1134,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 133 )
+		if ( yy_current_state >= 74 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 132);
+	yy_is_jam = (yy_current_state == 73);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -2263,19 +1693,9 @@ int main()
 	return 0;
 	}
 #endif
-#line 449 "wic.l"
+#line 51 "lexy.l"
 
 
-/* Funciones y declaraciones auxiliares */
-
-int countSpaces(char* pattern) {
-  int i = 0;
-  int numSpaces = 0;
-  int total = 0;
-  while (pattern[i] != '\0') {
-    if (pattern[i] == ' ') numSpaces++;
-    if ((numSpaces % 4) == 0 && numSpaces > 0) total++;
-    i++;
-  }
-  return total;
+void error(char* mens) {
+	printf("Error lexico en linea %i: %s\n",numlin,mens);
 }
