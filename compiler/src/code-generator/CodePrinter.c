@@ -3,7 +3,35 @@
 FILE *f;
 
 void openFile(){
-  f = fopen("file.txt", "w");
+  f = fopen("file.q.c", "w");
+}
+
+void printQInitialization() {
+    fprintf(f, "#include \"include/Qlib.h\"\n");
+    fprintf(f, "#include \"include/Q.h\"\n\n");
+    fprintf(f, "BEGIN\n");
+    fprintf(f, "L 0:\n");
+}
+
+void printMainFunction() {
+    fprintf(f, "\n\nSTAT(0)\n");
+    fprintf(f, "CODE(0)\n");
+}
+
+void printGoToExit()  {
+    fprintf(f, "GT(-2);\n");
+}
+
+void printQEnding() {
+    fprintf(f, "END\n");
+}
+
+void printGlobalVariableValueAssignation(int address, int value) {
+
+}
+
+void printGlobalVariableVariableAssignation(int variable_address, int value_address) {
+
 }
 
 void printUpdateFramePointer(){
@@ -28,14 +56,14 @@ void printReturnValue(int stackPointer, int valueToReturn){
   int returnLabelAddress = stackPointer; 
   fprintf(f, "R0 = %d;\n", valueToReturn); //Returned value in R0
   fprintf(f, "R1 = I(%d);\n", returnLabelAddress);
-  fprintf(f, "GT(R1);");
+  fprintf(f, "GT(R1);\n");
 }
 
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
   fprintf(f, "R0 = I(%d);\n", variableAddress); //Returned value in R0
   fprintf(f, "R1 = I(%d);\n", returnLabelAddress);
-  fprintf(f, "GT(R1);");
+  fprintf(f, "GT(R1);\n");
 }
 
 void printRecoverRegistersValue(int registerFramePointer){
@@ -70,7 +98,7 @@ void printPrintValueCode(int value){
 
 
 void printPrintVariableCode(int address){
-  fprintf(f,"R0=I(%d)\n",address);
+  fprintf(f,"R0=I(%d);\n",address);
   fprintf(f,"printf(\"%%d\",R0);\n");
   //fprintf(f,"printf(\",R0);\n");
 }

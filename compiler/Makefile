@@ -1,26 +1,26 @@
 all:
 					mkdir build
+					mkdir bin
 					$(MAKE) bison
 					$(MAKE) flex #$(F)
 					$(MAKE) compile
+					$(MAKE) qcompile
 
 bison:
-					bison -d -v -t flex-bison/wic.y
+					bison -d -v -t src/flex-bison/wic.y
 					mv wic.tab.* build
 
 flex:
-					flex flex-bison/wic.l
+					flex src/flex-bison/wic.l
 					mv lex.yy.* build
 
 compile:
-					gcc main.c symbol-table/SymbolTableManager.c code-generator/CodeGeneratorManager.c code-generator/CodePrinter.c code-generator/StackManager.c
-					#/usr/bin/gcc -Wall -Wextra -g -o wic \
-					#main.c \
-					#symbol-table/SymbolTableManager.c \
-					#code-generator/CodeGeneratorManager.c \
-					#code-generator/CodePrinter.c \
-					#code-generator/StackManager.c
-
+					/usr/bin/gcc -Wall -Wextra -g -o bin/wic \
+					src/main.c \
+					src/symbol-table/SymbolTableManager.c \
+					src/code-generator/CodeGeneratorManager.c \
+					src/code-generator/CodePrinter.c \
+					src/code-generator/StackManager.c
 					#gcc -o wic build/lex.yy.c build/wic.tab.c -lfl -lm
 					#/usr/bin/g++ -std=gnu++11 -c build/wic.tab.c build/lex.yy.c
 					#mv *.o build
@@ -43,5 +43,11 @@ compile:
 
 					#mv *.a *.o build
 
+qcompile:
+					bin/wic
+					/usr/bin/gcc -Wall -Wextra -g -o bin/my_program \
+					file.q.c \
+					include/Qlib.c
+
 clean:
-					rm -rf build wic *.s wic.output *.o
+					rm -rf build bin wic.output *.o

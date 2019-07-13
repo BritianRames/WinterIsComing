@@ -4,8 +4,12 @@
 #include <stdio.h>
 
 void openFile();
+void printQInitialization();
+void printMainFunction();
+void printGoToExit();
+void printQEnding();
 void printGlobalVariableValueAssignation(int address, int value);
-void printGlobalVariableVariableAsignation(int variable_address, int value_address);
+void printGlobalVariableVariableAssignation(int variable_address, int value_address);
 void printUpdateFramePointer();
 void printUpdateStackPointer(int offset);
 void printFunctionLabel(int label);
