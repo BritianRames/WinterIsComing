@@ -16,3 +16,6 @@ void printRecoverRegistersValue(int registerFramePointer);
 void printSaveRegistersValue(int registerFramePointer);
 void printCodeToAssignValueToVariable(int address, int value);
 void printCodeToAssignVariableToVariable(int address, int value_address);
+void printPrintStringCode(char* string);
+void printPrintValueCode(int value);
+void printPrintVariableCode(int address);

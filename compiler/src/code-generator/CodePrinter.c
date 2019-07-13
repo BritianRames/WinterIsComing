@@ -59,6 +59,22 @@ void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(%d) = R1;\n", address); //Returned value in R0
 }
 
+void printPrintStringCode(char* string){
+  fprintf(f,"printf(\"%s\");\n",string);
+}
+
+
+void printPrintValueCode(int value){
+  fprintf(f,"printf(\"%d\");\n",value);
+}
+
+
+void printPrintVariableCode(int address){
+  fprintf(f,"R0=I(%d)\n",address);
+  fprintf(f,"printf(\"%%d\",R0);\n");
+  //fprintf(f,"printf(\",R0);\n");
+}
+
 
 //Funtion Generation Code:::
 

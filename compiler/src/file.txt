@@ -8,3 +8,7 @@ I(11976) = 2;
 R0 = 3;
 R1 = I(11980);
 GT(R1);I(11976) = 2; // guardamos 2 en 11976
+printf("\nhoskdjnfkndfln<dlsanalnslanla\n");
+printf("4");
+R0=I(11976)
+printf("%d",R0);

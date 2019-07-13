@@ -19,4 +19,7 @@ int main() {
     insertVariableInSymbolTable("ccc");
     printCodeToAssignValueToVariable("ccc", 2);
     //printSymbolTable();
+    generatePrintString("\\nhoskdjnfkndfln<dlsanalnslanla\\n");
+    generatePrintValue(4);
+    generatePrintVariable("ccc");
 }
