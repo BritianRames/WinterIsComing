@@ -3,6 +3,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+void generateQInitialization();
+void generateMainFunction();
+void generateGoToExit();
+void generateQEnding();
 void generateAssignValueToGlobalVariable(char* variable_id, int value);
 void generateFunctionHeaderCode();
 void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id);

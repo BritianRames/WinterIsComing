@@ -3,7 +3,7 @@
 
 int main() {
     openFile();
-
+    generateQInitialization();   // Se inicializa sección del código Q
     insertVariableInSymbolTable("aaa");
 
     generateAssignValueToGlobalVariable("aaa", 2);
@@ -20,7 +20,11 @@ int main() {
     insertVariableInSymbolTable("ccc");
     generateAssignValueToGlobalVariable("ccc", 2);
     //printSymbolTable();
+    generateMainFunction(); // Creamos scope de función Main
     generatePrintString("\\nhoskdjnfkndfln<dlsanalnslanla\\n");
     generatePrintValue(4);
     generatePrintVariable("ccc");
+    generateGoToExit(); // Este código debe ir siempre al final del Main para indicar
+                        // para saltar a la rutina de fin de programa
+    generateQEnding();  // Flag de final de código Q
 }
