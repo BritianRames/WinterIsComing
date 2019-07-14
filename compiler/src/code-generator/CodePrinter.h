@@ -10,3 +10,4 @@ void printSaveVariableParam(int reg, int variable);
 void printCalFunction(int fun_label);
 void printBreak(int label);
 void printContinue(int label);
+void printPrintJumper();
