@@ -3,6 +3,9 @@
   #include <string.h>
   #include <stdlib.h>
   #include <stdbool.h>
+  #include "../symbol-table/SymbolTableManager.h"
+  
+
   extern FILE *yyin;
   extern int numlin;
   int yydebug = 1;
@@ -79,94 +82,94 @@ begin : {printf("Welcome to wic");} root
       ;
 
 
-root : declaration root {printf("root\n");}
-     | assignation root {printf("root\n");}
-     | function root {printf("root\n");}
-     | END_OF_INSTRUCTION root {printf("root\n");}
+root : {printTreeElement("root");} declaration root
+     | {printTreeElement("root");} assignation root
+     | {printTreeElement("root");} function root 
+     | {printTreeElement("root");} END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
-declaration : INT_TYPE ID END_OF_INSTRUCTION {/*insertVariable($<string>2);*/} {printf("declaration\n");}
+declaration : {printTreeElement("declaration");} INT_TYPE ID END_OF_INSTRUCTION {/*insertVariable($<string>2);*/}
             ;
 
-function : FUN ID {/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION OPEN_CONTEXT_TAG codeSet CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE {/*closingScope();*/} {printf("function\n");}
+function : {printTreeElement("function");} FUN ID {/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION OPEN_CONTEXT_TAG codeSet CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE {/*closingScope();*/} 
          ;
 
-params : INT_TYPE ID params {/*insertVariable($<string>2);*/} {printf("param\n");}
-       | COMMA INT_TYPE ID params {printf("param\n");}
-       | /* EMPTY */ {printf("param\n");}
+params : {printTreeElement("params");} INT_TYPE ID params {/*insertVariable($<string>2);*/}
+       | {printTreeElement("params");} COMMA INT_TYPE ID params 
+       | {printTreeElement("params");} /* EMPTY */
        ;
 
-codeSet : declaration codeSet
-        | instruction codeSet
-        | controlStructure codeSet
-        | declaration
-        | instruction
-        | controlStructure
+codeSet : {printTreeElement("codeSet");} declaration codeSet
+        | {printTreeElement("codeSet");} instruction codeSet
+        | {printTreeElement("codeSet");} controlStructure codeSet
+        | {printTreeElement("codeSet");} declaration
+        | {printTreeElement("codeSet");} instruction
+        | {printTreeElement("codeSet");} controlStructure
         ;
 
-instruction : assignation 
-            | aritmeticOperation END_OF_INSTRUCTION
-            | return END_OF_INSTRUCTION
-            | print END_OF_INSTRUCTION
-            | BREAK END_OF_INSTRUCTION{/*breakCode();*/}
+instruction : {printTreeElement("instruction");} assignation 
+            | {printTreeElement("instruction");} aritmeticOperation END_OF_INSTRUCTION
+            | {printTreeElement("instruction");} return END_OF_INSTRUCTION
+            | {printTreeElement("instruction");} print END_OF_INSTRUCTION
+            | {printTreeElement("instruction");} BREAK END_OF_INSTRUCTION{/*breakCode();*/}
             ;
 
-assignation : ID '=' INT_VAL END_OF_INSTRUCTION{/*generateAssignStaticValueToVariableCode($<string>1,$<number>3);*/} {printf("asignation\n");}
-            | ID '=' ID END_OF_INSTRUCTION {/*generateAssignStaticVriableToVariableCode($<string>1,$<string>3);*/} {printf("asignation\n");}
-            | ID '=' ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION {printf("asignation\n");}
+assignation : {printTreeElement("assignation");} ID '=' INT_VAL END_OF_INSTRUCTION{/*generateAssignStaticValueToVariableCode($<string>1,$<number>3);*/}
+            | {printTreeElement("assignation");} ID '=' ID END_OF_INSTRUCTION {/*generateAssignStaticVriableToVariableCode($<string>1,$<string>3);*/} 
+            | {printTreeElement("assignation");} ID '=' ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION 
             ;  
 
-functionCallParams : INT_VAL {/*setParamsValue($<number>1);*/} {printf("funcitonCall\n");}
-                   | ID {/*setParamsValueFromVariable($<string>1);*/} {printf("funcitonCall\n");}
-                   | INT_VAL COMMA functionCallParams {/*setParamsValue($<number>1);*/} {printf("funcitonCall\n");}
-                   | ID COMMA functionCallParams {/*setParamsValueFromVariable($<string>1);*/} {printf("funcitonCall\n");}
+functionCallParams : {printTreeElement("functionCallParams");} INT_VAL {/*setParamsValue($<number>1);*/} 
+                   | {printTreeElement("functionCallParams");} ID {/*setParamsValueFromVariable($<string>1);*/}
+                   | {printTreeElement("functionCallParams");} INT_VAL COMMA functionCallParams {/*setParamsValue($<number>1);*/} 
+                   | {printTreeElement("functionCallParams");} ID COMMA functionCallParams {/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation : aritmeticOperation '-' aritmeticOperation {printf("aritmeticOperation\n");} {/*$$ = substract($<number>1,$<number>3);*/}
-            | aritmeticOperation '+' aritmeticOperation {printf("aritmeticOperation\n");} {/*$$ = add($<number>1,$<number>3);*/}
-            | aritmeticOperation '*' aritmeticOperation {printf("aritmeticOperation\n");} {/*$$ = multiply($<number>1, $<number>3);*/}
-            | aritmeticOperation '/' aritmeticOperation {printf("aritmeticOperation\n");} {/*$$ = divide($<number>1, $<number>3);*/}
-            | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {printf("aritmeticOperation\n");} {/*$$ = $<number>2;*/}
-            | INT_VAL {printf("aritmeticOperation\n");} {/*$$ = $<number>1;*/}
+aritmeticOperation : {printTreeElement("aritmeticOperation");} aritmeticOperation '-' aritmeticOperation {/*$$ = substract($<number>1,$<number>3);*/}
+            | {printTreeElement("aritmeticOperation");} aritmeticOperation '+' aritmeticOperation {/*$$ = add($<number>1,$<number>3);*/}
+            | {printTreeElement("aritmeticOperation");} aritmeticOperation '*' aritmeticOperation {/*$$ = multiply($<number>1, $<number>3);*/}
+            | {printTreeElement("aritmeticOperation");} aritmeticOperation '/' aritmeticOperation {/*$$ = divide($<number>1, $<number>3);*/}
+            | {printTreeElement("aritmeticOperation");} PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {/*$$ = $<number>2;*/}
+            | {printTreeElement("aritmeticOperation");} INT_VAL {/*$$ = $<number>1;*/}
             ;
 
-return : RETURN ID {printf("return\n");} {/*returnVariable($<number>2);*/}
-       | RETURN INT_VAL {printf("return\n");} {/*returnValue($<number>2);*/}
-       | RETURN aritmeticOperation {printf("return\n");} {/*returnValue($<number>2);*/}
-       | RETURN ID PARENTESIS_OPEN {printf("return\n");} {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
+return : {printTreeElement("return");} RETURN ID {/*returnVariable($<number>2);*/}
+       | {printTreeElement("return");} RETURN INT_VAL {/*returnValue($<number>2);*/}
+       | {printTreeElement("return");} RETURN aritmeticOperation {/*returnValue($<number>2);*/}
+       | {printTreeElement("return");} RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
        ; 
 
-print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE {printf("print\n");}
+print : {printTreeElement("print");} PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
       ; 
 
-printableElement : ID {/*printVariable($<number>1);*/} {printf("printableElement\n");}
-                 | QUOTE text QUOTE {/*printText($<number>1);*/} {printf("printableElement\n");}
-                 | printableElement '+' printableElement {/*printLineJump();*/} {printf("printableElement\n");}
+printableElement : {printTreeElement("printableElement");} ID {/*printVariable($<number>1);*/}
+                 | {printTreeElement("printableElement");} QUOTE text QUOTE {/*printText($<number>1);*/}
+                 | {printTreeElement("printableElement");} printableElement '+' printableElement {/*printLineJump();*/}
                  ;
 
-text : STRING_VAL {printf("text\n");} {/*$$ = $<number>1;*/}
-     | ' '  {printf("text\n");} {/*$$ = $<number>1;*/}
+text : {printTreeElement("text")} STRING_VAL {/*$$ = $<number>1;*/}
+     | {printTreeElement("text")} ' ' {/*$$ = $<number>1;*/}
      ;
 
-controlStructure : structuresWord PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} OPEN_CONTEXT_TAG codeSet {/*closingScope();*/} CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE {printf("controlStructure\n");}
+controlStructure : {printTreeElement("controlStructure")} structuresWord PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} OPEN_CONTEXT_TAG codeSet {/*closingScope();*/} CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE
                  ;
 
-structuresWord : IF_CLAUSE {/*startIf();*/} {printf("if\n");}
-               | WHILE_CLAUSE {/*startWhile();*/} {printf("while\n");}
+structuresWord : {printTreeElement("structuresWord")} IF_CLAUSE {/*startIf();*/}
+               | {printTreeElement("structuresWord")} WHILE_CLAUSE {/*startWhile();*/}
                ;
 
-logicalOperation : ID logicalOperator ID {printf("logicalOperation\n");} {/*logicalOperate(($<number>1),($<number>3),($<string>1));*/}
-                 | ID logicalOperator INT_VAL {printf("logicalOperation\n");} {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator INT_VAL {printf("logicalOperation\n");} {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator ID {printf("logicalOperation\n");} {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+logicalOperation : {printTreeElement("logicalOperation");} ID logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1));*/}
+                 | {printTreeElement("logicalOperation");} ID logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+                 | {printTreeElement("logicalOperation");} INT_VAL logicalOperator INT_VAL  {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+                 | {printTreeElement("logicalOperation");} INT_VAL logicalOperator ID  {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
                  ;
 
-logicalOperator : EQUALS {printf("logicalOperator\n");} {$$ = "eq";}
-                | NOT_EQUALS {printf("logicalOperator\n");} {$$ = "neq";}
-                | GREATER {printf("logicalOperator\n");} {$$ = "gt";}
-                | LESS {printf("logicalOperator\n");}{$$ = "mt";}
-                | GREATER_EQUALS {printf("logicalOperator\n");}{$$ = "ge";}
-                | LESS_EQUALS {printf("logicalOperator\n");} {$$ = "me";}
+logicalOperator : {printTreeElement("logicalOperator");} EQUALS {$$ = "eq";}
+                | {printTreeElement("logicalOperator");} NOT_EQUALS {$$ = "neq";}
+                | {printTreeElement("logicalOperator");} GREATER {$$ = "gt";}
+                | {printTreeElement("logicalOperator");} LESS {$$ = "mt";}
+                | {printTreeElement("logicalOperator");} GREATER_EQUALS {$$ = "ge";}
+                | {printTreeElement("logicalOperator");} LESS_EQUALS {$$ = "me";}
                 ;
 
 %%
@@ -181,6 +184,9 @@ void yyerror (char const *s) {
   fprintf (stderr, "ERROR SINTACTICO [%d]: %s\n", numlin, s);
 }
 
-void printTree(){
-
+void printTreeElement(char* name){
+  for(int i = 0, i < getCurrentScopeFromSymbolTable(); i++){
+    printf("+");
+  }
+  printf("%s\n", name);
 }
