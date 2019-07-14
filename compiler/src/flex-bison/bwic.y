@@ -79,7 +79,8 @@ begin : {printf("Welcome to wic");} root
 
 
 root : declaration root
-     | function
+     | assignation root
+     | function root
      | END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
