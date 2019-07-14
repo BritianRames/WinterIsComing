@@ -50,67 +50,38 @@ int_type                      (int)
 real_type                     (real)
 bool_type                     (bool)
 string_type                   (string)
+print_                        (print)
 
 /* Expresiones regulares para estructuras de control y bucles */
-if                            (\?){1}
-while                         (\?){2}
+if                            (if)
+while                         (while)
+else                          (else)
 header_end                    :
 
 /* Expresiones regulares delimitadoras */
 
-context_tag                   [ ]*
+/*context_tag                   [ ]*     */
 /* Identificador */
 id                            {letter}({letter}|{digit})*
 
 %%
-  if (enter_special) {
-    BEGIN(CHECK_LVL);
-    enter_special = 0;
-  }
+  /* if (enter_special) {*/
+  /*  BEGIN(CHECK_LVL);*/
+  /*  enter_special = 0;*/
+  /*}*/
 
 
    /* Reglas de traducción */
 
    /* Cambios de ámbito */
 
-<CHECK_LVL>\n?{context_tag}    {
-                                //printf("Procesando... \n<%s>\n", yytext);
-                                int level_change = countSpaces(yytext);
-                                //printf("%d\n", level_change);
 
-                                if (level < level_change) {
-                                  level++;
-                                  if (level != level_change) yyless(0);
-                                  //printf("Level <OPEN_CONTEXT_TAG> : %d\n", level);
-                                  return OPEN_CONTEXT_TAG;
-                                } else if (level > level_change) {
-                                   level--;
-                                   if (level != level_change) yyless(0);
-                                   //printf("Level <CLOSE_CONTEXT_TAG> : %d\n", level);
-                                   return CLOSE_CONTEXT_TAG;
-                                }
-                                //printf("Level : %d\n", level);
-                                BEGIN(INITIAL);
-                              }
-<CHECK_LVL><<EOF>>            {
-                                if (level > 0) {
-                                  level--;
-                                  return CLOSE_CONTEXT_TAG;
-                                } else return 0;
-                              }
-<CHECK_LVL>[^ \n]             {
-                                printf("Vamos para atrás\n");
-                                BEGIN(INITIAL);
-                                yyless(0);
-                              }
-<<EOF>>                       {
-                                BEGIN(CHECK_LVL);
-                              }
 "\n"                          {
-                                BEGIN(CHECK_LVL);
-                                yyless(0);
-                                printf("Nueva línea\n");
+                                //BEGIN(CHECK_LVL);
+                                //yyless(0);
+                                //printf("Nueva línea\n");
                                 yylineno++;
+                                printf("\n----END_OF_INSTRUCTION\n");
                                 return END_OF_INSTRUCTION;
                               }
 
@@ -125,11 +96,18 @@ id                            {letter}({letter}|{digit})*
                               }
 {return}                      {
                                 //printf("%s is a RETURN\n", yytext);
+                                printf("----RETURN\n");
                                 return RETURN;
                               }
 {fun}                         {
+                                printf("----FUN\n");
                                 return FUN;
                               }
+{print_}                       {
+                                printf("----PRINT\n");
+                                return PRINT;
+                              }
+
 
 
    /* Reglas para los valores segun el tipo de dato */
@@ -137,13 +115,15 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //wic::data_value data_v;
                                 //data_v.int_val = atoi(yytext);
-                                yylval.number = atoi(yytext);
+                                //yylval.number = atoi(yytext);
+                                printf("\n----INT_VAL\n");
                                 return INT_VAL;
                               }
 
 
    /* Reglas segun el tipo de dato */
 {int_type}                    {
+                                printf("\n----INT_TYPE\n"); 
                                 return INT_TYPE;
                               }
 
@@ -151,6 +131,7 @@ id                            {letter}({letter}|{digit})*
    /* Regla de asignación */
 "="                           {
                                 //printf("%s is an ASSIGN\n", yytext);
+                                printf("\n----ASSIGN\n");
                                 return ASSIGN;
                               }
 
@@ -158,18 +139,22 @@ id                            {letter}({letter}|{digit})*
    /* Reglas para los operadores aritméticos */
 "\+"                          {
                                 //printf("%s is a SUM\n", yytext);
+                                printf("\n----SUM\n");
                                 return SUM;
                               }
 "-"                           {
                                 //printf("%s is a SUBSTRACT\n", yytext);
+                                printf("\n----SUBSTRACT\n");
                                 return SUBSTRACT;
                               }
 "\*"                          {
                                 //printf("%s is a PRODUCT\n", yytext);
+                                printf("\n----PRODUCT\n");
                                 return PRODUCT;
                               }
 "/"                           {
                                 //printf("%s is a DIVIDE\n", yytext);
+                                printf("\n----DIVIDE\n");
                                 return DIVIDE;
                               }
 
@@ -190,26 +175,32 @@ id                            {letter}({letter}|{digit})*
                               }
 "=="                          {
                                 //printf("%s is a EQUALS\n", yytext);
+                                printf("----EQUALS\n");
                                 return EQUALS;
                               }
 "!="                          {
                                 //printf("%s is a NOT_EQUALS\n", yytext);
+                                printf("----NOT_EQUALS\n");
                                 return NOT_EQUALS;
                               }
 ">"                           {
                                 //printf("%s is a GREATER\n", yytext);
+                                printf("----GREATER\n");
                                 return GREATER;
                               }
 ">="                          {
                                 //printf("%s is a GREATER_EQUALS\n", yytext);
+                                printf("----GREATER_EQUALS\n");
                                 return GREATER_EQUALS;
                               }
 "<"                           {
                                 //printf("%s is a LESS\n", yytext);
+                                printf("----LESS\n");
                                 return LESS;
                               }
 "<="                          {
                                 //printf("%s is a LESS_EQUALS\n", yytext);
+                                printf("----LESS_EQUALS\n");
                                 return LESS_EQUALS;
                               }
 
@@ -218,10 +209,12 @@ id                            {letter}({letter}|{digit})*
    /* Expresiones regulares para estructuras de control y bucles */
 {if}                          {
                                 //printf("%s is an IF_CLAUSE\n", yytext);
+                                printf("----IF_CLAUSE\n");
                                 return IF_CLAUSE;
                               }
 {header_end}                  {
                                 //printf("%s is an HEADER_END\n", yytext);
+                                printf("----HEADER_END\n");
                                 return HEADER_END;
                               }
 {while}                       {
@@ -229,7 +222,10 @@ id                            {letter}({letter}|{digit})*
                                 return WHILE_CLAUSE;
                               }
 
-
+{else}                        {
+                                printf("----ELSE_CLAUSE\n"); 
+                                return ELSE_CLAUSE;
+                              }
 
    /* Expresiones regulares delimitadoras */
 "\["                          {
@@ -251,6 +247,7 @@ id                            {letter}({letter}|{digit})*
                               }
 ","                           {
                                 //printf("%s is an COMMA\n", yytext);
+                                printf("\n----COMMA\n");
                                 return COMMA;
                               }
 "\("                          {
@@ -268,7 +265,8 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //std::string id = yytext;
                                 //yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
-                                yylval.string = strdup(yytext); 
+                                //yylval.string = strdup(yytext); 
+                                printf("\n----ID\n");
                                 return ID;
                               }
 
@@ -283,11 +281,13 @@ id                            {letter}({letter}|{digit})*
                                 //data_v.str_val = new char[yyleng];
                                 //data_v.str_val = strcpy(data_v.str_val, yytext);
                                 //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::STRING, &data_v));
-                                yylval.string = strdup(yytext);
+                                //yylval.string = strdup(yytext);
+                                printf("----STRING_VAL\n");
                                 return STRING_VAL;
                               }
 <STRING_STATE>\"              {
                                 BEGIN(INITIAL);
+                                printf("----QUOTE\n");
                                 return QUOTE;
                               }
 
@@ -312,10 +312,10 @@ id                            {letter}({letter}|{digit})*
 
 
 "\t"+                          {
-                                printf("Esto es un tabulado\n");
+                                //printf("Esto es un tabulado\n");
                               }
 " "                           {
-                                printf("Esto es un espacio");
+                                //printf("Esto es un espacio\n");
                               }
 
    /* Unknowns & errors */
