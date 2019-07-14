@@ -69,20 +69,21 @@ extern int yydebug;
     LESS_EQUALS = 279,
     IF_CLAUSE = 280,
     WHILE_CLAUSE = 281,
-    HEADER_END = 282,
-    SQUARE_BRACKET_OPEN = 283,
-    SQUARE_BRACKET_CLOSE = 284,
-    CURLY_BRACKET_OPEN = 285,
-    CURLY_BRACKET_CLOSE = 286,
-    COMMA = 287,
-    PARENTESIS_OPEN = 288,
-    PARENTESIS_CLOSE = 289,
-    END_OF_INSTRUCTION = 290,
-    OPEN_CONTEXT_TAG = 291,
-    CLOSE_CONTEXT_TAG = 292,
-    QUOTE = 293,
-    ID = 294,
-    PRINT = 295
+    ELSE_CLAUSE = 282,
+    HEADER_END = 283,
+    SQUARE_BRACKET_OPEN = 284,
+    SQUARE_BRACKET_CLOSE = 285,
+    CURLY_BRACKET_OPEN = 286,
+    CURLY_BRACKET_CLOSE = 287,
+    COMMA = 288,
+    PARENTESIS_OPEN = 289,
+    PARENTESIS_CLOSE = 290,
+    END_OF_INSTRUCTION = 291,
+    OPEN_CONTEXT_TAG = 292,
+    CLOSE_CONTEXT_TAG = 293,
+    QUOTE = 294,
+    ID = 295,
+    PRINT = 296
   };
 #endif
 /* Tokens.  */
@@ -110,20 +111,21 @@ extern int yydebug;
 #define LESS_EQUALS 279
 #define IF_CLAUSE 280
 #define WHILE_CLAUSE 281
-#define HEADER_END 282
-#define SQUARE_BRACKET_OPEN 283
-#define SQUARE_BRACKET_CLOSE 284
-#define CURLY_BRACKET_OPEN 285
-#define CURLY_BRACKET_CLOSE 286
-#define COMMA 287
-#define PARENTESIS_OPEN 288
-#define PARENTESIS_CLOSE 289
-#define END_OF_INSTRUCTION 290
-#define OPEN_CONTEXT_TAG 291
-#define CLOSE_CONTEXT_TAG 292
-#define QUOTE 293
-#define ID 294
-#define PRINT 295
+#define ELSE_CLAUSE 282
+#define HEADER_END 283
+#define SQUARE_BRACKET_OPEN 284
+#define SQUARE_BRACKET_CLOSE 285
+#define CURLY_BRACKET_OPEN 286
+#define CURLY_BRACKET_CLOSE 287
+#define COMMA 288
+#define PARENTESIS_OPEN 289
+#define PARENTESIS_CLOSE 290
+#define END_OF_INSTRUCTION 291
+#define OPEN_CONTEXT_TAG 292
+#define CLOSE_CONTEXT_TAG 293
+#define QUOTE 294
+#define ID 295
+#define PRINT 296
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -133,7 +135,7 @@ union YYSTYPE
 #line 13 "bwic.y" /* yacc.c:1909  */
  int number; char* string; 
 
-#line 137 "y.tab.h" /* yacc.c:1909  */
+#line 139 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
