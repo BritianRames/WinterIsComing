@@ -19,6 +19,8 @@ void assignVariableValue(char *variableId, char *valueVariableId);
 
 void assignFunctionReturnValue(char *variable, char *function);
 
+void generatePrintJumper();
+
 
 
 /*/**********************************************************************************************************************************
