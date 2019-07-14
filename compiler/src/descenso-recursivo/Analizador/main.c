@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
 	}
 	 */
 	if(l != 0){
-		
-		printf("error");
+		printf("ERROR[SOBRAN]");
+		fails++;
 	}
     if(fails==0){
         printf("NO HAY ERRORES\n");
@@ -70,51 +70,90 @@ void input () {
 		instr();
 		input();
 	}else {
-		printf("NO HAY MÁS INSTRUCCIONES INTERNAS AL WHILE\n");
+		// DO NOTHING
 	}
 }
 
 void instr () {
     if(l == ID){
-		match(l);
-		if(l == ASSIGN){
-			match(ASSIGN);
-			term();
-			match(END_OF_INSTR);
-		} else if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
-			match(l);
-			if(l == INT_VAL || l == REAL_VAL || l == BOOL_VAL || l == ID){
-				match(l);
-				anid_while();
+		match(ID);
+		if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS || l == EQUALS){
+			pre_anid_while();
+		} else {
+			if(l == ASSIGN){
+				match(ASSIGN);
+				term();
 			} else {
-				//ERROR
-				printf("ERROR[TERM]\n");
+				//DO NOTHING
 			}
+			match(END_OF_INSTR);
 		}
 	}else if(l == BREAK){
 		match(l);
 		match(END_OF_INSTR);
 	}else if(l==INT_VAL || l == REAL_VAL || l == BOOL_VAL){
-		match(l);
-		if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
-			match(l);
-			if(l == INT_VAL || l == REAL_VAL || l == BOOL_VAL || l == ID){
-				match(l);
-				anid_while();
-			} else {
-				//ERROR
-				printf("ERROR[TERM]\n");
-			}
+		if(l==INT_VAL){
+			match(INT_VAL);
+		} else if (l == REAL_VAL){
+			match(REAL_VAL);
 		} else {
-			printf("ERROR[TERM]\n");
+			match(BOOL_VAL);
+		}
+		if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS || l == EQUALS){
+			pre_anid_while();
+		} else {
+			anid_while();
 		}
 	}else if(l == INT_TYPE || l == BOOL_TYPE || l == REAL_TYPE){
-		match(l);
+		if(l==INT_TYPE){
+			match(INT_TYPE);
+		} else if (l == REAL_TYPE){
+			match(REAL_TYPE);
+		} else {
+			match(BOOL_TYPE);
+		}
 		match(ID);
-		match(ASSIGN);
-		term();
+		if(l == ASSIGN){
+			match(ASSIGN);
+			term();
+			
+		} else{
+			//DO NOTHING
+		}
 		match(END_OF_INSTR);
+		
 	}
+}
+
+void pre_anid_while(){
+	if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS){
+		if(l==LESS){
+			match(LESS);
+		} else if (l == GREATER){
+			match(GREATER);
+		} else if (l == GREATER_EQUALS){
+			match(GREATER_EQUALS);
+		} else if (l == NOT_EQUALS){
+			match(NOT_EQUALS);
+		} else {
+			match(LESS_EQUALS);
+		}
+	}
+	if(l == INT_VAL || l == REAL_VAL || l == BOOL_VAL || l == ID){
+		if(l==INT_VAL){
+			match(INT_VAL);
+		} else if (l == REAL_VAL){
+			match(REAL_VAL);
+		} else if (l == BOOL_VAL){
+			match(BOOL_VAL);
+		} else {
+			match(ID);
+		}
+	} else {
+		//ERROR
+		printf("ERROR[TERM]\n");
+	}
+	anid_while();
 }
 
 void anid_while(){
@@ -129,7 +168,19 @@ void anid_while(){
 void expr () {
 	term();
 	if(l == LESS_EQUALS || l == LESS || l == EQUALS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS){
-		match(l);
+		if(l==LESS){
+			match(LESS);
+		} else if(l == EQUALS){
+			match(EQUALS);
+		} else if (l == GREATER){
+			match(GREATER);
+		} else if (l == GREATER_EQUALS){
+			match(GREATER_EQUALS);
+		} else if (l == NOT_EQUALS){
+			match(NOT_EQUALS);
+		} else {
+			match(LESS_EQUALS);
+		}
 		term();
 	} else {
 		//NOTHING TODO
@@ -139,14 +190,19 @@ void expr () {
 void term () {
 	if (l == INT_VAL || l == REAL_VAL || l == BOOL_VAL) {
 		data_value();
-	} else if(l == ID){
+	} else{
 		match(ID);
-	} else {
-		printf("ERROR[TERM]\n");
-		//match(1000);
-	}
+	} 
 	if(l == SUM || l == SUBSTRACT || l == PRODUCT || l == DIVIDE){
-		match(l);
+		if (l == SUM){
+			match(SUM);
+		} else if(l == SUBSTRACT){
+			match(SUBSTRACT);
+		} else if(l == PRODUCT){
+			match(PRODUCT);
+		} else {
+			match(DIVIDE);
+		}
 		term();
 	}else{
 		//NOTHING TODO
