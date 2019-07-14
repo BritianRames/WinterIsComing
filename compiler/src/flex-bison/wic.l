@@ -2,7 +2,6 @@
 
 %x COMMENT_BLOCK
 %x COMMENT_LINE
-%x CHAR_STATE
 %x STRING_STATE
 %x CHECK_LVL
 
@@ -50,7 +49,7 @@ string_val                    [^"]*
 int_type                      (int)
 real_type                     (real)
 bool_type                     (bool)
-char_type                     (char)
+string_type                   (string)
 
 /* Expresiones regulares para estructuras de control y bucles */
 if                            (\?){1}
@@ -276,7 +275,7 @@ id                            {letter}({letter}|{digit})*
   /* Reglas para los strings */
 \"                            {
                                 BEGIN(STRING_STATE);
-                                return STRING_QUOTE;
+                                return QUOTE;
                               }
 <STRING_STATE>{string_val}    {
                                 //TODO
@@ -289,7 +288,7 @@ id                            {letter}({letter}|{digit})*
                               }
 <STRING_STATE>\"              {
                                 BEGIN(INITIAL);
-                                return STRING_QUOTE;
+                                return QUOTE;
                               }
 
 

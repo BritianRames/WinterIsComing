@@ -47,10 +47,29 @@
 %token <number> END_OF_INSTRUCTION
 %token <number> OPEN_CONTEXT_TAG
 %token <number> CLOSE_CONTEXT_TAG
-%token <number> STRING_QUOTE
+%token <number> QUOTE
 %token <string> ID
 
 %type <number> begin
+%type <number> root
+%type <number> declaration
+%type <number> function
+%type <number> params
+%type <number> codeSet
+%type <number> instruction
+%type <number> assignation
+%type <number> functionCallParams
+%type <number> aritmeticOperation
+%type <number> return
+%type <number> print
+%type <number> printableElement
+%type <number> text
+%type <number> controlStructure
+%type <number> structuresWord
+%type <number> logicalOperation
+%type <number> logicalOperator
+
+
 %start begin
 %%
 
@@ -120,16 +139,16 @@ printableElement : ID {printVariable($<number>1);)}
                  | printableElement '+' printableElement {printLineJump();}
                  ;
 
-text : TEXT {$$ = $<number>1;}
+text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : structuresWord PARENTESIS_OPEN {openScope();} logicalOperation {closingScope();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN {openScope();} codeSet {closingScope();} CLOSINGCURLYBRACKET
+controlStructure : structuresWord PARENTESIS_OPEN {openScope();} logicalOperation {closingScope();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN {openScope();} codeSet {closingScope();} CURLY_BRACKET_CLOSE
                  ;
 
-structuresWord : IF {startIf();}
-               | ELSE {startElse();}
-               | WHILE {startWhile();}
+structuresWord : IF_CLAUSE {startIf();}
+               | ".?:" END_OF_INSTRUCTION {startElse();}
+               | WHILE_CLAUSE {startWhile();}
                ;
 
 logicalOperation : ID logicalOperator ID {logicalOperate(($<number>1),($<number>3),($<string>1))}
@@ -142,7 +161,7 @@ logicalOperator : EQUALS {$$ = "eq"}
                 | NOT_EQUALS {$$ = "neq"}
                 | GREATER {$$ = "gt"}
                 | LESS {$$ = "mt"}
-                | GREATER_EQUALs {$$ = "ge"}
+                | GREATER_EQUALS {$$ = "ge"}
                 | LESS_EQUALS {$$ = "me"}
                 ;
 
