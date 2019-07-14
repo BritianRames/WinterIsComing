@@ -354,6 +354,10 @@ void printContinue(int label){
   fprintf(f, "\tGT(%d)\n", label);
 }
 
+void printPrintJumpLine(){
+  fprintf(f, "printf(\"\n\");\n");
+}
+
 //Funtion Generation Code:::
 
 
