@@ -387,3 +387,7 @@ void generateContinue(){
   int label = _getCurrentLabel();
   printContinue(label);
 }
+
+void generatePrintJumpLine(){
+  printPrintJumpLine();
+}
