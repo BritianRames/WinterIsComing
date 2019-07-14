@@ -49,8 +49,9 @@
 %token <number> CLOSE_CONTEXT_TAG
 %token <number> QUOTE
 %token <string> ID
+%token <number> PRINT
 
-%type <number> begin
+
 %type <number> root
 %type <number> declaration
 %type <number> function
@@ -77,19 +78,21 @@ begin : {printf("Welcome to wic");} root
       ;
 
 
-root : declaration 
+root : declaration root
      | function
+     | END_OF_INSTRUCTION root
+     | /* EMPTY */
      ;
 
-declaration : INT_TYPE ID END_OF_INSTRUCTION {insertVariable($<string>2);}
+declaration : INT_TYPE ID END_OF_INSTRUCTION {printf("DECLARACIÓN");/*insertVariable($<string>2);*/}
             ;
 
-function : FUN ID {insertFunction($<string>2);} PARENTESIS_OPEN {openScope();} params {closeScope();} PARENTESIS_CLOSE {openScope();} HEADER_END END_OF_INSTRUCTION OPEN_CONTEXT_TAG codeSet CLOSE_CONTEXT_TAG {closingScope();} 
+function : FUN ID {/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION OPEN_CONTEXT_TAG codeSet CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE {/*closingScope();*/} 
          ;
 
-params : INT_TYPE ID params {insertVariable($<string>2);}
+params : INT_TYPE ID params {/*insertVariable($<string>2);*/}
        | COMMA INT_TYPE ID params
-       | ''
+       | /* EMPTY */
        ;
 
 codeSet : declaration codeSet
@@ -104,65 +107,64 @@ instruction : assignation
             | aritmeticOperation END_OF_INSTRUCTION
             | return END_OF_INSTRUCTION
             | print END_OF_INSTRUCTION
-            | BREAK END_OF_INSTRUCTION{breakCode();}
+            | BREAK END_OF_INSTRUCTION{/*breakCode();*/}
             ;
 
-assignation : ID '=' INT_VAL END_OF_INSTRUCTION{generateAssignStaticValueToVariableCode($<string>1,$<number>3);}
-            | ID '=' ID END_OF_INSTRUCTION {generateAssignStaticVriableToVariableCode($<string>1,$<string>3);}
-            | ID '=' ID PARENTESIS_OPEN {functionCall($<string>1,$<string>3);} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
+assignation : ID '=' INT_VAL END_OF_INSTRUCTION{/*generateAssignStaticValueToVariableCode($<string>1,$<number>3);*/}
+            | ID '=' ID END_OF_INSTRUCTION {/*generateAssignStaticVriableToVariableCode($<string>1,$<string>3);*/}
+            | ID '=' ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
             ;  
 
-functionCallParams : INT_VAL {setParamsValue($<number>1);}
-                   | ID {setParamsValueFromVariable($<string>1);}
-                   | INT_VAL COMMA functionCallParams {setParamsValue($<number>1);}
-                   | ID COMMA functionCallParams {setParamsValueFromVariable($<string>1);}
+functionCallParams : INT_VAL {/*setParamsValue($<number>1);*/}
+                   | ID {/*setParamsValueFromVariable($<string>1);*/}
+                   | INT_VAL COMMA functionCallParams {/*setParamsValue($<number>1);*/}
+                   | ID COMMA functionCallParams {/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation : aritmeticOperation '-' aritmeticOperation {$$ = substract($<number>1,$<number>3);}
-            | aritmeticOperation '+' aritmeticOperation {$$ = add($<number>1,$<number>3);}
-            | aritmeticOperation '*' aritmeticOperation {$$ = multiply($<number>1, $<number>3);}
-            | aritmeticOperation '/' aritmeticOperation {$$ = divide($<number>1, $<number>3);}
+aritmeticOperation : aritmeticOperation '-' aritmeticOperation {/*$$ = substract($<number>1,$<number>3);*/}
+            | aritmeticOperation '+' aritmeticOperation {/*$$ = add($<number>1,$<number>3);*/}
+            | aritmeticOperation '*' aritmeticOperation {/*$$ = multiply($<number>1, $<number>3);*/}
+            | aritmeticOperation '/' aritmeticOperation {/*$$ = divide($<number>1, $<number>3);*/}
             | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {$$ = $<number>2;}
             | INT_VAL {$$ = $<number>1;}
             ;
 
-return : RETURN ID {returnVariable($<number>2);}
-       | RETURN INT_VAL {returnValue($<number>2);}
-       | RETURN aritmeticOperation {returnValue($<number>2);}
-       | RETURN ID PARENTESIS_OPEN {functionCall($<string>1,$<string>3);} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
+return : RETURN ID {/*returnVariable($<number>2);*/}
+       | RETURN INT_VAL {/*returnValue($<number>2);*/}
+       | RETURN aritmeticOperation {/*returnValue($<number>2);*/}
+       | RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE END_OF_INSTRUCTION
        ; 
 
 print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE 
       ; 
 
-printableElement : ID {printVariable($<number>1);)}
-                 | QUOTE text QUOTE {printText(($<number>1);)}
-                 | printableElement '+' printableElement {printLineJump();}
+printableElement : ID {/*printVariable($<number>1);*/}
+                 | QUOTE text QUOTE {/*printText($<number>1);*/}
+                 | printableElement '+' printableElement {/*printLineJump();*/}
                  ;
 
 text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : structuresWord PARENTESIS_OPEN {openScope();} logicalOperation {closingScope();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN {openScope();} codeSet {closingScope();} CURLY_BRACKET_CLOSE
+controlStructure : structuresWord PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} OPEN_CONTEXT_TAG codeSet {/*closingScope();*/} CLOSE_CONTEXT_TAG CURLY_BRACKET_CLOSE
                  ;
 
-structuresWord : IF_CLAUSE {startIf();}
-               | ".?:" END_OF_INSTRUCTION {startElse();}
-               | WHILE_CLAUSE {startWhile();}
+structuresWord : IF_CLAUSE {/*startIf();*/}
+               | WHILE_CLAUSE {/*startWhile();*/}
                ;
 
-logicalOperation : ID logicalOperator ID {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | ID logicalOperator INT_VAL {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | INT_VAL logicalOperator INT_VAL {logicalOperate(($<number>1),($<number>3),($<string>1))}
-                 | INT_VAL logicalOperator ID {logicalOperate(($<number>1),($<number>3),($<string>1))}
+logicalOperation : ID logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1));*/}
+                 | ID logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+                 | INT_VAL logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+                 | INT_VAL logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
                  ;
 
-logicalOperator : EQUALS {$$ = "eq"}
-                | NOT_EQUALS {$$ = "neq"}
-                | GREATER {$$ = "gt"}
-                | LESS {$$ = "mt"}
-                | GREATER_EQUALS {$$ = "ge"}
-                | LESS_EQUALS {$$ = "me"}
+logicalOperator : EQUALS {$$ = "eq";}
+                | NOT_EQUALS {$$ = "neq";}
+                | GREATER {$$ = "gt";}
+                | LESS {$$ = "mt";}
+                | GREATER_EQUALS {$$ = "ge";}
+                | LESS_EQUALS {$$ = "me";}
                 ;
 
 %%
