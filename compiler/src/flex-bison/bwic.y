@@ -49,6 +49,7 @@
 %token <number> CLOSE_CONTEXT_TAG
 %token <number> QUOTE
 %token <string> ID
+%token PRINT
 
 %type <number> begin
 %type <number> root
@@ -89,7 +90,7 @@ function : FUN ID {insertFunction($<string>2);} PARENTESIS_OPEN {openScope();} p
 
 params : INT_TYPE ID params {insertVariable($<string>2);}
        | COMMA INT_TYPE ID params
-       | ''
+       | /* empty */
        ;
 
 codeSet : declaration codeSet
@@ -118,10 +119,12 @@ functionCallParams : INT_VAL {setParamsValue($<number>1);}
                    | ID COMMA functionCallParams {setParamsValueFromVariable($<string>1);}
 
 aritmeticOperation : aritmeticOperation '-' aritmeticOperation {$$ = substract($<number>1,$<number>3);}
-            | aritmeticOperation '+' aritmeticOperation {$$ = add($<number>1,$<number>3);}
             | aritmeticOperation '*' aritmeticOperation {$$ = multiply($<number>1, $<number>3);}
+            | aritmeticOperation '+' aritmeticOperation {$$ = add($<number>1,$<number>3);}
+            | aritmrticResult '+' aritmeticOperation {$$ = addValueToResolvedOperation($<number>1,$<number>3);}
             | aritmeticOperation '/' aritmeticOperation {$$ = divide($<number>1, $<number>3);}
             | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {$$ = $<number>2;}
+            | ID
             | INT_VAL {$$ = $<number>1;}
             ;
 

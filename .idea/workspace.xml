@@ -34,9 +34,12 @@
     <list default="true" id="1aca1b1c-243e-4cc3-bb82-d2b948c414f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler/src/flex-bison/bwic.y" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/flex-bison/bwic.y" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,13 +53,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+        <entry file="file://$PROJECT_DIR$/compiler/src/flex-bison/bwic.y">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-6">
+              <caret line="96" column="29" lean-forward="true" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -64,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+            <state relative-caret-position="480">
+              <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -73,10 +73,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="128" column="20" selection-start-line="128" selection-start-column="15" selection-end-line="128" selection-end-column="20" />
+            <state relative-caret-position="168">
+              <caret line="126" column="13" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="13" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="206" column="1" selection-start-line="206" selection-start-column="1" selection-end-line="206" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,38 +97,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/StackManager.c">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="36" column="82" lean-forward="true" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
-              <folding>
-                <element signature="e#0#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="85" />
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -124,8 +115,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+            <state relative-caret-position="410">
+              <caret line="47" column="48" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+              <folding>
+                <element signature="e#36#84#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,17 +155,40 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;</find>
-      <find>linksymboltosy</find>
-      <find>_incrementNumberOfLocalVariablesAndParameters()</find>
-      <find>getVariable</find>
-      <find>label</find>
-      <find>GT</find>
+      <find>add(</find>
+      <find>0x0x</find>
+      <find>genera</find>
+      <find>generateAssignValueTo</find>
+      <find>PrintCodeAssignoperationResultToVariable</find>
+      <find>generateAssignOperationResultToVariable</find>
+      <find>print</find>
+      <find>generate</find>
       <find>generatePrintVariable</find>
-      <find>R0=</find>
-      <find>printGlobalVariableValueAS</find>
-      <find>printGlobalVariableValueAssignation</find>
+      <find>printPrintVariableCode</find>
+      <find>division</find>
+      <find>Division</find>
+      <find>generateAssignValueToGlobal</find>
+      <find>printVariableVariba</find>
+      <find>AddVariableToVariable</find>
+      <find>printCodeToAssignVa</find>
+      <find>AddVariabletovariab</find>
+      <find>Regis</find>
+      <find>printVariable</find>
+      <find>printSy</find>
+      <find>aaa</find>
+      <find>bbb</find>
+      <find>printPrintVariable</find>
+      <find>Global</find>
+      <find>label</find>
+      <find>generatePrintVaria</find>
+      <find>return</find>
+      <find>retu</find>
+      <find>retur</find>
+      <find>lastLabel</find>
     </findStrings>
+    <replaceStrings>
+      <replace>0x%x</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -161,18 +205,21 @@
       <list>
         <option value="$PROJECT_DIR$/compiler/src/code-generator/codeGeneratorMager.h" />
         <option value="$PROJECT_DIR$/compiler/src/Main.cpp" />
-        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" />
         <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h" />
         <option value="$PROJECT_DIR$/compiler/src/Makefile" />
-        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" />
+        <option value="$PROJECT_DIR$/compiler/src/code-generator/StackManager.c" />
         <option value="$PROJECT_DIR$/compiler/Makefile" />
-        <option value="$PROJECT_DIR$/compiler/src/main.c" />
+        <option value="$PROJECT_DIR$/compiler/src/flex-bison/bwic.y" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h" />
-        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" />
+        <option value="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" />
+        <option value="$PROJECT_DIR$/compiler/src/main.c" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" />
+        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h" />
+        <option value="$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c" />
       </list>
     </option>
   </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="234" />
     <option name="y" value="27" />
@@ -202,6 +249,27 @@
               <item name="compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="WinterIsComing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WinterIsComing" type="462c0819:PsiDirectoryNode" />
+              <item name="compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="code-generator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WinterIsComing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WinterIsComing" type="462c0819:PsiDirectoryNode" />
+              <item name="compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="flex-bison" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WinterIsComing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WinterIsComing" type="462c0819:PsiDirectoryNode" />
+              <item name="compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="symbol-table" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -212,7 +280,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/compiler/include" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/compiler/Makefile" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -238,6 +306,24 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Makefile.compile">
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile">
+      <makefile filename="$PROJECT_DIR$/compiler/Makefile" target="" workingDirectory="" arguments="clean">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="compile" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile">
+      <makefile filename="$PROJECT_DIR$/compiler/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Makefile.clean" />
+      <item itemvalue="Makefile.compile" />
+    </list>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -249,6 +335,7 @@
       <option name="presentableId" value="Default" />
       <updated>1562718492098</updated>
       <workItem from="1562718493347" duration="5521000" />
+      <workItem from="1563099866486" duration="32562000" />
     </task>
     <task id="LOCAL-00001" summary="[+] Refractor">
       <created>1562722783478</created>
@@ -278,18 +365,41 @@
       <option name="project" value="LOCAL" />
       <updated>1563018244032</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[+] Fixed compilation errors">
+      <created>1563019184262</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1563019184262</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[+] Fixed base stack address">
+      <created>1563022067889</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1563022067889</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13188000" />
+    <option name="totallyTimeSpent" value="49008000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2497332" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.2524013" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TeamCity" order="0" />
       <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4994664" visible="true" weight="0.32899022" />
@@ -303,36 +413,13 @@
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="bottom" id="TODO" order="12" weight="0.32899022" />
       <window_info anchor="right" id="make" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2497332" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="TeamCity" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4994664" weight="0.32899022" />
-      <window_info anchor="bottom" id="Version Control" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50053364" side_tool="true" weight="0.32899022" />
-      <window_info anchor="bottom" id="Serial Monitor" order="4" />
-      <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Run" order="8" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="12" />
-      <window_info anchor="right" id="make" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Database" order="2" />
-      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -340,77 +427,101 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[+] Refractor" />
     <MESSAGE value="[+] Main function, code initialization and ending rutines added to the compiler's CodeGeneratorManager and CodePrinter" />
-    <option name="LAST_COMMIT_MESSAGE" value="[+] Main function, code initialization and ending rutines added to the compiler's CodeGeneratorManager and CodePrinter" />
+    <MESSAGE value="[+] Fixed compilation errors" />
+    <MESSAGE value="[+] Fixed base stack address" />
+    <option name="LAST_COMMIT_MESSAGE" value="[+] Fixed base stack address" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/codeGenerator.c" />
     <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGenerator.h" />
     <entry file="file://$PROJECT_DIR$/compiler/src/Main.cpp" />
+    <entry file="file://$PROJECT_DIR$/compiler/include/Q.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/flex-bison/wic.y">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4614" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/flex-bison/wic.l">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+        <state relative-caret-position="480">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/StackManager.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="47" column="48" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/flex-bison/bwic.y">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6">
+          <caret line="96" column="29" lean-forward="true" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="e#36#84#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="128" column="20" selection-start-line="128" selection-start-column="15" selection-end-line="128" selection-end-column="20" />
+        <state relative-caret-position="168">
+          <caret line="126" column="13" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="13" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/include/Q.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodeGeneratorManager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="36" column="82" lean-forward="true" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
+        <state relative-caret-position="399">
+          <caret line="206" column="1" selection-start-line="206" selection-start-column="1" selection-end-line="206" selection-end-column="1" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>

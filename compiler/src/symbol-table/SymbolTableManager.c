@@ -5,9 +5,8 @@ struct Symbol* firstSymbol;
 struct Symbol* lastSymbol;
 struct Symbol* lastFunc;
 int tableSize = 0;
-
 int currentScope = 0;
-int lastLabel = 0;
+int lastLabel = 1;
 
 void insertVariableInSymbolTable(char* id){
     // debug con prints
@@ -142,9 +141,7 @@ int getVariableAddressFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){
         if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
-            //printf("no se estaba metiendo pesado %d", currentSymbol->address);
             return currentSymbol->address;
-            
         }
         currentSymbol = currentSymbol->previousSymbol;
     }
@@ -155,9 +152,20 @@ int getVariableAddressFromSymbolTable(char* id){
 struct Symbol* getVariableFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     printf("symbol: %s, %c\n", currentSymbol->id, currentSymbol->type);
-    printSymbolTable();
     for(int i = tableSize; i > 0; i--){
         if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+            return currentSymbol;
+        }
+        currentSymbol = currentSymbol->previousSymbol;
+    }
+    return -1;
+}
+
+struct Symbol* getFunctionFromSymbolTable(char* id){
+    struct Symbol* currentSymbol = lastSymbol;
+    printf("symbol (f): %s, %c\n", currentSymbol->id, currentSymbol->type);
+    for(int i = tableSize; i > 0; i--){
+        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'f')){
             return currentSymbol;
         }
         currentSymbol = currentSymbol->previousSymbol;
