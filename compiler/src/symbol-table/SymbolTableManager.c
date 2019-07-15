@@ -48,7 +48,7 @@ void insertFunctionSymbolTable(char *id){
     
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
-    symbol->label = _getNextLabel();
+    symbol->label = getNextLabel();
     symbol->numberOfLocalVariables = 0;
     symbol->numberOfParameters = 0;
     symbol->type = 'f';
@@ -123,7 +123,7 @@ void _removeLocalVariablesFromSymbolTable(){
     }
 }
 
-int _getNextLabel(){
+int getNextLabel(){
     lastLabel++;
     return lastLabel;
 }

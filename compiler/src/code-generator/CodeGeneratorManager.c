@@ -94,12 +94,23 @@ void generateFunctionReturnValueCode(int value){
   printReturnValue(getCurrentStackPointer(), value);
 }
 
-void generateFunctionReturnVariableCode(char* variableToReturn){
-  struct Symbol* variable = getVariableFromSymbolTable(variableToReturn);
-  int address = variable->type == 'g' ? variable->address : getCurrentStackPointer - variable->address * 4;
-
-  printReturnVariable(getCurrentStackPointer(), address);
+void generateReturnVariableCode(char* variable){
+    printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
 }
+
+void generateFunctionCall(){
+    printGoToInstruction(getLastFunctionFromSymbolTable()->label);
+    int returnLabel = _getNextLabel();
+    printLabelInstruction(returnLabel);
+    printRecoverStack();
+    printRecoverRegisters();
+    printSaveRegistersValue(getCurrentStackPointer()+4);
+    printPutParametersInRegisters();
+    updateStackPointer(4*6); //R1 ... R6
+    printStoreFunctionData(getCurrentStackPointer(), getLastFunctionFromSymbolTable()->numberOfParameters, returnLabel);
+    printParametersAsignation();
+}
+
 
 void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
@@ -198,10 +209,4 @@ void generateAssignOperationResultToVariable(char* id) {
     printCodeAssignOperationResultToVariable(_getVariableAddress(id));
 }
 
-void generateReturnValue(int value){
-    printReturnValue(getCurrentStackPointer(), value);
-}
 
-void generateReturnVariable(char* variable){
-    printReturnVariable(getCurrentStackPointer(), getVariableFromSymbolTable(variable)->address);
-}
