@@ -95,6 +95,14 @@ void generateInsertOnStack(int value){
   addOneToNumberOperators(); //¿ANTES O DESPUES?
 }
 
+void generateInsertOnStackVARIABLE(char* id){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
+  printf(",,,,,,,,,,");
+  int var_address = getVariableAddressFromSymbolTable(id);
+  printInsertOnStackVariable(address, var_address);
+  addOneToNumberOperators(); //¿ANTES O DESPUES?
+}
+
 void generateAddValue(){
   printf("...............");
   int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
@@ -107,23 +115,32 @@ void generateAddValue(){
 //}
 //
 //
-//void generateSubstractValue(){
-//  printSubstractValue();
-//}
+void generateSubstractValue(){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  printf("...............");
+  printSubstractValue(address);
+  minusOneToNumberOperators();
+}
 //void generateSubstractVariable(){
 //  printSubstractVariable(_getVariableAddress(id));
 //}
 //
-//void generateProductValue(){
-//  printProductValue();
-//}
+void generateProductValue(){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  printf("...............");
+  printProductValue(address);
+  minusOneToNumberOperators();
+}
 //void generateProductVariable(){
 //  printProductVariable(_getVariableAddress(id));
 //}
 //
-//void generateDivisionValue(int value){
-//  printDivisionValue(value);
-//}
+void generateDivisionValue(){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  printf("...............");
+  printDivisionValue(address);
+  minusOneToNumberOperators();
+}
 //void generateDivisionVariable(char* id){
 //  printDivisionVariable(_getVariableAddress(id));
 //}

@@ -118,8 +118,6 @@ codeSet : instruction END_OF_INSTRUCTION codeSet
 
 instruction : assignation
             | declaration
-            | ID  ASSIGN aritmeticOperation
-            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
             | return
             | print
             | BREAK {/*breakCode();*/}
@@ -135,6 +133,7 @@ assignation : ID ASSIGN INT_VAL {
                                 }
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
             | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -143,11 +142,12 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
 aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {generateAddValue();}
-                  |   aritmeticOperation SUBSTRACT aritmeticOperation
-                  |   aritmeticOperation PRODUCT aritmeticOperation
-                  |   aritmeticOperation DIVIDE aritmeticOperation
+                  |   aritmeticOperation SUBSTRACT aritmeticOperation {generateSubstractValue();}
+                  |   aritmeticOperation PRODUCT aritmeticOperation {generateProductValue();}
+                  |   aritmeticOperation DIVIDE aritmeticOperation {generateDivisionValue();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-                  |   INT_VAL {printf("COMIENZA LLAMADA generateInsertOnStack%d\n",$<number>1); generateInsertOnStack($<number>1);}
+                  |   INT_VAL { generateInsertOnStack($<number>1);}
+                  |   ID      { generateInsertOnStackVARIABLE($<string>1);}
                   ;
 
 

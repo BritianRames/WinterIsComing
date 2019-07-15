@@ -155,6 +155,10 @@ void printInsertOnStack(int address, int value){
   fprintf(f, "I(0x%x) = %d;\n", address, value);
 }
 
+void printInsertOnStackVariable(int address, int var_address){
+  fprintf(f, "I(0x%x) = I(0x%x);\n", address, var_address);
+}
+
 
 void printAddValue(int address){
     fprintf(f, "R1 = I(0x%x);\n", address+4);
@@ -162,28 +166,32 @@ void printAddValue(int address){
 
 }
 
-void printAddVariable(int address){
-    fprintf(f, "R0 = R0 + I(0x%x);\n", address);
-}
+//void printAddVariable(int address){
+//    fprintf(f, "R1 = I(0x%x);\n", address+4);
+//    fprintf(f, "I(0x%x) = R1 + I(0x%x);\n", address+4,address);
+//}
 
-void printSubstractValue(int val){
-    fprintf(f, "R0 = R0 - %d;\n", val);
+void printSubstractValue(int address){
+    fprintf(f, "R1 = I(0x%x);\n", address+4);
+    fprintf(f, "I(0x%x) = R1 - I(0x%x);\n", address+4,address);
 }
 
 void printSubstractVariable(int address){
     fprintf(f, "R0 = R0 - I(0x%x);\n", address);
 }
 
-void printProductValue(int val){
-    fprintf(f, "R0 = R0 * %d;\n", val);
+void printProductValue(int address){
+    fprintf(f, "R1 = I(0x%x);\n", address+4);
+    fprintf(f, "I(0x%x) = R1 * I(0x%x);\n", address+4,address);
 }
 
 void printProductVariable(int address){
     fprintf(f, "R0 = R0 * I(0x%x);\n", address);
 }
 
-void printDivisionValue(int val){
-    fprintf(f, "R0 = R0 / %d;\n", val);
+void printDivisionValue(int address){
+    fprintf(f, "R1 = I(0x%x);\n", address+4);
+    fprintf(f, "I(0x%x) = R1 / I(0x%x);\n", address+4,address);
 }
 
 void printDivisionVariable(int address){

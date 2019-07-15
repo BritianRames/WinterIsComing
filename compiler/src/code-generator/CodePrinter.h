@@ -38,6 +38,7 @@ void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */
 void printInsertOnStack(int address, int value);
+void printInsertOnStackVariable(int address, int var_address);
 
 void printAddValue(int address);
 void printAddVariable(int address);
