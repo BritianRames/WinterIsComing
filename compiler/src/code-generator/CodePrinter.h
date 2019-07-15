@@ -16,7 +16,7 @@ void printCodeToAssignParametersValueInStack(int numberOfParameters, int stackPo
 void printReturnValue(int stackPointer, int valueToReturn);
 void printReturnVariable(int stackPointer, int variableAddress);
 void printRecoverRegistersValue(int registerFramePointer);
-void printSaveRegistersValue(int registerFramePointer);
+void printSaveRegistersValue(int lastRegisterPointer);
 void printCodeToAssignValueToVariable(int address, int value);
 void printCodeToAssignVariableToVariable(int address, int value_address);
 void printPrintStringCode(char* string);
@@ -32,6 +32,8 @@ void printPopReg(int r);
 void printCodeToAssignVariableToRegister(int reg, int addr);
 void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
+void printCodeToAssignOperationResultToVariable(int address);
+void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */
 void printAddValueToValue(int val1, int val2);
@@ -51,6 +53,9 @@ void printSubtractVariableToVariable(int address1, int address2);
 void printMultiplyVariableToVariable(int address1, int address2);
 void printDivideVariableToVariable(int address1, int address2);
 
+void generateFunctionCall(char* currentFunction, char* nextFunction);
+void printRecoverRegisters();
+void printRecoverStackPointer(int offset);
 
 /* IF CLAUSE FUNCTIONS */
 void printHeaderOfIfInstruction(int reg, int cond_value, int else_label);

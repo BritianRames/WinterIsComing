@@ -56,7 +56,6 @@ void generateGlobalDefinitionAreaEnding(){
     printGlobalDefinitionAreaEnding();
 }
 
-
 void generateMainFunction() {
     printMainFunction();
 }
@@ -69,47 +68,40 @@ void generateQEnding() {
     printQEnding();
 }
 
-void generateAssignValueToGlobalVariable(char* variable_id, int value){
-  int variable_address = getVariableAddressFromSymbolTable(variable_id);
-  printCodeToAssignValueToVariable(variable_address, value);
-}
-
-void generateFunctionHeaderCode(){
-  struct Symbol* function = getLastFunctionFromSymbolTable();
-  int numberOfParameters = function->numberOfParameters;
-  printFunctionLabel(function->label);
-
-  printUpdateFramePointer(); // R6 = R7;
-  updateStackPointer((numberOfParameters + 2) * 4); //R7 + X; TS --> stackPointer + X
-  printCodeToAssignParametersValueInStack(numberOfParameters, getCurrentStackPointer());
-}
-//Update lv number
-
-void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
-  int variable_address = getVariableAddressFromSymbolTable(variable_id);
-  int value_address = _getNextLocalVariableAddressFromSymbolTable(value_id);
-}
-
 void generateFunctionReturnValueCode(int value){
   printReturnValue(getCurrentStackPointer(), value);
 }
 
 void generateReturnVariableCode(char* variable){
-    printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
+  printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
 }
 
-void generateFunctionCall(){
-    printGoToInstruction(getLastFunctionFromSymbolTable()->label);
-    int returnLabel = _getNextLabel();
-    printLabelInstruction(returnLabel);
-    printRecoverStack();
-    printRecoverRegisters();
-    printSaveRegistersValue(getCurrentStackPointer()+4);
-    printPutParametersInRegisters();
-    updateStackPointer(4*6); //R1 ... R6
-    printStoreFunctionData(getCurrentStackPointer(), getLastFunctionFromSymbolTable()->numberOfParameters, returnLabel);
-    printParametersAsignation();
+void generateFunctionCall(char* currentFunction, char* nextFunction, int* parameters){
+  //Actualizamos Stack
+  int localSpace = getFunctionFromSymbolTable(currentFunction)->numberOfLocalVariables * 4;
+  int registerSpace = 4 * 6; // 4 * number of register to store R1...R6
+  updateStackPointer(localSpace + registerSpace); //Avanzamos espacio de locales y registros
+
+  int goBackLabel = _getNextLabel();
+  int parametersSpace = getFunctionFromSymbolTable(nextFunction)->numberOfParameters * 4;
+  //Salvamos Registros
+  printSaveRegistersValue(getCurrentStackPointer());
+  //Actualizamos Registros a parametros
+  printPutParametersInRegisters(getFunctionFromSymbolTable(nextFunction)->numberOfParameters, parameters);
+  //Actualizamos FramePointer
+  updateFramePointerToStackPointer(); //R6 = R7 
+  //Actualizamos Stackpointer
+  updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
+  //Imprimimos GT
+  printGoToInstruction(getFunctionFromSymbolTable(nextFunction)->label);
+  //Escribimos código de salto y recover de datos y stack
+  printLabelInstruction(goBackLabel);
+  //Recuperamos Registros
+  printRecoverRegisters();
+  //Recuperamos StackPointer
+  recoverStackPointer(localSpace + registerSpace);
 }
+
 
 
 void generateAssignValueToVariableCode(char *variable_id, int value){
@@ -120,26 +112,8 @@ void generateAssignVariableToVariableCode(char* variable_id, char value_id){
   printCodeToAssignVariableToVariable(_getVariableAddress(variable_id), _getVariableAddress(value_id));
 }
 
-int _getVariableAddress(char* variable_id){
-  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
-  if(variable == -1) printf("\nElement not found \n");
-  else if (variable->type == 'g') return variable->address;
-  else return getCurrentStackPointer() - variable->address * 4;
-  return 1000;
-}
-
-void generateReturnValueCode(int value){
-  //generateAssignValuleToRegister(getReturnRegisterNumber());
-  //generateGoToPreviousContext();
-  //generateRecoverScopeRegister();
-}
-
-void generateReturnVariableCode(char* variable){
-  //int variable_address = getVariableAddressFromTable(variable_id) -->   use symbol table
-  //int value_address = getVariableAddres(value_id)
-  //int value = getValueFromStack(value_address)
-  //int address = getReturnCurrentFunctionAddress()
-  //generateAssignationCode(address, value) --> we have a memory position for return value (maybe better a register)
+void generateAssignVariableToFunctionResult(char* variable){
+  printCodeToAssignFunctionResultToVariable(variable);
 }
 
 void generatePrintString(char* string){
@@ -171,7 +145,6 @@ void generateProductValueToValue(int firstValue, int secondValue) {
 void generateDivisionValueToValue(int firstValue, int secondValue) {
     printDivisionValueToValue(firstValue, secondValue);
 }
-
 
 void generateAddValueToVariable(char* variable, int val) {
     printAddValueToVariable(_getVariableAddress(variable), val);
@@ -206,7 +179,26 @@ void generateDivisionVariableToVariable(char* variable1, char* variable2) {
 }
 
 void generateAssignOperationResultToVariable(char* id) {
-    printCodeAssignOperationResultToVariable(_getVariableAddress(id));
+    printCodeToAssignOperationResultToVariable(_getVariableAddress(id));
 }
 
+int _getVariableAddress(char* variable_id){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  if(variable == -1) printf("\nElement not found \n");
+  else if (variable->type == 'g') return variable->address;
+  else return getCurrentStackPointer() - variable->address * 4;
+  return 1000;
+}
+// void generateReturnValueCode(int value){
+//   //generateAssignValuleToRegister(getReturnRegisterNumber());
+//   //generateGoToPreviousContext();
+//   //generateRecoverScopeRegister();
+// }
 
+// void generateReturnVariableCode(char* variable){
+//   //int variable_address = getVariableAddressFromTable(variable_id) -->   use symbol table
+//   //int value_address = getVariableAddres(value_id)
+//   //int value = getValueFromStack(value_address)
+//   //int address = getReturnCurrentFunctionAddress()
+//   //generateAssignationCode(address, value) --> we have a memory position for return value (maybe better a register)
+// }

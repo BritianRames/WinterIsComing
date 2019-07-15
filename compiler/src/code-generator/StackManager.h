@@ -7,3 +7,5 @@ int getNextStackPointer();
 int updateStackPointer(int offset);
 int getCurrentStackPointer();
 int getCurrentFramePointer();
+void recoverStackPointer(int offset);
+void updateFramePointerToStackPointer();

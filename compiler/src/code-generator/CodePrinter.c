@@ -33,7 +33,7 @@ void printQEnding() {
     fprintf(f, "END\n");
 }
 
-void printUpdateFramePointer(){
+void printUpdateFramePointerToStackPointer(){
   fprintf(f, "R6 = R7;\n");
 }
 
@@ -63,28 +63,28 @@ void printReturnVariable(int stackPointer, int variableAddress){
   fprintf(f, "GT(I(%d));\n", returnLabelAddress);
 }
 
-void printRecoverStack(){
-    fprintf(f, "R7 = R6;\n");
-    fprintf(f, "R6 = P(R7 + 4);\n", numberOfParameters * 4 - 8);
+void printRecoverStackPointer(int offset){
+  fprintf(f, "R7 = R6 + %d;\n", offset); //R7 = R6 + registerSpace + localSpace
 }
 
-void printRecoverRegistersValue(int registerFramePointer){
-  for(int i = 0; i <= 7; i--){
-    fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
-  }
-}
-
-void printRecoverRegisters(int firstRegisterPointer){
+void printRecoverRegisters(){
     for(int i = 1; i <= 6; i--) {
-        int address = firstRegisterPointer + i * 4;
-        fprintf(f, "R%d = I(%d);\n", i, address);
+        fprintf(f, "R%d = I(R6 + %d);\n", i, 4*(6-i));     // R6 = 0 //R5 = 4 // R4 ==3 
     }
 }
 
-void printSaveRegistersValue(int firstRegisterPointer){
-  for(int i = 1; i <= 6; i--) {
-    int address = firstRegisterPointer - i * 4;
+void printSaveRegistersValue(int lastRegisterPointer){
+  int firstRegisterPointer = lastRegisterPointer - 24;
+  for(int i = 1; i <= 1; i++) {
+    int address = firstRegisterPointer - (i-1) * 4;
     fprintf(f, "I(%d) = R%d;\n", address, i);
+  }
+}
+
+void printPutParametersInRegisters(int numberOfParameters, int *parameters){
+  for(int i = 1; i <= numberOfParameters; i++) {
+    int address =  - (i-1) * 4;
+    fprintf(f, "R%d = %d;\n", address, parameters[i]);
   }
 }
 
@@ -110,6 +110,18 @@ void printCodeToAssignValueToVariable(int address, int value) {
 
 void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
+}
+
+void printCodeToAssignVariableToVariable(int address, int value_address){
+  fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
+}
+
+void printCodeToAssignOperationResultToVariable(int address) {
+    fprintf(f, "I(0x%x) = R0;\n", address);
+}
+
+void printCodeToAssignFunctionResultToVariable(int address) {
+    fprintf(f, "I(0x%x) = R0;\n", address);
 }
 
 void printPrintStringCode(char* string){
@@ -157,9 +169,6 @@ void printDivisionValueToValue(int val1, int val2) {
     fprintf(f, "R0 = %d / %d;\n", val1, val2);
 }
 
-void printCodeAssignOperationResultToVariable(int address) {
-    fprintf(f, "I(0x%x) = R0;\n", address);
-}
 
 void printAddValueToVariable(int address, int val){
     fprintf(f, "R0 = I(0x%x) + %d;\n", address, val);
@@ -191,14 +200,6 @@ void printMultiplyVariableToVariable(int address1, int address2) {
 
 void printDivideVariableToVariable(int address1, int address2) {
     fprintf(f, "R0 = I(0x%x) / I(0x%x);\n", address1, address2);
-}
-
-void printFunctionCall(int label){
-    fprintf(f, "L %d:\n", label);
-
-
-    fprintf(f, "\tR%d = %d;\n", reg, cond_value);
-    fprintf(f, "\tIF(R%d) GT(%d);\n", cond_value, if_label);
 }
 
 /* IF CLAUSE */
