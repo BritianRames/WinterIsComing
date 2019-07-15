@@ -5,6 +5,10 @@ b = 2
 
 fun main (){
     a = b + 4 * 2 / 2 
+    if (a == 6) {
+        a = 0
+        print(a)
+    }
     print(a)
     print(b)
 }

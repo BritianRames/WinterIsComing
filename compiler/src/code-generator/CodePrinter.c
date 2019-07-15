@@ -138,16 +138,26 @@ void printPrintVariableCode(int address){
 
 
 ///* REGISTRIES MANAGEMENT */
-//
-//void printPushReg(int r) {
-//    fprintf(f, "R7 = R7 - 4;");
-//    fprintf(f, "I(R7) = R%d;", r);
-//}
-//
-//void printPopReg(int r) {
-//    fprintf(f, "R%d = I(R7);", r);
-//    fprintf(f, "R7 = R7 + 4;");
-//}
+
+void printPushReg(int r) {
+    fprintf(f, "R7 = R7 - 4;");
+    fprintf(f, "I(R7) = R%d;", r);
+}
+
+void printPopReg(int r) {
+    fprintf(f, "R%d = I(R7);", r);
+    fprintf(f, "R7 = R7 + 4;");
+}
+
+void printPushMem(int ad) {
+    fprintf(f, "R7 = R7 - 4;");
+    fprintf(f, "I(R7) = I(0x%x);", ad);
+}
+
+void printPopMem(int ad) {
+    fprintf(f, "I(0x%x) = I(R7);", ad);
+    fprintf(f, "R7 = R7 + 4;");
+}
 
 /* ARITHMETICAL FUNCTIONS */
 

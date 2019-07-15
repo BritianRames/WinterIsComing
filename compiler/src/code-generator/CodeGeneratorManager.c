@@ -91,6 +91,7 @@ void generatePrintVariable(char* id){
 void generateInsertOnStack(int value){
   int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
   printf(",,,,,,,,,,");
+  
   printInsertOnStack(address, value);
   addOneToNumberOperators(); //¿ANTES O DESPUES?
 }

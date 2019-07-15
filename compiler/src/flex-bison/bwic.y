@@ -111,7 +111,7 @@ params : INT_TYPE ID params {printf("DECLARACION PARAMETROS\n");/*insertVariable
        ;
 
 codeSet : instruction END_OF_INSTRUCTION codeSet
-        | controlStructure codeSet
+        | controlStructure END_OF_INSTRUCTION codeSet
         | END_OF_INSTRUCTION codeSet
         | /* EMPTY */
         ;
@@ -170,14 +170,9 @@ text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = generateHeaderOfClauseInstruction();}
-		   CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet
-		   CURLY_BRACKET_CLOSE {exit_l = _getNextLabel(); generateGoToInstruction(exit_l); closeScopeInSymbolTable();}
-		   ELSE_CLAUSE CURLY_BRACKET_OPEN {openScopeInSymbolTable(); generateLabelInstruction(else_l);} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
-                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE
-                 PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();}
-                 CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet {generateGoToInstruction(while_l);}
-                 CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE
+                 | IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE {exit_l = _getNextLabel(); generateGoToInstruction(exit_l); closeScopeInSymbolTable();} ELSE_CLAUSE CURLY_BRACKET_OPEN {openScopeInSymbolTable(); generateLabelInstruction(else_l);} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet {generateGoToInstruction(while_l);} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
                  ;
 
 logicalOperation : ID logicalOperator ID { switch($2) {
