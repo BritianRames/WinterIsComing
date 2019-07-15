@@ -48,7 +48,7 @@ void insertFunctionSymbolTable(char *id){
     
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
-    symbol->label = getNextLabel();
+    symbol->label = _getNextLabel();
     symbol->numberOfLocalVariables = 0;
     symbol->numberOfParameters = 0;
     symbol->type = 'f';
@@ -58,7 +58,7 @@ void insertFunctionSymbolTable(char *id){
     strcpy(symbol->id, id);
 
     _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
-    
+
 }
 
 void _linkSymbolToSymbolTable(struct Symbol* symbol) {
@@ -67,9 +67,9 @@ void _linkSymbolToSymbolTable(struct Symbol* symbol) {
         lastSymbol->nextSymbol = symbol;
         symbol->previousSymbol = lastSymbol;
     }
-    
+
     if(symbol->type == 'f') lastFunc = symbol;
-    lastSymbol = symbol; 
+    lastSymbol = symbol;
     _incrementNumberOfLocalVariablesAndParameters();
     tableSize++;
 }
@@ -116,14 +116,14 @@ void _removeLocalVariablesFromSymbolTable(){
     for(int i = tableSize; i > 0; i--){
         if(currentSymbol->scope == currentScope && currentSymbol->type == 'l' ){
             currentSymbol->previousSymbol->nextSymbol = NULL;
-            lastSymbol = currentSymbol->previousSymbol;            
+            lastSymbol = currentSymbol->previousSymbol;
             currentSymbol = currentSymbol->previousSymbol;
             tableSize--;
         } else break;
     }
 }
 
-int getNextLabel(){
+int _getNextLabel(){
     lastLabel++;
     return lastLabel;
 }

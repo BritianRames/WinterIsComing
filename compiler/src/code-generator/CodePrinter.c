@@ -63,15 +63,15 @@ void printReturnVariable(int stackPointer, int variableAddress){
   fprintf(f, "GT(I(%d));\n", returnLabelAddress);
 }
 
-void printRecoverStack(){
+void printRecoverStack(int numberOfParameters){
     fprintf(f, "R7 = R6;\n");
     fprintf(f, "R6 = P(R7 + 4);\n", numberOfParameters * 4 - 8);
 }
 
-void printRecoverRegistersValue(int registerFramePointer){
-  for(int i = 0; i <= 7; i--){
-    fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
-  }
+void printRecoverRegistersValue(int registerFramePointer) {
+    for (int i = 0; i <= 7; i--) {
+        fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
+    }
 }
 
 void printRecoverRegisters(int firstRegisterPointer){
@@ -94,12 +94,14 @@ void _printSaveParameters(int numberOfParameters){
     }
 }
 
+
+
 void printStoreFunctionData(int stackPointer, int numberOfParameters, int label){
     fprintf(f, "R6 = R7;\n");
     fprintf(f, "R7 = R7 - %d;\n", numberOfParameters * 4 - 8);
-    _printSaveParameters();
+    _printSaveParameters(numberOfParameters);
     fprintf(f, "P(R7-4) = R6;\n");
-    fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label
+    //fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label TODO: Aquí que va?
     fprintf(f, "R7 = R7 - %d;\n", label);
 
 }
@@ -191,14 +193,6 @@ void printMultiplyVariableToVariable(int address1, int address2) {
 
 void printDivideVariableToVariable(int address1, int address2) {
     fprintf(f, "R0 = I(0x%x) / I(0x%x);\n", address1, address2);
-}
-
-void printFunctionCall(int label){
-    fprintf(f, "L %d:\n", label);
-
-
-    fprintf(f, "\tR%d = %d;\n", reg, cond_value);
-    fprintf(f, "\tIF(R%d) GT(%d);\n", cond_value, if_label);
 }
 
 /* IF CLAUSE */

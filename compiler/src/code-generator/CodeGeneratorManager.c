@@ -102,7 +102,7 @@ void generateFunctionCall(){
     printGoToInstruction(getLastFunctionFromSymbolTable()->label);
     int returnLabel = _getNextLabel();
     printLabelInstruction(returnLabel);
-    printRecoverStack();
+    printRecoverStack(getLastFunctionFromSymbolTable()->numberOfParameters);
     printRecoverRegisters();
     printSaveRegistersValue(getCurrentStackPointer()+4);
     printPutParametersInRegisters();
@@ -132,14 +132,6 @@ void generateReturnValueCode(int value){
   //generateAssignValuleToRegister(getReturnRegisterNumber());
   //generateGoToPreviousContext();
   //generateRecoverScopeRegister();
-}
-
-void generateReturnVariableCode(char* variable){
-  //int variable_address = getVariableAddressFromTable(variable_id) -->   use symbol table
-  //int value_address = getVariableAddres(value_id)
-  //int value = getValueFromStack(value_address)
-  //int address = getReturnCurrentFunctionAddress()
-  //generateAssignationCode(address, value) --> we have a memory position for return value (maybe better a register)
 }
 
 void generatePrintString(char* string){
@@ -209,4 +201,10 @@ void generateAssignOperationResultToVariable(char* id) {
     printCodeAssignOperationResultToVariable(_getVariableAddress(id));
 }
 
+void printPutParametersInRegisters() {
+    // TOOD: This fuction is not yet implemented
+}
 
+void printParametersAsignation() {
+    // TOOD: This fuction is not yet implemented
+}

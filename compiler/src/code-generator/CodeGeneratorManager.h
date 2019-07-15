@@ -49,6 +49,8 @@ void generateDivisionVariableToVariable(char* variable1, char* variable2);
 void generateAssignOperationResultToVariable(char* id);
 
 void generateReturnValue(int value);
-void generateReturnVariable(char* variable);
+void generateReturnVariableCode(char* variable);
 
 void generateFunctionCall();
+void printPutParametersInRegisters();
+void printParametersAsignation();

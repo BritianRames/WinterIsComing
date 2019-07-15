@@ -22,7 +22,8 @@ void printCodeToAssignVariableToVariable(int address, int value_address);
 void printPrintStringCode(char* string);
 void printPrintValueCode(int value);
 void printPrintVariableCode(int address);
-
+void printRecoverStack(int numberOfParameters);
+void _printSaveParameters(int numberOfParameters);
 
 /* REGISTRY MANAGEMENT FUNCTIONS */
 void printPushReg(int r);
