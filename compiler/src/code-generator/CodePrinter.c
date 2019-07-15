@@ -114,8 +114,8 @@ void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
 }
 
-void printCodeToAssignOperationResultToVariable(int address) {
-    fprintf(f, "I(0x%x) = R0;\n", address);
+void printCodeToAssignOperationResultToVariable(int address, int stackPointer) {
+    fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer);
 }
 
 void printCodeToAssignFunctionResultToVariable(int address) {
@@ -152,13 +152,13 @@ void printPrintVariableCode(int address){
 /* ARITHMETICAL FUNCTIONS */
 
 void printInsertOnStack(int address, int value){
-  fprintf(f, "I(%d) = %d;\n", address, value);
+  fprintf(f, "I(0x%x) = %d;\n", address, value);
 }
 
 
 void printAddValue(int address){
-    fprintf(f, "R1 = I(%d);\n", address + 4);
-    fprintf(f, "I(%d) = R1 + I(%d);\n", address,address-4);
+    fprintf(f, "R1 = I(0x%x);\n", address+4);
+    fprintf(f, "I(0x%x) = R1 + I(0x%x);\n", address+4,address);
 
 }
 

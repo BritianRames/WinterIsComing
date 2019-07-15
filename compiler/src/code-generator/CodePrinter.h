@@ -33,7 +33,7 @@ void printPopReg(int r);
 void printCodeToAssignVariableToRegister(int reg, int addr);
 void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
-void printCodeToAssignOperationResultToVariable(int address);
+void printCodeToAssignOperationResultToVariable(int address , int stackPointerModified);
 void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */

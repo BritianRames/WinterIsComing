@@ -89,13 +89,7 @@ void generatePrintVariable(char* id){ //TODO
 /* ARITHMETIC FUNCTIONS */
 
 void generateInsertOnStack(int value){
-  printf("%d\n",getLastFunctionFromSymbolTable()->numberOfLocalVariables);
-  int address = getCurrentStackPointer()  ;
-  printf(",,,,,\n\n\n,,,,,");
-  printf(",,,,,\n\n\n,,,,,");
-  printf(",,,,,\n\n\n,,,,,");
-  printf(",,,,,\n\n\n,,,,,");
-  //address = address - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
   printf(",,,,,,,,,,");
   printInsertOnStack(address, value);
   addOneToNumberOperators(); //¿ANTES O DESPUES?
@@ -135,7 +129,9 @@ void generateAddValue(){
 //}
 //
 void generateAssignOperationResultToVariable(char* id) {
-    printCodeToAssignOperationResultToVariable(_getVariableAddress(id));
+    int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4;
+    printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAA%dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",address);
+    printCodeToAssignOperationResultToVariable(_getVariableAddress(id), address);
 }
 //
 int _getVariableAddress(char* variable_id){

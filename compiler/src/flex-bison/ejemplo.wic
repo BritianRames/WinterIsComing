@@ -1,10 +1,10 @@
 int a
 int b
-a = 10
-b = 4
+a = 1
+b = 2
 
 fun main (){
-    a = 10
+    a = 3 + 4 + 4
     print(a)
     print(b)
 }

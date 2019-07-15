@@ -69,7 +69,6 @@
 %type <number> instruction
 %type <number> assignation
 %type <number> functionCallParams
-%type <number> aritmeticOperation
 %type <number> return
 %type <number> print
 %type <number> printableElement
@@ -77,7 +76,6 @@
 %type <number> controlStructure
 %type <number> logicalOperation
 %type <number> logicalOperator
-%type <number> aritmeticOperationSum
 
 %left SUM SUBSTRACT
 %left PRODUCT DIVIDE
@@ -119,7 +117,6 @@ codeSet : instruction END_OF_INSTRUCTION codeSet
 
 instruction : assignation
             | declaration
-            | ID  ASSIGN aritmeticOperation
             | return
             | print
             | BREAK {/*breakCode();*/}
@@ -134,7 +131,7 @@ assignation : ID ASSIGN INT_VAL {
                                   generateAssignVariableToVariableCode($<string>1,$<string>3);
                                 }
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
-            | ID ASSIGN aritmeticOperation {generateAssignOperationResultToVariable($<string>1);}
+            | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -142,12 +139,12 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation :  aritmeticOperation SUM aritmeticOperation /*{generateAddValue();}*/
+aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {generateAddValue();}
                   |   aritmeticOperation SUBSTRACT aritmeticOperation
                   |   aritmeticOperation PRODUCT aritmeticOperation
                   |   aritmeticOperation DIVIDE aritmeticOperation
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-                  |   INT_VAL /*{printf("COMIENZA LLAMADA generateInsertOnStack%d\n",$<number>1); generateInsertOnStack($<number>1);}*/
+                  |   INT_VAL {printf("COMIENZA LLAMADA generateInsertOnStack%d\n",$<number>1); generateInsertOnStack($<number>1);}
                   ;
 
 
