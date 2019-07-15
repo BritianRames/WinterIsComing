@@ -33,10 +33,7 @@ void printPopReg(int r);
 void printCodeToAssignVariableToRegister(int reg, int addr);
 void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
-<<<<<<< HEAD
-=======
 void printCodeToAssignOperationResultToVariable(int address , int stackPointerModified);
->>>>>>> 367c0b43c342cf1a63213e3dd32d832275b7e41f
 void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */
@@ -95,3 +92,9 @@ void printCreateArray(int label, int addr, int size);
 void printArrayAssignValue(int addr, int pos, int val);
 void printArrayAssignVariable(int addr1, int pos, int addr2);
 void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2);
+
+
+void printPutParametersInStack(int numberOfParameters, int *parameters);
+void printInsertReturnLabelInStack(int label);
+
+void printRecoverStackPointer(int offset);

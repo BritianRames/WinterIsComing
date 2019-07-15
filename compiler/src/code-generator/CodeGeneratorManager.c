@@ -50,7 +50,7 @@ void generateCallFunctionCode(char* functionToJump, int* parameters){
   printGoToInstruction(currentFunction->label);
   printLabelInstruction(goBackLabel);
   printRecoverRegistersValues();
-  recoverStackPointer(localSpace + registerSpace + parametersSpace + 2);
+  recoverStackPointer(localSpace + registerSpace + parametersSpace + 8);
 }
 
 
