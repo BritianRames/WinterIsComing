@@ -21,9 +21,13 @@ I(0x11ff0) = R1 / I(0x11fec);
 R1 = I(0x11ff4);
 I(0x11ff4) = R1 + I(0x11ff0);
 I(0x11ffc) = I(0x11ff4);
+R0 = I(0x11ffc) == 6;
+	IF(!R0) GT(2);
 R0=I(0x11ffc);
 printf("%d\n",R0);
-R0=I(0x11ff8);
-printf("%d\n",R0);
-GT(-2);
-END
+I(0x11ff0) = 3;
+I(0x11fec) = 6;
+R1 = I(0x11ff0);
+I(0x11ff0) = R1 + I(0x11fec);
+I(0x11ffc) = I(0x11ff4);
+	GT(3);
