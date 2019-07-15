@@ -295,5 +295,23 @@ void printLabelInstruction(int label){
     fprintf(f, "L %d:\n", label);
 }
 
+/* ARRAY MANAGEMENT */
+void printCreateArray(int label, int addr, int size) {
+    fprintf(f, "R0 = %d;\n", label);
+    fprintf(f, "R1 = %d;\n", size);
+    fprintf(f, "GT(new_);\n");
+    printLabelInstruction(label);
+    fprintf(f, "I(0x%x) = R0;\n", addr);
+}
 
+void printArrayAssignValue(int addr, int pos, int val) {
+    fprintf(f, "I(P(0x%x) + 4 * %d) = %d;\n", addr, pos, val);
+}
 
+void printArrayAssignVariable(int addr1, int pos, int addr2){
+    fprintf(f, "I(P(0x%x) + 4 * %d) = I(0x%x);\n", addr1, pos, addr2);
+}
+
+void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2) {
+    fprintf(f, "I(P(0x%x) + 4 * %d) = I(P(0x%x) + 4 * %d);\n", addr1, pos1, addr2, pos2);
+}

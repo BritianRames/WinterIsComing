@@ -8,6 +8,7 @@ struct Symbol
     char *id;
     int address; //absolute or relative
     char type;
+    unsigned int array_size;
     int scope;
     int label;
     int numberOfParameters;
@@ -16,6 +17,7 @@ struct Symbol
     struct Symbol *nextSymbol;
 };
 
+void insertArrayInSymbolTable(char* id, int size);
 void insertVariableInSymbolTable(char* id);
 void insertParameterInSymbolTable(char *id);
 void insertFunctionSymbolTable(char *id);

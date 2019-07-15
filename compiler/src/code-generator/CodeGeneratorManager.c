@@ -80,7 +80,7 @@ void generatePrintValue(int value){
   printPrintValueCode(value);
 }
 
-void generatePrintVariable(char* id){ //TODO
+void generatePrintVariable(char* id){
   int address = _getVariableAddress(id);
   printPrintVariableCode(address);
   printf("----------------->0x%x<----------------", address);
@@ -96,15 +96,16 @@ void generateAddVariableToR0(char* id){
 }
 
 
-void generateSubstractValueToR0(int value){
-  printSubstractValueToR0(value);
+void generateSubstractValueToR0(int value) {
+    printSubstractValueToR0(value);
+}
 
 void generateAddValueToVariable(char* variable, int val) {
-    printAddValueToVariable(_getVariableAddress(variable), val);
+    //printAddValueToVariable(_getVariableAddress(variable), val);
 }
 
 void generateSubtractValueToVariable(char* variable, int val) {
-    printSubtractValueToVariable(_getVariableAddress(variable), val);
+    //printSubtractValueToVariable(_getVariableAddress(variable), val);
 }
 void generateSubstractVariableToR0(char* id){
   printSubstractVariableToR0(_getVariableAddress(id));
@@ -120,6 +121,7 @@ void generateProductVariableToR0(char* id){
 void generateDivisionValueToR0(int value){
   printDivisionValueToR0(value);
 }
+
 void generateDivisionVariableToR0(char* id){
   printDivisionVariableToR0(_getVariableAddress(id));
 }
@@ -208,7 +210,7 @@ void generateGreaterVariableToVariable(char* var1, char* var2){
     printGreaterVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
 }
 
-void generateGreaterEqualsVariableToVariable(char* var1, char* var2){
+void generateGreaterEqualsVariableToVariable(char* var1, char* var2) {
     printGreaterEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
 }
 
@@ -235,6 +237,25 @@ void generateGoToInstruction(int label) {
 
 void generateLabelInstruction(int label) {
     printLabelInstruction(label);
+}
+
+
+
+/* ARRAY MANAGEMENT */
+void generateCreateArray(char* var) {
+    struct Symbol* symbol = getVariableFromSymbolTable(var);
+    printCreateArray(_getNextLabel(), _getVariableAddress(var), symbol->array_size);
+}
+
+void generateArrayAssignValue(char* var, int pos, int val) {
+    printArrayAssignValue(_getVariableAddress(var), pos, val);
+}
+void generateArrayAssignVariable(char* var1, int pos, char* var2) {
+    printArrayAssignVariable(_getVariableAddress(var1), pos, _getVariableAddress(var2));
+}
+
+void generateArrayAssignArray(char* var1, int pos1, char* var2, int pos2){
+    printArrayAssignArray(_getVariableAddress(var1), pos1, _getVariableAddress(var2), pos2);
 }
 
 // void generateReturnValueCode(int value){

@@ -84,3 +84,9 @@ void printNotValue(int val);
 void printHeaderOfClauseInstruction(int label);
 void printGoToInstruction(int label);
 void printLabelInstruction(int label);
+
+/* ARRAY MANAGEMENT */
+void printCreateArray(int label, int addr, int size);
+void printArrayAssignValue(int addr, int pos, int val);
+void printArrayAssignVariable(int addr1, int pos, int addr2);
+void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2);

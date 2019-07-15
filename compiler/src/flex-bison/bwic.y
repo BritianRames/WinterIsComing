@@ -98,6 +98,7 @@ declaration : INT_TYPE ID {
 
                             insertVariableInSymbolTable($<string>2);
                           }
+            | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); generateCreateArray($<string>2); }
             ;
 
 function : FUN ID {printf("COMIENZA FUNCION \n");/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");/*closingScope();*/}
@@ -117,6 +118,7 @@ codeSet : instruction END_OF_INSTRUCTION codeSet
 instruction : assignation
             | declaration
             | ID  ASSIGN aritmeticOperation
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
             | return
             | print
             | BREAK {/*breakCode();*/}

@@ -8,13 +8,29 @@ int tableSize = 0;
 int currentScope = 0;
 int lastLabel = 1;
 
-void insertVariableInSymbolTable(char* id){
-    // debug con prints
+void insertArrayInSymbolTable(char* id, int size) {
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
-    //printf("ESTOYLLEGANDO");
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
+    symbol->numberOfLocalVariables = NULL;
+    symbol->scope = currentScope;
+    symbol->array_size = 4*size;
+    symbol->type = symbol->scope == 0 ? 'g' : 'l';
+    symbol->address = symbol->type == 'g' ? _getNextStaticAddressFromSymbolTable() : _getNextLocalVariableAddressFromSymbolTable();
+
+    strcpy(symbol->id, id);
+
+    _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
+}
+
+void insertVariableInSymbolTable(char* id){
+    // debug con prints
+    struct Symbol* symbol = malloc(sizeof(struct Symbol));
+    symbol->id = malloc(sizeof(char) * strlen(id));
+    symbol->nextSymbol = NULL;
+    symbol->label = NULL;
+    symbol->array_size = NULL;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = symbol->scope == 0 ? 'g' : 'l';
@@ -32,6 +48,7 @@ void insertParameterInSymbolTable(char *id){
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
+    symbol->array_size = NULL;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
@@ -48,6 +65,7 @@ void insertFunctionSymbolTable(char *id){
     
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
+    symbol->array_size = NULL;
     symbol->label = _getNextLabel();
     symbol->numberOfLocalVariables = 0;
     symbol->numberOfParameters = 0;
