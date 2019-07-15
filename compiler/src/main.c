@@ -1,30 +1,60 @@
 #include "symbol-table/SymbolTableManager.h"
 #include "code-generator/CodeGeneratorManager.h"
+#include <stdio.h>
 
 int main() {
     openFile();
     generateQInitialization();   // Se inicializa sección del código Q
+
     insertVariableInSymbolTable("aaa");
-
-    generateAssignValueToGlobalVariable("aaa", 2);
-    insertFunctionSymbolTable("miFuncion");
-    openScopeInSymbolTable();
-    insertParameterInSymbolTable("Param1");
-    insertParameterInSymbolTable("Param2");
-
-    generateFunctionHeaderCode();
     insertVariableInSymbolTable("bbb");
-    generateAssignValueToVariableCode("bbb", 2);
-    generateFunctionReturnValueCode(3);
+
+    generateAssignValueToGlobalVariable("aaa", 5);
+
+//    insertVariableInSymbolTable("aaa");
+    generateAssignValueToGlobalVariable("bbb", 2);
+    generateMainFunction();
+    openScopeInSymbolTable();
+    generatePrintString("Helloworld: \\n");
+    generateAddVariableToVariable("aaa","bbb");
+    generateAssignOperationResultToVariable("aaa");
+    generatePrintVariable("aaa");
+
+//    generatePrintString("ahdk\\n");
+//    printSymbolTable();
+//    generatePrintVariable("aaa");
+//
+//
+//    generateAddValueToValue(20, 10);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateSubtractValueToValue(4,2);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateProductValueToValue(2,5);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateDivisionValueToValue(10,5);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateAddValueToVariable("aaa", 3);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateProductValueToVariable("aaa", 3);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateDivisionValueToVariable("aaa", 3);
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+//    generateAssignValueToGlobalVariable("aaa", 1);
+//    generatePrintVariable("bbb");
+//    generatePrintVariable("aaa");
+//    generatePrintString("Eres un pringador");
+//    generateAddVariableToVariable("aaa", "bbb");
+//    generateAssignOperationResultToVariable("aaa");
+//    generatePrintVariable("aaa");
+    generateGoToExit(); // Este código debe ir siempre al final del Main para indicar para saltar a la rutina de fin de programa
     closeScopeInSymbolTable();
-    insertVariableInSymbolTable("ccc");
-    generateAssignValueToGlobalVariable("ccc", 2);
-    //printSymbolTable();
-    generateMainFunction(); // Creamos scope de función Main
-    generatePrintString("\\nhoskdjnfkndfln<dlsanalnslanla\\n");
-    generatePrintValue(4);
-    generatePrintVariable("ccc");
-    generateGoToExit(); // Este código debe ir siempre al final del Main para indicar
-                        // para saltar a la rutina de fin de programa
-    generateQEnding();  // Flag de final de código Q
+
+    generateQEnding();  // Flag de final de código
 }
