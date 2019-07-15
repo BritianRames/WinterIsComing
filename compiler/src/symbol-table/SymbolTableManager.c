@@ -61,21 +61,39 @@ void insertParameterInSymbolTable(char *id){
 }
 
 void insertFunctionSymbolTable(char *id){
-    struct Symbol* symbol = malloc(sizeof(struct Symbol));
+    if(strcmp(id,"main") == 0){
+        struct Symbol* symbol = malloc(sizeof(struct Symbol));
+
+        symbol->id = malloc(sizeof(char) * strlen(id));
+        symbol->nextSymbol = NULL;
+        symbol->label = 0;
+        symbol->numberOfLocalVariables = 0;
+        symbol->numberOfParameters = 0;
+        symbol->type = 'f';
+        symbol->address = NULL;
+        symbol->scope = 0;
+
+        strcpy(symbol->id, id);
+
+        _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
+    } else {
+        struct Symbol* symbol = malloc(sizeof(struct Symbol));
     
-    symbol->id = malloc(sizeof(char) * strlen(id));
-    symbol->nextSymbol = NULL;
-    symbol->array_size = NULL;
-    symbol->label = _getNextLabel();
-    symbol->numberOfLocalVariables = 0;
-    symbol->numberOfParameters = 0;
-    symbol->type = 'f';
-    symbol->address = NULL;
-    symbol->scope = 0;
+        symbol->id = malloc(sizeof(char) * strlen(id));
+        symbol->nextSymbol = NULL;
+        symbol->array_size = NULL;
+        symbol->label = _getNextLabel();
+        symbol->numberOfLocalVariables = 0;
+        symbol->numberOfParameters = 0;
+        symbol->type = 'f';
+        symbol->address = NULL;
+        symbol->scope = 0;
 
-    strcpy(symbol->id, id);
+        strcpy(symbol->id, id);
 
-    _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
+        _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
+    }
+
 
 }
 

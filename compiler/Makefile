@@ -26,22 +26,6 @@ compile:
 					#mv *.o build
 					#ar rvs include/libwic.a build/wic.tab.o build/lex.yy.o
 #
-					#/usr/bin/g++ -std=gnu++11 -Wall -Wextra -g -o wic \
-					#Main.cpp include/libwic.a \
-					#symbol-table/SymbolTable.cpp \
-					#code-generator/CodeGenerator.cpp \
-					#ast/AbstractSyntaxTree.cpp \
-					#ast/node/ASTNode.cpp  \
-					#ast/node/node-subtypes/symbol-table-node/ASTSymbolTableNode.cpp \
-					#ast/node/node-subtypes/operator-node/ASTOperatorNode.cpp \
-					#ast/node/node-subtypes/operator-node/ASTArithmeticNode.cpp \
-					#ast/node/node-subtypes/operator-node/ASTRelationalNode.cpp \
-					#ast/node/node-subtypes/leaf-node/ASTLeafNode.cpp \
-					#ast/node/node-subtypes/clause-node/ASTClauseNode.cpp \
-					#error-manager/ErrorManager.cpp \
-					#ast/node/node-subtypes/structural-node/ASTStructuralNode.cpp \
-
-					#mv *.a *.o build
 
 qcompile:
 					/usr/bin/gcc -Wall -Wextra -g -o bin/my_program \

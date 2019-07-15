@@ -14,6 +14,7 @@
   int else_l;
   int exit_l;
   int while_l;
+  bool marcador = true;
 %}
 
 %union { int number; char* string; }
@@ -68,7 +69,6 @@
 %type <number> instruction
 %type <number> assignation
 %type <number> functionCallParams
-%type <number> aritmeticOperation
 %type <number> return
 %type <number> print
 %type <number> printableElement
@@ -76,8 +76,9 @@
 %type <number> controlStructure
 %type <number> logicalOperation
 %type <number> logicalOperator
-%type <number> aritmeticOperationSum
 
+%left SUM SUBSTRACT
+%left PRODUCT DIVIDE
 
 %start begin
 %%
@@ -88,7 +89,7 @@ begin : {printf("Welcome to wic\n"); generateQInitialization();} root {generateG
 
 root : declaration END_OF_INSTRUCTION root
      | assignation END_OF_INSTRUCTION root
-     | function root
+     | {if(marcador){generatePrintJumpMain(); marcador = false;}} function root
      | END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
@@ -101,7 +102,7 @@ declaration : INT_TYPE ID {
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); generateCreateArray($<string>2); }
             ;
 
-function : FUN ID {printf("COMIENZA FUNCION \n");/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");/*closingScope();*/}
+function : FUN ID {printf("COMIENZA FUNCION \n"); insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){generateMainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");closeScopeInSymbolTable();}
          ;
 
 params : INT_TYPE ID params {printf("DECLARACION PARAMETROS\n");/*insertVariable($<string>2);*/}
@@ -133,7 +134,7 @@ assignation : ID ASSIGN INT_VAL {
                                   generateAssignVariableToVariableCode($<string>1,$<string>3);
                                 }
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
-            | ID ASSIGN aritmeticOperation {generateAssignOperationResultToVariable($<string>1);}
+            | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -141,22 +142,14 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation :  aritmeticOperationSum SUM aritmeticOperationSum
-                  | aritmeticOperationSubstract SUBSTRACT aritmeticOperationSubstract
-                  | aritmeticOperation PRODUCT aritmeticOperation
-                  | aritmeticOperation DIVIDE aritmeticOperation
-                  | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
+aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {generateAddValue();}
+                  |   aritmeticOperation SUBSTRACT aritmeticOperation
+                  |   aritmeticOperation PRODUCT aritmeticOperation
+                  |   aritmeticOperation DIVIDE aritmeticOperation
+                  |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
+                  |   INT_VAL {printf("COMIENZA LLAMADA generateInsertOnStack%d\n",$<number>1); generateInsertOnStack($<number>1);}
                   ;
 
-aritmeticOperationSubstract :    aritmeticOperation
-                              | ID {generateSubstractVariableToR0($<string>1);}
-                              | INT_VAL {generateSubstractValueToR0($<number>1);}
-                              ;
-
-aritmeticOperationSum :        aritmeticOperation
-                            | INT_VAL {generateAddValueToR0($<number>1);}
-                            | ID {generateAddVariableToR0($<string>1);}
-                            ;
 
 return : RETURN ID {/*returnVariable($<number>2);*/}
        | RETURN INT_VAL {/*returnValue($<number>2);*/}
@@ -167,9 +160,9 @@ return : RETURN ID {/*returnVariable($<number>2);*/}
 print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE 
       ; 
 
-printableElement : ID {/*printVariable($<number>1);*/}
-                 | QUOTE text QUOTE {/*printText($<number>1);*/}
-                 | printableElement SUM printableElement {/*printLineJump();*/}
+printableElement : ID {generatePrintVariable($<string>1);}
+                 | QUOTE text QUOTE {generatePrintString($<string>2);}
+                 | printableElement SUM printableElement
                  ;
 
 text : STRING_VAL {$$ = $<number>1;}

@@ -16,7 +16,7 @@ void printQInitialization() {
     fprintf(f, "L 0:\n");
 }
 
-void printGlobalDefinitionAreaEnding(){
+void printJumpMain(){
     fprintf(f, "GT(1);\n");
 
 }
@@ -114,8 +114,8 @@ void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
 }
 
-void printCodeToAssignOperationResultToVariable(int address) {
-    fprintf(f, "I(0x%x) = R0;\n", address);
+void printCodeToAssignOperationResultToVariable(int address, int stackPointer) {
+    fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer);
 }
 
 void printCodeToAssignFunctionResultToVariable(int address) {
@@ -151,38 +151,42 @@ void printPrintVariableCode(int address){
 
 /* ARITHMETICAL FUNCTIONS */
 
-//void printAddValueToValue(int val1, int val2) {
-//    fprintf(f, "R0 = %d + %d;\n", val1, val2);
-//}
-void printAddValueToR0(int val){
-    fprintf(f, "R0 = R0 + %d;\n", val);
+void printInsertOnStack(int address, int value){
+  fprintf(f, "I(0x%x) = %d;\n", address, value);
 }
 
-void printAddVariableToR0(int address){
+
+void printAddValue(int address){
+    fprintf(f, "R1 = I(0x%x);\n", address+4);
+    fprintf(f, "I(0x%x) = R1 + I(0x%x);\n", address+4,address);
+
+}
+
+void printAddVariable(int address){
     fprintf(f, "R0 = R0 + I(0x%x);\n", address);
 }
 
-void printSubstractValueToR0(int val){
+void printSubstractValue(int val){
     fprintf(f, "R0 = R0 - %d;\n", val);
 }
 
-void printSubstractVariableToR0(int address){
+void printSubstractVariable(int address){
     fprintf(f, "R0 = R0 - I(0x%x);\n", address);
 }
 
-void printProductValueToR0(int val){
+void printProductValue(int val){
     fprintf(f, "R0 = R0 * %d;\n", val);
 }
 
-void printProductVariableToR0(int address){
+void printProductVariable(int address){
     fprintf(f, "R0 = R0 * I(0x%x);\n", address);
 }
 
-void printDivisionValueToR0(int val){
+void printDivisionValue(int val){
     fprintf(f, "R0 = R0 / %d;\n", val);
 }
 
-void printDivisionVariableToR0(int address){
+void printDivisionVariable(int address){
     fprintf(f, "R0 = R0 / I(0x%x);\n", address);
 }
 

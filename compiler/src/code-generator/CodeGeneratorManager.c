@@ -8,8 +8,8 @@ void generateQInitialization() {
     printQInitialization();
 }
 
-void generateGlobalDefinitionAreaEnding(){
-    printGlobalDefinitionAreaEnding();
+void generatePrintJumpMain(){
+    printJumpMain();
 }
 
 void generateMainFunction() {
@@ -88,48 +88,52 @@ void generatePrintVariable(char* id){
 
 /* ARITHMETIC FUNCTIONS */
 
-void generateAddValueToR0(int value){
-  printAddValueToR0(value);
-}
-void generateAddVariableToR0(char* id){
-  printAddVariableToR0(_getVariableAddress(id));
-}
-
-
-void generateSubstractValueToR0(int value) {
-    printSubstractValueToR0(value);
+void generateInsertOnStack(int value){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
+  printf(",,,,,,,,,,");
+  printInsertOnStack(address, value);
+  addOneToNumberOperators(); //¿ANTES O DESPUES?
 }
 
-void generateAddValueToVariable(char* variable, int val) {
-    //printAddValueToVariable(_getVariableAddress(variable), val);
+void generateAddValue(){
+  printf("...............");
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  printf("...............");
+  printAddValue(address);
+  minusOneToNumberOperators();
 }
-
-void generateSubtractValueToVariable(char* variable, int val) {
-    //printSubtractValueToVariable(_getVariableAddress(variable), val);
-}
-void generateSubstractVariableToR0(char* id){
-  printSubstractVariableToR0(_getVariableAddress(id));
-}
-
-void generateProductValueToR0(int value){
-  printProductValueToR0(value);
-}
-void generateProductVariableToR0(char* id){
-  printProductVariableToR0(_getVariableAddress(id));
-}
-
-void generateDivisionValueToR0(int value){
-  printDivisionValueToR0(value);
-}
-
-void generateDivisionVariableToR0(char* id){
-  printDivisionVariableToR0(_getVariableAddress(id));
-}
-
+//void generateAddVariable(){
+//  printAddVariable(_getVariableAddress(id));
+//}
+//
+//
+//void generateSubstractValue(){
+//  printSubstractValue();
+//}
+//void generateSubstractVariable(){
+//  printSubstractVariable(_getVariableAddress(id));
+//}
+//
+//void generateProductValue(){
+//  printProductValue();
+//}
+//void generateProductVariable(){
+//  printProductVariable(_getVariableAddress(id));
+//}
+//
+//void generateDivisionValue(int value){
+//  printDivisionValue(value);
+//}
+//void generateDivisionVariable(char* id){
+//  printDivisionVariable(_getVariableAddress(id));
+//}
+//
 void generateAssignOperationResultToVariable(char* id) {
-    printCodeToAssignOperationResultToVariable(_getVariableAddress(id));
+    int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4;
+    printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAA%dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",address);
+    printCodeToAssignOperationResultToVariable(_getVariableAddress(id), address);
 }
-
+//
 int _getVariableAddress(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable == -1) printf("\nElement not found \n");
@@ -210,7 +214,7 @@ void generateGreaterVariableToVariable(char* var1, char* var2){
     printGreaterVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
 }
 
-void generateGreaterEqualsVariableToVariable(char* var1, char* var2) {
+void generateGreaterEqualsVariableToVariable(char* var1, char* var2){
     printGreaterEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
 }
 

@@ -5,7 +5,7 @@
 
 void openFile();
 void printQInitialization();
-void printGlobalDefinitionAreaEnding();
+void printJumpMain();
 void printMainFunction();
 void printGoToExit();
 void printQEnding();
@@ -33,18 +33,20 @@ void printPopReg(int r);
 void printCodeToAssignVariableToRegister(int reg, int addr);
 void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
-void printCodeToAssignOperationResultToVariable(int address);
+void printCodeToAssignOperationResultToVariable(int address , int stackPointerModified);
 void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */
-void printAddValueToR0(int val);
-void printAddVariableToR0(int address);
-void printSubstractVariableToR0 (int val);
-void printSubstractVariableToR0(int address);
-void printProductValueToR0(int val);
-void printProductVariableToR0(int address);
-void printDivisionValueToR0(int val);
-void printDivisionVariableToR0(int address);
+void printInsertOnStack(int address, int value);
+
+void printAddValue(int address);
+void printAddVariable(int address);
+void printSubstractVariable (int val);
+void printSubstractVariable(int address);
+void printProductValue(int val);
+void printProductVariable(int address);
+void printDivisionValue(int val);
+void printDivisionVariable(int address);
 
 void printCodeAssignOperationResultToVariable(int addr);
 

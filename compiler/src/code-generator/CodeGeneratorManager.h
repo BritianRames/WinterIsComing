@@ -15,7 +15,7 @@ void pop_reg(int r);
 
 
 void generateQInitialization();
-void generateGlobalDefinitionAreaEnding();
+void generatePrintJumpMain();
 void generateMainFunction();
 void generateGoToExit();
 void generateQEnding();
@@ -38,15 +38,15 @@ void generateProductValueToValue(int val1, int val2);
 void generateDivisionValueToValue(int val1, int val2);
 
 
-
-void generateAddValueToR0(int value);
-void generateAddVariableToR0(char* id);
-void generateSubstractValueToR0(int value);
-void generateSubstractVariableToR0(char* id);
-void generateProductValueToR0(int value);
-void generateProductVariableToR0(char* id);
-void generateDivisionValueToR0(int value);
-void generateDivisionVariableToR0(char* id);
+void generateInsertOnStack(int value);
+void generateAddValue();
+void generateAddVariable();
+void generateSubstractValue();
+void generateSubstractVariable();
+void generateProductValue();
+void generateProductVariable();
+void generateDivisionValue();
+void generateDivisionVariable();
 
 
 void generateAssignOperationResultToVariable(char* id);
