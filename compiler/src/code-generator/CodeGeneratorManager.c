@@ -8,8 +8,8 @@ void generateQInitialization() {
     printQInitialization();
 }
 
-void generateGlobalDefinitionAreaEnding(){
-    printGlobalDefinitionAreaEnding();
+void generatePrintJumpMain(){
+    printJumpMain();
 }
 
 void generateMainFunction() {
@@ -36,7 +36,7 @@ void generateCallFunctionCode(char* functionToJump, int* parameters){
   struct Symbol* currentFunction = getFunctionFromSymbolTable(functionToJump)->numberOfParameters;
   int localSpace = getFunctionFromSymbolTable(currentFunction)->numberOfLocalVariables * 4;
   int registerSpace = 4 * 7; // 4 * number of register to store R1...R6
-  int parametersSpace =currentFunction->numberOfParameters * 4;
+  int parametersSpace = currentFunction->numberOfParameters * 4;
   
   updateStackPointer(localSpace); //Avanzamos espacio de locales y registros
   printSaveRegistersValues(getCurrentStackPointer());
@@ -50,7 +50,7 @@ void generateCallFunctionCode(char* functionToJump, int* parameters){
   printGoToInstruction(currentFunction->label);
   printLabelInstruction(goBackLabel);
   printRecoverRegistersValues();
-  recoverStackPointer(localSpace + registerSpace + parameterSpace + 2);
+  recoverStackPointer(localSpace + registerSpace + parametersSpace + 2);
 }
 
 
@@ -74,64 +74,60 @@ void generatePrintValue(int value){
   printPrintValueCode(value);
 }
 
-void generatePrintVariable(char* id){ //TODO
+void generatePrintVariable(char* id){
   int address = _getVariableAddress(id);
   printPrintVariableCode(address);
   printf("----------------->0x%x<----------------", address);
 }
 
-void generateAddValueToValue(int firstValue, int secondValue) {
-    printAddValueToValue(firstValue, secondValue);
+/* ARITHMETIC FUNCTIONS */
+
+void generateInsertOnStack(int value){
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
+  printf(",,,,,,,,,,");
+  printInsertOnStack(address, value);
+  addOneToNumberOperators(); //¿ANTES O DESPUES?
 }
 
-void generateSubtractValueToValue(int firstValue, int secondValue) {
-    printSubtractValueToValue(firstValue, secondValue);
+void generateAddValue(){
+  printf("...............");
+  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  printf("...............");
+  printAddValue(address);
+  minusOneToNumberOperators();
 }
-
-void generateProductValueToValue(int firstValue, int secondValue) {
-    printProductValueToValue(firstValue, secondValue);
-}
-
-void generateDivisionValueToValue(int firstValue, int secondValue) {
-    printDivisionValueToValue(firstValue, secondValue);
-}
-
-void generateAddValueToVariable(char* variable, int val) {
-    printAddValueToVariable(_getVariableAddress(variable), val);
-}
-
-void generateSubtractValueToVariable(char* variable, int val) {
-    printSubtractValueToVariable(_getVariableAddress(variable), val);
-}
-
-void generateProductValueToVariable(char* variable, int val) {
-    printMultiplyValueToVariable(_getVariableAddress(variable), val);
-}
-
-void generateDivisionValueToVariable(char* variable, int val) {
-    printDivideValueToVariable(_getVariableAddress(variable), val);
-}
-
-void generateAddVariableToVariable(char* variable1, char* variable2) {
-    printAddVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
-void generateSubtractVariableToVariable(char* variable1, char* variable2) {
-    printSubtractVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
-void generateProductVariableToVariable(char* variable1, char* variable2) {
-    printMultiplyVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
-void generateDivisionVariableToVariable(char* variable1, char* variable2) {
-    printDivideVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
+//void generateAddVariable(){
+//  printAddVariable(_getVariableAddress(id));
+//}
+//
+//
+//void generateSubstractValue(){
+//  printSubstractValue();
+//}
+//void generateSubstractVariable(){
+//  printSubstractVariable(_getVariableAddress(id));
+//}
+//
+//void generateProductValue(){
+//  printProductValue();
+//}
+//void generateProductVariable(){
+//  printProductVariable(_getVariableAddress(id));
+//}
+//
+//void generateDivisionValue(int value){
+//  printDivisionValue(value);
+//}
+//void generateDivisionVariable(char* id){
+//  printDivisionVariable(_getVariableAddress(id));
+//}
+//
 void generateAssignOperationResultToVariable(char* id) {
-    printCodeToAssignOperationResultToVariable(_getVariableAddress(id));
+    int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4;
+    printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAA%dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",address);
+    printCodeToAssignOperationResultToVariable(_getVariableAddress(id), address);
 }
-
+//
 int _getVariableAddress(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable == -1) printf("\nElement not found \n");
@@ -139,6 +135,127 @@ int _getVariableAddress(char* variable_id){
   else return getCurrentStackPointer() - variable->address * 4;
   return 1000;
 }
+
+
+/* RELATIONAL FUNCTIONS */
+
+void generateEqualsValueToValue(int val1, int val2){
+    printEqualsValueToValue(val1, val2);
+}
+
+void generateNotEqualsValueToValue(int val1, int val2){
+    printNotEqualsValueToValue(val1, val2);
+}
+
+void generateLessValueToValue(int val1, int val2){
+    printLessValueToValue(val1, val2);
+}
+
+void generateLessEqualsValueToValue(int val1, int val2){
+    printLessEqualsValueToValue(val1, val2);
+}
+
+void generateGreaterValueToValue(int val1, int val2){
+    printGreaterValueToValue(val1, val2);
+}
+
+void generateGreaterEqualsValueToValue(int val1, int val2){
+    printGreaterEqualsValueToValue(val1, val2);
+}
+
+
+void generateEqualsValueToVariable(char* var, int val){
+    printEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateNotEqualsValueToVariable(char* var, int val){
+    printNotEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateLessValueToVariable(char* var, int val){
+    printLessValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateLessEqualsValueToVariable(char* var, int val){
+    printLessEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateGreaterValueToVariable(char* var, int val){
+    printGreaterValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateGreaterEqualsValueToVariable(char* var, int val){
+    printGreaterEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateNotEqualsVariableToVariable(char* var1, char* var2){
+    printNotEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateEqualsVariableToVariable(char* var1, char* var2){
+    printEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateLessVariableToVariable(char* var1, char* var2){
+    printLessVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateLessEqualsVariableToVariable(char* var1, char* var2){
+    printLessEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateGreaterVariableToVariable(char* var1, char* var2){
+    printGreaterVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateGreaterEqualsVariableToVariable(char* var1, char* var2){
+    printGreaterEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateNotVariable(char* var){
+    printNotVariable(_getVariableAddress(var));
+}
+
+void generateNotValue(int val){
+    printNotValue(val);
+}
+
+
+
+/* CLAUSE FUNCTIONS */
+int generateHeaderOfClauseInstruction() {
+    int label = _getNextLabel();
+    printHeaderOfClauseInstruction(label);
+    return label;
+}
+
+void generateGoToInstruction(int label) {
+    printGoToInstruction(label);
+}
+
+void generateLabelInstruction(int label) {
+    printLabelInstruction(label);
+}
+
+
+
+/* ARRAY MANAGEMENT */
+void generateCreateArray(char* var) {
+    struct Symbol* symbol = getVariableFromSymbolTable(var);
+    printCreateArray(_getNextLabel(), _getVariableAddress(var), symbol->array_size);
+}
+
+void generateArrayAssignValue(char* var, int pos, int val) {
+    printArrayAssignValue(_getVariableAddress(var), pos, val);
+}
+void generateArrayAssignVariable(char* var1, int pos, char* var2) {
+    printArrayAssignVariable(_getVariableAddress(var1), pos, _getVariableAddress(var2));
+}
+
+void generateArrayAssignArray(char* var1, int pos1, char* var2, int pos2){
+    printArrayAssignArray(_getVariableAddress(var1), pos1, _getVariableAddress(var2), pos2);
+}
+
 // void generateReturnValueCode(int value){
 //   //generateAssignValuleToRegister(getReturnRegisterNumber());
 //   //generateGoToPreviousContext();

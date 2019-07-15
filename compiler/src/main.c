@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
     openFile();
     if (argc>1) yyin=fopen(argv[1],"r");
     yyparse();
-    printSymbolTable();
+    //printSymbolTable();
 
 
 
@@ -21,7 +21,16 @@ int main(int argc, char** argv) {
 
 
 
-    //generateQInitialization();   // Se inicializa sección del código Q
+    /*generateQInitialization();   // Se inicializa sección del código Q
+    insertArrayInSymbolTable("array1", 10);
+    generateCreateArray("array1");
+    generateArrayAssignValue("array1", 9, 87);
+    generateGlobalDefinitionAreaEnding();
+    openScopeInSymbolTable();
+    generateMainFunction();
+    generateGoToExit();
+    closeScopeInSymbolTable();
+    generateQEnding();*/
 //
     //insertVariableInSymbolTable("aaa");
     //insertVariableInSymbolTable("bbb");
