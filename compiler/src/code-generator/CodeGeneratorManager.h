@@ -37,15 +37,17 @@ void generateSubtractValueToValue(int val1, int val2);
 void generateProductValueToValue(int val1, int val2);
 void generateDivisionValueToValue(int val1, int val2);
 
-void generateAddValueToVariable(char* variable, int val);
-void generateSubtractValueToVariable(char* variable, int val);
-void generateProductValueToVariable(char* variable, int val);
-void generateDivisionValueToVariable(char* variable, int val);
 
-void generateAddVariableToVariable(char* variable1, char* variable2);
-void generateSubtractVariableToVariable(char* variable1, char* variable2);
-void generateProductVariableToVariable(char* variable1, char* variable2);
-void generateDivisionVariableToVariable(char* variable1, char* variable2);
+
+void generateAddValueToR0(int value);
+void generateAddVariableToR0(char* id);
+void generateSubstractValueToR0(int value);
+void generateSubstractVariableToR0(char* id);
+void generateProductValueToR0(int value);
+void generateProductVariableToR0(char* id);
+void generateDivisionValueToR0(int value);
+void generateDivisionVariableToR0(char* id);
+
 
 void generateAssignOperationResultToVariable(char* id);
 

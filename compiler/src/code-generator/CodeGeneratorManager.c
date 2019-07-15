@@ -46,7 +46,7 @@ void generateFuntionCall(char* functionToJump, int* parameters){
   //Actualizamos Registros a parametros
   printPutParametersInRegisters(getFunctionFromSymbolTable(functionToJump)->numberOfParameters, parameters);
   //Actualizamos FramePointer
-  updateFramePointerToStackPointer(); //R6 = R7
+  updateFramePointerToStackPointer(); //R6 = R7 
   //Actualizamos Stackpointer
   updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
   //Imprimimos GT
@@ -87,21 +87,17 @@ void generatePrintVariable(char* id){ //TODO
 }
 
 /* ARITHMETIC FUNCTIONS */
-void generateAddValueToValue(int firstValue, int secondValue) {
-    printAddValueToValue(firstValue, secondValue);
+
+void generateAddValueToR0(int value){
+  printAddValueToR0(value);
+}
+void generateAddVariableToR0(char* id){
+  printAddVariableToR0(_getVariableAddress(id));
 }
 
-void generateSubtractValueToValue(int firstValue, int secondValue) {
-    printSubtractValueToValue(firstValue, secondValue);
-}
 
-void generateProductValueToValue(int firstValue, int secondValue) {
-    printProductValueToValue(firstValue, secondValue);
-}
-
-void generateDivisionValueToValue(int firstValue, int secondValue) {
-    printDivisionValueToValue(firstValue, secondValue);
-}
+void generateSubstractValueToR0(int value){
+  printSubstractValueToR0(value);
 
 void generateAddValueToVariable(char* variable, int val) {
     printAddValueToVariable(_getVariableAddress(variable), val);
@@ -110,29 +106,22 @@ void generateAddValueToVariable(char* variable, int val) {
 void generateSubtractValueToVariable(char* variable, int val) {
     printSubtractValueToVariable(_getVariableAddress(variable), val);
 }
-
-void generateProductValueToVariable(char* variable, int val) {
-    printMultiplyValueToVariable(_getVariableAddress(variable), val);
+void generateSubstractVariableToR0(char* id){
+  printSubstractVariableToR0(_getVariableAddress(id));
 }
 
-void generateDivisionValueToVariable(char* variable, int val) {
-    printDivideValueToVariable(_getVariableAddress(variable), val);
+void generateProductValueToR0(int value){
+  printProductValueToR0(value);
+}
+void generateProductVariableToR0(char* id){
+  printProductVariableToR0(_getVariableAddress(id));
 }
 
-void generateAddVariableToVariable(char* variable1, char* variable2) {
-    printAddVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
+void generateDivisionValueToR0(int value){
+  printDivisionValueToR0(value);
 }
-
-void generateSubtractVariableToVariable(char* variable1, char* variable2) {
-    printSubtractVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
-void generateProductVariableToVariable(char* variable1, char* variable2) {
-    printMultiplyVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
-}
-
-void generateDivisionVariableToVariable(char* variable1, char* variable2) {
-    printDivideVariableToVariable(_getVariableAddress(variable1), _getVariableAddress(variable2));
+void generateDivisionVariableToR0(char* id){
+  printDivisionVariableToR0(_getVariableAddress(id));
 }
 
 void generateAssignOperationResultToVariable(char* id) {
