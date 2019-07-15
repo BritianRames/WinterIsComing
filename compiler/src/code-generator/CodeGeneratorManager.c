@@ -3,50 +3,6 @@
 #include "StackManager.h"
 #include "CodePrinter.h"
 
-//int spill_count = 0;
-//bool reg_free[MAX_REG] = { true, true, true, true };
-//
-///* REGISTRIES MANAGEMENT */
-//int get_reg()
-//{
-//    for (int i = 0; i <= MAX_REG; i++)
-//    {
-//        if (reg_free[i])
-//        {
-//            lock_reg(i);
-//            return i;
-//        }
-//    }
-//
-//    push_reg(spill_count);
-//    spill_count = (spill_count + 1) % MAX_REG;
-//    return -1;
-//}
-//
-//
-//void free_reg(int i) {
-//    reg_free[i] = true;
-//}
-//
-//void lock_reg(int i) {
-//    reg_free[i] = false;
-//}
-//
-//bool is_used(int i) {
-//    reg_free[i];
-//}
-
-//void push_reg(int r) {
-//    printPushReg(r);
-//    free_reg(r);
-//}
-//
-//void pop_reg(int r) {
-//    printPopReg(r);
-//    lock_reg(r);
-//}
-
-
 /* GENERAL STUFF */
 void generateQInitialization() {
     printQInitialization();
@@ -76,7 +32,7 @@ void generateReturnVariableCode(char* variable){
   printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
 }
 
-void generateFunctionCall(char* currentFunction, char* nextFunction, int* parameters){
+void generateFuntionCall(char* currentFunction, char* nextFunction, int* parameters){
   //Actualizamos Stack
   int localSpace = getFunctionFromSymbolTable(currentFunction)->numberOfLocalVariables * 4;
   int registerSpace = 4 * 6; // 4 * number of register to store R1...R6
@@ -102,13 +58,11 @@ void generateFunctionCall(char* currentFunction, char* nextFunction, int* parame
   recoverStackPointer(localSpace + registerSpace);
 }
 
-
-
 void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
 }
 
-void generateAssignVariableToVariableCode(char* variable_id, char value_id){
+void generateAssignVariableToVariableCode(char* variable_id, char* value_id){
   printCodeToAssignVariableToVariable(_getVariableAddress(variable_id), _getVariableAddress(value_id));
 }
 

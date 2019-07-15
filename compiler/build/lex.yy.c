@@ -509,19 +509,19 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "wic.l"
+#line 1 "src/flex-bison/wic.l"
 /* Ajustes iniciales */
 
 
 
 
-#line 11 "wic.l"
+#line 11 "src/flex-bison/wic.l"
 
     /* Declaraciones */
 
     //#include <string>
 
-    #include "y.tab.h"
+    #include "bwic.tab.h"
 
     int level = 0;
     int enter_special = 1;
@@ -766,9 +766,9 @@ YY_DECL
 		}
 
 	{
-#line 67 "wic.l"
+#line 67 "src/flex-bison/wic.l"
 
-#line 69 "wic.l"
+#line 69 "src/flex-bison/wic.l"
   /* if (enter_special) {*/
   /*  BEGIN(CHECK_LVL);*/
   /*  enter_special = 0;*/
@@ -840,7 +840,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 80 "wic.l"
+#line 80 "src/flex-bison/wic.l"
 {
                                 //BEGIN(CHECK_LVL);
                                 //yyless(0);
@@ -853,7 +853,7 @@ YY_RULE_SETUP
 /* Reglas para las palabras reservadas */
 case 2:
 YY_RULE_SETUP
-#line 90 "wic.l"
+#line 90 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a CONTINUE\n", yytext);
                                 return CONTINUE;
@@ -861,7 +861,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 94 "wic.l"
+#line 94 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a BREAK\n", yytext);
                                 return BREAK;
@@ -869,7 +869,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 98 "wic.l"
+#line 98 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a RETURN\n", yytext);
                                 printf("----RETURN\n");
@@ -878,7 +878,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 103 "wic.l"
+#line 103 "src/flex-bison/wic.l"
 {
                                 printf("----FUN\n");
                                 return FUN;
@@ -886,7 +886,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 107 "wic.l"
+#line 107 "src/flex-bison/wic.l"
 {
                                 printf("----PRINT\n");
                                 return PRINT;
@@ -895,12 +895,12 @@ YY_RULE_SETUP
 /* Reglas para los valores segun el tipo de dato */
 case 7:
 YY_RULE_SETUP
-#line 115 "wic.l"
+#line 115 "src/flex-bison/wic.l"
 {
                                 //TODO
                                 //wic::data_value data_v;
                                 //data_v.int_val = atoi(yytext);
-                                //yylval.number = atoi(yytext);
+                                yylval.number = atoi(yytext);
                                 printf("\n----INT_VAL\n");
                                 return INT_VAL;
                               }
@@ -908,7 +908,7 @@ YY_RULE_SETUP
 /* Reglas segun el tipo de dato */
 case 8:
 YY_RULE_SETUP
-#line 126 "wic.l"
+#line 126 "src/flex-bison/wic.l"
 {
                                 printf("\n----INT_TYPE\n"); 
                                 return INT_TYPE;
@@ -917,7 +917,7 @@ YY_RULE_SETUP
 /* Regla de asignación */
 case 9:
 YY_RULE_SETUP
-#line 133 "wic.l"
+#line 133 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an ASSIGN\n", yytext);
                                 printf("\n----ASSIGN\n");
@@ -927,7 +927,7 @@ YY_RULE_SETUP
 /* Reglas para los operadores aritméticos */
 case 10:
 YY_RULE_SETUP
-#line 141 "wic.l"
+#line 141 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a SUM\n", yytext);
                                 printf("\n----SUM\n");
@@ -936,7 +936,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 146 "wic.l"
+#line 146 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a SUBSTRACT\n", yytext);
                                 printf("\n----SUBSTRACT\n");
@@ -945,7 +945,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 151 "wic.l"
+#line 151 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a PRODUCT\n", yytext);
                                 printf("\n----PRODUCT\n");
@@ -954,7 +954,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 156 "wic.l"
+#line 156 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a DIVIDE\n", yytext);
                                 printf("\n----DIVIDE\n");
@@ -964,7 +964,7 @@ YY_RULE_SETUP
 /* Reglas para los operadores lógicos */
 case 14:
 YY_RULE_SETUP
-#line 165 "wic.l"
+#line 165 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a AND\n", yytext);
                                 return AND;
@@ -972,7 +972,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 169 "wic.l"
+#line 169 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a OR\n", yytext);
                                 return OR;
@@ -980,7 +980,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 173 "wic.l"
+#line 173 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a NOT\n", yytext);
                                 return NOT;
@@ -988,7 +988,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 177 "wic.l"
+#line 177 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a EQUALS\n", yytext);
                                 printf("----EQUALS\n");
@@ -997,7 +997,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 182 "wic.l"
+#line 182 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a NOT_EQUALS\n", yytext);
                                 printf("----NOT_EQUALS\n");
@@ -1006,7 +1006,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 187 "wic.l"
+#line 187 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a GREATER\n", yytext);
                                 printf("----GREATER\n");
@@ -1015,7 +1015,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 192 "wic.l"
+#line 192 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a GREATER_EQUALS\n", yytext);
                                 printf("----GREATER_EQUALS\n");
@@ -1024,7 +1024,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 197 "wic.l"
+#line 197 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a LESS\n", yytext);
                                 printf("----LESS\n");
@@ -1033,7 +1033,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 202 "wic.l"
+#line 202 "src/flex-bison/wic.l"
 {
                                 //printf("%s is a LESS_EQUALS\n", yytext);
                                 printf("----LESS_EQUALS\n");
@@ -1043,7 +1043,7 @@ YY_RULE_SETUP
 /* Expresiones regulares para estructuras de control y bucles */
 case 23:
 YY_RULE_SETUP
-#line 211 "wic.l"
+#line 211 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an IF_CLAUSE\n", yytext);
                                 printf("----IF_CLAUSE\n");
@@ -1052,7 +1052,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 216 "wic.l"
+#line 216 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an HEADER_END\n", yytext);
                                 printf("----HEADER_END\n");
@@ -1061,7 +1061,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 221 "wic.l"
+#line 221 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an FOR_WHILE_CLAUSE\n", yytext);
                                 return WHILE_CLAUSE;
@@ -1069,7 +1069,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 226 "wic.l"
+#line 226 "src/flex-bison/wic.l"
 {
                                 printf("----ELSE_CLAUSE\n"); 
                                 return ELSE_CLAUSE;
@@ -1078,7 +1078,7 @@ YY_RULE_SETUP
 /* Expresiones regulares delimitadoras */
 case 27:
 YY_RULE_SETUP
-#line 232 "wic.l"
+#line 232 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an SQUARE_BRACKET_OPEN\n", yytext);
                                 return SQUARE_BRACKET_OPEN;
@@ -1086,7 +1086,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 236 "wic.l"
+#line 236 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an SQUARE_BRACKET_CLOSE\n", yytext);
                                 return SQUARE_BRACKET_CLOSE;
@@ -1095,7 +1095,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 241 "wic.l"
+#line 241 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an CURLY_BRACKET_OPEN\n", yytext);
                                 return CURLY_BRACKET_OPEN;
@@ -1103,7 +1103,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 245 "wic.l"
+#line 245 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an CURLY_BRACKET_CLOSE\n", yytext);
                                 return CURLY_BRACKET_CLOSE;
@@ -1111,7 +1111,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 249 "wic.l"
+#line 249 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an COMMA\n", yytext);
                                 printf("\n----COMMA\n");
@@ -1120,7 +1120,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 254 "wic.l"
+#line 254 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an PARENTESIS_OPEN\n", yytext);
                                 return PARENTESIS_OPEN;
@@ -1128,7 +1128,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 258 "wic.l"
+#line 258 "src/flex-bison/wic.l"
 {
                                 //printf("%s is an PARENTESIS_CLOSE\n", yytext);
                                 return PARENTESIS_CLOSE;
@@ -1137,12 +1137,12 @@ YY_RULE_SETUP
 /* Identificador */
 case 34:
 YY_RULE_SETUP
-#line 265 "wic.l"
+#line 265 "src/flex-bison/wic.l"
 {
                                 //TODO
                                 //std::string id = yytext;
                                 //yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
-                                //yylval.string = strdup(yytext); 
+                                yylval.string = strdup(yytext); 
                                 printf("\n----ID\n");
                                 return ID;
                               }
@@ -1150,7 +1150,7 @@ YY_RULE_SETUP
 /* Reglas para los strings */
 case 35:
 YY_RULE_SETUP
-#line 275 "wic.l"
+#line 275 "src/flex-bison/wic.l"
 {
                                 BEGIN(STRING_STATE);
                                 return QUOTE;
@@ -1159,7 +1159,7 @@ YY_RULE_SETUP
 case 36:
 /* rule 36 can match eol */
 YY_RULE_SETUP
-#line 279 "wic.l"
+#line 279 "src/flex-bison/wic.l"
 {
                                 //TODO
                                 //wic::data_value data_v ;
@@ -1173,7 +1173,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 289 "wic.l"
+#line 289 "src/flex-bison/wic.l"
 {
                                 BEGIN(INITIAL);
                                 printf("----QUOTE\n");
@@ -1183,64 +1183,64 @@ YY_RULE_SETUP
 /* Reglas para los comentarios */
 case 38:
 YY_RULE_SETUP
-#line 297 "wic.l"
+#line 297 "src/flex-bison/wic.l"
 { BEGIN(COMMENT_LINE); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 298 "wic.l"
+#line 298 "src/flex-bison/wic.l"
 { }
 	YY_BREAK
 case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
-#line 299 "wic.l"
+#line 299 "src/flex-bison/wic.l"
 {
                                 yylineno++;
                                 BEGIN(INITIAL);
                               }
 	YY_BREAK
 case YY_STATE_EOF(COMMENT_LINE):
-#line 303 "wic.l"
+#line 303 "src/flex-bison/wic.l"
 /* Do error */
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 306 "wic.l"
+#line 306 "src/flex-bison/wic.l"
 { BEGIN(COMMENT_BLOCK); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 307 "wic.l"
+#line 307 "src/flex-bison/wic.l"
 {
                                 BEGIN(INITIAL);
                               }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 310 "wic.l"
+#line 310 "src/flex-bison/wic.l"
 
 	YY_BREAK
 case 44:
 /* rule 44 can match eol */
 YY_RULE_SETUP
-#line 311 "wic.l"
+#line 311 "src/flex-bison/wic.l"
 { yylineno++; }
 	YY_BREAK
 case YY_STATE_EOF(COMMENT_BLOCK):
-#line 312 "wic.l"
+#line 312 "src/flex-bison/wic.l"
 /* Do error */
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 315 "wic.l"
+#line 315 "src/flex-bison/wic.l"
 {
                                 //printf("Esto es un tabulado\n");
                               }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 318 "wic.l"
+#line 318 "src/flex-bison/wic.l"
 {
                                 //printf("Esto es un espacio\n");
                               }
@@ -1248,14 +1248,14 @@ YY_RULE_SETUP
 /* Unknowns & errors */
 case 47:
 YY_RULE_SETUP
-#line 323 "wic.l"
+#line 323 "src/flex-bison/wic.l"
 {
                                 printf("<%s> is an unknown\n", yytext);
                               }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 327 "wic.l"
+#line 327 "src/flex-bison/wic.l"
 ECHO;
 	YY_BREAK
 #line 1262 "lex.yy.c"
@@ -2265,7 +2265,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 327 "wic.l"
+#line 327 "src/flex-bison/wic.l"
 
 
 /* Funciones y declaraciones auxiliares */

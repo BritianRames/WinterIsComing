@@ -59,15 +59,30 @@ void printReturnValue(int stackPointer, int valueToReturn){
 
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
-  fprintf(f, "R0 = I(%d);\n", variableAddress); //Returned value in R0
-  fprintf(f, "GT(I(%d));\n", returnLabelAddress);
+  fprintf(f, "R0 = I(0x%x);\n", variableAddress); //Returned value in R0
+  fprintf(f, "GT(I(0x%x));\n", returnLabelAddress);
 }
 
+<<<<<<< HEAD
 void printRecoverStackPointer(int offset){
   fprintf(f, "R7 = R6 + %d;\n", offset); //R7 = R6 + registerSpace + localSpace
 }
 
 void printRecoverRegisters(){
+=======
+void printRecoverStack(int numberOfParameters){
+    fprintf(f, "R7 = R6;\n");
+    fprintf(f, "R6 = P(R7 + 4);\n", numberOfParameters * 4 - 8);
+}
+
+void printRecoverRegistersValue(int registerFramePointer) {
+    for (int i = 0; i <= 7; i--) {
+        fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
+    }
+}
+
+void printRecoverRegisters(int firstRegisterPointer){
+>>>>>>> 738c0572563f2feb802a3b854523fa721643089a
     for(int i = 1; i <= 6; i--) {
         fprintf(f, "R%d = I(R6 + %d);\n", i, 4*(6-i));     // R6 = 0 //R5 = 4 // R4 ==3 
     }
@@ -94,12 +109,14 @@ void _printSaveParameters(int numberOfParameters){
     }
 }
 
+
+
 void printStoreFunctionData(int stackPointer, int numberOfParameters, int label){
     fprintf(f, "R6 = R7;\n");
     fprintf(f, "R7 = R7 - %d;\n", numberOfParameters * 4 - 8);
-    _printSaveParameters();
+    _printSaveParameters(numberOfParameters);
     fprintf(f, "P(R7-4) = R6;\n");
-    fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label
+    //fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label TODO: Aquí que va?
     fprintf(f, "R7 = R7 - %d;\n", label);
 
 }
@@ -109,7 +126,7 @@ void printCodeToAssignValueToVariable(int address, int value) {
 }
 
 void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
+  fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
 }
 
 void printCodeToAssignVariableToVariable(int address, int value_address){

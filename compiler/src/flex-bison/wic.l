@@ -13,7 +13,7 @@
 
     //#include <string>
 
-    #include "y.tab.h"
+    #include "bwic.tab.h"
 
     int level = 0;
     int enter_special = 1;
@@ -115,7 +115,7 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //wic::data_value data_v;
                                 //data_v.int_val = atoi(yytext);
-                                //yylval.number = atoi(yytext);
+                                yylval.number = atoi(yytext);
                                 printf("\n----INT_VAL\n");
                                 return INT_VAL;
                               }
@@ -265,7 +265,7 @@ id                            {letter}({letter}|{digit})*
                                 //TODO
                                 //std::string id = yytext;
                                 //yylval = reinterpret_cast<void *>(new wic::ASTIDNode(id, wic::UNKNOWN));
-                                //yylval.string = strdup(yytext); 
+                                yylval.string = strdup(yytext); 
                                 printf("\n----ID\n");
                                 return ID;
                               }
