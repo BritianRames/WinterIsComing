@@ -32,32 +32,27 @@ void generateReturnVariableCode(char* variable){
   printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
 }
 
-void generateFuntionCall(char* functionToJump, int* parameters){
-  char* currentFunction = getLastFunctionFromSymbolTable;
-  //Actualizamos Stack
+void generateCallFunctionCode(char* functionToJump, int* parameters){
+  struct Symbol* currentFunction = getFunctionFromSymbolTable(functionToJump)->numberOfParameters;
   int localSpace = getFunctionFromSymbolTable(currentFunction)->numberOfLocalVariables * 4;
-  int registerSpace = 4 * 6; // 4 * number of register to store R1...R6
-  updateStackPointer(localSpace + registerSpace); //Avanzamos espacio de locales y registros
+  int registerSpace = 4 * 7; // 4 * number of register to store R1...R6
+  int parametersSpace =currentFunction->numberOfParameters * 4;
+  
+  updateStackPointer(localSpace); //Avanzamos espacio de locales y registros
+  printSaveRegistersValues(getCurrentStackPointer());
+  updateStackPointer(registerSpace); //Avanzamos espacio de locales y registros
+  updateFramePointerToStackPointer(); //R6 = R7 
+  printPutParametersInStack(currentFunction->numberOfParameters, parameters);
+  updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
 
   int goBackLabel = _getNextLabel();
-  int parametersSpace = getFunctionFromSymbolTable(functionToJump)->numberOfParameters * 4;
-  //Salvamos Registros
-  printSaveRegistersValue(getCurrentStackPointer());
-  //Actualizamos Registros a parametros
-  printPutParametersInRegisters(getFunctionFromSymbolTable(functionToJump)->numberOfParameters, parameters);
-  //Actualizamos FramePointer
-  updateFramePointerToStackPointer(); //R6 = R7 
-  //Actualizamos Stackpointer
-  updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
-  //Imprimimos GT
-  printGoToInstruction(getFunctionFromSymbolTable(functionToJump)->label);
-  //Escribimos código de salto y recover de datos y stack
+  printInsertReturnLabelInStack(goBackLabel);
+  printGoToInstruction(currentFunction->label);
   printLabelInstruction(goBackLabel);
-  //Recuperamos Registros
-  printRecoverRegisters();
-  //Recuperamos StackPointer
-  recoverStackPointer(localSpace + registerSpace);
+  printRecoverRegistersValues();
+  recoverStackPointer(localSpace + registerSpace + parameterSpace + 2);
 }
+
 
 void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
