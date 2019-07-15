@@ -50,8 +50,5 @@ void generateDivisionVariableToR0(char* id);
 void generateAssignOperationResultToVariable(char* id);
 
 void generateReturnValue(int value);
-void generateReturnVariableCode(char* variable);
-
-void generateFunctionCall();
-void printPutParametersInRegisters();
-void printParametersAsignation();
+void generateReturnVariable(char* variable);
+void generateFuntionCall(char* functionToJump, int* parameters);
