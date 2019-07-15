@@ -16,7 +16,7 @@ void printQInitialization() {
     fprintf(f, "L 0:\n");
 }
 
-void printGlobalDefinitionAreaEnding(){
+void printJumpMain(){
     fprintf(f, "GT(1);\n");
 
 }
@@ -151,38 +151,42 @@ void printPrintVariableCode(int address){
 
 /* ARITHMETICAL FUNCTIONS */
 
-//void printAddValueToValue(int val1, int val2) {
-//    fprintf(f, "R0 = %d + %d;\n", val1, val2);
-//}
-void printAddValueToR0(int val){
-    fprintf(f, "R0 = R0 + %d;\n", val);
+void printInsertOnStack(int address, int value){
+  fprintf(f, "I(%d) = %d;\n", address, value);
 }
 
-void printAddVariableToR0(int address){
+
+void printAddValue(int address){
+    fprintf(f, "R1 = I(%d);\n", address + 4);
+    fprintf(f, "I(%d) = R1 + I(%d);\n", address,address-4);
+
+}
+
+void printAddVariable(int address){
     fprintf(f, "R0 = R0 + I(0x%x);\n", address);
 }
 
-void printSubstractValueToR0(int val){
+void printSubstractValue(int val){
     fprintf(f, "R0 = R0 - %d;\n", val);
 }
 
-void printSubstractVariableToR0(int address){
+void printSubstractVariable(int address){
     fprintf(f, "R0 = R0 - I(0x%x);\n", address);
 }
 
-void printProductValueToR0(int val){
+void printProductValue(int val){
     fprintf(f, "R0 = R0 * %d;\n", val);
 }
 
-void printProductVariableToR0(int address){
+void printProductVariable(int address){
     fprintf(f, "R0 = R0 * I(0x%x);\n", address);
 }
 
-void printDivisionValueToR0(int val){
+void printDivisionValue(int val){
     fprintf(f, "R0 = R0 / %d;\n", val);
 }
 
-void printDivisionVariableToR0(int address){
+void printDivisionVariable(int address){
     fprintf(f, "R0 = R0 / I(0x%x);\n", address);
 }
 
@@ -194,11 +198,97 @@ void printCodeAssignOperationResultToVariable(int address) {
 
 
 
-/* IF CLAUSE */
 
-void printHeaderOfIfInstruction(int reg, int cond_value, int if_label){ //REFACTOR
-    fprintf(f, "\tR%d = %d;\n", reg, cond_value);
-    fprintf(f, "\tIF(R%d) GT(%d);\n", cond_value, if_label);
+
+/* RELATIONAL FUNCTIONS */
+void printEqualsValueToValue(int val1, int val2) {
+    fprintf(f, "R0 = %d == %d;\n", val1, val2);
+}
+
+void printNotEqualsValueToValue(int val1, int val2){
+    fprintf(f, "R0 = %d != %d;\n", val1, val2);
+}
+
+void printLessValueToValue(int val1, int val2){
+    fprintf(f, "R0 = %d < %d;\n", val1, val2);
+}
+
+void printLessEqualsValueToValue(int val1, int val2){
+    fprintf(f, "R0 = %d <= %d;\n", val1, val2);
+}
+
+void printGreaterValueToValue(int val1, int val2){
+    fprintf(f, "R0 = %d > %d;\n", val1, val2);
+}
+
+void printGreaterEqualsValueToValue(int val1, int val2){
+    fprintf(f, "R0 = %d >= %d;\n", val1, val2);
+}
+
+
+void printEqualsValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) == %d;\n", address, val);
+}
+
+void printNotEqualsValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) != %d;\n", address, val);
+}
+
+void printLessValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) < %d;\n", address, val);
+}
+
+void printLessEqualsValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) <= %d;\n", address, val);
+}
+
+void printGreaterValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) > %d;\n", address, val);
+}
+
+void printGreaterEqualsValueToVariable(int address, int val){
+    fprintf(f, "R0 = I(0x%x) >= %d;\n", address, val);
+}
+
+
+void printEqualsVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) == I(0x%x);\n", address1, address2);
+}
+
+void printNotEqualsVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) != I(0x%x);\n", address1, address2);
+}
+
+void printLessVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) < I(0x%x);\n", address1, address2);
+}
+
+void printLessEqualsVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) <= I(0x%x);\n", address1, address2);
+}
+
+void printGreaterVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) > I(0x%x);\n", address1, address2);
+}
+
+void printGreaterEqualsVariableToVariable(int address1, int address2){
+    fprintf(f, "R0 = I(0x%x) >= I(0x%x);\n", address1, address2);
+}
+
+
+void printNotValue(int val){
+    fprintf(f, "R0 = !%d;\n", val);
+}
+
+void printNotVariable(int address){
+    fprintf(f, "R0 = !I(%d);\n", address);
+}
+
+
+/* CLAUSE FUNCTIONS */
+
+void printHeaderOfClauseInstruction(int label){
+    fprintf(f, "\tIF(!R0) GT(%d);\n", label);
 }
 
 void printGoToInstruction(int label){

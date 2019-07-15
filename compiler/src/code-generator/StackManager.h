@@ -9,3 +9,7 @@ int getCurrentStackPointer();
 int getCurrentFramePointer();
 void recoverStackPointer(int offset);
 void updateFramePointerToStackPointer();
+void addOneToNumberOperators();
+void minusOneToNumberOperators();
+int getNumberOperators();
+

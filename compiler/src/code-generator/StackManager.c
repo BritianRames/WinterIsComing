@@ -1,6 +1,19 @@
 #include "StackManager.h"
 
 int stackPointer = 73728;
+int numberOperators = 0;
+
+void addOneToNumberOperators(){
+  numberOperators = numberOperators + 1;
+}
+
+void minusOneToNumberOperators(){
+  numberOperators = numberOperators - 1;
+}
+
+int getNumberOperators(){
+  return numberOperators;
+}
 
 int getNextStackPointer(){
   stackPointer = stackPointer - 4;

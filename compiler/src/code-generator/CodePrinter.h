@@ -5,7 +5,7 @@
 
 void openFile();
 void printQInitialization();
-void printGlobalDefinitionAreaEnding();
+void printJumpMain();
 void printMainFunction();
 void printGoToExit();
 void printQEnding();
@@ -37,14 +37,16 @@ void printCodeToAssignOperationResultToVariable(int address);
 void printCodeToAssignFunctionResultToVariable(int address);
 
 /* ARITHMETICAL FUNCTIONS */
-void printAddValueToR0(int val);
-void printAddVariableToR0(int address);
-void printSubstractVariableToR0 (int val);
-void printSubstractVariableToR0(int address);
-void printProductValueToR0(int val);
-void printProductVariableToR0(int address);
-void printDivisionValueToR0(int val);
-void printDivisionVariableToR0(int address);
+void printInsertOnStack(int address, int value);
+
+void printAddValue(int address);
+void printAddVariable(int address);
+void printSubstractVariable (int val);
+void printSubstractVariable(int address);
+void printProductValue(int val);
+void printProductVariable(int address);
+void printDivisionValue(int val);
+void printDivisionVariable(int address);
 
 void printCodeAssignOperationResultToVariable(int addr);
 
@@ -54,7 +56,33 @@ void printRecoverStackPointer(int offset);
 void printPutParametersInRegisters(int numberOfParameters, int* parameters);
 
 
-/* IF CLAUSE FUNCTIONS */
-void printHeaderOfIfInstruction(int reg, int cond_value, int else_label);
+/* RELATIONAL FUNCTIONS */
+void printEqualsValueToValue(int val1, int val2);
+void printNotEqualsValueToValue(int val1, int val2);
+void printLessValueToValue(int val1, int val2);
+void printLessEqualsValueToValue(int val1, int val2);
+void printGreaterValueToValue(int val1, int val2);
+void printGreaterEqualsValueToValue(int val1, int val2);
+
+
+void printEqualsValueToVariable(int address, int val);
+void printNotEqualsValueToVariable(int address, int val);
+void printLessValueToVariable(int address, int val);
+void printLessEqualsValueToVariable(int address, int val);
+void printGreaterValueToVariable(int address, int val);
+void printGreaterEqualsValueToVariable(int address, int val);
+
+void printNotEqualsVariableToVariable(int address1, int address2);
+void printEqualsVariableToVariable(int address1, int address2);
+void printLessVariableToVariable(int address1, int address2);
+void printLessEqualsVariableToVariable(int address1, int address2);
+void printGreaterVariableToVariable(int address1, int address2);
+void printGreaterEqualsVariableToVariable(int address1, int address2);
+
+void printNotVariable(int address);
+void printNotValue(int val);
+
+/* CLAUSE FUNCTIONS */
+void printHeaderOfClauseInstruction(int label);
 void printGoToInstruction(int label);
 void printLabelInstruction(int label);

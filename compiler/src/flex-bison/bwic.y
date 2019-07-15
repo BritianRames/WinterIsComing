@@ -11,6 +11,10 @@
   char* stringWithNewline(char*);
   int miVariableA;
   int miVariableB;
+  int else_l;
+  int exit_l;
+  int while_l;
+  bool marcador = true;
 %}
 
 %union { int number; char* string; }
@@ -71,7 +75,6 @@
 %type <number> printableElement
 %type <number> text
 %type <number> controlStructure
-%type <number> structuresWord
 %type <number> logicalOperation
 %type <number> logicalOperator
 %type <number> aritmeticOperationSum
@@ -88,7 +91,7 @@ begin : {printf("Welcome to wic\n"); generateQInitialization();} root {generateG
 
 root : declaration END_OF_INSTRUCTION root
      | assignation END_OF_INSTRUCTION root
-     | function root
+     | {if(marcador){generatePrintJumpMain(); marcador = false;}} function root
      | END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
@@ -100,7 +103,7 @@ declaration : INT_TYPE ID {
                           }
             ;
 
-function : FUN ID {printf("COMIENZA FUNCION \n");/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");/*closingScope();*/}
+function : FUN ID {printf("COMIENZA FUNCION \n"); insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){generateMainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");closeScopeInSymbolTable();}
          ;
 
 params : INT_TYPE ID params {printf("DECLARACION PARAMETROS\n");/*insertVariable($<string>2);*/}
@@ -139,27 +142,14 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation :  aritmeticOperation SUM aritmeticOperator {generateAddValueToR0($<number>3);}
-                  | aritmeticOperation SUBSTRACT aritmeticOperator {generateSubstractValueToR0($<number>3);}
-                  | aritmeticOperation PRODUCT aritmeticOperation  {generateProductValueToR0($<number>3);}         
-                  | aritmeticOperation DIVIDE aritmeticOperation   {generateDivisionValueToR0($<number>3);}          
-                  | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE    
-                  | aritmeticOperator 
+aritmeticOperation :  aritmeticOperation SUM aritmeticOperation /*{generateAddValue();}*/
+                  |   aritmeticOperation SUBSTRACT aritmeticOperation
+                  |   aritmeticOperation PRODUCT aritmeticOperation
+                  |   aritmeticOperation DIVIDE aritmeticOperation
+                  |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
+                  |   INT_VAL /*{printf("COMIENZA LLAMADA generateInsertOnStack%d\n",$<number>1); generateInsertOnStack($<number>1);}*/
                   ;
 
-aritmeticOperator : ID {$<string>$ = $1;}
-                  | INT_VAL {$<number>$ = $1;}
-                  ;
-
-aritmeticOperationSubstract :    aritmeticOperation
-                              | ID {generateSubstractVariableToR0($<string>1);}
-                              | INT_VAL {generateSubstractValueToR0($<number>1);}
-                              ;
-
-aritmeticOperationSum :        aritmeticOperation
-                            | INT_VAL {generateAddValueToR0($<number>1);}
-                            | ID {generateAddVariableToR0($<string>1);}
-                            ;
 
 return : RETURN ID {/*returnVariable($<number>2);*/}
        | RETURN INT_VAL {/*returnValue($<number>2);*/}
@@ -170,35 +160,117 @@ return : RETURN ID {/*returnVariable($<number>2);*/}
 print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE 
       ; 
 
-printableElement : ID {/*printVariable($<number>1);*/}
-                 | QUOTE text QUOTE {/*printText($<number>1);*/}
-                 | printableElement SUM printableElement {/*printLineJump();*/}
+printableElement : ID {generatePrintVariable($<string>1);}
+                 | QUOTE text QUOTE {generatePrintString($<string>2);}
+                 | printableElement SUM printableElement 
                  ;
 
 text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : IF_CLAUSE PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} END_OF_INSTRUCTION codeSet {/*closingScope();*/} CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE {printf("ESTRUCTURA CONTROL ELSE_CLAUSE TERMINADA");}
-                 | structuresWord PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} END_OF_INSTRUCTION codeSet {/*closingScope();*/} CURLY_BRACKET_CLOSE {printf("ESTRUCTURA CONTROL TERMINADA");}
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = generateHeaderOfClauseInstruction();}
+		   CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet
+		   CURLY_BRACKET_CLOSE {exit_l = _getNextLabel(); generateGoToInstruction(exit_l); closeScopeInSymbolTable();}
+		   ELSE_CLAUSE CURLY_BRACKET_OPEN {openScopeInSymbolTable(); generateLabelInstruction(else_l);} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE
+                 PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();}
+                 CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet {generateGoToInstruction(while_l);}
+                 CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
                  ;
 
-structuresWord : IF_CLAUSE {/*startIf();*/}
-               | WHILE_CLAUSE {/*startWhile();*/}
-               ;
-
-logicalOperation : ID logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1));*/}
-                 | ID logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+logicalOperation : ID logicalOperator ID { switch($2) {
+					   	case 1:
+							generateEqualsVariableToVariable($<string>1, $<string>3);
+					   		break;
+						case 2:
+							generateNotEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+						case 3:
+							generateLessVariableToVariable($<string>1, $<string>3);
+							break;
+						case 4:
+							generateLessEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+						case 5:
+							generateGreaterVariableToVariable($<string>1, $<string>3);
+							break;
+						case 6:
+						default:
+							generateGreaterEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+					    } }
+                 | ID logicalOperator INT_VAL { switch($2) {
+						   case 1:
+						   	generateEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 2:
+						   	generateNotEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 3:
+						   	generateLessValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 4:
+						   	generateLessEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 5:
+						   	generateGreaterValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 6:
+						   default:
+						   	generateGreaterEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+					        } }
+                 | INT_VAL logicalOperator INT_VAL { switch($2) {
+							   case 1:
+								generateEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 2:
+								generateNotEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 3:
+								generateLessValueToValue($<number>1, $<number>3);
+								break;
+							   case 4:
+								generateLessEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 5:
+								generateGreaterValueToValue($<number>1, $<number>3);
+								break;
+							   case 6:
+							   default:
+								generateGreaterEqualsValueToValue($<number>1, $<number>3);
+								break;
+							} }
+                 | INT_VAL logicalOperator ID { switch($2) {
+						   case 1:
+							generateEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 2:
+							generateNotEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 3:
+							generateLessValueToVariable($<number>1, $<string>3);
+							break;
+						   case 4:
+							generateLessEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 5:
+							generateGreaterValueToVariable($<number>1, $<string>3);
+							break;
+						   case 6:
+						   default:
+							generateGreaterEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						} }
                  ;
 
-logicalOperator : EQUALS {/*$$ = "eq";*/}
-                | NOT_EQUALS {/*$$ = "neq";*/}
-                | GREATER {/*$$ = "gt";*/}
-                | LESS {/*$$ = "mt";*/}
-                | GREATER_EQUALS {/*$$ = "ge";*/}
-                | LESS_EQUALS {/*$$ = "me";*/}
+logicalOperator : EQUALS {$$ = 1;}
+                | NOT_EQUALS {$$ = 2;}
+                | LESS {$$ = 3;}
+                | LESS_EQUALS {$$ = 4;}
+                | GREATER {$$ = 5;}
+                | GREATER_EQUALS {$$ = 6;}
                 ;
 
 %%
