@@ -34,3 +34,4 @@ int getVariableAddressFromSymbolTable(char* id);
 struct Symbol* getLastFunctionFromSymbolTable();
 void printSymbolTable();
 struct Symbol* getVariableFromSymbolTable(char* id);
+char getTypeFromSymbol(char* id);

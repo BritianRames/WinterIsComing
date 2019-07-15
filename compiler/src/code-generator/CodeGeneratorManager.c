@@ -85,10 +85,7 @@ void generateFunctionHeaderCode(){
 }
 //Update lv number
 
-void generateAssignVariableToGlobalVariableCode(char* variable_id, char value_id){
-  int variable_address = getVariableAddressFromSymbolTable(variable_id);
-  int value_address = _getNextLocalVariableAddressFromSymbolTable(value_id);
-}
+
 
 void generateFunctionReturnValueCode(int value){
   printReturnValue(getCurrentStackPointer(), value);
@@ -105,7 +102,7 @@ void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
 }
 
-void generateAssignVariableToVariableCode(char* variable_id, char value_id){
+void generateAssignVariableToVariableCode(char* variable_id, char* value_id){
   printCodeToAssignVariableToVariable(_getVariableAddress(variable_id), _getVariableAddress(value_id));
 }
 

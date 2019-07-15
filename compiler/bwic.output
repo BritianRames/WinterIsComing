@@ -1,0 +1,1657 @@
+Terminales no usados en la gramática
+
+   CONTINUE
+   STRING_TYPE
+   AND
+   OR
+   NOT
+   HEADER_END
+   SQUARE_BRACKET_OPEN
+   SQUARE_BRACKET_CLOSE
+   OPEN_CONTEXT_TAG
+   CLOSE_CONTEXT_TAG
+
+
+La regla es inútil debido a los conflictos
+
+   43 return: RETURN INT_VAL
+
+   63 structuresWord: IF_CLAUSE
+
+
+Estado 20 conflictos: 1 reducción/reducción
+Estado 64 conflictos: 1 desplazamiento/reducción
+Estado 77 conflictos: 1 reducción/reducción
+Estado 90 conflictos: 1 reducción/reducción
+
+
+Gramática
+
+    0 $accept: begin $end
+
+    1 $@1: %empty
+
+    2 begin: $@1 root
+
+    3 root: declaration END_OF_INSTRUCTION root
+    4     | assignation END_OF_INSTRUCTION root
+    5     | function root
+    6     | END_OF_INSTRUCTION root
+    7     | %empty
+
+    8 declaration: INT_TYPE ID
+
+    9 $@2: %empty
+
+   10 $@3: %empty
+
+   11 $@4: %empty
+
+   12 $@5: %empty
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+   14 params: INT_TYPE ID params
+   15       | COMMA INT_TYPE ID params
+   16       | %empty
+
+   17 codeSet: instruction END_OF_INSTRUCTION codeSet
+   18        | controlStructure codeSet
+   19        | END_OF_INSTRUCTION codeSet
+   20        | %empty
+
+   21 instruction: assignation
+   22            | declaration
+   23            | ID ASSIGN aritmeticOperation
+   24            | return
+   25            | print
+   26            | BREAK
+
+   27 assignation: ID ASSIGN INT_VAL
+   28            | ID ASSIGN ID
+
+   29 $@6: %empty
+
+   30 assignation: ID ASSIGN ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+   31            | ID ASSIGN aritmeticOperation
+
+   32 functionCallParams: INT_VAL
+   33                   | ID
+   34                   | INT_VAL COMMA functionCallParams
+   35                   | ID COMMA functionCallParams
+
+   36 aritmeticOperation: aritmeticOperation SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation SUM aritmeticOperation
+   38                   | aritmeticOperation PRODUCT aritmeticOperation
+   39                   | aritmeticOperation DIVIDE aritmeticOperation
+   40                   | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
+   41                   | INT_VAL
+
+   42 return: RETURN ID
+   43       | RETURN INT_VAL
+   44       | RETURN aritmeticOperation
+
+   45 $@7: %empty
+
+   46 return: RETURN ID PARENTESIS_OPEN $@7 functionCallParams PARENTESIS_CLOSE
+
+   47 print: PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
+
+   48 printableElement: ID
+   49                 | QUOTE text QUOTE
+   50                 | printableElement SUM printableElement
+
+   51 text: STRING_VAL
+   52     | ' '
+
+   53 $@8: %empty
+
+   54 $@9: %empty
+
+   55 $@10: %empty
+
+   56 $@11: %empty
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+   58 $@12: %empty
+
+   59 $@13: %empty
+
+   60 $@14: %empty
+
+   61 $@15: %empty
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+   63 structuresWord: IF_CLAUSE
+   64               | WHILE_CLAUSE
+
+   65 logicalOperation: ID logicalOperator ID
+   66                 | ID logicalOperator INT_VAL
+   67                 | INT_VAL logicalOperator INT_VAL
+   68                 | INT_VAL logicalOperator ID
+
+   69 logicalOperator: EQUALS
+   70                | NOT_EQUALS
+   71                | GREATER
+   72                | LESS
+   73                | GREATER_EQUALS
+   74                | LESS_EQUALS
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+' ' (32) 52
+error (256)
+CONTINUE (258)
+BREAK (259) 26
+RETURN (260) 42 43 44 46
+FUN (261) 13
+INT_VAL (262) 27 32 34 41 43 66 67 68
+STRING_VAL (263) 51
+INT_TYPE (264) 8 14 15
+STRING_TYPE (265)
+ASSIGN (266) 23 27 28 30 31
+SUM (267) 37 50
+SUBSTRACT (268) 36
+PRODUCT (269) 38
+DIVIDE (270) 39
+AND (271)
+OR (272)
+NOT (273)
+EQUALS (274) 69
+NOT_EQUALS (275) 70
+GREATER (276) 71
+GREATER_EQUALS (277) 73
+LESS (278) 72
+LESS_EQUALS (279) 74
+IF_CLAUSE (280) 57 63
+WHILE_CLAUSE (281) 64
+ELSE_CLAUSE (282) 57
+HEADER_END (283)
+SQUARE_BRACKET_OPEN (284)
+SQUARE_BRACKET_CLOSE (285)
+CURLY_BRACKET_OPEN (286) 13 57 62
+CURLY_BRACKET_CLOSE (287) 13 57 62
+COMMA (288) 15 34 35
+PARENTESIS_OPEN (289) 13 30 40 46 47 57 62
+PARENTESIS_CLOSE (290) 13 30 40 46 47 57 62
+END_OF_INSTRUCTION (291) 3 4 6 13 17 19 57 62
+OPEN_CONTEXT_TAG (292)
+CLOSE_CONTEXT_TAG (293)
+QUOTE (294) 49
+ID (295) 8 13 14 15 23 27 28 30 31 33 35 42 46 48 65 66 68
+PRINT (296) 47
+
+
+No terminales con las reglas donde aparecen
+
+$accept (43)
+    en la izquierda: 0
+begin (44)
+    en la izquierda: 2, en la derecha: 0
+$@1 (45)
+    en la izquierda: 1, en la derecha: 2
+root (46)
+    en la izquierda: 3 4 5 6 7, en la derecha: 2 3 4 5 6
+declaration (47)
+    en la izquierda: 8, en la derecha: 3 22
+function (48)
+    en la izquierda: 13, en la derecha: 5
+$@2 (49)
+    en la izquierda: 9, en la derecha: 13
+$@3 (50)
+    en la izquierda: 10, en la derecha: 13
+$@4 (51)
+    en la izquierda: 11, en la derecha: 13
+$@5 (52)
+    en la izquierda: 12, en la derecha: 13
+params (53)
+    en la izquierda: 14 15 16, en la derecha: 13 14 15
+codeSet (54)
+    en la izquierda: 17 18 19 20, en la derecha: 13 17 18 19 57 62
+instruction (55)
+    en la izquierda: 21 22 23 24 25 26, en la derecha: 17
+assignation (56)
+    en la izquierda: 27 28 30 31, en la derecha: 4 21
+$@6 (57)
+    en la izquierda: 29, en la derecha: 30
+functionCallParams (58)
+    en la izquierda: 32 33 34 35, en la derecha: 30 34 35 46
+aritmeticOperation (59)
+    en la izquierda: 36 37 38 39 40 41, en la derecha: 23 31 36 37
+    38 39 40 44
+return (60)
+    en la izquierda: 42 43 44 46, en la derecha: 24
+$@7 (61)
+    en la izquierda: 45, en la derecha: 46
+print (62)
+    en la izquierda: 47, en la derecha: 25
+printableElement (63)
+    en la izquierda: 48 49 50, en la derecha: 47 50
+text (64)
+    en la izquierda: 51 52, en la derecha: 49
+controlStructure (65)
+    en la izquierda: 57 62, en la derecha: 18
+$@8 (66)
+    en la izquierda: 53, en la derecha: 57
+$@9 (67)
+    en la izquierda: 54, en la derecha: 57
+$@10 (68)
+    en la izquierda: 55, en la derecha: 57
+$@11 (69)
+    en la izquierda: 56, en la derecha: 57
+$@12 (70)
+    en la izquierda: 58, en la derecha: 62
+$@13 (71)
+    en la izquierda: 59, en la derecha: 62
+$@14 (72)
+    en la izquierda: 60, en la derecha: 62
+$@15 (73)
+    en la izquierda: 61, en la derecha: 62
+structuresWord (74)
+    en la izquierda: 63 64, en la derecha: 62
+logicalOperation (75)
+    en la izquierda: 65 66 67 68, en la derecha: 57 62
+logicalOperator (76)
+    en la izquierda: 69 70 71 72 73 74, en la derecha: 65 66 67 68
+
+
+Estado 0
+
+    0 $accept: . begin $end
+
+    $default  reduce usando la regla 1 ($@1)
+
+    begin  ir al estado 1
+    $@1    ir al estado 2
+
+
+Estado 1
+
+    0 $accept: begin . $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    2 begin: $@1 . root
+
+    FUN                 desplazar e ir al estado 4
+    INT_TYPE            desplazar e ir al estado 5
+    END_OF_INSTRUCTION  desplazar e ir al estado 6
+    ID                  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (root)
+
+    root         ir al estado 8
+    declaration  ir al estado 9
+    function     ir al estado 10
+    assignation  ir al estado 11
+
+
+Estado 3
+
+    0 $accept: begin $end .
+
+    $default  aceptar
+
+
+Estado 4
+
+   13 function: FUN . ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    ID  desplazar e ir al estado 12
+
+
+Estado 5
+
+    8 declaration: INT_TYPE . ID
+
+    ID  desplazar e ir al estado 13
+
+
+Estado 6
+
+    6 root: END_OF_INSTRUCTION . root
+
+    FUN                 desplazar e ir al estado 4
+    INT_TYPE            desplazar e ir al estado 5
+    END_OF_INSTRUCTION  desplazar e ir al estado 6
+    ID                  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (root)
+
+    root         ir al estado 14
+    declaration  ir al estado 9
+    function     ir al estado 10
+    assignation  ir al estado 11
+
+
+Estado 7
+
+   27 assignation: ID . ASSIGN INT_VAL
+   28            | ID . ASSIGN ID
+   30            | ID . ASSIGN ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+   31            | ID . ASSIGN aritmeticOperation
+
+    ASSIGN  desplazar e ir al estado 15
+
+
+Estado 8
+
+    2 begin: $@1 root .
+
+    $default  reduce usando la regla 2 (begin)
+
+
+Estado 9
+
+    3 root: declaration . END_OF_INSTRUCTION root
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 16
+
+
+Estado 10
+
+    5 root: function . root
+
+    FUN                 desplazar e ir al estado 4
+    INT_TYPE            desplazar e ir al estado 5
+    END_OF_INSTRUCTION  desplazar e ir al estado 6
+    ID                  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (root)
+
+    root         ir al estado 17
+    declaration  ir al estado 9
+    function     ir al estado 10
+    assignation  ir al estado 11
+
+
+Estado 11
+
+    4 root: assignation . END_OF_INSTRUCTION root
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 18
+
+
+Estado 12
+
+   13 function: FUN ID . $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    $default  reduce usando la regla 9 ($@2)
+
+    $@2  ir al estado 19
+
+
+Estado 13
+
+    8 declaration: INT_TYPE ID .
+
+    $default  reduce usando la regla 8 (declaration)
+
+
+Estado 14
+
+    6 root: END_OF_INSTRUCTION root .
+
+    $default  reduce usando la regla 6 (root)
+
+
+Estado 15
+
+   27 assignation: ID ASSIGN . INT_VAL
+   28            | ID ASSIGN . ID
+   30            | ID ASSIGN . ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+   31            | ID ASSIGN . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 20
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+    ID               desplazar e ir al estado 22
+
+    aritmeticOperation  ir al estado 23
+
+
+Estado 16
+
+    3 root: declaration END_OF_INSTRUCTION . root
+
+    FUN                 desplazar e ir al estado 4
+    INT_TYPE            desplazar e ir al estado 5
+    END_OF_INSTRUCTION  desplazar e ir al estado 6
+    ID                  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (root)
+
+    root         ir al estado 24
+    declaration  ir al estado 9
+    function     ir al estado 10
+    assignation  ir al estado 11
+
+
+Estado 17
+
+    5 root: function root .
+
+    $default  reduce usando la regla 5 (root)
+
+
+Estado 18
+
+    4 root: assignation END_OF_INSTRUCTION . root
+
+    FUN                 desplazar e ir al estado 4
+    INT_TYPE            desplazar e ir al estado 5
+    END_OF_INSTRUCTION  desplazar e ir al estado 6
+    ID                  desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (root)
+
+    root         ir al estado 25
+    declaration  ir al estado 9
+    function     ir al estado 10
+    assignation  ir al estado 11
+
+
+Estado 19
+
+   13 function: FUN ID $@2 . PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    PARENTESIS_OPEN  desplazar e ir al estado 26
+
+
+Estado 20
+
+   27 assignation: ID ASSIGN INT_VAL .
+   41 aritmeticOperation: INT_VAL .
+
+    END_OF_INSTRUCTION  reduce usando la regla 27 (assignation)
+    END_OF_INSTRUCTION  [reduce usando la regla 41 (aritmeticOperation)]
+    $default            reduce usando la regla 41 (aritmeticOperation)
+
+
+Estado 21
+
+   40 aritmeticOperation: PARENTESIS_OPEN . aritmeticOperation PARENTESIS_CLOSE
+
+    INT_VAL          desplazar e ir al estado 27
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+
+    aritmeticOperation  ir al estado 28
+
+
+Estado 22
+
+   28 assignation: ID ASSIGN ID .
+   30            | ID ASSIGN ID . PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+
+    PARENTESIS_OPEN  desplazar e ir al estado 29
+
+    $default  reduce usando la regla 28 (assignation)
+
+
+Estado 23
+
+   31 assignation: ID ASSIGN aritmeticOperation .
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+
+    SUM        desplazar e ir al estado 30
+    SUBSTRACT  desplazar e ir al estado 31
+    PRODUCT    desplazar e ir al estado 32
+    DIVIDE     desplazar e ir al estado 33
+
+    $default  reduce usando la regla 31 (assignation)
+
+
+Estado 24
+
+    3 root: declaration END_OF_INSTRUCTION root .
+
+    $default  reduce usando la regla 3 (root)
+
+
+Estado 25
+
+    4 root: assignation END_OF_INSTRUCTION root .
+
+    $default  reduce usando la regla 4 (root)
+
+
+Estado 26
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN . $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    $default  reduce usando la regla 10 ($@3)
+
+    $@3  ir al estado 34
+
+
+Estado 27
+
+   41 aritmeticOperation: INT_VAL .
+
+    $default  reduce usando la regla 41 (aritmeticOperation)
+
+
+Estado 28
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+   40                   | PARENTESIS_OPEN aritmeticOperation . PARENTESIS_CLOSE
+
+    SUM               desplazar e ir al estado 30
+    SUBSTRACT         desplazar e ir al estado 31
+    PRODUCT           desplazar e ir al estado 32
+    DIVIDE            desplazar e ir al estado 33
+    PARENTESIS_CLOSE  desplazar e ir al estado 35
+
+
+Estado 29
+
+   30 assignation: ID ASSIGN ID PARENTESIS_OPEN . $@6 functionCallParams PARENTESIS_CLOSE
+
+    $default  reduce usando la regla 29 ($@6)
+
+    $@6  ir al estado 36
+
+
+Estado 30
+
+   37 aritmeticOperation: aritmeticOperation SUM . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 27
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+
+    aritmeticOperation  ir al estado 37
+
+
+Estado 31
+
+   36 aritmeticOperation: aritmeticOperation SUBSTRACT . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 27
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+
+    aritmeticOperation  ir al estado 38
+
+
+Estado 32
+
+   38 aritmeticOperation: aritmeticOperation PRODUCT . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 27
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+
+    aritmeticOperation  ir al estado 39
+
+
+Estado 33
+
+   39 aritmeticOperation: aritmeticOperation DIVIDE . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 27
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+
+    aritmeticOperation  ir al estado 40
+
+
+Estado 34
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 . params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    INT_TYPE  desplazar e ir al estado 41
+    COMMA     desplazar e ir al estado 42
+
+    $default  reduce usando la regla 16 (params)
+
+    params  ir al estado 43
+
+
+Estado 35
+
+   40 aritmeticOperation: PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE .
+
+    $default  reduce usando la regla 40 (aritmeticOperation)
+
+
+Estado 36
+
+   30 assignation: ID ASSIGN ID PARENTESIS_OPEN $@6 . functionCallParams PARENTESIS_CLOSE
+
+    INT_VAL  desplazar e ir al estado 44
+    ID       desplazar e ir al estado 45
+
+    functionCallParams  ir al estado 46
+
+
+Estado 37
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   37                   | aritmeticOperation SUM aritmeticOperation .
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+
+    PRODUCT  desplazar e ir al estado 32
+    DIVIDE   desplazar e ir al estado 33
+
+    $default  reduce usando la regla 37 (aritmeticOperation)
+
+
+Estado 38
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   36                   | aritmeticOperation SUBSTRACT aritmeticOperation .
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+
+    PRODUCT  desplazar e ir al estado 32
+    DIVIDE   desplazar e ir al estado 33
+
+    $default  reduce usando la regla 36 (aritmeticOperation)
+
+
+Estado 39
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   38                   | aritmeticOperation PRODUCT aritmeticOperation .
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+
+    $default  reduce usando la regla 38 (aritmeticOperation)
+
+
+Estado 40
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+   39                   | aritmeticOperation DIVIDE aritmeticOperation .
+
+    $default  reduce usando la regla 39 (aritmeticOperation)
+
+
+Estado 41
+
+   14 params: INT_TYPE . ID params
+
+    ID  desplazar e ir al estado 47
+
+
+Estado 42
+
+   15 params: COMMA . INT_TYPE ID params
+
+    INT_TYPE  desplazar e ir al estado 48
+
+
+Estado 43
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params . $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    $default  reduce usando la regla 11 ($@4)
+
+    $@4  ir al estado 49
+
+
+Estado 44
+
+   32 functionCallParams: INT_VAL .
+   34                   | INT_VAL . COMMA functionCallParams
+
+    COMMA  desplazar e ir al estado 50
+
+    $default  reduce usando la regla 32 (functionCallParams)
+
+
+Estado 45
+
+   33 functionCallParams: ID .
+   35                   | ID . COMMA functionCallParams
+
+    COMMA  desplazar e ir al estado 51
+
+    $default  reduce usando la regla 33 (functionCallParams)
+
+
+Estado 46
+
+   30 assignation: ID ASSIGN ID PARENTESIS_OPEN $@6 functionCallParams . PARENTESIS_CLOSE
+
+    PARENTESIS_CLOSE  desplazar e ir al estado 52
+
+
+Estado 47
+
+   14 params: INT_TYPE ID . params
+
+    INT_TYPE  desplazar e ir al estado 41
+    COMMA     desplazar e ir al estado 42
+
+    $default  reduce usando la regla 16 (params)
+
+    params  ir al estado 53
+
+
+Estado 48
+
+   15 params: COMMA INT_TYPE . ID params
+
+    ID  desplazar e ir al estado 54
+
+
+Estado 49
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 . PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    PARENTESIS_CLOSE  desplazar e ir al estado 55
+
+
+Estado 50
+
+   34 functionCallParams: INT_VAL COMMA . functionCallParams
+
+    INT_VAL  desplazar e ir al estado 44
+    ID       desplazar e ir al estado 45
+
+    functionCallParams  ir al estado 56
+
+
+Estado 51
+
+   35 functionCallParams: ID COMMA . functionCallParams
+
+    INT_VAL  desplazar e ir al estado 44
+    ID       desplazar e ir al estado 45
+
+    functionCallParams  ir al estado 57
+
+
+Estado 52
+
+   30 assignation: ID ASSIGN ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE .
+
+    $default  reduce usando la regla 30 (assignation)
+
+
+Estado 53
+
+   14 params: INT_TYPE ID params .
+
+    $default  reduce usando la regla 14 (params)
+
+
+Estado 54
+
+   15 params: COMMA INT_TYPE ID . params
+
+    INT_TYPE  desplazar e ir al estado 41
+    COMMA     desplazar e ir al estado 42
+
+    $default  reduce usando la regla 16 (params)
+
+    params  ir al estado 58
+
+
+Estado 55
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE . $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    $default  reduce usando la regla 12 ($@5)
+
+    $@5  ir al estado 59
+
+
+Estado 56
+
+   34 functionCallParams: INT_VAL COMMA functionCallParams .
+
+    $default  reduce usando la regla 34 (functionCallParams)
+
+
+Estado 57
+
+   35 functionCallParams: ID COMMA functionCallParams .
+
+    $default  reduce usando la regla 35 (functionCallParams)
+
+
+Estado 58
+
+   15 params: COMMA INT_TYPE ID params .
+
+    $default  reduce usando la regla 15 (params)
+
+
+Estado 59
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 . CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 60
+
+
+Estado 60
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN . END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 61
+
+
+Estado 61
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION . codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 70
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 62
+
+   26 instruction: BREAK .
+
+    $default  reduce usando la regla 26 (instruction)
+
+
+Estado 63
+
+   42 return: RETURN . ID
+   43       | RETURN . INT_VAL
+   44       | RETURN . aritmeticOperation
+   46       | RETURN . ID PARENTESIS_OPEN $@7 functionCallParams PARENTESIS_CLOSE
+
+    INT_VAL          desplazar e ir al estado 77
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+    ID               desplazar e ir al estado 78
+
+    aritmeticOperation  ir al estado 79
+
+
+Estado 64
+
+   57 controlStructure: IF_CLAUSE . PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+   63 structuresWord: IF_CLAUSE .
+
+    PARENTESIS_OPEN  desplazar e ir al estado 80
+
+    PARENTESIS_OPEN  [reduce usando la regla 63 (structuresWord)]
+
+
+Estado 65
+
+   64 structuresWord: WHILE_CLAUSE .
+
+    $default  reduce usando la regla 64 (structuresWord)
+
+
+Estado 66
+
+   19 codeSet: END_OF_INSTRUCTION . codeSet
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 81
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 67
+
+   23 instruction: ID . ASSIGN aritmeticOperation
+   27 assignation: ID . ASSIGN INT_VAL
+   28            | ID . ASSIGN ID
+   30            | ID . ASSIGN ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+   31            | ID . ASSIGN aritmeticOperation
+
+    ASSIGN  desplazar e ir al estado 82
+
+
+Estado 68
+
+   47 print: PRINT . PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
+
+    PARENTESIS_OPEN  desplazar e ir al estado 83
+
+
+Estado 69
+
+   22 instruction: declaration .
+
+    $default  reduce usando la regla 22 (instruction)
+
+
+Estado 70
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet . CURLY_BRACKET_CLOSE END_OF_INSTRUCTION
+
+    CURLY_BRACKET_CLOSE  desplazar e ir al estado 84
+
+
+Estado 71
+
+   17 codeSet: instruction . END_OF_INSTRUCTION codeSet
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 85
+
+
+Estado 72
+
+   21 instruction: assignation .
+
+    $default  reduce usando la regla 21 (instruction)
+
+
+Estado 73
+
+   24 instruction: return .
+
+    $default  reduce usando la regla 24 (instruction)
+
+
+Estado 74
+
+   25 instruction: print .
+
+    $default  reduce usando la regla 25 (instruction)
+
+
+Estado 75
+
+   18 codeSet: controlStructure . codeSet
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 86
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 76
+
+   62 controlStructure: structuresWord . PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    PARENTESIS_OPEN  desplazar e ir al estado 87
+
+
+Estado 77
+
+   41 aritmeticOperation: INT_VAL .
+   43 return: RETURN INT_VAL .
+
+    END_OF_INSTRUCTION  reduce usando la regla 41 (aritmeticOperation)
+    END_OF_INSTRUCTION  [reduce usando la regla 43 (return)]
+    $default            reduce usando la regla 41 (aritmeticOperation)
+
+
+Estado 78
+
+   42 return: RETURN ID .
+   46       | RETURN ID . PARENTESIS_OPEN $@7 functionCallParams PARENTESIS_CLOSE
+
+    PARENTESIS_OPEN  desplazar e ir al estado 88
+
+    $default  reduce usando la regla 42 (return)
+
+
+Estado 79
+
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+   44 return: RETURN aritmeticOperation .
+
+    SUM        desplazar e ir al estado 30
+    SUBSTRACT  desplazar e ir al estado 31
+    PRODUCT    desplazar e ir al estado 32
+    DIVIDE     desplazar e ir al estado 33
+
+    $default  reduce usando la regla 44 (return)
+
+
+Estado 80
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN . $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 53 ($@8)
+
+    $@8  ir al estado 89
+
+
+Estado 81
+
+   19 codeSet: END_OF_INSTRUCTION codeSet .
+
+    $default  reduce usando la regla 19 (codeSet)
+
+
+Estado 82
+
+   23 instruction: ID ASSIGN . aritmeticOperation
+   27 assignation: ID ASSIGN . INT_VAL
+   28            | ID ASSIGN . ID
+   30            | ID ASSIGN . ID PARENTESIS_OPEN $@6 functionCallParams PARENTESIS_CLOSE
+   31            | ID ASSIGN . aritmeticOperation
+
+    INT_VAL          desplazar e ir al estado 20
+    PARENTESIS_OPEN  desplazar e ir al estado 21
+    ID               desplazar e ir al estado 22
+
+    aritmeticOperation  ir al estado 90
+
+
+Estado 83
+
+   47 print: PRINT PARENTESIS_OPEN . printableElement PARENTESIS_CLOSE
+
+    QUOTE  desplazar e ir al estado 91
+    ID     desplazar e ir al estado 92
+
+    printableElement  ir al estado 93
+
+
+Estado 84
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE . END_OF_INSTRUCTION
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 94
+
+
+Estado 85
+
+   17 codeSet: instruction END_OF_INSTRUCTION . codeSet
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 95
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 86
+
+   18 codeSet: controlStructure codeSet .
+
+    $default  reduce usando la regla 18 (codeSet)
+
+
+Estado 87
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN . $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 58 ($@12)
+
+    $@12  ir al estado 96
+
+
+Estado 88
+
+   46 return: RETURN ID PARENTESIS_OPEN . $@7 functionCallParams PARENTESIS_CLOSE
+
+    $default  reduce usando la regla 45 ($@7)
+
+    $@7  ir al estado 97
+
+
+Estado 89
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 . logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    INT_VAL  desplazar e ir al estado 98
+    ID       desplazar e ir al estado 99
+
+    logicalOperation  ir al estado 100
+
+
+Estado 90
+
+   23 instruction: ID ASSIGN aritmeticOperation .
+   31 assignation: ID ASSIGN aritmeticOperation .
+   36 aritmeticOperation: aritmeticOperation . SUBSTRACT aritmeticOperation
+   37                   | aritmeticOperation . SUM aritmeticOperation
+   38                   | aritmeticOperation . PRODUCT aritmeticOperation
+   39                   | aritmeticOperation . DIVIDE aritmeticOperation
+
+    SUM        desplazar e ir al estado 30
+    SUBSTRACT  desplazar e ir al estado 31
+    PRODUCT    desplazar e ir al estado 32
+    DIVIDE     desplazar e ir al estado 33
+
+    END_OF_INSTRUCTION  reduce usando la regla 23 (instruction)
+    END_OF_INSTRUCTION  [reduce usando la regla 31 (assignation)]
+    $default            reduce usando la regla 23 (instruction)
+
+
+Estado 91
+
+   49 printableElement: QUOTE . text QUOTE
+
+    STRING_VAL  desplazar e ir al estado 101
+    ' '         desplazar e ir al estado 102
+
+    text  ir al estado 103
+
+
+Estado 92
+
+   48 printableElement: ID .
+
+    $default  reduce usando la regla 48 (printableElement)
+
+
+Estado 93
+
+   47 print: PRINT PARENTESIS_OPEN printableElement . PARENTESIS_CLOSE
+   50 printableElement: printableElement . SUM printableElement
+
+    SUM               desplazar e ir al estado 104
+    PARENTESIS_CLOSE  desplazar e ir al estado 105
+
+
+Estado 94
+
+   13 function: FUN ID $@2 PARENTESIS_OPEN $@3 params $@4 PARENTESIS_CLOSE $@5 CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION .
+
+    $default  reduce usando la regla 13 (function)
+
+
+Estado 95
+
+   17 codeSet: instruction END_OF_INSTRUCTION codeSet .
+
+    $default  reduce usando la regla 17 (codeSet)
+
+
+Estado 96
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 . logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    INT_VAL  desplazar e ir al estado 98
+    ID       desplazar e ir al estado 99
+
+    logicalOperation  ir al estado 106
+
+
+Estado 97
+
+   46 return: RETURN ID PARENTESIS_OPEN $@7 . functionCallParams PARENTESIS_CLOSE
+
+    INT_VAL  desplazar e ir al estado 44
+    ID       desplazar e ir al estado 45
+
+    functionCallParams  ir al estado 107
+
+
+Estado 98
+
+   67 logicalOperation: INT_VAL . logicalOperator INT_VAL
+   68                 | INT_VAL . logicalOperator ID
+
+    EQUALS          desplazar e ir al estado 108
+    NOT_EQUALS      desplazar e ir al estado 109
+    GREATER         desplazar e ir al estado 110
+    GREATER_EQUALS  desplazar e ir al estado 111
+    LESS            desplazar e ir al estado 112
+    LESS_EQUALS     desplazar e ir al estado 113
+
+    logicalOperator  ir al estado 114
+
+
+Estado 99
+
+   65 logicalOperation: ID . logicalOperator ID
+   66                 | ID . logicalOperator INT_VAL
+
+    EQUALS          desplazar e ir al estado 108
+    NOT_EQUALS      desplazar e ir al estado 109
+    GREATER         desplazar e ir al estado 110
+    GREATER_EQUALS  desplazar e ir al estado 111
+    LESS            desplazar e ir al estado 112
+    LESS_EQUALS     desplazar e ir al estado 113
+
+    logicalOperator  ir al estado 115
+
+
+Estado 100
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation . $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 54 ($@9)
+
+    $@9  ir al estado 116
+
+
+Estado 101
+
+   51 text: STRING_VAL .
+
+    $default  reduce usando la regla 51 (text)
+
+
+Estado 102
+
+   52 text: ' ' .
+
+    $default  reduce usando la regla 52 (text)
+
+
+Estado 103
+
+   49 printableElement: QUOTE text . QUOTE
+
+    QUOTE  desplazar e ir al estado 117
+
+
+Estado 104
+
+   50 printableElement: printableElement SUM . printableElement
+
+    QUOTE  desplazar e ir al estado 91
+    ID     desplazar e ir al estado 92
+
+    printableElement  ir al estado 118
+
+
+Estado 105
+
+   47 print: PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE .
+
+    $default  reduce usando la regla 47 (print)
+
+
+Estado 106
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation . $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 59 ($@13)
+
+    $@13  ir al estado 119
+
+
+Estado 107
+
+   46 return: RETURN ID PARENTESIS_OPEN $@7 functionCallParams . PARENTESIS_CLOSE
+
+    PARENTESIS_CLOSE  desplazar e ir al estado 120
+
+
+Estado 108
+
+   69 logicalOperator: EQUALS .
+
+    $default  reduce usando la regla 69 (logicalOperator)
+
+
+Estado 109
+
+   70 logicalOperator: NOT_EQUALS .
+
+    $default  reduce usando la regla 70 (logicalOperator)
+
+
+Estado 110
+
+   71 logicalOperator: GREATER .
+
+    $default  reduce usando la regla 71 (logicalOperator)
+
+
+Estado 111
+
+   73 logicalOperator: GREATER_EQUALS .
+
+    $default  reduce usando la regla 73 (logicalOperator)
+
+
+Estado 112
+
+   72 logicalOperator: LESS .
+
+    $default  reduce usando la regla 72 (logicalOperator)
+
+
+Estado 113
+
+   74 logicalOperator: LESS_EQUALS .
+
+    $default  reduce usando la regla 74 (logicalOperator)
+
+
+Estado 114
+
+   67 logicalOperation: INT_VAL logicalOperator . INT_VAL
+   68                 | INT_VAL logicalOperator . ID
+
+    INT_VAL  desplazar e ir al estado 121
+    ID       desplazar e ir al estado 122
+
+
+Estado 115
+
+   65 logicalOperation: ID logicalOperator . ID
+   66                 | ID logicalOperator . INT_VAL
+
+    INT_VAL  desplazar e ir al estado 123
+    ID       desplazar e ir al estado 124
+
+
+Estado 116
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 . PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    PARENTESIS_CLOSE  desplazar e ir al estado 125
+
+
+Estado 117
+
+   49 printableElement: QUOTE text QUOTE .
+
+    $default  reduce usando la regla 49 (printableElement)
+
+
+Estado 118
+
+   50 printableElement: printableElement . SUM printableElement
+   50                 | printableElement SUM printableElement .
+
+    $default  reduce usando la regla 50 (printableElement)
+
+
+Estado 119
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 . PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    PARENTESIS_CLOSE  desplazar e ir al estado 126
+
+
+Estado 120
+
+   46 return: RETURN ID PARENTESIS_OPEN $@7 functionCallParams PARENTESIS_CLOSE .
+
+    $default  reduce usando la regla 46 (return)
+
+
+Estado 121
+
+   67 logicalOperation: INT_VAL logicalOperator INT_VAL .
+
+    $default  reduce usando la regla 67 (logicalOperation)
+
+
+Estado 122
+
+   68 logicalOperation: INT_VAL logicalOperator ID .
+
+    $default  reduce usando la regla 68 (logicalOperation)
+
+
+Estado 123
+
+   66 logicalOperation: ID logicalOperator INT_VAL .
+
+    $default  reduce usando la regla 66 (logicalOperation)
+
+
+Estado 124
+
+   65 logicalOperation: ID logicalOperator ID .
+
+    $default  reduce usando la regla 65 (logicalOperation)
+
+
+Estado 125
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE . CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 127
+
+
+Estado 126
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE . CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 128
+
+
+Estado 127
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN . $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 55 ($@10)
+
+    $@10  ir al estado 129
+
+
+Estado 128
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN . $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 60 ($@14)
+
+    $@14  ir al estado 130
+
+
+Estado 129
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 . END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 131
+
+
+Estado 130
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 . END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE
+
+    END_OF_INSTRUCTION  desplazar e ir al estado 132
+
+
+Estado 131
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION . codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 133
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 132
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION . codeSet $@15 CURLY_BRACKET_CLOSE
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 134
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 133
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet . $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 56 ($@11)
+
+    $@11  ir al estado 135
+
+
+Estado 134
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet . $@15 CURLY_BRACKET_CLOSE
+
+    $default  reduce usando la regla 61 ($@15)
+
+    $@15  ir al estado 136
+
+
+Estado 135
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 . CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_CLOSE  desplazar e ir al estado 137
+
+
+Estado 136
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 . CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_CLOSE  desplazar e ir al estado 138
+
+
+Estado 137
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE . ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    ELSE_CLAUSE  desplazar e ir al estado 139
+
+
+Estado 138
+
+   62 controlStructure: structuresWord PARENTESIS_OPEN $@12 logicalOperation $@13 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@14 END_OF_INSTRUCTION codeSet $@15 CURLY_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 62 (controlStructure)
+
+
+Estado 139
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE . CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_OPEN  desplazar e ir al estado 140
+
+
+Estado 140
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN . codeSet CURLY_BRACKET_CLOSE
+
+    BREAK               desplazar e ir al estado 62
+    RETURN              desplazar e ir al estado 63
+    INT_TYPE            desplazar e ir al estado 5
+    IF_CLAUSE           desplazar e ir al estado 64
+    WHILE_CLAUSE        desplazar e ir al estado 65
+    END_OF_INSTRUCTION  desplazar e ir al estado 66
+    ID                  desplazar e ir al estado 67
+    PRINT               desplazar e ir al estado 68
+
+    $default  reduce usando la regla 20 (codeSet)
+
+    declaration       ir al estado 69
+    codeSet           ir al estado 141
+    instruction       ir al estado 71
+    assignation       ir al estado 72
+    return            ir al estado 73
+    print             ir al estado 74
+    controlStructure  ir al estado 75
+    structuresWord    ir al estado 76
+
+
+Estado 141
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet . CURLY_BRACKET_CLOSE
+
+    CURLY_BRACKET_CLOSE  desplazar e ir al estado 142
+
+
+Estado 142
+
+   57 controlStructure: IF_CLAUSE PARENTESIS_OPEN $@8 logicalOperation $@9 PARENTESIS_CLOSE CURLY_BRACKET_OPEN $@10 END_OF_INSTRUCTION codeSet $@11 CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE .
+
+    $default  reduce usando la regla 57 (controlStructure)

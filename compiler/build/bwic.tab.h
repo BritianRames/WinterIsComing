@@ -30,11 +30,11 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_BWIC_TAB_H_INCLUDED
+# define YY_YY_BWIC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -86,56 +86,16 @@ extern int yydebug;
     PRINT = 296
   };
 #endif
-/* Tokens.  */
-#define CONTINUE 258
-#define BREAK 259
-#define RETURN 260
-#define FUN 261
-#define INT_VAL 262
-#define STRING_VAL 263
-#define INT_TYPE 264
-#define STRING_TYPE 265
-#define ASSIGN 266
-#define SUM 267
-#define SUBSTRACT 268
-#define PRODUCT 269
-#define DIVIDE 270
-#define AND 271
-#define OR 272
-#define NOT 273
-#define EQUALS 274
-#define NOT_EQUALS 275
-#define GREATER 276
-#define GREATER_EQUALS 277
-#define LESS 278
-#define LESS_EQUALS 279
-#define IF_CLAUSE 280
-#define WHILE_CLAUSE 281
-#define ELSE_CLAUSE 282
-#define HEADER_END 283
-#define SQUARE_BRACKET_OPEN 284
-#define SQUARE_BRACKET_CLOSE 285
-#define CURLY_BRACKET_OPEN 286
-#define CURLY_BRACKET_CLOSE 287
-#define COMMA 288
-#define PARENTESIS_OPEN 289
-#define PARENTESIS_CLOSE 290
-#define END_OF_INSTRUCTION 291
-#define OPEN_CONTEXT_TAG 292
-#define CLOSE_CONTEXT_TAG 293
-#define QUOTE 294
-#define ID 295
-#define PRINT 296
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 13 "bwic.y" /* yacc.c:1909  */
+#line 14 "src/flex-bison/bwic.y" /* yacc.c:1909  */
  int number; char* string; 
 
-#line 139 "y.tab.h" /* yacc.c:1909  */
+#line 99 "bwic.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -148,4 +108,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_BWIC_TAB_H_INCLUDED  */
