@@ -85,8 +85,6 @@ void generatePrintVariable(char* id){ //TODO
   printf("----------------->0x%x<----------------", address);
 }
 
-
-
 void generateAddValueToR0(int value){
   printAddValueToR0(value);
 }
@@ -94,13 +92,8 @@ void generateAddVariableToR0(char* id){
   printAddVariableToR0(_getVariableAddress(id));
 }
 
-<<<<<<< HEAD
 void generateSubstractValueToR0(int value){
   printSubstractValueToR0(value);
-=======
-void generateAddValueToVariable(char* variable, int val) {
-    printAddValueToVariable(_getVariableAddress(variable), val);
->>>>>>> 165eed071472164d68a0476d50b973d7f2362f39
 }
 void generateSubstractVariableToR0(char* id){
   printSubstractVariableToR0(_getVariableAddress(id));

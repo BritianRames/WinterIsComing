@@ -76,6 +76,8 @@
 %type <number> logicalOperator
 %type <number> aritmeticOperationSum
 
+%left SUM SUBSTRACT
+%left PRODUCT DIVIDE
 
 %start begin
 %%
@@ -122,7 +124,7 @@ instruction : assignation
 
 assignation : ID ASSIGN INT_VAL {
                                   printf("ASIGNACION VALOR\n"); 
-                                  generateAssignValueToGlobalVariable($<string>1,$<number>3);
+                                  generateAssignValueToVariableCode($<string>1,$<number>3);
                                 }
             | ID ASSIGN ID      {
                                   printf("ASIGNACION VARIABLE\n"); 
@@ -137,11 +139,16 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation :  aritmeticOperationSum SUM aritmeticOperationSum    
-                  | aritmeticOperationSubstract SUBSTRACT aritmeticOperationSubstract
-                  | aritmeticOperation PRODUCT aritmeticOperation           
-                  | aritmeticOperation DIVIDE aritmeticOperation            
+aritmeticOperation :  aritmeticOperation SUM aritmeticOperator {generateAddValueToR0($<number>3);}
+                  | aritmeticOperation SUBSTRACT aritmeticOperator {generateSubstractValueToR0($<number>3);}
+                  | aritmeticOperation PRODUCT aritmeticOperation  {generateProductValueToR0($<number>3);}         
+                  | aritmeticOperation DIVIDE aritmeticOperation   {generateDivisionValueToR0($<number>3);}          
                   | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE    
+                  | aritmeticOperator 
+                  ;
+
+aritmeticOperator : ID {$<string>$ = $1;}
+                  | INT_VAL {$<number>$ = $1;}
                   ;
 
 aritmeticOperationSubstract :    aritmeticOperation

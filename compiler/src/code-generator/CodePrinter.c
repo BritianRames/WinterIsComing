@@ -114,10 +114,6 @@ void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
 }
 
-void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
-}
-
 void printCodeToAssignOperationResultToVariable(int address) {
     fprintf(f, "I(0x%x) = R0;\n", address);
 }
