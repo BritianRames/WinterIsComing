@@ -35,22 +35,16 @@ void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
 
 /* ARITHMETICAL FUNCTIONS */
-void printAddValueToValue(int val1, int val2);
-void printSubtractValueToValue(int val1, int val2);
-void printProductValueToValue(int val1, int val2);
-void printDivisionValueToValue(int val1, int val2);
+void printAddValueToR0(int val);
+void printAddVariableToR0(int address);
+void printSubstractVariableToR0 (int val);
+void printSubstractVariableToR0(int address);
+void printProductValueToR0(int val);
+void printProductVariableToR0(int address);
+void printDivisionValueToR0(int val);
+void printDivisionVariableToR0(int address);
+
 void printCodeAssignOperationResultToVariable(int addr);
-
-void printAddValueToVariable(int address, int val);
-void printSubtractValueToVariable(int address, int val);
-void printMultiplyValueToVariable(int address, int val);
-void printDivideValueToVariable(int address, int val);
-
-
-void printAddVariableToVariable(int address1, int address2);
-void printSubtractVariableToVariable(int address1, int address2);
-void printMultiplyVariableToVariable(int address1, int address2);
-void printDivideVariableToVariable(int address1, int address2);
 
 
 /* IF CLAUSE FUNCTIONS */

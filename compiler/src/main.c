@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
     openFile();
     if (argc>1) yyin=fopen(argv[1],"r");
     yyparse();
-    printSymbolTable();
+    //printSymbolTable();
 
 
 

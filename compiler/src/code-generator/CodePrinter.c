@@ -143,57 +143,48 @@ void printPrintVariableCode(int address){
 
 /* ARITHMETICAL FUNCTIONS */
 
-void printAddValueToValue(int val1, int val2) {
-    fprintf(f, "R0 = %d + %d;\n", val1, val2);
+//void printAddValueToValue(int val1, int val2) {
+//    fprintf(f, "R0 = %d + %d;\n", val1, val2);
+//}
+void printAddValueToR0(int val){
+    fprintf(f, "R0 = R0 + %d;\n", val);
 }
 
-void printSubtractValueToValue(int val1, int val2) {
-    fprintf(f, "R0 = %d - %d;\n", val1, val2);
+void printAddVariableToR0(int address){
+    fprintf(f, "R0 = R0 + I(0x%x);\n", address);
 }
 
-void printProductValueToValue(int val1, int val2) {
-    fprintf(f, "R0 = %d * %d;\n", val1, val2);
+void printSubstractValueToR0(int val){
+    fprintf(f, "R0 = R0 - %d;\n", val);
 }
 
-void printDivisionValueToValue(int val1, int val2) {
-    fprintf(f, "R0 = %d / %d;\n", val1, val2);
+void printSubstractVariableToR0(int address){
+    fprintf(f, "R0 = R0 - I(0x%x);\n", address);
+}
+
+void printProductValueToR0(int val){
+    fprintf(f, "R0 = R0 * %d;\n", val);
+}
+
+void printProductVariableToR0(int address){
+    fprintf(f, "R0 = R0 * I(0x%x);\n", address);
+}
+
+void printDivisionValueToR0(int val){
+    fprintf(f, "R0 = R0 / %d;\n", val);
+}
+
+void printDivisionVariableToR0(int address){
+    fprintf(f, "R0 = R0 / I(0x%x);\n", address);
 }
 
 void printCodeAssignOperationResultToVariable(int address) {
     fprintf(f, "I(0x%x) = R0;\n", address);
 }
 
-void printAddValueToVariable(int address, int val){
-    fprintf(f, "R0 = I(0x%x) + %d;\n", address, val);
-}
 
-void printSubtractValueToVariable(int address, int val){
-    fprintf(f, "R0 = I(0x%x) - %d;\n", address, val);
-}
 
-void printMultiplyValueToVariable(int address, int val){
-    fprintf(f, "R0 = I(0x%x) * %d;\n", address, val);
-}
 
-void printDivideValueToVariable(int address, int val){
-    fprintf(f, "R0 = I(0x%x) / %d;\n", address, val);
-}
-
-void printAddVariableToVariable(int address1, int address2) {
-    fprintf(f, "R0 = I(0x%x) + I(0x%x);\n", address1, address2);
-}
-
-void printSubtractVariableToVariable(int address1, int address2) {
-    fprintf(f, "R0 = I(0x%x) - I(0x%x);\n", address1, address2);
-}
-
-void printMultiplyVariableToVariable(int address1, int address2) {
-    fprintf(f, "R0 = I(0x%x) * I(0x%x);\n", address1, address2);
-}
-
-void printDivideVariableToVariable(int address1, int address2) {
-    fprintf(f, "R0 = I(0x%x) / I(0x%x);\n", address1, address2);
-}
 
 /* IF CLAUSE */
 
