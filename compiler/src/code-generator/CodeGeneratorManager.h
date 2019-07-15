@@ -38,6 +38,7 @@ void generateProductValueToValue(int val1, int val2);
 void generateDivisionValueToValue(int val1, int val2);
 
 
+
 void generateInsertOnStack(int value);
 void generateInsertOnStackVARIABLE(char* id);
 

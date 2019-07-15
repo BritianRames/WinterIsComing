@@ -16,7 +16,7 @@ void printQInitialization() {
     fprintf(f, "L 0:\n");
 }
 
-void printGlobalDefinitionAreaEnding(){
+void printJumpMain(){
     fprintf(f, "GT(1);\n");
 
 }
@@ -109,10 +109,6 @@ void printCodeToAssignValueToVariable(int address, int value) {
 
 void printCodeToAssignVariableToVariable(int address, int value_address){
   fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
-}
-
-void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
 }
 
 void printCodeToAssignFunctionResultToVariable(int address) {
@@ -232,6 +228,3 @@ void printGoToInstruction(int label){
 void printLabelInstruction(int label){
     fprintf(f, "L %d:\n", label);
 }
-
-
-

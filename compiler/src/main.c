@@ -21,16 +21,42 @@ int main(int argc, char** argv) {
 
 
 
-    /*generateQInitialization();   // Se inicializa sección del código Q
+    generateQInitialization();   // Se inicializa sección del código Q
     insertArrayInSymbolTable("array1", 10);
     generateCreateArray("array1");
     generateArrayAssignValue("array1", 9, 87);
     generateGlobalDefinitionAreaEnding();
-    openScopeInSymbolTable();
+
+    insertFunctionSymbolTable("prueba");
+        openScopeInSymbolTable();
+        insertParameterInSymbolTable("a");
+        insertParameterInSymbolTable("b");
+        insertParameterInSymbolTable("c");
+        insertParameterInSymbolTable("d");
+        insertParameterInSymbolTable("e");
+        generateAssignValueToVariableCode("a", 0);
+        generateAssignValueToVariableCode("b", 1);
+        generateAssignValueToVariableCode("c", 2);
+        generateAssignValueToVariableCode("d", 3);
+        generateAssignValueToVariableCode("e", 4);
+
+
+        insertVariableInSymbolTable("hola");
+        generateAssignVariableToVariableCode("hola", "a");
+        generatePrintVariable("hola");
+//        generateReturnVariable("hola");
+        closeScopeInSymbolTable();
+
+
     generateMainFunction();
-    generateGoToExit();
-    closeScopeInSymbolTable();
-    generateQEnding();*/
+        openScopeInSymbolTable();
+        int params[5] = {1,2,3,4,5};
+
+        generateFuntionCall("prueba", params);
+
+        generateGoToExit();
+        closeScopeInSymbolTable();
+    generateQEnding();
 //
     //insertVariableInSymbolTable("aaa");
     //insertVariableInSymbolTable("bbb");
