@@ -1,35 +1,12 @@
 int a
 int b
-a = 0
-b = 10
+a = 0 +1
+b = 3 + 4
 
-fun main (int pepe , int juan){
-    int pedro
-    pedro = pepe + juan
-    a = a + 1
-    a = a / a
-    a = a * a
-    a = a - a
-    a = mifuncion1(pepe,1)
+fun main (){
+    a = 2 + 1
+    b = 3 + 1
     print(a)
-    print("1")
-
-    print(a + "a" + "pepe" + "1")
-    return 1
-    if (a < 1){
-        int a
-    } else {
-        hola = 1
-    }
-    a = a + a
-
-    while (a < 0){
-        b = a + a
-    }
+    print(b)
 }
 
-fun miFuncion1 (int a, int b){
-    a = b
-
-    return mifuncion(a,a)
-}

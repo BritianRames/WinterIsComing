@@ -6,8 +6,11 @@
   extern FILE *yyin;
   extern int numlin;
   int yydebug = 1;
+  char* box ;
   void yyerror (char const*);
   char* stringWithNewline(char*);
+  int miVariableA;
+  int miVariableB;
 %}
 
 %union { int number; char* string; }
@@ -72,11 +75,12 @@
 %type <number> logicalOperation
 %type <number> logicalOperator
 
-
+%left SUM SUBSTRACT
+%left PRODUCT DIVIDE
 %start begin
 %%
 
-begin : {printf("Welcome to wic\n");} root
+begin : {printf("Welcome to wic\n"); generateQInitialization();} root
       ;
 
 
@@ -87,7 +91,11 @@ root : declaration END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
-declaration : INT_TYPE ID {printf("DECLARACION VARIABLE\n");/*insertVariable($<string>2);*/}
+declaration : INT_TYPE ID {
+                            printf("-----------------------------DECLARACION VARIABLE %s------------------------------------------------------------------------------\n", $2);
+
+                            insertVariableInSymbolTable($<string>2);
+                          }
             ;
 
 function : FUN ID {printf("COMIENZA FUNCION \n");/*insertFunction($<string>2);*/} PARENTESIS_OPEN {/*openScope();*/} params {/*closeScope();*/} PARENTESIS_CLOSE {/*openScope();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {printf("FINALIZA FUN\n");/*closingScope();*/}
@@ -106,16 +114,22 @@ codeSet : instruction END_OF_INSTRUCTION codeSet
 
 instruction : assignation
             | declaration
-            | aritmeticOperation
+            | ID  ASSIGN aritmeticOperation
             | return
             | print
             | BREAK {/*breakCode();*/}
             ;
 
-assignation : ID ASSIGN INT_VAL {printf("ASIGNACION VALOR\n");/*generateAssignStaticValueToVariableCode($<string>1,$<number>3);*/}
-            | ID ASSIGN ID  {printf("ASIGNACION VARIABLE\n");/*generateAssignStaticVriableToVariableCode($<string>1,$<string>3);*/}
+assignation : ID ASSIGN INT_VAL {
+                                  printf("ASIGNACION VALOR\n"); 
+                                  generateAssignValueToGlobalVariable($<string>1,$<number>3);
+                                }
+            | ID ASSIGN ID      {
+                                  printf("ASIGNACION VARIABLE\n"); 
+                                  generateAssignVariableToVariableCode($<string>1,$<string>3);
+                                }
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
-            | ID ASSIGN aritmeticOperation
+            | ID ASSIGN aritmeticOperation {generateAssignOperationResultToVariable($<string>1);}
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -123,14 +137,40 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation : aritmeticOperation SUBSTRACT aritmeticOperation {/*$$ = substract($<number>1,$<number>3);*/}
-            | aritmeticOperation SUM aritmeticOperation {/*$$ = add($<number>1,$<number>3);*/}
-            | aritmeticOperation PRODUCT aritmeticOperation {/*$$ = multiply($<number>1, $<number>3);*/}
-            | aritmeticOperation DIVIDE aritmeticOperation {/*$$ = divide($<number>1, $<number>3);*/}
-            | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {$$ = $<number>2;}
-            | INT_VAL {$$ = $<number>1;}
-            | ID
-            ;
+aritmeticOperation : aritmeticOperation {if(miVariableA == 1){miVariableB = 1;}else{miVariableB = 3;}} SUBSTRACT aritmeticOperation        {
+                                                                              if(miVariableB == 1 && miVariableA == 1){
+                                                                                generateSubtractValueToValue($<number>1,$<number>3);
+                                                                              } else if (miVariableB == 1 && miVariableA == 2){
+                                                                                generateSubtractValueToVariable($<string>3,$<number>1);
+                                                                              } else if(miVariableB == 3 && miVariableA == 1){
+                                                                                generateSubtractValueToVariable($<string>1,$<number>3);
+                                                                              } else if(miVariableB == 3 && miVariableA == 2){
+                                                                                generateSubtractVariableToVariable($<string>1,$<string>3);
+                                                                              }
+                                                                              
+                                                                            }
+                  | aritmeticOperation {if(miVariableA == 1){miVariableB = 1;}else{miVariableB = 3;}} SUM aritmeticOperation               {
+                                                                              if(miVariableB == 1 && miVariableA == 1){
+                                                                                generateAddValueToValue($<number>1,$<number>3);
+                                                                              } else if (miVariableB == 1 && miVariableA == 2){
+                                                                                generateAddValueToVariable($<string>3,$<number>1);
+                                                                              } else if(miVariableB == 3 && miVariableA == 1){
+                                                                                generateAddValueToVariable($<string>1,$<number>3);
+                                                                              } else if(miVariableB == 3 && miVariableA == 2){
+                                                                                generateAddVariableToVariable($<string>1,$<string>3);
+                                                                              }
+                                                                              generateAddValueToValue($<number>1,$<number>3);
+                                                                            }
+                  | aritmeticOperation PRODUCT aritmeticOperation           {}
+                  | aritmeticOperation DIVIDE aritmeticOperation            {}
+                  | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE     {}
+                  | INT_VAL {$$ = $<number>1;
+                            miVariableA = 1;
+                            }
+                  | ID      {$$ = $<string>1;
+                            miVariableA = 2;
+                            }
+                  ;
 
 return : RETURN ID {/*returnVariable($<number>2);*/}
        | RETURN INT_VAL {/*returnValue($<number>2);*/}
@@ -174,10 +214,10 @@ logicalOperator : EQUALS {/*$$ = "eq";*/}
 
 %%
 
-int main(int argc, char** argv) {
-  if (argc>1) yyin=fopen(argv[1],"r");
-  yyparse();
-}
+//int main(int argc, char** argv) {
+//  if (argc>1) yyin=fopen(argv[1],"r");
+//  yyparse();
+//}
 
 
 void yyerror (char const *s) {

@@ -1,24 +1,41 @@
 #include "symbol-table/SymbolTableManager.h"
 #include "code-generator/CodeGeneratorManager.h"
 #include <stdio.h>
-
-int main() {
+extern FILE *yyin;
+extern int yyparse();
+int main(int argc, char** argv) {
     openFile();
-    generateQInitialization();   // Se inicializa sección del código Q
+    if (argc>1) yyin=fopen(argv[1],"r");
+    yyparse();
+    printSymbolTable();
 
-    insertVariableInSymbolTable("aaa");
-    insertVariableInSymbolTable("bbb");
 
-    generateAssignValueToGlobalVariable("aaa", 5);
+
+
+    //generateGoToExit(); // Este código debe ir siempre al final del Main para indicar para saltar a la rutina de fin de programa
+    //closeScopeInSymbolTable();
+
+    //generateQEnding();  // Flag de final de código
+
+
+
+
+
+    //generateQInitialization();   // Se inicializa sección del código Q
+//
+    //insertVariableInSymbolTable("aaa");
+    //insertVariableInSymbolTable("bbb");
+//
+    //generateAssignValueToGlobalVariable("aaa", 5);
 
 //    insertVariableInSymbolTable("aaa");
-    generateAssignValueToGlobalVariable("bbb", 2);
-    generateMainFunction();
-    openScopeInSymbolTable();
-    generatePrintString("Helloworld: \\n");
-    generateAddVariableToVariable("aaa","bbb");
-    generateAssignOperationResultToVariable("aaa");
-    generatePrintVariable("aaa");
+    //generateAssignValueToGlobalVariable("bbb", 2);
+    //generateMainFunction();
+    //openScopeInSymbolTable();
+    //generatePrintString("Helloworld: \\n");
+    //generateAddVariableToVariable("aaa","bbb");
+    //generateAssignOperationResultToVariable("aaa");
+    //generatePrintVariable("aaa");
 
 //    generatePrintString("ahdk\\n");
 //    printSymbolTable();
@@ -26,6 +43,7 @@ int main() {
 //
 //
 //    generateAddValueToValue(20, 10);
+
 //    generateAssignOperationResultToVariable("aaa");
 //    generatePrintVariable("aaa");
 //    generateSubtractValueToValue(4,2);
@@ -53,8 +71,5 @@ int main() {
 //    generateAddVariableToVariable("aaa", "bbb");
 //    generateAssignOperationResultToVariable("aaa");
 //    generatePrintVariable("aaa");
-    generateGoToExit(); // Este código debe ir siempre al final del Main para indicar para saltar a la rutina de fin de programa
-    closeScopeInSymbolTable();
-
-    generateQEnding();  // Flag de final de código
+    
 }

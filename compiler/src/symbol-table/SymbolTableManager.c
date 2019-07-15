@@ -149,6 +149,18 @@ int getVariableAddressFromSymbolTable(char* id){
     return -1;
 }
 
+char getTypeFromSymbol(char* id) {
+    struct Symbol* currentSymbol = lastSymbol;
+    for(int i = tableSize; i > 0; i--){
+        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l')){
+            return currentSymbol->type;
+        }
+        currentSymbol = currentSymbol->previousSymbol;
+    }
+    printf("ERROR\n");
+    return -1;
+}
+
 struct Symbol* getVariableFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     printf("symbol: %s, %c\n", currentSymbol->id, currentSymbol->type);
@@ -160,6 +172,8 @@ struct Symbol* getVariableFromSymbolTable(char* id){
     }
     return -1;
 }
+
+
 
 struct Symbol* getFunctionFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;

@@ -59,8 +59,8 @@ void printReturnValue(int stackPointer, int valueToReturn){
 
 void printReturnVariable(int stackPointer, int variableAddress){
   int returnLabelAddress = stackPointer; 
-  fprintf(f, "R0 = I(%d);\n", variableAddress); //Returned value in R0
-  fprintf(f, "GT(I(%d));\n", returnLabelAddress);
+  fprintf(f, "R0 = I(0x%x);\n", variableAddress); //Returned value in R0
+  fprintf(f, "GT(I(0x%x));\n", returnLabelAddress);
 }
 
 void printRecoverStack(int numberOfParameters){
@@ -111,7 +111,7 @@ void printCodeToAssignValueToVariable(int address, int value) {
 }
 
 void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "I(0x%x) = I(%d);\n", address, value_address); //Returned value in R0
+  fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
 }
 
 void printPrintStringCode(char* string){
