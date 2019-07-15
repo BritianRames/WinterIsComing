@@ -184,3 +184,7 @@ void printSymbolTable(){
         currentSymbol = currentSymbol->nextSymbol;
     }
 }
+
+int getCurrentScopeFromSymbolTable(){
+    return currentScope;
+}
