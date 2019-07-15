@@ -4,10 +4,23 @@
 extern FILE *yyin;
 extern int yyparse();
 int main(int argc, char** argv) {
+    if (argc > 1) yyin=fopen(argv[1],"r");
     openFile();
-    if (argc>1) yyin=fopen(argv[1],"r");
-    yyparse();
-    printSymbolTable();
+    if (argc > 1) yyparse();
+    /*generateQInitialization();
+    insertVariableInSymbolTable("aaa");
+    generateAssignValueToVariableCode("aaa", 1);
+    insertVariableInSymbolTable("bbb");
+    generateAssignValueToVariableCode("bbb", 2);
+
+    generateMainFunction();
+    openScopeInSymbolTable();
+        generateGreaterEqualsVariableToVariable("aaa", "bbb");
+        generateAssignOperationResultToVariable("aaa");
+        generatePrintVariable("aaa");
+        generateGoToExit();
+    closeScopeInSymbolTable();
+    generateQEnding();*/
 
 
 

@@ -45,8 +45,7 @@ compile:
 
 qcompile:
 					/usr/bin/gcc -Wall -Wextra -g -o bin/my_program \
-					file.q.c \
-					include/Qlib.c
+					file.q.c include/Qlib.c
 
 clean:
 					rm -rf build bin wic.output *.o

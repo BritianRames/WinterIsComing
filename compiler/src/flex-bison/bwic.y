@@ -11,6 +11,9 @@
   char* stringWithNewline(char*);
   int miVariableA;
   int miVariableB;
+  int else_l;
+  int exit_l;
+  int while_l;
 %}
 
 %union { int number; char* string; }
@@ -71,7 +74,6 @@
 %type <number> printableElement
 %type <number> text
 %type <number> controlStructure
-%type <number> structuresWord
 %type <number> logicalOperation
 %type <number> logicalOperator
 
@@ -80,7 +82,7 @@
 %start begin
 %%
 
-begin : {printf("Welcome to wic\n"); generateQInitialization();} root
+begin : {printf("Welcome to wic\n"); generateQInitialization();} root {generateGoToExit(); generateQEnding();}
       ;
 
 
@@ -122,7 +124,7 @@ instruction : assignation
 
 assignation : ID ASSIGN INT_VAL {
                                   printf("ASIGNACION VALOR\n"); 
-                                  generateAssignValueToGlobalVariable($<string>1,$<number>3);
+                                  generateAssignValueToVariableCode($<string>1,$<number>3);
                                 }
             | ID ASSIGN ID      {
                                   printf("ASIGNACION VARIABLE\n"); 
@@ -190,26 +192,108 @@ text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : IF_CLAUSE PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} END_OF_INSTRUCTION codeSet {/*closingScope();*/} CURLY_BRACKET_CLOSE ELSE_CLAUSE CURLY_BRACKET_OPEN codeSet CURLY_BRACKET_CLOSE {printf("ESTRUCTURA CONTROL ELSE_CLAUSE TERMINADA");}
-                 | structuresWord PARENTESIS_OPEN {/*openScope();*/} logicalOperation {/*closingScope();*/} PARENTESIS_CLOSE  CURLY_BRACKET_OPEN {/*openScope();*/} END_OF_INSTRUCTION codeSet {/*closingScope();*/} CURLY_BRACKET_CLOSE {printf("ESTRUCTURA CONTROL TERMINADA");}
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = generateHeaderOfClauseInstruction();}
+		   CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet
+		   CURLY_BRACKET_CLOSE {exit_l = _getNextLabel(); generateGoToInstruction(exit_l); closeScopeInSymbolTable();}
+		   ELSE_CLAUSE CURLY_BRACKET_OPEN {openScopeInSymbolTable(); generateLabelInstruction(else_l);} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE
+                 PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();}
+                 CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet {generateGoToInstruction(while_l);}
+                 CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
                  ;
 
-structuresWord : IF_CLAUSE {/*startIf();*/}
-               | WHILE_CLAUSE {/*startWhile();*/}
-               ;
-
-logicalOperation : ID logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1));*/}
-                 | ID logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator INT_VAL {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
-                 | INT_VAL logicalOperator ID {/*logicalOperate(($<number>1),($<number>3),($<string>1))*/}
+logicalOperation : ID logicalOperator ID { switch($2) {
+					   	case 1:
+							generateEqualsVariableToVariable($<string>1, $<string>3);
+					   		break;
+						case 2:
+							generateNotEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+						case 3:
+							generateLessVariableToVariable($<string>1, $<string>3);
+							break;
+						case 4:
+							generateLessEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+						case 5:
+							generateGreaterVariableToVariable($<string>1, $<string>3);
+							break;
+						case 6:
+						default:
+							generateGreaterEqualsVariableToVariable($<string>1, $<string>3);
+							break;
+					    } }
+                 | ID logicalOperator INT_VAL { switch($2) {
+						   case 1:
+						   	generateEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 2:
+						   	generateNotEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 3:
+						   	generateLessValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 4:
+						   	generateLessEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 5:
+						   	generateGreaterValueToVariable($<string>1, $<number>3);
+						   	break;
+						   case 6:
+						   default:
+						   	generateGreaterEqualsValueToVariable($<string>1, $<number>3);
+						   	break;
+					        } }
+                 | INT_VAL logicalOperator INT_VAL { switch($2) {
+							   case 1:
+								generateEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 2:
+								generateNotEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 3:
+								generateLessValueToValue($<number>1, $<number>3);
+								break;
+							   case 4:
+								generateLessEqualsValueToValue($<number>1, $<number>3);
+								break;
+							   case 5:
+								generateGreaterValueToValue($<number>1, $<number>3);
+								break;
+							   case 6:
+							   default:
+								generateGreaterEqualsValueToValue($<number>1, $<number>3);
+								break;
+							} }
+                 | INT_VAL logicalOperator ID { switch($2) {
+						   case 1:
+							generateEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 2:
+							generateNotEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 3:
+							generateLessValueToVariable($<number>1, $<string>3);
+							break;
+						   case 4:
+							generateLessEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						   case 5:
+							generateGreaterValueToVariable($<number>1, $<string>3);
+							break;
+						   case 6:
+						   default:
+							generateGreaterEqualsValueToVariable($<number>1, $<string>3);
+							break;
+						} }
                  ;
 
-logicalOperator : EQUALS {/*$$ = "eq";*/}
-                | NOT_EQUALS {/*$$ = "neq";*/}
-                | GREATER {/*$$ = "gt";*/}
-                | LESS {/*$$ = "mt";*/}
-                | GREATER_EQUALS {/*$$ = "ge";*/}
-                | LESS_EQUALS {/*$$ = "me";*/}
+logicalOperator : EQUALS {$$ = 1;}
+                | NOT_EQUALS {$$ = 2;}
+                | LESS {$$ = 3;}
+                | LESS_EQUALS {$$ = 4;}
+                | GREATER {$$ = 5;}
+                | GREATER_EQUALS {$$ = 6;}
                 ;
 
 %%

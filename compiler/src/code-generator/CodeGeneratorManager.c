@@ -46,7 +46,7 @@ void generateFuntionCall(char* functionToJump, int* parameters){
   //Actualizamos Registros a parametros
   printPutParametersInRegisters(getFunctionFromSymbolTable(functionToJump)->numberOfParameters, parameters);
   //Actualizamos FramePointer
-  updateFramePointerToStackPointer(); //R6 = R7 
+  updateFramePointerToStackPointer(); //R6 = R7
   //Actualizamos Stackpointer
   updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
   //Imprimimos GT
@@ -58,6 +58,7 @@ void generateFuntionCall(char* functionToJump, int* parameters){
   //Recuperamos StackPointer
   recoverStackPointer(localSpace + registerSpace);
 }
+
 
 void generateAssignValueToVariableCode(char *variable_id, int value){
   printCodeToAssignValueToVariable(_getVariableAddress(variable_id), value);
@@ -85,6 +86,7 @@ void generatePrintVariable(char* id){ //TODO
   printf("----------------->0x%x<----------------", address);
 }
 
+/* ARITHMETIC FUNCTIONS */
 void generateAddValueToValue(int firstValue, int secondValue) {
     printAddValueToValue(firstValue, secondValue);
 }
@@ -144,6 +146,108 @@ int _getVariableAddress(char* variable_id){
   else return getCurrentStackPointer() - variable->address * 4;
   return 1000;
 }
+
+
+/* RELATIONAL FUNCTIONS */
+
+void generateEqualsValueToValue(int val1, int val2){
+    printEqualsValueToValue(val1, val2);
+}
+
+void generateNotEqualsValueToValue(int val1, int val2){
+    printNotEqualsValueToValue(val1, val2);
+}
+
+void generateLessValueToValue(int val1, int val2){
+    printLessValueToValue(val1, val2);
+}
+
+void generateLessEqualsValueToValue(int val1, int val2){
+    printLessEqualsValueToValue(val1, val2);
+}
+
+void generateGreaterValueToValue(int val1, int val2){
+    printGreaterValueToValue(val1, val2);
+}
+
+void generateGreaterEqualsValueToValue(int val1, int val2){
+    printGreaterEqualsValueToValue(val1, val2);
+}
+
+
+void generateEqualsValueToVariable(char* var, int val){
+    printEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateNotEqualsValueToVariable(char* var, int val){
+    printNotEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateLessValueToVariable(char* var, int val){
+    printLessValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateLessEqualsValueToVariable(char* var, int val){
+    printLessEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateGreaterValueToVariable(char* var, int val){
+    printGreaterValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateGreaterEqualsValueToVariable(char* var, int val){
+    printGreaterEqualsValueToVariable(_getVariableAddress(var), val);
+}
+
+void generateNotEqualsVariableToVariable(char* var1, char* var2){
+    printNotEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateEqualsVariableToVariable(char* var1, char* var2){
+    printEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateLessVariableToVariable(char* var1, char* var2){
+    printLessVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateLessEqualsVariableToVariable(char* var1, char* var2){
+    printLessEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateGreaterVariableToVariable(char* var1, char* var2){
+    printGreaterVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateGreaterEqualsVariableToVariable(char* var1, char* var2){
+    printGreaterEqualsVariableToVariable(_getVariableAddress(var1), _getVariableAddress(var2));
+}
+
+void generateNotVariable(char* var){
+    printNotVariable(_getVariableAddress(var));
+}
+
+void generateNotValue(int val){
+    printNotValue(val);
+}
+
+
+
+/* CLAUSE FUNCTIONS */
+int generateHeaderOfClauseInstruction() {
+    int label = _getNextLabel();
+    printHeaderOfClauseInstruction(label);
+    return label;
+}
+
+void generateGoToInstruction(int label) {
+    printGoToInstruction(label);
+}
+
+void generateLabelInstruction(int label) {
+    printLabelInstruction(label);
+}
+
 // void generateReturnValueCode(int value){
 //   //generateAssignValuleToRegister(getReturnRegisterNumber());
 //   //generateGoToPreviousContext();

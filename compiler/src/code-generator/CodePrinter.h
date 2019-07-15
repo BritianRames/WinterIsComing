@@ -60,7 +60,33 @@ void printRecoverStackPointer(int offset);
 void printPutParametersInRegisters(int numberOfParameters, int* parameters);
 
 
-/* IF CLAUSE FUNCTIONS */
-void printHeaderOfIfInstruction(int reg, int cond_value, int else_label);
+/* RELATIONAL FUNCTIONS */
+void printEqualsValueToValue(int val1, int val2);
+void printNotEqualsValueToValue(int val1, int val2);
+void printLessValueToValue(int val1, int val2);
+void printLessEqualsValueToValue(int val1, int val2);
+void printGreaterValueToValue(int val1, int val2);
+void printGreaterEqualsValueToValue(int val1, int val2);
+
+
+void printEqualsValueToVariable(int address, int val);
+void printNotEqualsValueToVariable(int address, int val);
+void printLessValueToVariable(int address, int val);
+void printLessEqualsValueToVariable(int address, int val);
+void printGreaterValueToVariable(int address, int val);
+void printGreaterEqualsValueToVariable(int address, int val);
+
+void printNotEqualsVariableToVariable(int address1, int address2);
+void printEqualsVariableToVariable(int address1, int address2);
+void printLessVariableToVariable(int address1, int address2);
+void printLessEqualsVariableToVariable(int address1, int address2);
+void printGreaterVariableToVariable(int address1, int address2);
+void printGreaterEqualsVariableToVariable(int address1, int address2);
+
+void printNotVariable(int address);
+void printNotValue(int val);
+
+/* CLAUSE FUNCTIONS */
+void printHeaderOfClauseInstruction(int label);
 void printGoToInstruction(int label);
 void printLabelInstruction(int label);
