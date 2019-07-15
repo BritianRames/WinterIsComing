@@ -93,3 +93,6 @@ void printCreateArray(int label, int addr, int size);
 void printArrayAssignValue(int addr, int pos, int val);
 void printArrayAssignVariable(int addr1, int pos, int addr2);
 void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2);
+void printVariableAssignArray(int address, int array, int pos);
+void printPlusPlusOperation(int address);
+void printMinusMinusOperation(int address);

@@ -13,6 +13,7 @@
   int miVariableB;
   int else_l;
   int exit_l;
+  int exit_l2;
   int while_l;
   bool marcador = true;
 %}
@@ -58,6 +59,8 @@
 %token <number> QUOTE
 %token <string> ID
 %token <number> PRINT
+%token <number> PLUSPLUS
+%token <number> MINUSMINUS
 
 
 
@@ -111,7 +114,7 @@ params : INT_TYPE ID params {printf("DECLARACION PARAMETROS\n");/*insertVariable
        ;
 
 codeSet : instruction END_OF_INSTRUCTION codeSet
-        | controlStructure codeSet
+        | controlStructure END_OF_INSTRUCTION codeSet
         | END_OF_INSTRUCTION codeSet
         | /* EMPTY */
         ;
@@ -123,17 +126,15 @@ instruction : assignation
             | BREAK {/*breakCode();*/}
             ;
 
-assignation : ID ASSIGN INT_VAL {
-                                  printf("ASIGNACION VALOR\n"); 
-                                  generateAssignValueToVariableCode($<string>1,$<number>3);
-                                }
-            | ID ASSIGN ID      {
-                                  printf("ASIGNACION VARIABLE\n"); 
-                                  generateAssignVariableToVariableCode($<string>1,$<string>3);
-                                }
+assignation : ID ASSIGN INT_VAL {generateAssignValueToVariableCode($<string>1,$<number>3);}
+            | ID ASSIGN ID      { generateAssignVariableToVariableCode($<string>1,$<string>3);}
+            | ID PLUSPLUS        {generatePlussPlussOperation($<string>1);}
+            | ID MINUSMINUS      {generateMinusMinusOperation($<string>1);}
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
-            | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
-            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
+            | ID ASSIGN aritmeticOperation {if(getNumberOperators() == 1){minusOneToNumberOperators();} generateAssignOperationResultToVariable($<string>1);}
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL {generateArrayAssignValue($<string>1,$<number>3,$<number>6);}
+            | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE {generateVariableAssignArray($<string>1,$<string>3, $<number>5);}
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -169,9 +170,11 @@ text : STRING_VAL {$$ = $<number>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE
-                 | IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE {exit_l = _getNextLabel(); generateGoToInstruction(exit_l); closeScopeInSymbolTable();} ELSE_CLAUSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable(); generateLabelInstruction(else_l);} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
-                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN {openScopeInSymbolTable();} END_OF_INSTRUCTION codeSet {generateGoToInstruction(while_l);} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+else : {exit_l2 = exit_l; exit_l = _getNextLabel(); generateGoToInstruction(exit_l); generateLabelInstruction(exit_l2);} ELSE_CLAUSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
+      | {generateLabelInstruction(exit_l);}
+      ;
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); } else
+                 | { while_l = _getNextLabel(); generateLabelInstruction(while_l);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {exit_l = generateHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {generateGoToInstruction(while_l);} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); generateLabelInstruction(exit_l);}
                  ;
 
 logicalOperation : ID logicalOperator ID { switch($2) {
