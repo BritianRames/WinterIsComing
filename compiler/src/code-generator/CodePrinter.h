@@ -57,6 +57,8 @@ void printDivideVariableToVariable(int address1, int address2);
 void generateFunctionCall(char* currentFunction, char* nextFunction);
 void printRecoverRegisters();
 void printRecoverStackPointer(int offset);
+void printPutParametersInRegisters(int numberOfParameters, int* parameters);
+
 
 /* IF CLAUSE FUNCTIONS */
 void printHeaderOfIfInstruction(int reg, int cond_value, int else_label);

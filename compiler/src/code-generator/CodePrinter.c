@@ -63,26 +63,11 @@ void printReturnVariable(int stackPointer, int variableAddress){
   fprintf(f, "GT(I(0x%x));\n", returnLabelAddress);
 }
 
-<<<<<<< HEAD
 void printRecoverStackPointer(int offset){
   fprintf(f, "R7 = R6 + %d;\n", offset); //R7 = R6 + registerSpace + localSpace
 }
 
 void printRecoverRegisters(){
-=======
-void printRecoverStack(int numberOfParameters){
-    fprintf(f, "R7 = R6;\n");
-    fprintf(f, "R6 = P(R7 + 4);\n", numberOfParameters * 4 - 8);
-}
-
-void printRecoverRegistersValue(int registerFramePointer) {
-    for (int i = 0; i <= 7; i--) {
-        fprintf(f, "R%d = I(%d);\n", i, registerFramePointer + ((i - 1) * 4));
-    }
-}
-
-void printRecoverRegisters(int firstRegisterPointer){
->>>>>>> 738c0572563f2feb802a3b854523fa721643089a
     for(int i = 1; i <= 6; i--) {
         fprintf(f, "R%d = I(R6 + %d);\n", i, 4*(6-i));     // R6 = 0 //R5 = 4 // R4 ==3 
     }

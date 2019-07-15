@@ -32,24 +32,25 @@ void generateReturnVariableCode(char* variable){
   printReturnVariable(getCurrentStackPointer(), getVariableAddressFromSymbolTable(variable));
 }
 
-void generateFuntionCall(char* currentFunction, char* nextFunction, int* parameters){
+void generateFuntionCall(char* functionToJump, int* parameters){
+  char* currentFunction = getLastFunctionFromSymbolTable;
   //Actualizamos Stack
   int localSpace = getFunctionFromSymbolTable(currentFunction)->numberOfLocalVariables * 4;
   int registerSpace = 4 * 6; // 4 * number of register to store R1...R6
   updateStackPointer(localSpace + registerSpace); //Avanzamos espacio de locales y registros
 
   int goBackLabel = _getNextLabel();
-  int parametersSpace = getFunctionFromSymbolTable(nextFunction)->numberOfParameters * 4;
+  int parametersSpace = getFunctionFromSymbolTable(functionToJump)->numberOfParameters * 4;
   //Salvamos Registros
   printSaveRegistersValue(getCurrentStackPointer());
   //Actualizamos Registros a parametros
-  printPutParametersInRegisters(getFunctionFromSymbolTable(nextFunction)->numberOfParameters, parameters);
+  printPutParametersInRegisters(getFunctionFromSymbolTable(functionToJump)->numberOfParameters, parameters);
   //Actualizamos FramePointer
   updateFramePointerToStackPointer(); //R6 = R7 
   //Actualizamos Stackpointer
   updateStackPointer(parametersSpace + 8); //Avanzamos espacio equivalente a parametros y framepointer y return label
   //Imprimimos GT
-  printGoToInstruction(getFunctionFromSymbolTable(nextFunction)->label);
+  printGoToInstruction(getFunctionFromSymbolTable(functionToJump)->label);
   //Escribimos código de salto y recover de datos y stack
   printLabelInstruction(goBackLabel);
   //Recuperamos Registros

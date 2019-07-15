@@ -49,4 +49,4 @@ void generateAssignOperationResultToVariable(char* id);
 
 void generateReturnValue(int value);
 void generateReturnVariable(char* variable);
-void generateFuntionCall(char* currentFunction, char* nextFunction, int* parameters);
+void generateFuntionCall(char* functionToJump, int* parameters);
