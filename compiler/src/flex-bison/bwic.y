@@ -131,6 +131,7 @@ assignation : ID ASSIGN INT_VAL {
                                   printf("ASIGNACION VARIABLE\n"); 
                                   generateAssignVariableToVariableCode($<string>1,$<string>3);
                                 }
+	    | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
             | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
