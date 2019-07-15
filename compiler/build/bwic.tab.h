@@ -92,7 +92,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "src/flex-bison/bwic.y" /* yacc.c:1909  */
+#line 16 "src/flex-bison/bwic.y" /* yacc.c:1909  */
  int number; char* string; 
 
 #line 99 "bwic.tab.h" /* yacc.c:1909  */

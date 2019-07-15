@@ -49,3 +49,5 @@ void generateAssignOperationResultToVariable(char* id);
 
 void generateReturnValue(int value);
 void generateReturnVariable(char* variable);
+
+void generateFunctionCall();

@@ -9,6 +9,8 @@
   char* box ;
   void yyerror (char const*);
   char* stringWithNewline(char*);
+  int miVariableA;
+  int miVariableB;
 %}
 
 %union { int number; char* string; }
@@ -135,12 +137,39 @@ functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<nu
                    | INT_VAL COMMA functionCallParams {printf("PARAMETRO ENTERO COMMA\n");/*setParamsValue($<number>1);*/}
                    | ID COMMA functionCallParams {printf("PARAMETRO VARIABLE COMMA\n");/*setParamsValueFromVariable($<string>1);*/}
 
-aritmeticOperation : aritmeticOperation SUBSTRACT aritmeticOperation {generateAddValueToValue($<number>1,$<number>3);}
-                  | aritmeticOperation SUM aritmeticOperation {generateAddValueToValue($<number>1,$<number>3);}
-                  | aritmeticOperation PRODUCT aritmeticOperation {}
-                  | aritmeticOperation DIVIDE aritmeticOperation {}
-                  | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {}
-                  | INT_VAL {$$ = $<number>1;}
+aritmeticOperation : aritmeticOperation {if(miVariableA == 1){miVariableB = 1;}else{miVariableB = 3;}} SUBSTRACT aritmeticOperation        {
+                                                                              if(miVariableB == 1 && miVariableA == 1){
+                                                                                generateSubtractValueToValue($<number>1,$<number>3);
+                                                                              } else if (miVariableB == 1 && miVariableA == 2){
+                                                                                generateSubtractValueToVariable($<string>3,$<number>1);
+                                                                              } else if(miVariableB == 3 && miVariableA == 1){
+                                                                                generateSubtractValueToVariable($<string>1,$<number>3);
+                                                                              } else if(miVariableB == 3 && miVariableA == 2){
+                                                                                generateSubtractVariableToVariable($<string>1,$<string>3);
+                                                                              }
+                                                                              
+                                                                            }
+                  | aritmeticOperation {if(miVariableA == 1){miVariableB = 1;}else{miVariableB = 3;}} SUM aritmeticOperation               {
+                                                                              if(miVariableB == 1 && miVariableA == 1){
+                                                                                generateAddValueToValue($<number>1,$<number>3);
+                                                                              } else if (miVariableB == 1 && miVariableA == 2){
+                                                                                generateAddValueToVariable($<string>3,$<number>1);
+                                                                              } else if(miVariableB == 3 && miVariableA == 1){
+                                                                                generateAddValueToVariable($<string>1,$<number>3);
+                                                                              } else if(miVariableB == 3 && miVariableA == 2){
+                                                                                generateAddVariableToVariable($<string>1,$<string>3);
+                                                                              }
+                                                                              generateAddValueToValue($<number>1,$<number>3);
+                                                                            }
+                  | aritmeticOperation PRODUCT aritmeticOperation           {}
+                  | aritmeticOperation DIVIDE aritmeticOperation            {}
+                  | PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE     {}
+                  | INT_VAL {$$ = $<number>1;
+                            miVariableA = 1;
+                            }
+                  | ID      {$$ = $<string>1;
+                            miVariableA = 2;
+                            }
                   ;
 
 return : RETURN ID {/*returnVariable($<number>2);*/}
