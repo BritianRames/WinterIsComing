@@ -8,6 +8,7 @@ struct Symbol
     char *id;
     int address; //absolute or relative
     char type;
+    unsigned int array_size;
     int scope;
     int label;
     int numberOfParameters;
@@ -16,24 +17,25 @@ struct Symbol
     struct Symbol *nextSymbol;
 };
 
-void insertVariableInSymbolTable(char *id);
+void insertArrayInSymbolTable(char* id, int size);
+void insertVariableInSymbolTable(char* id);
 void insertParameterInSymbolTable(char *id);
-void insertFunctionInSymbolTable(char *id);
-
-bool _existSymbolInSymbolTable(struct Symbol *symbol);
-void _linkSymbolToSymbolTable(struct Symbol *symbol);
+void insertFunctionSymbolTable(char *id);
+void _linkSymbolToSymbolTable(struct Symbol* symbol);
 void _incrementNumberOfLocalVariablesAndParameters();
+int _getNextLocalVariableAddressFromSymbolTable();
+int _getNextParametersAddressFromSymbolTable();
+int _getNextStaticAddressFromSymbolTable();
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2);
-
-int _getRelativeAddressFromSymbolTable();
-int _getStaticAddressFromSymbolTable();
-
+bool _existSymbolInSymbolTable(struct Symbol* symbol);
+void _removeLocalVariablesFromSymbolTable();
+int _getNextLabel();
 void openScopeInSymbolTable();
 void closeScopeInSymbolTable();
-void _removeLocalVariablesFromSymbolTable();
-int _getCurrentLabel();
-int _getNextLabel();
-void printSymbolTable();
-
 int getVariableAddressFromSymbolTable(char* id);
 struct Symbol* getLastFunctionFromSymbolTable();
+void printSymbolTable();
+struct Symbol* getVariableFromSymbolTable(char* id);
+int getCurrentScopeFromSymbolTable();
+struct Symbol* getFunctionFromSymbolTable(char* id);
+char getTypeFromSymbol(char* id);

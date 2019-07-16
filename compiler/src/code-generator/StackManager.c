@@ -1,11 +1,26 @@
 #include "StackManager.h"
 
-int stackPointer = 73728;
-int framePointer = 73728; //TODO
+int stackPointer = 73712;
+int numberOperators = 0;
 
-int getNextStackPointer(stackPointer){
+void addOneToNumberOperators(){
+  numberOperators = numberOperators + 1;
+}
+
+void minusOneToNumberOperators(){
+  numberOperators = numberOperators - 1;
+}
+
+int getNumberOperators(){
+  return numberOperators;
+}
+
+int getNextStackPointer(){
   stackPointer = stackPointer - 4;
-<<<<<<< HEAD
+  return stackPointer;
+}
+
+int getCurrentStackPointer(){
   return stackPointer;
 }
 
@@ -14,12 +29,11 @@ int updateStackPointer(int offset){
   stackPointer = stackPointer - offset;
 }
 
-int getCurrentStackPointer(){
-=======
->>>>>>> b9b03f88dca944e685bdcd90b87ffc421b289b40
-  return stackPointer;
+void updateFramePointerToStackPointer(){
+  printUpdateFramePointerToStackPointer();
 }
 
-int getCurrentFramePointer(){ //TODO
-  return 0;
+void recoverStackPointer(int offset){
+  printRecoverStackPointer(offset);
+  stackPointer = stackPointer + offset;
 }
