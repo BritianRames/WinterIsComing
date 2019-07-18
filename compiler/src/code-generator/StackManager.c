@@ -20,6 +20,10 @@ int getNextStackPointer(){
   return stackPointer;
 }
 
+int foo(){
+  return 1;
+}
+
 int getCurrentStackPointer(){
   return stackPointer;
 }
