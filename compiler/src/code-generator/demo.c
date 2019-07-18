@@ -257,7 +257,7 @@ void valueGreaterThanVariable(char* variable_id, int val){
   }
 }
 
-void valueGreaterThanVariable(char* variable_id, int val){
+void valueGreaterEqualsThanVariable(char* variable_id, int val){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) >= %d;\n", variable->address, val);

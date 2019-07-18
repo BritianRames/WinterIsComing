@@ -3,11 +3,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "CodePrinter.h"
-#include "../symbol-table/SymbolTableManager.h"
-
-FILE *f;
-
 void openFile();
 
 void qInitialization();
@@ -84,7 +79,7 @@ void valueSmallerEqualsThanVariable(char* variable_id, int val);
 
 void valueGreaterThanVariable(char* variable_id, int val);
 
-void valueGreaterThanVariable(char* variable_id, int val);
+void valueGreaterEqualsThanVariable(char* variable_id, int val);
 
 /*********LogCong-VariableVariable***********/
 void variableEqualsToVariable(char* variable1_id, char* variable2_id);
@@ -97,7 +92,7 @@ void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id);
 
 void variableGraterThanVariable(char* variable1_id, char* variable2_id);
 
-void variableGraterEqualsThanVariable(char* variable1_id, char* variable2_id);
+void valueGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
 
 void notValue(int val);
 
