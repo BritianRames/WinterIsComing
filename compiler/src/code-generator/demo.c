@@ -383,6 +383,7 @@ void variableGraterEqualsThanVariable(char* variable1_id, char* variable2_id){
   }
 }
 
+/*******Not operations**********/
 void notValue(int val){
   fprintf(f, "\tR0 = !%d;\n", val);
 }

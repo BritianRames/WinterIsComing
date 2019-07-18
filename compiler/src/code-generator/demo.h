@@ -68,6 +68,8 @@ void valueSmallerEqualsThanValue(int val1, int val2);
 
 void valueGreaterThanValue(int val1, int val2);
 
+void valueGreaterEqualsThanValue(int val1, int val2);
+
 /*********LogCong-ValueVariable***********/
 void valueEqualsToVariable(char* variable_id, int val);
 
@@ -92,7 +94,9 @@ void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id);
 
 void variableGraterThanVariable(char* variable1_id, char* variable2_id);
 
-void valueGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
+void variableGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
+
+/*******Not operations**********/
 
 void notValue(int val);
 
