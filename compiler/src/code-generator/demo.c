@@ -53,7 +53,7 @@ void putGlobalVariableValueInR0(int address){
 }
 
 void assignValueToVariable(char* variable_id, int value){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
   } else if (variable->type == 'l'){
@@ -70,8 +70,8 @@ void putR0InLocalVariable(int offset){
 }
 
 void assignVariableToVariable(char *variable1_id, char *variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
 
   if (variable1->type == "g"){
     putGlobalVariableValueInR0(variable2->address);
@@ -204,7 +204,7 @@ void valueGreaterEqualsThanValue(int val1, int val2){
 
 /*********LogCong-ValueVariable***********/
 void valueEqualsToVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) == %d;\n", variable->address, val);
   }
@@ -215,7 +215,7 @@ void valueEqualsToVariable(char* variable_id, int val){
 }
 
 void valueNotEqualToVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) != %d;\n", variable->address, val);
   }
@@ -226,7 +226,7 @@ void valueNotEqualToVariable(char* variable_id, int val){
 }
 
 void valueSmallerThanVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) < %d;\n", variable->address, val);
   }
@@ -237,7 +237,7 @@ void valueSmallerThanVariable(char* variable_id, int val){
 }
 
 void valueSmallerEqualsThanVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) <= %d;\n", variable->address, val);
   }
@@ -248,7 +248,7 @@ void valueSmallerEqualsThanVariable(char* variable_id, int val){
 }
 
 void valueGreaterThanVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) > %d;\n", variable->address, val);
   }
@@ -259,7 +259,7 @@ void valueGreaterThanVariable(char* variable_id, int val){
 }
 
 void valueGreaterThanVariable(char* variable_id, int val){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) >= %d;\n", variable->address, val);
   }
@@ -271,8 +271,8 @@ void valueGreaterThanVariable(char* variable_id, int val){
 
 /*********LogCong-VariableVariable***********/
 void variableEqualsToVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) == ", variable1->address);
   }
@@ -290,8 +290,8 @@ void variableEqualsToVariable(char* variable1_id, char* variable2_id){
 }
 
 void variableNotEqualsToVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) != ", variable1->address);
   }
@@ -309,8 +309,8 @@ void variableNotEqualsToVariable(char* variable1_id, char* variable2_id){
 }
 
 void variableSmallerThanVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 < I(0x%x) != ", variable1->address);
   }
@@ -328,8 +328,8 @@ void variableSmallerThanVariable(char* variable1_id, char* variable2_id){
 }
 
 void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 <= I(0x%x) != ", variable1->address);
   }
@@ -347,8 +347,8 @@ void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id){
 }
 
 void variableGraterThanVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 > I(0x%x) != ", variable1->address);
   }
@@ -366,8 +366,8 @@ void variableGraterThanVariable(char* variable1_id, char* variable2_id){
 }
 
 void variableGraterEqualsThanVariable(char* variable1_id, char* variable2_id){
-  struct Symbol *variable1 = getVariableFromSymbolTable(variable1_id);
-  struct Symbol *variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   if(variable1->type == 'g'){
     fprintf(f, "\tR0 >= I(0x%x) != ", variable1->address);
   }
@@ -389,7 +389,7 @@ void notValue(int val){
 }
 
 void notVariable(char *variable_id){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = !I(0x%x);\n", variable->address);
   }
