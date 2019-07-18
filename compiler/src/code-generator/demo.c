@@ -3,12 +3,16 @@
 
 FILE *f;
 
-void qInitialization(int stat, int code) {
+void openFile(){
+  f = fopen("file.q.c", "w");
+}
+
+void qInitialization() {
     fprintf(f, "#include \"Q.h\"\n\n");
     fprintf(f, "BEGIN\n");
-    fprintf(f, "STAT(%d)\n",stat);
+    fprintf(f, "STAT(0)\n");
     fprintf(f, "MEM(0x11ffc, 0);\n");
-    fprintf(f, "CODE(%d)\n",code);
+    fprintf(f, "CODE(0)\n");
     fprintf(f, "L 0:\n");
     fprintf(f, "R6 = R7\n");
 }
@@ -47,6 +51,10 @@ void putLocalVariableValueInR0(int offset){
 void putGlobalVariableValueInR0(int address){
   fprintf(f, "R0 = I(%d);\n", address);
 }
+
+//void declarationGlobalVariableONLY(){
+//  fprintf(f, "R0 = I(%d);\n", address);
+//}
 
 void assignValueToGlobalVariable(int address, int value){
   fprintf(f, "I(0x%x) = %d;\n", address, value);

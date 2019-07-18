@@ -3,6 +3,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+
+void qInitialization();
+void jumpMain();
+void mainFunction();
+void goToExit();
+void qEnding();
+
 void moveR7Up();
 void moveR7Down();
 
@@ -21,3 +28,10 @@ void assignR0ToVariable(int address, int stackPointer, char variable_type);
 int getLocalVariableOffset(int position);
 
 void putOperationResultInR0();
+
+void currentStatCodeSectionNumber();
+
+void product();
+void substract();
+void add();
+void division();
