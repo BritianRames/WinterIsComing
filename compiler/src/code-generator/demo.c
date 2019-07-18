@@ -52,11 +52,14 @@ void putGlobalVariableValueInR0(int address){
   fprintf(f, "R0 = I(%d);\n", address);
 }
 
-void assignValueToGlobalVariable(int address, int value){
-  fprintf(f, "I(0x%x) = %d;\n", address, value);
-}
-void assignValueToLocalVariable(int offset, int value){
-  fprintf(f, "I(R7 + offset) = %d;\n", offset, value);
+void assignValueToVariable(char* variable_id, int value){
+  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  if(variable->type == 'g'){	  
+    fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
+  } else if (variable->type == 'l'){	  
+    int offset = getLocalVariableOffset(variable->address);
+    fprintf(f, "I(R7 + 0x%x) = %d;\n", offset, value);    
+  } 
 }
 
 void putR0InGlobalVariable(int address){
@@ -103,8 +106,6 @@ int getLocalVariableOffset(int position){
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");  
 }
-
-
 
 void product(){
   fprintf(f, "R1 = I(R7);\n");
