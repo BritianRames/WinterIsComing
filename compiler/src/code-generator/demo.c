@@ -58,7 +58,7 @@ void assignValueToVariable(char* variable_id, int value){
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "I(R7 + 0x%x) = %d;\n", offset, value);    
+    fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
   } 
 }
 
