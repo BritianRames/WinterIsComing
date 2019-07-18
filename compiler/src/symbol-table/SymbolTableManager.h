@@ -33,9 +33,10 @@ int _getNextLabel();
 void openScopeInSymbolTable();
 void closeScopeInSymbolTable();
 int getVariableAddressFromSymbolTable(char* id);
+char getTypeFromSymbol(char* id);
+struct Symbol* getFunctionFromSymbolTable(char* id);
 struct Symbol* getLastFunctionFromSymbolTable();
 void printSymbolTable();
-struct Symbol* getVariableFromSymbolTable(char* id);
 int getCurrentScopeFromSymbolTable();
-struct Symbol* getFunctionFromSymbolTable(char* id);
-char getTypeFromSymbol(char* id);
+
+struct Symbol* getVariableFromSymbolTable(char* id);

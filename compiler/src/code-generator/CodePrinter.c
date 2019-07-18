@@ -33,6 +33,75 @@ void printQEnding() {
     fprintf(f, "END\n");
 }
 
+//ASSIGN
+void printCodeToAssignValueToGlobalVariable(int address, int value) {
+  fprintf(f, "I(0x%x) = %d;\n", address, value);
+}
+
+void printCodeToAssignValueToLocalVariable(int offset, int value) {
+    //offset = R7 - numberOfParams + position
+    fprintf(f, "I(R7 - offset) = %d;\n", offset, value); //Returned value in R0
+}
+
+void printCodeToAssignVariableToGlobalVariable(int address, int value_address, char type){
+    if(type == 'g'){
+        _putGlobalVariableValueInR0(value_address);
+    } else if (type == 'l'){
+        _putLocalVariableValueInR0(value_address);
+    }
+    fprintf(f, "I(0x%x) = R0;\n", address); //Returned value in R0
+}
+
+void _putGlobalVariableValueInR0(int address){
+    fprintf(f, "R0 = I(0x%x);\n", address);
+}
+
+void _putLocalVariableValueInR0(int offset){
+    fprintf(f, "R0 = I(0x%x);\n", address);
+}
+
+
+void printCodeToAssignOperationResultToVariable(int address, int stackPointer) {
+    fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer);
+}
+
+void printCodeToAssignFunctionResultToVariable(int address) {
+    fprintf(f, "I(0x%x) = R0;\n", address);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*************************************************************************************************************************//
 void printUpdateFramePointerToStackPointer(){
   fprintf(f, "R6 = R7;\n");
 }
@@ -94,8 +163,6 @@ void _printSaveParameters(int numberOfParameters){
     }
 }
 
-
-
 void printStoreFunctionData(int stackPointer, int numberOfParameters, int label){
     fprintf(f, "R6 = R7;\n");
     fprintf(f, "R7 = R7 - %d;\n", numberOfParameters * 4 - 8);
@@ -104,22 +171,6 @@ void printStoreFunctionData(int stackPointer, int numberOfParameters, int label)
     //fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label TODO: Aquí que va?
     fprintf(f, "R7 = R7 - %d;\n", label);
 
-}
-
-void printCodeToAssignValueToVariable(int address, int value) {
-  fprintf(f, "I(0x%x) = %d;\n", address, value); //Returned value in R0
-}
-
-void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "I(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
-}
-
-void printCodeToAssignOperationResultToVariable(int address, int stackPointer) {
-    fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer);
-}
-
-void printCodeToAssignFunctionResultToVariable(int address) {
-    fprintf(f, "I(0x%x) = R0;\n", address);
 }
 
 void printPrintStringCode(char* string){
@@ -202,12 +253,6 @@ void printCodeAssignOperationResultToVariable(int address) {
     fprintf(f, "I(0x%x) = R0;\n", address);
 }
 
-
-
-
-
-
-
 /* RELATIONAL FUNCTIONS */
 void printEqualsValueToValue(int val1, int val2) {
     fprintf(f, "R0 = %d == %d;\n", val1, val2);
@@ -232,7 +277,6 @@ void printGreaterValueToValue(int val1, int val2){
 void printGreaterEqualsValueToValue(int val1, int val2){
     fprintf(f, "R0 = %d >= %d;\n", val1, val2);
 }
-
 
 void printEqualsValueToVariable(int address, int val){
     fprintf(f, "R0 = I(0x%x) == %d;\n", address, val);
@@ -282,7 +326,6 @@ void printGreaterVariableToVariable(int address1, int address2){
 void printGreaterEqualsVariableToVariable(int address1, int address2){
     fprintf(f, "R0 = I(0x%x) >= I(0x%x);\n", address1, address2);
 }
-
 
 void printNotValue(int val){
     fprintf(f, "R0 = !%d;\n", val);

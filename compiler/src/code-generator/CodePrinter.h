@@ -35,6 +35,7 @@ void printCodeToAssignValueToRegister(int reg, int val);
 void printCodeToAssignRegisterToVariable(int reg, int addr);
 void printCodeToAssignOperationResultToVariable(int address , int stackPointerModified);
 void printCodeToAssignFunctionResultToVariable(int address);
+void printCodeToAssignValueToGlobalVariable(int address, int value);
 
 /* ARITHMETICAL FUNCTIONS */
 void printInsertOnStack(int address, int value);

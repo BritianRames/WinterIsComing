@@ -209,8 +209,6 @@ struct Symbol* getVariableFromSymbolTable(char* id){
     return -1;
 }
 
-
-
 struct Symbol* getFunctionFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     printf("symbol (f): %s, %c\n", currentSymbol->id, currentSymbol->type);
