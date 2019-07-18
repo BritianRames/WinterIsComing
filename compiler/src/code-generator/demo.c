@@ -53,7 +53,7 @@ void putGlobalVariableValueInR0(int address){
 }
 
 void assignValueToVariable(char* variable_id, int value){
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){	  
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
   } else if (variable->type == 'l'){	  
@@ -69,17 +69,20 @@ void putR0InLocalVariable(int offset){
   fprintf(f, "I(R7 + %d) = R0;\n", offset);
 }
 
-void assignVariableToVariable(int variable_address, int variable_type, int value_address, char value_type){
-  if (value_type == "g"){
-    putGlobalVariableValueInR0(value_address);
-  } else if(value_type = "l"){
-    int offset = getLocalVariableOffset(value_address);
+void assignVariableToVariable(char* variable1_id, char* variable2_id){
+  struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
+
+  if (variable1->type == "g"){
+    putGlobalVariableValueInR0(variable1->address);
+  } else if(variable1->type = "l"){
+    int offset = getLocalVariableOffset(variable1->address);
     putLocalVariableValueInR0(offset);
   }
-  if (variable_type == 'g'){
-    putR0InGlobalVariable(variable_address);
-  } else if(value_type = 'l'){
-    int offset = getLocalVariableOffset(variable_address);
+  if (variable2->type == 'g'){
+    putR0InGlobalVariable(variable2->address);
+  } else if(variable2->type = 'l'){
+    int offset = getLocalVariableOffset(variable2->address);
     putR0InLocalVariable(offset);
   }
 }
