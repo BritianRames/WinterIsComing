@@ -160,21 +160,21 @@ void printStoreFunctionData(int stackPointer, int numberOfParameters, int label)
 }
 
 
-void printCodeToAssignValueToVariable(int address, int value) {
-  fprintf(f, "\tI(0x%x) = %d;\n", address, value); //Returned value in R0
-}
+// void printCodeToAssignValueToVariable(int address, int value) {
+//   fprintf(f, "\tI(0x%x) = %d;\n", address, value); //Returned value in R0
+// }
 
-void printCodeToAssignVariableToVariable(int address, int value_address){
-  fprintf(f, "\tI(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
-}
+// void printCodeToAssignVariableToVariable(int address, int value_address){
+//   fprintf(f, "\tI(0x%x) = I(0x%x);\n", address, value_address); //Returned value in R0
+// }
 
-void printCodeToAssignOperationResultToVariable(int address, int stackPointer) { //no es stackpoint es adress TODO
-    fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer );
-}
+// void printCodeToAssignOperationResultToVariable(int address, int stackPointer) { //no es stackpoint es adress TODO
+//     fprintf(f, "I(0x%x) = I(0x%x);\n", address, stackPointer );
+// }
 
-void printCodeToAssignFunctionResultToVariable(int address) {
-    fprintf(f, "\tI(0x%x) = R0;\n", address);
-}
+// void printCodeToAssignFunctionResultToVariable(int address) {
+//     fprintf(f, "\tI(0x%x) = R0;\n", address);
+// }
 
 void printPrintStringCode(char* string,int address,int label,int stat,int code){
   fprintf(f,"\tR7 = R7 - %d;\n",strlen(string) + 4);
@@ -234,30 +234,29 @@ void printInsertOnStackVariable(int address, int var_address){
   fprintf(f, "\tI(0x%x) = I(0x%x);\n", address, var_address);
 }
 
-void printProductValue(int address){
-    fprintf(f, "R1 = I(0x%x);\n", address+4);
-    fprintf(f, "\nI(0x%x) = I(0x%x) * R1;\n", address+8,address+8);
-}
+// void printProductValue(int address){
+//     fprintf(f, "R1 = I(0x%x);\n", address+4);
+//     fprintf(f, "\nI(0x%x) = I(0x%x) * R1;\n", address+8,address+8);
+// }
 
-void printCodeAssignOperationResultToVariable(int address) {
-    fprintf(f, "I(0x%x) = R0;\n", address);
-}
+// // void printCodeAssignOperationResultToVariable(int address) {
+// //     fprintf(f, "I(0x%x) = R0;\n", address);
+// // }
 
-void printAddValue(int address){
-    fprintf(f, "R1 = I(0x%x);\n", address+4);
-    fprintf(f, "\nI(0x%x) = I(0x%x) + R1;\n", address+8,address+8);
+// void printAddValue(int address){
+//     fprintf(f, "R1 = I(0x%x);\n", address+4);
+//     fprintf(f, "\nI(0x%x) = I(0x%x) + R1;\n", address+8,address+8);
+// }
 
-}
+// void printSubstractValue(int address){
+//     fprintf(f, "R1 = I(0x%x);\n", address+4);
+//     fprintf(f, "\nI(0x%x) = I(0x%x) - R1;\n", address+8,address+8);
+// }
 
-void printSubstractValue(int address){
-    fprintf(f, "R1 = I(0x%x);\n", address+4);
-    fprintf(f, "\nI(0x%x) = I(0x%x) - R1;\n", address+8,address+8);
-}
-
-void printDivisionValue(int address){
-    fprintf(f, "R1 = I(0x%x);\n", address+4);
-    fprintf(f, "\nI(0x%x) = I(0x%x) / R1;\n", address+8,address+8);
-}
+// void printDivisionValue(int address){
+//     fprintf(f, "R1 = I(0x%x);\n", address+4);
+//     fprintf(f, "\nI(0x%x) = I(0x%x) / R1;\n", address+8,address+8);
+// }
 
 /* RELATIONAL FUNCTIONS */
 void printEqualsValueToValue(int val1, int val2) {

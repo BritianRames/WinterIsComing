@@ -3,6 +3,26 @@
 
 FILE *f;
 
+void qInitialization(int stat, int code) {
+    fprintf(f, "#include \"Q.h\"\n\n");
+    fprintf(f, "BEGIN\n");
+    fprintf(f, "STAT(%d)\n",stat);
+    fprintf(f, "MEM(0x11ffc, 0);\n");
+    fprintf(f, "CODE(%d)\n",code);
+    fprintf(f, "L 0:\n");
+    fprintf(f, "R6 = R7\n")
+}
+
+void jumpMain(){
+    fprintf(f, "\tGT(1);\n");
+}
+
+void mainFunction() {
+    fprintf(f, "L 1:\n");
+}
+
+/*******Stack*********/
+
 void moveR7Up(){
   fprintf(f, "R7 = R7 + 4;\n");
 }

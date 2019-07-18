@@ -2,35 +2,35 @@
 
 Q.h v3.7.2 - 3.7.3 (c) 2002..2009 Jose Fortes Galvez
 
-Fichero de encabezamiento para código Q, lenguaje intermedio en
-cuádruplas compilables en C.  Declara las macros y funciones que
-conforman la "máquina Q".
+Fichero de encabezamiento para cï¿½digo Q, lenguaje intermedio en
+cuï¿½druplas compilables en C.  Declara las macros y funciones que
+conforman la "mï¿½quina Q".
 
 Este fichero NO se debe modificar.  Por el contrario, Qlib.h y Qlib.c
-están diseñados para ser modificados extendiendo así la biblioteca de
+estï¿½n diseï¿½ados para ser modificados extendiendo asï¿½ la biblioteca de
 rutinas del sistema.
 
-Descripción 
+Descripciï¿½n 
 -----------
 
-(Véase primero el manual de usuario Qman.txt)
+(Vï¿½ase primero el manual de usuario Qman.txt)
 
-Se utiliza un modelo de máquina que incluye (implementadas en el heap
-con realloc) una zona estática virtual y una pila virtual para marcos
-de pila gestionada por el propio código.  En esta pila virtual se
+Se utiliza un modelo de mï¿½quina que incluye (implementadas en el heap
+con realloc) una zona estï¿½tica virtual y una pila virtual para marcos
+de pila gestionada por el propio cï¿½digo.  En esta pila virtual se
 pueden almacenar y gestionar todo tipo de datos y estructuras,
-incluyendo direcciones virtuales de datos y de código.  Igualmente
-apoyado en realloc se implementa un heap virtual (con una gestión
+incluyendo direcciones virtuales de datos y de cï¿½digo.  Igualmente
+apoyado en realloc se implementa un heap virtual (con una gestiï¿½n
 inicialmente trivial en Qlib.c).  Estas implementaciones permiten que
 todas las direcciones virtuales se implementen como enteros, en
-realidad índices en las correspondientes estructuras de nombre ze_pila
+realidad ï¿½ndices en las correspondientes estructuras de nombre ze_pila
 y heap.
 
-Todas las cantidades referidas a tamaño o posición de memoria virtual
-en el código generado son en bytes, esto es, una asignación de b
+Todas las cantidades referidas a tamaï¿½o o posiciï¿½n de memoria virtual
+en el cï¿½digo generado son en bytes, esto es, una asignaciï¿½n de b
 indica b bytes. 
 
-El código C obtenido de la expansión de las macros correspondientes a
+El cï¿½digo C obtenido de la expansiï¿½n de las macros correspondientes a
 las instrucciones Q se encuentra dentro de un switch cuyos valores
 enteros de los distintos case nos sirven de direcciones de salto.
 
@@ -61,13 +61,13 @@ enteros de los distintos case nos sirven de direcciones de salto.
 #include "Qlib.h"                                                                         
 
 // Etiquetas "del sistema" 
-// externas (sólo los números forman parte de la definición de Q)
+// externas (sï¿½lo los nï¿½meros forman parte de la definiciï¿½n de Q)
 #define INI   0	        // inicia el codigo del programa de usuario
 #define BP   -1         // breakpoint (si en modo interactivo) 
 #define FIN  -2         // finaliza ejecucion: sale con exit(R0);
 #define ABO  -3         // aborta ejecucion: sale con exit(1);
 // internas
-#define NOE COM         // etiqueta inválida 
+#define NOE COM         // etiqueta invï¿½lida 
 #define COM  -4         // verdadero comienzo (interno) de ejecucion (si compilado) 
 #define DEF  -5         // etiqueta del default 
 #define LIB  -10        // primera etiqueta admisible en Qlib
@@ -87,7 +87,7 @@ enteros de los distintos case nos sirven de direcciones de salto.
 #define Et long double  
 #
 
-// tamaños de tipos
+// tamaï¿½os de tipos
 // (nota: al parecer sizeof devuelve unsigned int, que impide -4*IS<0)
 #define PS (int)sizeof(Pt) 
 #define US (int)sizeof(Ut) // 1 byte ANSI C  
@@ -98,7 +98,7 @@ enteros de los distintos case nos sirven de direcciones de salto.
 #define DS (int)sizeof(Dt) // 8 bytes gcc i386
 #define ES (int)sizeof(Et) // 12 bytes gcc i386
 #
-#define AS 4               // tamaño en bytes de alineamiento máximo
+#define AS 4               // tamaï¿½o en bytes de alineamiento mï¿½ximo
 
 /************ ARQUITECTURA OBJETO ************************/
 #define tR It
@@ -127,79 +127,79 @@ EXTERN tRR RR[NRR];            // registros coma flotante del procesador
 #define RR3 RR[3]
 
 // zonas virtuales de memoria
-EXTERN UC * ze_pila;              // (fondo de) zona estatica más pila
+EXTERN UC * ze_pila;              // (fondo de) zona estatica mï¿½s pila
 EXTERN UC * heap;                 // (fondo de) heap
 
-// Definición de direcciones base virtuales (direcciones numéricamete
-// mayores, múltiplos de AS) de las zonas de memoria, todas las cuales
-// crecen hacia direcciones numéricamente decrecientes.  La pila se
-// situará automáticamente tras la dirección inferior de la zona
-// estática.  Se ha de verificar H >> Z >> 0 
+// Definiciï¿½n de direcciones base virtuales (direcciones numï¿½ricamete
+// mayores, mï¿½ltiplos de AS) de las zonas de memoria, todas las cuales
+// crecen hacia direcciones numï¿½ricamente decrecientes.  La pila se
+// situarï¿½ automï¿½ticamente tras la direcciï¿½n inferior de la zona
+// estï¿½tica.  Se ha de verificar H >> Z >> 0 
 
-// #define Z 0x00100000         // base+1 de la zona estatica (1 MB máx)
-// #define Z 0x00112000         // base+1 de la zona estatica (1096 KB máx)
+// #define Z 0x00100000         // base+1 de la zona estatica (1 MB mï¿½x)
+// #define Z 0x00112000         // base+1 de la zona estatica (1096 KB mï¿½x)
 #ifndef Z
-#define Z 0x00012000            // base+1 de la zona estatica (72 KB máx)
+#define Z 0x00012000            // base+1 de la zona estatica (72 KB mï¿½x)
 #endif
 // #define P TE                 // de la pila (implicita)
-// #define H 0x00200000         // base+1 del heap (1 MB máx); ha de verificar H>>Z
-// #define H 0x00224000         // base+1 del heap (1096 KB máx); ha de verificar H>>Z 
+// #define H 0x00200000         // base+1 del heap (1 MB mï¿½x); ha de verificar H>>Z
+// #define H 0x00224000         // base+1 del heap (1096 KB mï¿½x); ha de verificar H>>Z 
 #ifndef H
-#define H 0x00024000            // base+1 del heap (72 KB máx); ha de verificar H>>Z
+#define H 0x00024000            // base+1 del heap (72 KB mï¿½x); ha de verificar H>>Z
 #endif
                                 
 #define CP R7                   // direcc. (virtual**2) de la cima de ze_pila
-EXTERN Pt CPX;                  // direcc. virt. de la últ. pos. realmente asignada
-EXTERN Pt HP;                   // direcc, virt. de la últ. pos. realmente asignada
+EXTERN Pt CPX;                  // direcc. virt. de la ï¿½lt. pos. realmente asignada
+EXTERN Pt HP;                   // direcc, virt. de la ï¿½lt. pos. realmente asignada
 // !!!! en el codigo se presupone que se usa b multiplo de AS bytes !!!
 // Dado que realloc crece hacia direcciones numericamente superiores,
 // asi ha de hacerlo la pila, pues si no, cambiariamos el "endian"
 
 // !!!! al ubicar datos tener en cuenta los alineamientos requeridos !!
-#define MAS(x) ((x)/AS)*AS  // convierte a multiplo de AS hacia dir. numér. inferiores
+#define MAS(x) ((x)/AS)*AS  // convierte a multiplo de AS hacia dir. numï¿½r. inferiores
 // MAS(x) (((x)-AS+1)/AS)*AS  /* id. superiores
-// extiende efectivamente la zona estática hasta la posición MAS(e) (desde Z+1)
+// extiende efectivamente la zona estï¿½tica hasta la posiciï¿½n MAS(e) (desde Z+1)
 unsigned char u_wall; // evita aviso -Wall
-#define ZE(e) if ((Pt)(e)<CP) {CP=(Pt)MAS(e); u_wall=U((Pt)MAS(e)); /* fuerza asignación */ }
+#define ZE(e) if ((Pt)(e)<CP) {CP=(Pt)MAS(e); u_wall=U((Pt)MAS(e)); /* fuerza asignaciï¿½n */ }
 
-// tiene el mismo efecto que el NC antiguo (b>0 aumenta tamaño pila: _de_crementa CP
+// tiene el mismo efecto que el NC antiguo (b>0 aumenta tamaï¿½o pila: _de_crementa CP
 #define nvo_NC(b) CP-=(b);      // si antes NC(+n), ahora R7=R7-n y acceso ulterior
 
-#define BSX 0x10000 // 64 KB: tamaño máximo de bloque a asignar de 1 vez
+#define BSX 0x10000 // 64 KB: tamaï¿½o mï¿½ximo de bloque a asignar de 1 vez
 
 //PTR tmp;
 
-#define BS  0x00100 // 256 B: unidad de asignación de pila
-#define DMS (d+s) // se leerá o escribirá en dir. virt. d..DMS-1
+#define BS  0x00100 // 256 B: unidad de asignaciï¿½n de pila
+#define DMS (d+s) // se leerï¿½ o escribirï¿½ en dir. virt. d..DMS-1
 
 #define QF                                                                           \
                                                                                      \
 void errxit(int cod) {                                                               \
 char *mens[]=                                                                        \
- {/* 0 */   "" /* no es apropiado 0 como código de longjmp */                        \
-  /* 1 */ , "Intento de liberar en heap un tramo de tamaño superior al heap"         \
-  /* 2 */ , "Acceso a memoria fuera de límites"                                      \
+ {/* 0 */   "" /* no es apropiado 0 como cï¿½digo de longjmp */                        \
+  /* 1 */ , "Intento de liberar en heap un tramo de tamaï¿½o superior al heap"         \
+  /* 2 */ , "Acceso a memoria fuera de lï¿½mites"                                      \
   /* 3 */ , "Bloque de memoria a asignar demasiado grande"                           \
-  /* 4 */ , "Excedido el tamaño máximo de zona estática más pila, o de heap"         \
-  /* 5 */ , "El sistema no suministra más memoria"                                   \
-  /* 6 */ , "Asignación estática de memoria en dirección no inferior a Z"            \
+  /* 4 */ , "Excedido el tamaï¿½o mï¿½ximo de zona estï¿½tica mï¿½s pila, o de heap"         \
+  /* 5 */ , "El sistema no suministra mï¿½s memoria"                                   \
+  /* 6 */ , "Asignaciï¿½n estï¿½tica de memoria en direcciï¿½n no inferior a Z"            \
   /* 7 */ , "END alcanzado"                                                          \
   /* 8 */ , "ENDLIB alcanzado"                                                       \
   /* 9 */ , "Salto a etiqueta inexistente"                                           \
  };                                                                                  \
  fflush(stdout);                                                                     \
  fprintf(stderr,"\nQ.h: %s (error %i)\n",mens[cod],cod);                             \
- longjmp(env,cod); /* salta a manejador de excepción */                              \
+ longjmp(env,cod); /* salta a manejador de excepciï¿½n */                              \
  /* inalcanzalbe */ printf("\nQ.h: error interno\n"); raise(SIGABRT);                \
 }                                                                                    \
                                                                                      \
-/* Aumenta el tamaño del heap en b bytes (o lo decrementa si b<0)                    \
+/* Aumenta el tamaï¿½o del heap en b bytes (o lo decrementa si b<0)                    \
 Modifica (y devuelve) el valor de HP en consecuencia */                              \
 void NH(tR b) {                                                                      \
   Pt nvoHP;                                                                          \
   if ((b)>BSX) errxit(3); /* bloque a asignar demasiado grande */                    \
-  else if ((nvoHP=HP-(b))>H) errxit(1); /* intento de liberar más heap del que hay */\
-  else if (nvoHP<Z) errxit(4); /* excedido tamaño máximo heap */                     \
+  else if ((nvoHP=HP-(b))>H) errxit(1); /* intento de liberar mï¿½s heap del que hay */\
+  else if (nvoHP<Z) errxit(4); /* excedido tamaï¿½o mï¿½ximo heap */                     \
   else if (!(heap = (UC*)realloc(heap, H-nvoHP))) errxit(5); /* error de realloc */  \
   HP=nvoHP;                                                                          \
 }                                                                                    \
@@ -208,21 +208,21 @@ UC *DIR(PTR d, UC s) {                                                          
   /* Covierte direccion virtual d en z.e., pila o heap en direccion                  \
    real.  Invertimos el orden de direcciones de memoria, para que pila               \
    --y por tanto heap-- crezcan (virtualmente) hacia direcciones                     \
-   numéricamente inferiores, en tanto que realloc, y las operaciones                 \
+   numï¿½ricamente inferiores, en tanto que realloc, y las operaciones                 \
    de escritura/lectura multibyte (p.e. int de 4 bytes) lo hacen hacia               \
-   direcciones numéricamente superiores.  No podemos hacer que el heap               \
-   crezca en sentido inverso, pues entonces habrían endians distintos                \
-   en pila y heap.  La máquina virtual por tanto es big endian, y las                \
+   direcciones numï¿½ricamente superiores.  No podemos hacer que el heap               \
+   crezca en sentido inverso, pues entonces habrï¿½an endians distintos                \
+   en pila y heap.  La mï¿½quina virtual por tanto es big endian, y las                \
    strings se almacenan hacia direc. virt. superiores --pero realmente               \
    hacia direc. inferiores por lo que hay que reordenarlas                           \
    temporalmente para e/s con libC. */                                               \
-  Pt bloq /* tamaño de la extensión */ , nvoCPX;                                     \
+  Pt bloq /* tamaï¿½o de la extensiï¿½n */ , nvoCPX;                                     \
   if (d<=Z-s) /* evita DMS>=0 siendo (signed)d<0 */                                  \
     if (d>=CPX) return ze_pila+Z-DMS; /* incluso si >=CP (error del pgm usuario) */  \
     else {                                                                           \
-      nvoCPX=CPX-(bloq=(CPX-CP+BS-1)/BS*BS); /* calculamos según CP, ¡no según d! */ \
+      nvoCPX=CPX-(bloq=(CPX-CP+BS-1)/BS*BS); /* calculamos segï¿½n CP, ï¿½no segï¿½n d! */ \
       if (bloq>BSX) errxit(3); /* bloque a asignar demasiado grande */               \
-      else if (nvoCPX>Z) errxit(4); /* (mejor que >=) excedido tamaño máximo pila */ \
+      else if (nvoCPX>Z) errxit(4); /* (mejor que >=) excedido tamaï¿½o mï¿½ximo pila */ \
       else if (d>=nvoCPX)                                                            \
 	if (!(ze_pila = (UC *)realloc(ze_pila, Z-nvoCPX)))                           \
 	  errxit(5); /* error de realloc */                                          \
@@ -236,7 +236,7 @@ UC *DIR(PTR d, UC s) {                                                          
                                                                                      \
 /* carga una string (formato C: '\0' marca final) */                                 \
 void STR(Pt p, const char *r) {	                                                     \
-    if (p+strlen(r)+1>Z) errxit(6); /* la zona estática ha de ser inferior a Z */    \
+    if (p+strlen(r)+1>Z) errxit(6); /* la zona estï¿½tica ha de ser inferior a Z */    \
     ZE(p); 			                                                     \
     do U(p++)=*r; while (*r++);                                                      \
   }                                                                                  \
@@ -258,26 +258,26 @@ void STR(Pt p, const char *r) {	                                                
 
 // Asignaciones de memoria y constantes estaticos y strings a cargar
 
-// simplemente asigna memoria en zona estática desde p (hacia y hasta
+// simplemente asigna memoria en zona estï¿½tica desde p (hacia y hasta
 // Z) supuestamente para b bytes en p..p+b-1
 #define MEM(p,b) 								 \
   do { if (DEP>=10) printf(">>MEM(%i,%i)\n",(int)p,(int)b); 			 	 \
-  if ((p)+(b)>Z) errxit(6); /* la zona estática ha de ser inferior a Z */        \
+  if ((p)+(b)>Z) errxit(6); /* la zona estï¿½tica ha de ser inferior a Z */        \
   ZE(p); } while (0)	 							 \
 
 // asigna y rellena con valor fijo (normalmente 0)
 #define FIL(p,b,v) 							    \
   do {int i;                                                                \
     if (DEP>=10) printf(">>FIL(%i,%i,%i)\n",(int)p,(int)b,(int)v); 			    \
-    if ((p)+(b)>Z) errxit(6); /* la zona estática ha de ser inferior a Z */ \
+    if ((p)+(b)>Z) errxit(6); /* la zona estï¿½tica ha de ser inferior a Z */ \
     ZE(p); 								    \
     for (i=0;i<(b);i+=US) U((p)+i)=(v);                                     \
   } while (0)			                                            \
 
-// carga una constante numérica
+// carga una constante numï¿½rica
 #define DAT(p,c,v)   								 \
 	do {if (DEP>=10) printf(">>DAT(%i,%s,%i)\n",(int)p,# c,(int)v); 			 \
-  	if ((p)+c##S>Z) errxit(6); /* la zona estática ha de ser inferior a Z */ \
+  	if ((p)+c##S>Z) errxit(6); /* la zona estï¿½tica ha de ser inferior a Z */ \
 	ZE(p); 									 \
 	c(p)=v; /* carga a v */ } while (0)					 \
 
@@ -296,7 +296,7 @@ EXTERN int etiq;                    // etiqueta adonde se va a saltar
                 goto GT_switch;                                 \
                }                                                \
                while(0) /* al usar do-while consigo que GT() sea una
-                           instrucción y necesite ";" 
+                           instrucciï¿½n y necesite ";" 
                         */
 
 #define IF(e) if(e)                 // si queremos usar mayusculas
@@ -310,7 +310,7 @@ main() {                                                                        
   int i, cod;  /* aux */                                                                 \
   enum {carg, ejec} est=carg;		                                                 \
   if (cod=setjmp(env)) {                                                                 \
-    if (cod==ABO) printf("\nEjecución abortada por salto a %i\n",ABO);                   \
+    if (cod==ABO) printf("\nEjecuciï¿½n abortada por salto a %i\n",ABO);                   \
     raise(SIGABRT);  /*exit(cod);*/                                                      \
   }                                                                                      \
   ze_pila=NULL;                                                                          \
@@ -324,8 +324,8 @@ GT_switch:                                                                      
     switch (etiq)                                                                        \
       {                                                                                  \
 /* una etiqueta aqui evita aviso de codigo inaccesible si a BEGIN sigue STAT(0) */       \
-L COM:   CP = Z;                          /* arranca con pila vacía */                   \
-         GT(LLL-1);                       /* "carga" zona estática */                    \
+L COM:   CP = Z;                          /* arranca con pila vacï¿½a */                   \
+         GT(LLL-1);                       /* "carga" zona estï¿½tica */                    \
 
 #ifndef LLL
 #define LLL -999  // Valor por defecto de la ultima etiqueta utilizable en Qlib
@@ -345,7 +345,7 @@ L LLL-2*(i)-2:               /* primera instruccion de CODE(i) */             \
 	 errxit(7); 								         \
 L ABO:   longjmp(env,-3);                                                                \
 L FIN:   exit(R0);                        /* lo normal es GT(FIN); */                    \
-/* comienzo de ejecución: inicializaciones e invocacion código de usuario */             \
+/* comienzo de ejecuciï¿½n: inicializaciones e invocacion cï¿½digo de usuario */             \
 L DEF:                                                                                   \
 default:                    							         \
 	 if (est==carg) {							         \
@@ -358,7 +358,7 @@ default:                    							         \
 	 }                                                                               \
       }                                                                                  \
   } while (1); /* puesto que los saltos son todos con GT(), que va a GT_switch,          \
-                ya el while es inútil */                                                 \
+                ya el while es inï¿½til */                                                 \
 }                                                                                        \
 
 #define BEGINLIB                                      \
@@ -373,7 +373,7 @@ void Qlib(int etilib) {                               \
 
 #define ENDLIB                                                  \
     }                                                           \
-    errxit(8); /* ENDLIB alcanzado; ejecución terminada */      \
+    errxit(8); /* ENDLIB alcanzado; ejecuciï¿½n terminada */      \
 GT_switch:  return;                                             \
 }                                                               \
 
