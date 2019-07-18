@@ -137,7 +137,6 @@ void add(){
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
   fprintf(f, "I(R7) = R2 + R1;\n");
-  moveR7Up();
 }
 
 void substract(){
