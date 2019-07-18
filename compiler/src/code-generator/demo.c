@@ -42,6 +42,9 @@ void moveR7Up(){
 void moveR7Down(){
   fprintf(f, "R7 = R7 - 4;\n");
 }
+void r6EqualsR7(){
+  fprintf(f, "R6 = R7\n");
+}
 
 /********Assignation*********/
 
@@ -56,6 +59,7 @@ void assignValueToVariable(char* variable_id, int value){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){	  
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
+    r6EqualsR7();
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
     fprintf(f, "I(R7 + 0x%x) = %d;\n", offset, value);    
@@ -72,6 +76,7 @@ void putR0InLocalVariable(int offset){
 void assignVariableToVariable(char* variable1_id, char* variable2_id){
   struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
   struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
+  struct Symbol* variable = getVariableFromSymbolTable(variable2_id);
 
   if (variable1->type == "g"){
     putGlobalVariableValueInR0(variable1->address);
@@ -202,7 +207,7 @@ void valueGreaterEqualsThanValue(int val1, int val2){
 
 /*********LogCong-ValueVariable***********/
 void valueEqualsToVariable(char* variable_id, int val){
-  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol *variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
     fprintf(f, "\tR0 = I(0x%x) == %d;\n", variable->address, val);
   }
