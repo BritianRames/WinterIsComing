@@ -21,6 +21,15 @@ void mainFunction() {
     fprintf(f, "L 1:\n");
 }
 
+void goToExit()  {
+    fprintf(f, "\tGT(-2);\n");
+}
+
+void qEnding() {
+    fprintf(f, "END\n");
+}
+
+
 /*******Stack*********/
 
 void moveR7Up(){
