@@ -3,6 +3,10 @@
 
 FILE *f;
 
+void openFile(){
+  f = fopen("file.q.c", "w");
+}
+
 void qInitialization() {
     fprintf(f, "#include \"Q.h\"\n\n");
     fprintf(f, "BEGIN\n");
@@ -374,6 +378,7 @@ void variableGraterEqualsThanVariable(char* variable1_id, char* variable2_id){
   }
 }
 
+/*******Not operations**********/
 void notValue(int val){
   fprintf(f, "\tR0 = !%d;\n", val);
 }
