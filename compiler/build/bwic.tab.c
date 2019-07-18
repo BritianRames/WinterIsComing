@@ -1459,136 +1459,148 @@ yyreduce:
 #line 1460 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
+  case 43:
+#line 142 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {add();}
+#line 1466 "bwic.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 147 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {insertValueInStack((yyvsp[0].number));}
+#line 1472 "bwic.tab.c" /* yacc.c:1646  */
+    break;
+
   case 50:
 #line 152 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*returnVariable($<number>2);*/}
-#line 1466 "bwic.tab.c" /* yacc.c:1646  */
+#line 1478 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
 #line 153 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*returnValue($<number>2);*/}
-#line 1472 "bwic.tab.c" /* yacc.c:1646  */
+#line 1484 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 154 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*returnValue($<number>2);*/}
-#line 1478 "bwic.tab.c" /* yacc.c:1646  */
+#line 1490 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 155 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*functionCall($<string>1,$<string>3);*/}
-#line 1484 "bwic.tab.c" /* yacc.c:1646  */
+#line 1496 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 155 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {printf("TERMINA LLAMADA FUNCION\n");}
-#line 1490 "bwic.tab.c" /* yacc.c:1646  */
+#line 1502 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
 #line 161 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*generatePrintVariable($<string>1);*/}
-#line 1496 "bwic.tab.c" /* yacc.c:1646  */
+#line 1508 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
 #line 162 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*generatePrintString($<string>2);*/}
-#line 1502 "bwic.tab.c" /* yacc.c:1646  */
+#line 1514 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 164 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*generatePrintValue($<string>1);*/}
-#line 1508 "bwic.tab.c" /* yacc.c:1646  */
+#line 1520 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 167 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = (yyvsp[0].string);}
-#line 1514 "bwic.tab.c" /* yacc.c:1646  */
+#line 1526 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 168 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = (yyvsp[0].number);}
-#line 1520 "bwic.tab.c" /* yacc.c:1646  */
+#line 1532 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
 #line 171 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*exit_l2 = exit_l; exit_l = _getNextLabel(); generateGoToInstruction(exit_l); generateLabelInstruction(exit_l2);*/}
-#line 1526 "bwic.tab.c" /* yacc.c:1646  */
+#line 1538 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 171 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*openScopeInSymbolTable();*/}
-#line 1532 "bwic.tab.c" /* yacc.c:1646  */
+#line 1544 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
 #line 171 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*closeScopeInSymbolTable(); generateLabelInstruction(exit_l);*/}
-#line 1538 "bwic.tab.c" /* yacc.c:1646  */
+#line 1550 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
 #line 172 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*generateLabelInstruction(exit_l);*/}
-#line 1544 "bwic.tab.c" /* yacc.c:1646  */
+#line 1556 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*exit_l = generateHeaderOfClauseInstruction();*/}
-#line 1550 "bwic.tab.c" /* yacc.c:1646  */
+#line 1562 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {openScopeInSymbolTable();}
-#line 1556 "bwic.tab.c" /* yacc.c:1646  */
+#line 1568 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {closeScopeInSymbolTable(); }
-#line 1562 "bwic.tab.c" /* yacc.c:1646  */
+#line 1574 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/* while_l = _getNextLabel(); generateLabelInstruction(while_l);*/}
-#line 1568 "bwic.tab.c" /* yacc.c:1646  */
+#line 1580 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*exit_l = generateHeaderOfClauseInstruction();*/}
-#line 1574 "bwic.tab.c" /* yacc.c:1646  */
+#line 1586 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {openScopeInSymbolTable();}
-#line 1580 "bwic.tab.c" /* yacc.c:1646  */
+#line 1592 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*generateGoToInstruction(while_l);*/}
-#line 1586 "bwic.tab.c" /* yacc.c:1646  */
+#line 1598 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {/*closeScopeInSymbolTable(); generateLabelInstruction(exit_l);*/}
-#line 1592 "bwic.tab.c" /* yacc.c:1646  */
+#line 1604 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
@@ -1614,7 +1626,7 @@ yyreduce:
 							/*generateGreaterEqualsVariableToVariable($<string>1, $<string>3);*/
 							break;
 					    } }
-#line 1618 "bwic.tab.c" /* yacc.c:1646  */
+#line 1630 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
@@ -1640,7 +1652,7 @@ yyreduce:
 						   	/*generateGreaterEqualsValueToVariable($<string>1, $<number>3);*/
 						   	break;
 					        } }
-#line 1644 "bwic.tab.c" /* yacc.c:1646  */
+#line 1656 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
@@ -1666,7 +1678,7 @@ yyreduce:
 								/*generateGreaterEqualsValueToValue($<number>1, $<number>3);*/
 								break;
 							} }
-#line 1670 "bwic.tab.c" /* yacc.c:1646  */
+#line 1682 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
@@ -1692,47 +1704,47 @@ yyreduce:
 							/*generateGreaterEqualsValueToVariable($<number>1, $<string>3);*/
 							break;
 						} }
-#line 1696 "bwic.tab.c" /* yacc.c:1646  */
+#line 1708 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
 #line 264 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 1;}
-#line 1702 "bwic.tab.c" /* yacc.c:1646  */
+#line 1714 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
 #line 265 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 2;}
-#line 1708 "bwic.tab.c" /* yacc.c:1646  */
+#line 1720 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
 #line 266 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 3;}
-#line 1714 "bwic.tab.c" /* yacc.c:1646  */
+#line 1726 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
 #line 267 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 4;}
-#line 1720 "bwic.tab.c" /* yacc.c:1646  */
+#line 1732 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
 #line 268 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 5;}
-#line 1726 "bwic.tab.c" /* yacc.c:1646  */
+#line 1738 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
 #line 269 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = 6;}
-#line 1732 "bwic.tab.c" /* yacc.c:1646  */
+#line 1744 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1736 "bwic.tab.c" /* yacc.c:1646  */
+#line 1748 "bwic.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -125,7 +125,7 @@ int _getNextParametersAddressFromSymbolTable(){
 }
 
 int _getNextStaticAddressFromSymbolTable() {
-    return foo();
+    return getNextStackPointer();
 }
 
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2){
