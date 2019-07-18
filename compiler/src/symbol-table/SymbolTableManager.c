@@ -94,8 +94,6 @@ void insertFunctionSymbolTable(char *id){
 
         _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
     }
-
-
 }
 
 void _linkSymbolToSymbolTable(struct Symbol* symbol) {
@@ -127,7 +125,7 @@ int _getNextParametersAddressFromSymbolTable(){
 }
 
 int _getNextStaticAddressFromSymbolTable() {
-    return getNextStackPointer();
+    return foo();
 }
 
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2){
