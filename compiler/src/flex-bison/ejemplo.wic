@@ -9,7 +9,6 @@ fun main (){
     x = 0 + 2 + 4
     int y
     y = 100
-    hola = 4
 }
 
 
