@@ -22,6 +22,8 @@ void moveR7Up();
 
 void moveR7Down();
 
+void r6EqualsR7();
+
 /********Assignation*********/
 
 void putLocalVariableValueInR0(int offset);
