@@ -122,14 +122,12 @@ int _getNextLocalVariableAddressFromSymbolTable(){
 }
 
 int _getNextParametersAddressFromSymbolTable(){
-    //lastFunc ->numberOfParameters++;
+    lastFunc ->numberOfParameters++;
     return (lastFunc->numberOfParameters + 1);
 }
 
 int _getNextStaticAddressFromSymbolTable() {
-    //int pointer = getNextStackPointer();
-
-    return 0;
+    return getNextStackPointer();
 }
 
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2){

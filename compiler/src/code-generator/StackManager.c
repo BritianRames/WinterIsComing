@@ -1,6 +1,6 @@
 #include "StackManager.h"
 
-int stackPointer = 0x11ffc;
+int stackPointer = 0x12000;
 int numberOperators = 0;
 
 void addOneToNumberOperators(){
