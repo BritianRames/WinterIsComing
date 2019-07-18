@@ -14,7 +14,7 @@ void qInitialization() {
     fprintf(f, "MEM(0x11ffc, 0);\n");
     fprintf(f, "CODE(0)\n");
     fprintf(f, "L 0:\n");
-    fprintf(f, "R6 = R7\n");
+    r6EqualsR7();
 }
 
 void jumpMain(){
