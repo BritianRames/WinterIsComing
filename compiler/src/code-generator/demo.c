@@ -10,7 +10,7 @@ void qInitialization(int stat, int code) {
     fprintf(f, "MEM(0x11ffc, 0);\n");
     fprintf(f, "CODE(%d)\n",code);
     fprintf(f, "L 0:\n");
-    fprintf(f, "R6 = R7\n")
+    fprintf(f, "R6 = R7\n");
 }
 
 void jumpMain(){
