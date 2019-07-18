@@ -114,6 +114,11 @@ int getLocalVariableOffset(int position){
 
 /*********Operations*********/
 
+void insertValueInStack(value){
+  moveR7Down();
+  fprintf(f, "I(R7) = %d;\n", value);
+}
+
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");  
 }
