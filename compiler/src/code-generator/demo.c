@@ -87,13 +87,14 @@ void assignVariableToVariable(char *variable1_id, char *variable2_id){
   }
 }
 
-void assignR0ToVariable(int address, int stackPointer, char variable_type) {
+void assignR0ToVariable(char variable_id) {
+  struct Symbol* variable = getTypeFromSymbol(variable_id);
   putOperationResultInR0();
   moveR7Up();
-  if (variable_type == 'g'){
-    fprintf(f, "I(0x%x) = R0;\n", address);  
-  } else if (variable_type == 'l'){
-    int offset = getLocalVariableOffset(address);
+  if (variable->type == 'g'){
+    fprintf(f, "I(0x%x) = R0;\n", variable->address);  
+  } else if (variable->type == 'l'){
+    int offset = getLocalVariableOffset(variable->address);
     fprintf(f, "I(R7 - %d) = R0;\n", offset);  
   }
 }
@@ -134,7 +135,7 @@ void substract(){
   moveR7Up();
 }
 
-void division(int address){
+void division(){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
@@ -174,8 +175,6 @@ void recoverRegisters(){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
 }
-
-/********************/
 
 /*********LogCong-ValueValue***********/
 void valueEqualsToValue(int val1, int val2) {
