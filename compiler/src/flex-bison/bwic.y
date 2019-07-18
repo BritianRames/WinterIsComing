@@ -123,7 +123,7 @@ instruction : assignation
             | BREAK {/*breakCode();*/}
             ;
 
-assignation : ID ASSIGN INT_VAL 
+assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID ASSIGN ID  
             | ID PLUSPLUS    
             | ID MINUSMINUS    

@@ -3,8 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-struct Symbol
-{
+struct Symbol{
     char *id;
     int address; //absolute or relative
     char type;

@@ -3,10 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "CodePrinter.h"
-#include "../symbol-table/SymbolTableManager.h"
 
-FILE *f;
 
 void openFile();
 
