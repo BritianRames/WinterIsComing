@@ -83,7 +83,9 @@ extern int yydebug;
     CLOSE_CONTEXT_TAG = 293,
     QUOTE = 294,
     ID = 295,
-    PRINT = 296
+    PRINT = 296,
+    PLUSPLUS = 297,
+    MINUSMINUS = 298
   };
 #endif
 
@@ -92,10 +94,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "src/flex-bison/bwic.y" /* yacc.c:1909  */
+#line 21 "src/flex-bison/bwic.y" /* yacc.c:1909  */
  int number; char* string; 
 
-#line 99 "bwic.tab.h" /* yacc.c:1909  */
+#line 101 "bwic.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

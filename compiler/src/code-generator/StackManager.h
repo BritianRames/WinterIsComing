@@ -12,4 +12,5 @@ void updateFramePointerToStackPointer();
 void addOneToNumberOperators();
 void minusOneToNumberOperators();
 int getNumberOperators();
+int foo();
 

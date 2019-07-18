@@ -94,8 +94,6 @@ void insertFunctionSymbolTable(char *id){
 
         _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
     }
-
-
 }
 
 void _linkSymbolToSymbolTable(struct Symbol* symbol) {
@@ -122,7 +120,7 @@ int _getNextLocalVariableAddressFromSymbolTable(){
 }
 
 int _getNextParametersAddressFromSymbolTable(){
-    //lastFunc ->numberOfParameters++;
+    lastFunc ->numberOfParameters++;
     return (lastFunc->numberOfParameters + 1);
 }
 
@@ -217,8 +215,6 @@ struct Symbol* getVariableFromSymbolTable(char* id){
     }
     return -1;
 }
-
-
 
 struct Symbol* getFunctionFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;

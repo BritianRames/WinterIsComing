@@ -97,3 +97,8 @@ void generateCreateArray(char* var);
 void generateArrayAssignValue(char* var, int pos, int val);
 void generateArrayAssignVariable(char* var1, int pos, char* var2);
 void generateArrayAssignArray(char* var1, int pos1, char* var2, int pos2);
+void generateVariableAssignArray(char* id, char* array, int pos);
+
+void generatePlussPlussOperation(char* id);
+void generateMinusMinusOperation(char* id);
+void generatePrintString(char* str);

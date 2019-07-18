@@ -1,6 +1,6 @@
 #include "StackManager.h"
 
-int stackPointer = 0x11ffc;
+int stackPointer = 0x12000;
 int numberOperators = 0;
 
 void addOneToNumberOperators(){
@@ -20,20 +20,25 @@ int getNextStackPointer(){
   return stackPointer;
 }
 
+int foo(){
+  return 1;
+}
+
 int getCurrentStackPointer(){
   return stackPointer;
 }
 
 int updateStackPointer(int offset){
-  printUpdateStackPointer(offset);
+  //printUpdateStackPointer(offset);
   stackPointer = stackPointer - offset;
 }
 
 void updateFramePointerToStackPointer(){
-  printUpdateFramePointerToStackPointer();
+  //printUpdateFramePointerToStackPointer();
+
 }
 
 void recoverStackPointer(int offset){
-  printRecoverStackPointer(offset);
+  //printRecoverStackPointer(offset);
   stackPointer = stackPointer + offset;
 }

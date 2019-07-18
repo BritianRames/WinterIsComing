@@ -1,16 +1,15 @@
 int a
 int b
-a = 1
+int hola
+a = 10
 b = 2
-
+hola = 3
 fun main (){
-    a = b + 4 * 2 / 2 
-    if( a == 6){
-        print(a)
-        a = 3 + 6
-    }
-    print(a)
-    print(b)
+    int x
+    x = 0 + 2 + 4
+    int y
+    y = 100
+    hola = 4
 }
 
 
