@@ -23,6 +23,7 @@ void jumpMain(){
 
 void mainFunction() {
     fprintf(f, "L 1:\n");
+    r6EqualsR7();
 }
 
 void goToExit()  {
@@ -59,13 +60,18 @@ void assignValueToVariable(char* variable_id, int value){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){	  
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
-    moveR7Down();
-    r6EqualsR7();
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
     moveR7Down();
     fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
   } 
+}
+void declarationGlobalVariable(char* variable_id){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  if(variable->type == 'g'){	  
+    moveR7Down();
+    r6EqualsR7();
+  }
 }
 
 void putR0InGlobalVariable(int address){

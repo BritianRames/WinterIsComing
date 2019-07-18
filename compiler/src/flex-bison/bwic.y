@@ -98,7 +98,7 @@ root : declaration END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
-declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2);}
+declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
             ;
 

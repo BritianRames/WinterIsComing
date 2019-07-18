@@ -42,6 +42,8 @@ void assignR0ToVariable(char variable_id);
 
 int getLocalVariableOffset(int position);
 
+void declarationGlobalVariable(char* variable_id);
+
 /*********Operations*********/
 
 void putOperationResultInR0();

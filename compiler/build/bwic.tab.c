@@ -1401,7 +1401,7 @@ yyreduce:
 
   case 11:
 #line 101 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {insertVariableInSymbolTable((yyvsp[0].string));}
+    {insertVariableInSymbolTable((yyvsp[0].string)); declarationGlobalVariable((yyvsp[0].string));}
 #line 1406 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
