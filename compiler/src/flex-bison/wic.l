@@ -107,7 +107,8 @@ id                            {letter}({letter}|{digit})*
                                 printf("----PRINT\n");
                                 return PRINT;
                               }
-
+"--"                          {return MINUSMINUS;}
+"++"                          {return PLUSPLUS;}
 
 
    /* Reglas para los valores segun el tipo de dato */
