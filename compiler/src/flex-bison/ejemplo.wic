@@ -5,38 +5,10 @@ a = 10
 b = 2
 hola = 3
 fun main (){
-    print("holaaaa")
-    hola ++
-    print(hola)
-    int z [5]
-    z [0] = 1
-    z [1] = 2
-    z [2] = 3
-    z [3] = 4
-    z [4] = 5
     int x
-    x = z [4]
-    print(x)
-    x = z [3]
-    print(x)
-    x = z [2]
-    print(x)
-    x = z [1]
-    print(x)
-    x = z [0]
-    print(x)
-    x = 0
-    if(a != 1){
-        a = 1 * 4 / 2 * (10 + 2)
-    }
-    x = 1 + 1 + 10
-    print(x)
-    print(a)
-    print(x)
-    while (x >= 1) {
-        print(x)
-        x--
-    }
+    x = 0 + 2
+    int y
+    y = 100
 }
 
 

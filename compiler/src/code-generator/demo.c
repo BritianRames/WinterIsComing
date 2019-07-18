@@ -63,7 +63,7 @@ void assignValueToVariable(char* variable_id, int value){
     r6EqualsR7();
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "I(R7 + 0x%x) = %d;\n", offset, value);    
+    fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
   } 
 }
 

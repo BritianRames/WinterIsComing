@@ -128,7 +128,7 @@ assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID PLUSPLUS    
             | ID MINUSMINUS    
             | ID ASSIGN ID PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
-            | ID ASSIGN aritmeticOperation
+            | ID ASSIGN aritmeticOperation {assignR0ToVariable($<string>1)}
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL 
             | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
@@ -139,12 +139,12 @@ functionCallParams : INT_VAL
                    | INT_VAL COMMA functionCallParams 
                    | ID COMMA functionCallParams
 
-aritmeticOperation :  aritmeticOperation SUM aritmeticOperation 
+aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation SUBSTRACT aritmeticOperation 
                   |   aritmeticOperation PRODUCT aritmeticOperation 
                   |   aritmeticOperation DIVIDE aritmeticOperation 
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-                  |   INT_VAL 
+                  |   INT_VAL {insertValueInStack($<number>1);}
                   |   ID      
                   ;
 

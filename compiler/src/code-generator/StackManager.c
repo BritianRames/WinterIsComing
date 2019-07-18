@@ -29,15 +29,16 @@ int getCurrentStackPointer(){
 }
 
 int updateStackPointer(int offset){
-  printUpdateStackPointer(offset);
+  //printUpdateStackPointer(offset);
   stackPointer = stackPointer - offset;
 }
 
 void updateFramePointerToStackPointer(){
-  printUpdateFramePointerToStackPointer();
+  //printUpdateFramePointerToStackPointer();
+
 }
 
 void recoverStackPointer(int offset){
-  printRecoverStackPointer(offset);
+  //printRecoverStackPointer(offset);
   stackPointer = stackPointer + offset;
 }
