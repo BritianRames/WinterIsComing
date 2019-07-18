@@ -109,7 +109,7 @@ void assignR0ToVariable(char *variable_id) {
     fprintf(f, "I(0x%x) = R0;\n", variable->address);  
   } else if (variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    print("Hey there %d -------------------------------------------------------", variable->address);
+    printf("Hey there %d -------------------------------------------------------", variable->address);
     fprintf(f, "I(R6 - %d) = R0;\n", offset);  
   }
 }
