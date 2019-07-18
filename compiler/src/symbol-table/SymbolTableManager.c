@@ -6,7 +6,8 @@ struct Symbol* lastSymbol;
 struct Symbol* lastFunc;
 int tableSize = 0;
 int currentScope = 0;
-int lastLabel = 1;
+int lastLabel = 0;
+int currentStatCodeSectionNumber = 0;
 
 void insertArrayInSymbolTable(char* id, int size) {
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
@@ -183,6 +184,14 @@ int getVariableAddressFromSymbolTable(char* id){
     }
     printf("ERROR\n");
     return -1;
+}
+
+int getStatSectionNumber() {
+  return currentStatCodeSectionNumber;
+}
+
+int getCodeSectionNumber() {
+  return currentStatCodeSectionNumber++;
 }
 
 char getTypeFromSymbol(char* id) {

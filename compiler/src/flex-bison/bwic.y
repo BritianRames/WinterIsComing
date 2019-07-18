@@ -91,6 +91,7 @@ root : declaration END_OF_INSTRUCTION root
      | assignation END_OF_INSTRUCTION root
      | {if(marcador){generatePrintJumpMain(); marcador = false;}} function root
      | END_OF_INSTRUCTION root
+	 | print END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
@@ -133,7 +134,7 @@ assignation : ID ASSIGN INT_VAL {
                                 }
             | ID ASSIGN ID PARENTESIS_OPEN {printf("ASIGNACION LLAMADA FUNCION\n");/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE
             | ID ASSIGN aritmeticOperation { generateAssignOperationResultToVariable($<string>1);}
-            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation { generateArrayAssignValue($<string>1,$<number>3,$<number>6); }
             ;  
 
 functionCallParams : INT_VAL {printf("PARAMETRO ENTERO\n");/*setParamsValue($<number>1);*/}
@@ -146,7 +147,7 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {generateAddValu
                   |   aritmeticOperation PRODUCT aritmeticOperation {generateProductValue();}
                   |   aritmeticOperation DIVIDE aritmeticOperation {generateDivisionValue();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-                  |   INT_VAL { generateInsertOnStack($<number>1);}
+                  |   INT_VAL { printf("EL NUMERO ES: ");printf("%d\n",$<number>1);generateInsertOnStack($<number>1);printf("ADIOS\n");}
                   |   ID      { generateInsertOnStackVARIABLE($<string>1);}
                   ;
 
@@ -163,9 +164,10 @@ print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
 printableElement : ID {generatePrintVariable($<string>1);}
                  | QUOTE text QUOTE {generatePrintString($<string>2);}
                  | printableElement SUM printableElement
+				 | INT_VAL {generatePrintValue($<string>1);}
                  ;
 
-text : STRING_VAL {$$ = $<number>1;}
+text : STRING_VAL {$$ = $<string>1;}
      | ' '  {$$ = $<number>1;}
      ;
 

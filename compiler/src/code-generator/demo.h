@@ -3,6 +3,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+void moveR7Up();
+void moveR7Down();
+
 void putLocalVariableValueInR0(int offset);
 void putGlobalVariableValueInR0(int address);
 
@@ -18,6 +21,3 @@ void assignR0ToVariable(int address, int stackPointer, char variable_type);
 int getLocalVariableOffset(int position);
 
 void putOperationResultInR0();
-
-void moveR7Up();
-void moveR7Down();

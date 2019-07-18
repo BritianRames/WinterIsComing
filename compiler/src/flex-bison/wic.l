@@ -281,7 +281,7 @@ id                            {letter}({letter}|{digit})*
                                 //data_v.str_val = new char[yyleng];
                                 //data_v.str_val = strcpy(data_v.str_val, yytext);
                                 //yylval = reinterpret_cast<void *>(new wic::ASTLeafNode(wic::STRING, &data_v));
-                                //yylval.string = strdup(yytext);
+                                yylval.string = strdup(yytext);
                                 printf("----STRING_VAL\n");
                                 return STRING_VAL;
                               }
