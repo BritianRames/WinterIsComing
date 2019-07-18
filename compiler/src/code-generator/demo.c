@@ -4,7 +4,7 @@
 FILE *f;
 
 void moveR7Up(){
-  fprintf(f, "R7 = R7 - 4;\n");
+  fprintf(f, "R7 = R7 + 4;\n");
 }
 void moveR7Down(){
   fprintf(f, "R7 = R7 - 4;\n");
