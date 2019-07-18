@@ -43,7 +43,7 @@ void moveR7Down(){
   fprintf(f, "R7 = R7 - 4;\n");
 }
 void r6EqualsR7(){
-  fprintf(f, "R6 = R7\n");
+  fprintf(f, "R6 = R7;\n");
 }
 
 /********Assignation*********/
@@ -60,6 +60,7 @@ void assignValueToVariable(char* variable_id, int value){
   if(variable->type == 'g'){	  
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
     r6EqualsR7();
+    moveR7Down();
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
     fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
