@@ -65,3 +65,20 @@ int getLocalVariableOffset(int position){
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");  
 }
+
+void saveRegisters(){
+  moveR7Down();
+  fprintf(f, "I(R7) = R0;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R1;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R2;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R3;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R4;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R5;\n");
+  moveR7Down();
+  fprintf(f, "I(R7) = R6;\n");
+}
