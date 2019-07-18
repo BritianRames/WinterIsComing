@@ -14,7 +14,7 @@ void qInitialization() {
     fprintf(f, "MEM(0x11ffc, 0);\n");
     fprintf(f, "CODE(0)\n");
     fprintf(f, "L 0:\n");
-    fprintf(f, "R6 = R7\n");
+    r6EqualsR7();
 }
 
 void jumpMain(){
@@ -63,6 +63,7 @@ void assignValueToVariable(char* variable_id, int value){
     r6EqualsR7();
   } else if (variable->type == 'l'){	  
     int offset = getLocalVariableOffset(variable->address);
+    moveR7Down();
     fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
   } 
 }
