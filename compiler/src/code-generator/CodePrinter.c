@@ -156,7 +156,6 @@ void printStoreFunctionData(int stackPointer, int numberOfParameters, int label)
     fprintf(f, "\tP(R7-4) = R6;\n");
     //fprintf(f, "I(R7) = %d;\n", ); //R0 contains return label TODO: Aquí que va?
     fprintf(f, "\tR7 = R7 - %d;\n", label);
-
 }
 
 
@@ -259,86 +258,86 @@ void printInsertOnStackVariable(int address, int var_address){
 // }
 
 /* RELATIONAL FUNCTIONS */
-void printEqualsValueToValue(int val1, int val2) {
-    fprintf(f, "\tR0 = %d == %d;\n", val1, val2);
-}
+// void printEqualsValueToValue(int val1, int val2) {
+//     fprintf(f, "\tR0 = %d == %d;\n", val1, val2);
+// }
 
-void printNotEqualsValueToValue(int val1, int val2){
-    fprintf(f, "\tR0 = %d != %d;\n", val1, val2);
-}
+// void printNotEqualsValueToValue(int val1, int val2){
+//     fprintf(f, "\tR0 = %d != %d;\n", val1, val2);
+// }
 
-void printLessValueToValue(int val1, int val2){
-    fprintf(f, "\tR0 = %d < %d;\n", val1, val2);
-}
+// void printLessValueToValue(int val1, int val2){
+//     fprintf(f, "\tR0 = %d < %d;\n", val1, val2);
+// }
 
-void printLessEqualsValueToValue(int val1, int val2){
-    fprintf(f, "\tR0 = %d <= %d;\n", val1, val2);
-}
+// void printLessEqualsValueToValue(int val1, int val2){
+//     fprintf(f, "\tR0 = %d <= %d;\n", val1, val2);
+// }
 
-void printGreaterValueToValue(int val1, int val2){
-    fprintf(f, "\tR0 = %d > %d;\n", val1, val2);
-}
+// void printGreaterValueToValue(int val1, int val2){
+//     fprintf(f, "\tR0 = %d > %d;\n", val1, val2);
+// }
 
-void printGreaterEqualsValueToValue(int val1, int val2){
-    fprintf(f, "\tR0 = %d >= %d;\n", val1, val2);
-}
+// void printGreaterEqualsValueToValue(int val1, int val2){
+//     fprintf(f, "\tR0 = %d >= %d;\n", val1, val2);
+// }
 
-void printEqualsValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) == %d;\n", address, val);
-}
+// void printEqualsValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) == %d;\n", address, val);
+// }
 
-void printNotEqualsValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) != %d;\n", address, val);
-}
+// void printNotEqualsValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) != %d;\n", address, val);
+// }
 
-void printLessValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) < %d;\n", address, val);
-}
+// void printLessValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) < %d;\n", address, val);
+// }
 
-void printLessEqualsValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) <= %d;\n", address, val);
-}
+// void printLessEqualsValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) <= %d;\n", address, val);
+// }
 
-void printGreaterValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) > %d;\n", address, val);
-}
+// void printGreaterValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) > %d;\n", address, val);
+// }
 
-void printGreaterEqualsValueToVariable(int address, int val){
-    fprintf(f, "\tR0 = I(0x%x) >= %d;\n", address, val);
-}
+// void printGreaterEqualsValueToVariable(int address, int val){
+//     fprintf(f, "\tR0 = I(0x%x) >= %d;\n", address, val);
+// }
 
 
-void printEqualsVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) == I(0x%x);\n", address1, address2);
-}
+// void printEqualsVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) == I(0x%x);\n", address1, address2);
+// }
 
-void printNotEqualsVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) != I(0x%x);\n", address1, address2);
-}
+// void printNotEqualsVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) != I(0x%x);\n", address1, address2);
+// }
 
-void printLessVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) < I(0x%x);\n", address1, address2);
-}
+// void printLessVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) < I(0x%x);\n", address1, address2);
+// }
 
-void printLessEqualsVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) <= I(0x%x);\n", address1, address2);
-}
+// void printLessEqualsVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) <= I(0x%x);\n", address1, address2);
+// }
 
-void printGreaterVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) > I(0x%x);\n", address1, address2);
-}
+// void printGreaterVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) > I(0x%x);\n", address1, address2);
+// }
 
-void printGreaterEqualsVariableToVariable(int address1, int address2){
-    fprintf(f, "\tR0 = I(0x%x) >= I(0x%x);\n", address1, address2);
-}
+// void printGreaterEqualsVariableToVariable(int address1, int address2){
+//     fprintf(f, "\tR0 = I(0x%x) >= I(0x%x);\n", address1, address2);
+// }
 
-void printNotValue(int val){
-    fprintf(f, "\tR0 = !%d;\n", val);
-}
+// void printNotValue(int val){
+//     fprintf(f, "\tR0 = !%d;\n", val);
+// }
 
-void printNotVariable(int address){
-    fprintf(f, "\tR0 = !I(%d);\n", address);
-}
+// void printNotVariable(int address){
+//     fprintf(f, "\tR0 = !I(%d);\n", address);
+// }
 
 
 /* CLAUSE FUNCTIONS */
