@@ -10,6 +10,8 @@ void moveR7Down(){
   fprintf(f, "R7 = R7 - 4;\n");
 }
 
+/********Assignation*********/
+
 void putLocalVariableValueInR0(int offset){
   fprintf(f, "R0 = I(R7 + offset);\n", offset);
 }
@@ -62,6 +64,9 @@ int getLocalVariableOffset(int position){
   return 4 * (numberOfLocalVariables - position);
 }
 
+
+/*********Operations*********/
+
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");  
 }
@@ -81,4 +86,36 @@ void saveRegisters(){
   fprintf(f, "I(R7) = R5;\n");
   moveR7Down();
   fprintf(f, "I(R7) = R6;\n");
+}
+
+void product(){
+  fprintf(f, "R1 = I(R7);\n");
+  moveR7Up();
+  fprintf(f, "R2 = I(R7);\n");
+  fprintf(f, "I(R7) = R2 * R1;\n");
+  moveR7Up();
+}
+
+void add(){
+  fprintf(f, "R1 = I(R7);\n");
+  moveR7Up();
+  fprintf(f, "R2 = I(R7);\n");
+  fprintf(f, "I(R7) = R2 + R1;\n");
+  moveR7Up();
+}
+
+void substract(){
+  fprintf(f, "R1 = I(R7);\n");
+  moveR7Up();
+  fprintf(f, "R2 = I(R7);\n");
+  fprintf(f, "I(R7) = R2 - R1;\n");
+  moveR7Up();
+}
+
+void division(int address){
+  fprintf(f, "R1 = I(R7);\n");
+  moveR7Up();
+  fprintf(f, "R2 = I(R7);\n");
+  fprintf(f, "I(R7) = R2 / R1;\n");
+  moveR7Up();
 }
