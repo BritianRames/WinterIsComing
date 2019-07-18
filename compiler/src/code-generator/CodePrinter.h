@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 void openFile();
-void printQInitialization();
+void printQInitialization(int stat, int code);
 void printJumpMain();
 void printMainFunction();
 void printGoToExit();
@@ -19,9 +19,9 @@ void printRecoverRegistersValue(int registerFramePointer);
 void printSaveRegistersValue(int lastRegisterPointer);
 void printCodeToAssignValueToVariable(int address, int value);
 void printCodeToAssignVariableToVariable(int address, int value_address);
-void printPrintStringCode(char* string);
-void printPrintValueCode(int value);
-void printPrintVariableCode(int address);
+void printPrintStringCode(char* string,int address,int label,int stat,int code);
+void printPrintValueCode(int print_address,int value,int label,int stat,int code);
+void printPrintVariableCode(int print_address,int value_address, int label, int stat, int code);
 void printRecoverStack(int numberOfParameters);
 void _printSaveParameters(int numberOfParameters);
 
@@ -89,7 +89,7 @@ void printGoToInstruction(int label);
 void printLabelInstruction(int label);
 
 /* ARRAY MANAGEMENT */
-void printCreateArray(int label, int addr, int size);
+void printCreateArray(int addr, int size);
 void printArrayAssignValue(int addr, int pos, int val);
 void printArrayAssignVariable(int addr1, int pos, int addr2);
 void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2);

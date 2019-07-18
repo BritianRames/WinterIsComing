@@ -3,9 +3,13 @@
 #include "StackManager.h"
 #include "CodePrinter.h"
 
+#include <string.h>
+
 /* GENERAL STUFF */
 void generateQInitialization() {
-    printQInitialization();
+    int stat = getStatSectionNumber();
+    int code = getCodeSectionNumber();
+    printQInitialization(stat,code);
 }
 
 void generatePrintJumpMain(){
@@ -73,39 +77,79 @@ void generateAssignVariableToFunctionResult(char* variable){
 }
 
 void generatePrintString(char* string){
-  printPrintStringCode(string);
+  int address = getNextStackPointer();
+  updateStackPointer(strlen(string));
+  printf(string);
+  int label = _getNextLabel();
+  int stat = getStatSectionNumber();
+  int code = getCodeSectionNumber();
+  printPrintStringCode(string,address,label,stat,code);
 }
 
 void generatePrintValue(int value){
-  printPrintValueCode(value);
+  int label = _getNextLabel();
+  int stat = getStatSectionNumber();
+  int code = getCodeSectionNumber();
+  int print_address = getNextStackPointer();
+  updateStackPointer(4);
+  printPrintValueCode(print_address,value,label,stat,code);
 }
 
 void generatePrintVariable(char* id){
-  int address = _getVariableAddress(id);
-  printPrintVariableCode(address);
-  printf("----------------->0x%x<----------------", address);
+  struct Symbol* symbol = getVariableFromSymbolTable(id);
+  int label = _getNextLabel();
+  int stat = getStatSectionNumber();
+  int code = getCodeSectionNumber();
+  if (symbol->array_size == NULL) {
+    int print_address = getNextStackPointer();
+    updateStackPointer(4);
+    printPrintVariableCode(print_address,symbol->address,label,stat,code);
+  } else {
+    generatePrintString("[");
+    for (int i = 0; i < symbol->array_size; i = i + 4) {
+      generatePrintArrayAccess(id, i);
+	  if (i == symbol->array_size - 4) {
+		generatePrintString("]");
+	  } else {
+	    generatePrintString(", ");
+	  }
+	}
+  }
+  printf("----------------->0x%x<----------------", symbol->address);
+}
+
+void generatePrintArrayAccess(char* id, int pos) {
+  int label = _getNextLabel();
+  int stat = getStatSectionNumber();
+  int code = getCodeSectionNumber();
+  int print_address = getNextStackPointer();
+  updateStackPointer(4);
+  struct Symbol* symbol = getVariableFromSymbolTable(id);
+  int address = symbol->address - 4*pos;
+  printPrintValueCode(print_address,address,label,stat,code);
 }
 
 /* ARITHMETIC FUNCTIONS */
 
 void generateInsertOnStack(int value){
-  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
+  addOneToNumberOperators(); //¿ANTES O DESPUES?
+  int address = getCurrentStackPointer();
   printf(",,,,,,,,,,");
   printInsertOnStack(address, value);
-  addOneToNumberOperators(); //¿ANTES O DESPUES?
 }
 
 void generateInsertOnStackVARIABLE(char* id){
-  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators() - 4;
   printf(",,,,,,,,,,");
-  int var_address = getVariableAddressFromSymbolTable(id);
-  printInsertOnStackVariable(address, var_address);
   addOneToNumberOperators(); //¿ANTES O DESPUES?
+  int var_address = getVariableAddressFromSymbolTable(id);
+  int address = getCurrentStackPointer();
+  updateStackPointer(4);
+  printInsertOnStackVariable(address, var_address);
 }
 
 void generateAddValue(){
   printf("...............");
-  int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4 * getNumberOperators();
+  int address = getCurrentStackPointer() - 4 * getNumberOperators();
   printf("...............");
   printAddValue(address);
   minusOneToNumberOperators();
@@ -146,7 +190,7 @@ void generateDivisionValue(){
 //}
 //
 void generateAssignOperationResultToVariable(char* id) {
-    int address = getCurrentStackPointer() - 4 * getLastFunctionFromSymbolTable()->numberOfLocalVariables - 4;
+    int address = getCurrentStackPointer() - 4;
     printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAA%dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",address);
     printCodeToAssignOperationResultToVariable(_getVariableAddress(id), address);
 }
@@ -265,7 +309,8 @@ void generateLabelInstruction(int label) {
 /* ARRAY MANAGEMENT */
 void generateCreateArray(char* var) {
     struct Symbol* symbol = getVariableFromSymbolTable(var);
-    printCreateArray(_getNextLabel(), _getVariableAddress(var), symbol->array_size);
+    printCreateArray(symbol->address, symbol->array_size);
+	updateStackPointer(symbol->array_size);
 }
 
 void generateArrayAssignValue(char* var, int pos, int val) {
@@ -277,6 +322,10 @@ void generateArrayAssignVariable(char* var1, int pos, char* var2) {
 
 void generateArrayAssignArray(char* var1, int pos1, char* var2, int pos2){
     printArrayAssignArray(_getVariableAddress(var1), pos1, _getVariableAddress(var2), pos2);
+}
+
+void generatePrintArray(char* var){
+	//TODO
 }
 
 // void generateReturnValueCode(int value){
