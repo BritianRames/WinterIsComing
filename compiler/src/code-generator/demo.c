@@ -81,6 +81,8 @@ void assignVariableToVariable(char* variable1_id, char* variable2_id){
 
   if (variable1->type == "g"){
     putGlobalVariableValueInR0(variable1->address);
+    r6EqualsR7();
+    moveR7Down();
   } else if(variable1->type = "l"){
     int offset = getLocalVariableOffset(variable1->address);
     putLocalVariableValueInR0(offset);
@@ -111,6 +113,11 @@ int getLocalVariableOffset(int position){
 
 
 /*********Operations*********/
+
+void insertValueInStack(value){
+  moveR7Down();
+  fprintf(f, "I(R7) = %d;\n", value);
+}
 
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");  
