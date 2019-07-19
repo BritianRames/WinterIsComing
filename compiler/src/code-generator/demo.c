@@ -49,14 +49,101 @@ void r6EqualsR7(){
 
 /********Assignation*********/
 
-void putLocalVariableValueInR0(int offset){
-  fprintf(f, "R0 = I(R6 - offset);\n", offset);
-}
-void putGlobalVariableValueInR0(int address){
-  fprintf(f, "R0 = I(%d);\n", address);
-}
+// void putLocalVariableValueInR0(int offset){
+//   fprintf(f, "R0 = I(R6 - offset);\n", offset);
+// }
+// void putGlobalVariableValueInR0(int address){
+//   fprintf(f, "R0 = I(%d);\n", address);
+// }
 
 //Called when a declaration is recognized
+
+void assignValueToVariable(char* variable_id, int value){
+  moveR7Down();
+  putVariableAddressInStack(variable_id);
+  moveR7Down();
+  insertValueInStack(value);
+  assign();
+  // struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  // if(variable->type == 'g'){	  
+  //   fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
+  // } else if (variable->type == 'l'){	  
+  //   struct Symbol* function = getLastFunctionFromSymbolTable();
+  //   int offset =  getLocalVariableOffset(variable->address);
+  //   moveR7Down();
+  //   fprintf(f, "I(R6 - %d) = %d;\n", offset, value);    
+  // } 
+}
+void declarationGlobalVariable(char* variable_id){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  if(variable->type == 'g'){	  
+    moveR7Down();
+  }
+}
+
+// void putR0InGlobalVariable(int address){
+//   fprintf(f, "I(%d) = R0;\n", address);
+// }
+// void putR0InLocalVariable(int offset){
+//   fprintf(f, "I(R6 - %d) = R0;\n", offset);
+// }
+
+void assignVariableToVariable(char* variable1_id, char* variable2_id){
+  moveR7Down();
+  putVariableAddressInStack(variable1_id);
+  moveR7Down();
+  putVariableValueInStack(variable2_id);
+  assign();
+  // struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
+  // struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
+  // struct Symbol* variable = getVariableFromSymbolTable(variable2_id);
+
+  // if (variable1->type == "g"){
+  //   putGlobalVariableValueInR0(variable1->address);
+  //   moveR7Down();
+  // } else if(variable1->type = "l"){
+  //   int offset = getLocalVariableOffset(variable1->address);
+  //   putLocalVariableValueInR0(offset);
+  // }
+  // if (variable2->type == 'g'){
+  //   putR0InGlobalVariable(variable2->address);
+  // } else if(variable2->type = 'l'){
+  //   int offset = getLocalVariableOffset(variable2->address);
+  //   putR0InLocalVariable(offset);
+  // }
+}
+
+// void assignR0ToVariable(char *variable_id) {
+//   struct Symbol *variable = getVariableFromSymbolTable(variable_id); 
+//   putOperationResultInR0();
+//   moveR7Up();
+//   if (variable->type == 'g'){
+//     fprintf(f, "I(0x%x) = R0;\n", variable->address);  
+//   } else if (variable->type == 'l'){
+//     int offset = getLocalVariableOffset(variable->address);
+//     printf("Hey there %d -------------------------------------------------------", variable->address);
+//     fprintf(f, "I(R6 - %d) = R0;\n", offset);  
+//   }
+// }
+
+int getLocalVariableOffset(int position){
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  int numberOfParameters = function -> numberOfParameters;
+  return 4 * (numberOfParameters + 2 + position);
+}
+
+
+/*********Operations*********/
+
+void insertValueInStack(value){
+  moveR7Down();
+  fprintf(f, "I(R7) = %d;\n", value);
+}
+
+void putOperationResultInR0(){
+  fprintf(f, "R0 = I(R7);\n");  
+}
+
 void putVariableAddressInStack(char *variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){	  
@@ -85,92 +172,6 @@ void putVariableValueInStack(char *variable_id){
     fprintf(f, "R2 = I(R1);\n");
     fprintf(f, "I(R7) = R2;\n");
   } 
-}
-
-void assignValueToVariable(char* variable_id, int value){
-  moveR7Down();
-  putVariableAddressInStack(variable_id);
-  moveR7Down();
-  insertValueInStack(value);
-  assign();
-  // struct Symbol* variable = getVariableFromSymbolTable(variable_id);
-  // if(variable->type == 'g'){	  
-  //   fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
-  // } else if (variable->type == 'l'){	  
-  //   struct Symbol* function = getLastFunctionFromSymbolTable();
-  //   int offset =  getLocalVariableOffset(variable->address);
-  //   moveR7Down();
-  //   fprintf(f, "I(R6 - %d) = %d;\n", offset, value);    
-  // } 
-}
-void declarationGlobalVariable(char* variable_id){
-  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
-  if(variable->type == 'g'){	  
-    moveR7Down();
-  }
-}
-
-void putR0InGlobalVariable(int address){
-  fprintf(f, "I(%d) = R0;\n", address);
-}
-void putR0InLocalVariable(int offset){
-  fprintf(f, "I(R6 - %d) = R0;\n", offset);
-}
-
-void assignVariableToVariable(char* variable1_id, char* variable2_id){
-  moveR7Down();
-  putVariableAddressInStack(variable1_id);
-  moveR7Down();
-  putVariableValueInStack(variable2_id);
-  assign();
-  // struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
-  // struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
-  // struct Symbol* variable = getVariableFromSymbolTable(variable2_id);
-
-  // if (variable1->type == "g"){
-  //   putGlobalVariableValueInR0(variable1->address);
-  //   moveR7Down();
-  // } else if(variable1->type = "l"){
-  //   int offset = getLocalVariableOffset(variable1->address);
-  //   putLocalVariableValueInR0(offset);
-  // }
-  // if (variable2->type == 'g'){
-  //   putR0InGlobalVariable(variable2->address);
-  // } else if(variable2->type = 'l'){
-  //   int offset = getLocalVariableOffset(variable2->address);
-  //   putR0InLocalVariable(offset);
-  // }
-}
-
-void assignR0ToVariable(char *variable_id) {
-  struct Symbol *variable = getVariableFromSymbolTable(variable_id); 
-  putOperationResultInR0();
-  moveR7Up();
-  if (variable->type == 'g'){
-    fprintf(f, "I(0x%x) = R0;\n", variable->address);  
-  } else if (variable->type == 'l'){
-    int offset = getLocalVariableOffset(variable->address);
-    printf("Hey there %d -------------------------------------------------------", variable->address);
-    fprintf(f, "I(R6 - %d) = R0;\n", offset);  
-  }
-}
-
-int getLocalVariableOffset(int position){
-  struct Symbol* function = getLastFunctionFromSymbolTable();
-  int numberOfParameters = function -> numberOfParameters;
-  return 4 * (numberOfParameters + 2 + position);
-}
-
-
-/*********Operations*********/
-
-void insertValueInStack(value){
-  moveR7Down();
-  fprintf(f, "I(R7) = %d;\n", value);
-}
-
-void putOperationResultInR0(){
-  fprintf(f, "R0 = I(R7);\n");  
 }
 
 void product(){
