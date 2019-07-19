@@ -30,6 +30,8 @@ void putVariableValueInStack(char *variable_id);
 
 /********Assignation*********/
 
+void insertVariableValueInStack(char* variable_id);
+
 void putLocalVariableValueInR0(int offset);
 
 void putGlobalVariableValueInR0(int address);
@@ -42,7 +44,7 @@ void putR0InLocalVariable(int offset);
 
 void assignVariableToVariable(char *variable1_id, char *variable2_id);
 
-void assignR0ToVariable(char variable_id);
+void assignR0ToVariable(char* variable_id);
 
 int getLocalVariableOffset(int position);
 
