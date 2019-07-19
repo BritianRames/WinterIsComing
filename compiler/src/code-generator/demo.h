@@ -24,6 +24,10 @@ void moveR7Down();
 
 void r6EqualsR7();
 
+void putVariableAddressInStack(char *variable_id);
+
+void putVariableValueInStack(char *variable_id);
+
 /********Assignation*********/
 
 void putLocalVariableValueInR0(int offset);
@@ -55,6 +59,8 @@ void add();
 void substract();
 
 void division();
+
+void assign();
 
 /********Registers***********/
 void saveRegisters();
