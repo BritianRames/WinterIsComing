@@ -59,11 +59,6 @@ void r6EqualsR7(){
 //Called when a declaration is recognized
 
 void assignValueToVariable(char* variable_id, int value){
-  moveR7Down();
-  putVariableAddressInStack(variable_id);
-  moveR7Down();
-  insertValueInStack(value);
-  assign();
   // struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   // if(variable->type == 'g'){	  
   //   fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
@@ -89,11 +84,6 @@ void declarationGlobalVariable(char* variable_id){
 // }
 
 void assignVariableToVariable(char* variable1_id, char* variable2_id){
-  moveR7Down();
-  putVariableAddressInStack(variable1_id);
-  moveR7Down();
-  putVariableValueInStack(variable2_id);
-  assign();
   // struct Symbol* variable1 = getVariableFromSymbolTable(variable1_id);
   // struct Symbol* variable2 = getVariableFromSymbolTable(variable2_id);
   // struct Symbol* variable = getVariableFromSymbolTable(variable2_id);
