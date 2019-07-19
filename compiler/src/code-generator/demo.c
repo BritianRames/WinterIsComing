@@ -135,7 +135,8 @@ void product(){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
-  fprintf(f, "I(R7) = R2 * R1;\n");
+  fprintf(f, "R3 = R2 * R1;\n");
+  fprintf(f, "I(R7) = R3;\n");
   moveR7Up();
 }
 
@@ -143,14 +144,16 @@ void add(){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
-  fprintf(f, "I(R7) = R2 + R1;\n");
+  fprintf(f, "R3 = R2 + R1;\n");
+  fprintf(f, "I(R7) = R3;\n");
 }
 
 void substract(){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
-  fprintf(f, "I(R7) = R2 - R1;\n");
+  fprintf(f, "R3 = R2 - R1;\n");
+  fprintf(f, "I(R7) = R3;\n");
   moveR7Up();
 }
 
@@ -158,7 +161,8 @@ void division(int address){
   fprintf(f, "R1 = I(R7);\n");
   moveR7Up();
   fprintf(f, "R2 = I(R7);\n");
-  fprintf(f, "I(R7) = R2 / R1;\n");
+  fprintf(f, "R3 = R2 / R1;\n");
+  fprintf(f, "I(R7) = R3;\n");
   moveR7Up();
 }
 
