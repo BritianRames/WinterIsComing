@@ -58,10 +58,11 @@ void putGlobalVariableValueInR0(int address){
 
 void assignValueToVariable(char* variable_id, int value){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  struct Symbol* function = getLastFunctionFromSymbolTable();
   if(variable->type == 'g'){	  
     fprintf(f, "I(0x%x) = %d;\n", variable->address, value);
   } else if (variable->type == 'l'){	  
-    int offset = getLocalVariableOffset(variable->address);
+    int offset =  getLocalVariableOffset(variable->address);
     moveR7Down();
     fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
   } 
@@ -110,13 +111,14 @@ void assignR0ToVariable(char *variable_id) {
     fprintf(f, "I(0x%x) = R0;\n", variable->address);  
   } else if (variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "I(R7 - %d) = R0;\n", offset);  
+    fprintf(f, "I(R6 - %d) = R0;\n", offset);  
   }
 }
 
 int getLocalVariableOffset(int position){
-  int numberOfLocalVariables = getLastFunctionFromSymbolTable() -> numberOfLocalVariables; 
-  return 4 * (numberOfLocalVariables - position);
+  struct Symbol* function = getLastFunctionFromSymbolTable();
+  int numberOfParameters = function -> numberOfParameters;
+  return 4 * (numberOfParameters + 2 + position);
 }
 
 
@@ -163,6 +165,7 @@ void division(int address){
 }
 
 /********Registers***********/
+
 void saveRegisters(){
   moveR7Down();
   fprintf(f, "I(R7) = R0;\n");
