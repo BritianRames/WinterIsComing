@@ -160,7 +160,7 @@ print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
 printableElement : ID {/*generatePrintVariable($<string>1);*/}
                  | QUOTE text QUOTE {/*generatePrintString($<string>2);*/}
                  | printableElement SUM printableElement
-				     | INT_VAL {/*generatePrintValue($<string>1);*/}
+				     | INT_VAL {printValue($<number>1);}
                  ;
 
 text : STRING_VAL {$$ = $<string>1;}

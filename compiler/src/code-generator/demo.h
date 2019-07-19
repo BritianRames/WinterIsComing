@@ -28,6 +28,8 @@ void putVariableAddressInStack(char *variable_id);
 
 void putVariableValueInStack(char *variable_id);
 
+void printValue(int value);
+
 /********Assignation*********/
 
 void insertVariableValueInStack(char* variable_id);

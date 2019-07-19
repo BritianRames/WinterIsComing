@@ -10,27 +10,26 @@ void openFile(){
 void qInitialization() {
     fprintf(f, "#include \"Q.h\"\n\n");
     fprintf(f, "BEGIN\n");
-    fprintf(f, "STAT(0)\n");
-    fprintf(f, "MEM(0x11ffc, 0);\n");
-    fprintf(f, "CODE(0)\n");
     fprintf(f, "L 0:\n");
     r6EqualsR7();
 }
 
 void jumpMain(){
+  
+    fprintf(f,"STAT(0)\nSTR(0x11ff0,\"%%d\\n\");\nCODE(0)\n");
     fprintf(f, "\tGT(1);\n");
 }
 
 void mainFunction() {
-    fprintf(f, "L 1:\n");
+    fprintf(f, "L %d:\n",_getNextLabel());
     r6EqualsR7();
 }
 
 void goToExit()  {
-  fprintf(f, "printf(\"%%d \\n\", I(R6 - 4));\n");
-  fprintf(f, "printf(\"%%d \\n\", I(R6 - 8));\n");
-  fprintf(f, "printf(\"%%d \\n\", I(R6 - 12));\n");
-  fprintf(f, "printf(\"%%d \\n\", I(R6 - 16));\n");
+  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 4));\n");
+  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 8));\n");
+  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 12));\n");
+  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 16));\n");
   fprintf(f, "\tGT(-2);\n");
 }
 
@@ -135,6 +134,16 @@ int getLocalVariableOffset(int position){
   return result;
 }
 
+void printValue(int value){
+  int label = _getNextLabel();
+  //saveRegisters();
+  fprintf(f,"R0 = %d;\n",label);
+  fprintf(f,"R1 = %d;\n",0x11ff0);
+  fprintf(f,"R2 = %d;\n",value);
+  fprintf(f,"GT(-12);\n");
+  fprintf(f, "L %d:\n", label);
+  //recoverRegisters();
+}
 
 /*********Operations*********/
 
