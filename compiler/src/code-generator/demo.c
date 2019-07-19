@@ -50,7 +50,7 @@ void r6EqualsR7(){
 /********Assignation*********/
 
 void putLocalVariableValueInR0(int offset){
-  fprintf(f, "R0 = I(R7 + offset);\n", offset);
+  fprintf(f, "R0 = I(R6 - offset);\n", offset);
 }
 void putGlobalVariableValueInR0(int address){
   fprintf(f, "R0 = I(%d);\n", address);
@@ -64,14 +64,13 @@ void assignValueToVariable(char* variable_id, int value){
   } else if (variable->type == 'l'){	  
     int offset =  getLocalVariableOffset(variable->address);
     moveR7Down();
-    fprintf(f, "I(R7 + %d) = %d;\n", offset, value);    
+    fprintf(f, "I(R6 - %d) = %d;\n", offset, value);    
   } 
 }
 void declarationGlobalVariable(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){	  
     moveR7Down();
-    r6EqualsR7();
   }
 }
 
@@ -79,7 +78,7 @@ void putR0InGlobalVariable(int address){
   fprintf(f, "I(%d) = R0;\n", address);
 }
 void putR0InLocalVariable(int offset){
-  fprintf(f, "I(R7 + %d) = R0;\n", offset);
+  fprintf(f, "I(R6 - %d) = R0;\n", offset);
 }
 
 void assignVariableToVariable(char* variable1_id, char* variable2_id){
@@ -90,7 +89,6 @@ void assignVariableToVariable(char* variable1_id, char* variable2_id){
   if (variable1->type == "g"){
     putGlobalVariableValueInR0(variable1->address);
     moveR7Down();
-    r6EqualsR7();
   } else if(variable1->type = "l"){
     int offset = getLocalVariableOffset(variable1->address);
     putLocalVariableValueInR0(offset);
@@ -231,7 +229,7 @@ void valueEqualsToVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) == %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) == %d;\n", offset, val);
   }
 }
 
@@ -242,7 +240,7 @@ void valueNotEqualToVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) != %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) != %d;\n", offset, val);
   }
 }
 
@@ -253,7 +251,7 @@ void valueSmallerThanVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) < %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) < %d;\n", offset, val);
   }
 }
 
@@ -264,7 +262,7 @@ void valueSmallerEqualsThanVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) <= %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) <= %d;\n", offset, val);
   }
 }
 
@@ -275,7 +273,7 @@ void valueGreaterThanVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) > %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) > %d;\n", offset, val);
   }
 }
 
@@ -286,7 +284,7 @@ void valueGreaterEqualsThanVariable(char* variable_id, int val){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) >= %d;\n", offset, val);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) >= %d;\n", offset, val);
   }
 }
 
@@ -299,14 +297,14 @@ void variableEqualsToVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) == ", offset);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) == ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -318,14 +316,14 @@ void variableNotEqualsToVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 = I(R7 - 0x%x) != ", offset);
+    fprintf(f, "\tR0 = I(R6 - 0x%x) != ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -337,14 +335,14 @@ void variableSmallerThanVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 < I(R7 - 0x%x) != ", offset);
+    fprintf(f, "\tR0 < I(R6 - 0x%x) != ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -356,14 +354,14 @@ void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 <= I(R7 - 0x%x) != ", offset);
+    fprintf(f, "\tR0 <= I(R6 - 0x%x) != ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -375,14 +373,14 @@ void variableGraterThanVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 > I(R7 - 0x%x) != ", offset);
+    fprintf(f, "\tR0 > I(R6 - 0x%x) != ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -394,14 +392,14 @@ void variableGraterEqualsThanVariable(char* variable1_id, char* variable2_id){
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "\tR0 >= I(R7 - 0x%x) != ", offset);
+    fprintf(f, "\tR0 >= I(R6 - 0x%x) != ", offset);
   }
   if(variable2->type == 'g'){
     fprintf(f, "I(0x%x);\n", variable1->address);
   }
   else if(variable1->type == 'l'){
     int offset = getLocalVariableOffset(variable1->address);
-    fprintf(f, "I(R7 - 0x%x);\n", offset);
+    fprintf(f, "I(R6 - 0x%x);\n", offset);
   }
 }
 
@@ -417,6 +415,6 @@ void notVariable(char *variable_id){
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = !I(R7 - 0x%x);\n", offset);
+    fprintf(f, "\tR0 = !I(R6 - 0x%x);\n", offset);
   }
 }
