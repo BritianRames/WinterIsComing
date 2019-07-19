@@ -6,8 +6,10 @@ b = 2
 hola = 3
 fun main (){
     int x
-    x = 0 + 2 + 4
     int y
+    int z
+    z = 1
+    x = 0 + 2 - 2 - 4 + 4
     y = 100
 }
 

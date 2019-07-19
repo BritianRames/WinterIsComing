@@ -117,7 +117,15 @@ void assignR0ToVariable(char *variable_id) {
 int getLocalVariableOffset(int position){
   struct Symbol* function = getLastFunctionFromSymbolTable();
   int numberOfParameters = function -> numberOfParameters;
-  return 4 * (numberOfParameters + 2 + position);
+  int result = 0;
+  if(strcmp(function->id, "main") == 0){
+    result = 4 * (position);
+    printf("\n\n\nAAAAAAAAAA-----%d---AAAAAAAAAAAA\n\n\n",position);
+    printSymbolTable();
+  } else {
+    result = 4 * (numberOfParameters + 2 + position);
+  }
+  return result;
 }
 
 
