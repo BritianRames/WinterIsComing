@@ -39,7 +39,7 @@ return                        (return)
 fun                           (fun)
 
 /* Valores segun el tipo de dato */
-int_val                       {digit}+
+int_val                       [-]*{digit}+
 /*real_val                      ({digit}+\.){digit}*|\.{digit}+*/
 /*bool_val                      (true|false)*/
 /*char_val                      [^']?|(\\[nrtvba0'"\\])*/

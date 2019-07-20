@@ -102,7 +102,7 @@ declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationG
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
             ;
 
-function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
+function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
          ;
 
 params : INT_TYPE ID params {/*insertVariable($<string>2);*/}
@@ -124,9 +124,8 @@ instruction : assignation
             ;
 
 assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
-            | ID ASSIGN ID  
-            | ID PLUSPLUS    
-            | ID MINUSMINUS    
+            | ID PLUSPLUS    {insertVariableValueInStack($<string>1); insertValueInStack(1); add();assignR0ToVariable($<string>1);}
+            | ID MINUSMINUS   {insertVariableValueInStack($<string>1); insertValueInStack(1); substract();assignR0ToVariable($<string>1);}
             | ID ASSIGN ID PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
             | ID ASSIGN aritmeticOperation {assignR0ToVariable($<string>1);}
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
@@ -140,12 +139,12 @@ functionCallParams : INT_VAL
                    | ID COMMA functionCallParams
 
 aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
-                  |   aritmeticOperation SUBSTRACT aritmeticOperation 
-                  |   aritmeticOperation PRODUCT aritmeticOperation 
-                  |   aritmeticOperation DIVIDE aritmeticOperation 
+                  |   aritmeticOperation SUBSTRACT aritmeticOperation {substract();}
+                  |   aritmeticOperation PRODUCT aritmeticOperation {product();}
+                  |   aritmeticOperation DIVIDE aritmeticOperation {division();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
                   |   INT_VAL {insertValueInStack($<number>1);}
-                  |   ID      
+                  |   ID  {insertVariableValueInStack($<string>1);}    
                   ;
 
 
@@ -161,7 +160,7 @@ print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
 printableElement : ID {/*generatePrintVariable($<string>1);*/}
                  | QUOTE text QUOTE {/*generatePrintString($<string>2);*/}
                  | printableElement SUM printableElement
-				 | INT_VAL {/*generatePrintValue($<string>1);*/}
+				     | INT_VAL {/*generatePrintValue($<string>1);*/}
                  ;
 
 text : STRING_VAL {$$ = $<string>1;}
