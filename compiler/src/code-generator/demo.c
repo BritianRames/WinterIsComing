@@ -45,19 +45,23 @@ void mainFunction() {
   fprintf(f, "L 1:\n");
   r6EqualsR7();
 }
+// L 2:
+// a = b
+// return c
+
+
+//L 1:
+//GT(2)
+//L 3:
 
 void functionCall(int *parameters, char* function_id){
   struct Symbol *function = getFunctionFromSymbolTable(function_id); 
   int returnLabel = label;
   label ++;
-  fprintf(f, "GT(%d):\n", function->label);
+  fprintf(f, "GT(%d): \n", function->label);
   fprintf(f, "L %d:\n", returnLabel);
-  for(int i = 0 ;  i < function->numberOfParameters; i++){
-    moveR7Down();
-    insertValueInStack(parameters[i]);
-  }
   r6EqualsR7();
-  for(int i = 0 ; i < function->numberOfParameters; i++){
+  for(int i = 0 ;  i < function->numberOfParameters; i++){
     moveR7Down();
     insertValueInStack(parameters[i]);
   }
@@ -69,6 +73,10 @@ void functionCall(int *parameters, char* function_id){
     moveR7Down();
   }
 }
+
+
+
+//hacer rt con gt(R6 + numberPAram + 4)
 
 /*******Stack*********/
 

@@ -148,9 +148,9 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   ;
 
 
-return : RETURN ID {/*returnVariable($<number>2);*/}
-       | RETURN INT_VAL {/*returnValue($<number>2);*/}
-       | RETURN aritmeticOperation {/*returnValue($<number>2);*/}
+return : RETURN ID {insertVariableInStack($<number>2);}
+       | RETURN INT_VAL {insertValueInStack($<number>2);}
+       | RETURN aritmeticOperation {/*insertValueInStack($<number>2);*/}
        | RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE {printf("TERMINA LLAMADA FUNCION\n");}
        ; 
 
