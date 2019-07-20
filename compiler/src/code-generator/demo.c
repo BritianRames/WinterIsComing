@@ -121,7 +121,7 @@ void assignValueToVariable(char* variable_id, int value){
     //moveR7Down();
     fprintf(f, "I(R6 - %d) = %d;\n", offset, value);    
   } else if(variable->type == 'p'){	  
-    int offset =  getParameterOffset(variable->address);
+    int offset =  getPArameterOffset(variable->address);
     fprintf(f, "I(R6 - %d) = %d;\n", offset, value);  
   }  
 }
@@ -144,9 +144,6 @@ void putVariableInR0(char *variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if (variable->type == "g"){
     putGlobalVariableValueInR0(variable->address);
-  } else if(variable->type = "l"){
-    int offset = getLocalVariableOffset(variable->address);
-    putLocalVariableValueInR0(offset);
   } else if(variable->type = "l"){
     int offset = getLocalVariableOffset(variable->address);
     putLocalVariableValueInR0(offset);
@@ -212,7 +209,7 @@ int getLocalVariableOffset(int position){
 }
 
 int getParameterOffset(int position){
-  return position * 4;
+  return position;
 }
 
 
