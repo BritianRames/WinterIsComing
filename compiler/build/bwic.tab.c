@@ -1623,13 +1623,13 @@ yyreduce:
 
   case 69:
 #line 173 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {closeScopeInSymbolTable(); }
+    {closeScopeInSymbolTable();}
 #line 1628 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    { (yyval.number) = _getNextLabel();}
+    { pushClause(_getNextLabel(),'x');}
 #line 1634 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1641,7 +1641,7 @@ yyreduce:
 
   case 73:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {exit_l2 = printHeaderOfClauseInstruction();}
+    {pushClause(printHeaderOfClauseInstruction(),'w');}
 #line 1646 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1653,13 +1653,13 @@ yyreduce:
 
   case 75:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {generateGoToWhile((yyvsp[-10].number));}
+    {generateGoToWhile(popClause('x'));}
 #line 1658 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
 #line 174 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {closeScopeInSymbolTable(); printLabelInstruction(exit_l2);}
+    {closeScopeInSymbolTable(); printLabelInstruction(popClause('w'));}
 #line 1664 "bwic.tab.c" /* yacc.c:1646  */
     break;
 

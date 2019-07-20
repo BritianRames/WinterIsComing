@@ -9,14 +9,6 @@ fun main (){
     a = a * 10 / b + hola
     x = 1
     while ( x != 5) {
-        if (x == 4) {
-            print(999)
-            if(hola == 3){
-                print(111)
-            }
-        } else {
-            print(888)
-        }
         print(210)
         x++
     }

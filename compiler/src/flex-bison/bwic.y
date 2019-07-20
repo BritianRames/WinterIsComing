@@ -171,8 +171,8 @@ else : {exit_l = printGoToFinalEstructureElse();} ELSE_CLAUSE {printLabelInstruc
       | {printLabelInstruction(else_l);}
       ;
 controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = printHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
-                 | { $<number>$ = _getNextLabel();} WHILE_CLAUSE  {printLabelInstruction($<number>1);} PARENTESIS_OPEN logicalOperation {exit_l2 = printHeaderOfClauseInstruction();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {generateGoToWhile($<number>1);} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(exit_l2);}
-                 ;
+                 | { pushClause(_getNextLabel(),'x');} WHILE_CLAUSE  {printLabelInstruction($<number>1);} PARENTESIS_OPEN logicalOperation {pushClause(printHeaderOfClauseInstruction(),'w');} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {generateGoToWhile(popClause('x'));} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(popClause('w'));}
+				 ;
 
 logicalOperation : ID logicalOperator ID { switch($2) {
 					   	case 1:

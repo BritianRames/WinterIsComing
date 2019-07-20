@@ -1,4 +1,5 @@
 #include "../code-generator/StackManager.h"
+#include "SymbolTableManager.h"
 #include "ClauseList.h"
 
 
@@ -15,6 +16,7 @@ void pushClause(int label, char type){
     clause->nextClause = NULL;
     if(clauseSize == 0){
         firstClause = clause;
+        lastClause = clause;
     }else {
         lastClause->nextClause = clause;
         clause->previousClause = lastClause;
@@ -22,12 +24,27 @@ void pushClause(int label, char type){
     clauseSize++;
 }
 
-int popClause(){
-    int label = lastClause->label;
-    lastClause->previousClause->nextClause = NULL;
-    return label;
+int popClause(char type){
+    if(clauseSize == 0) return -1;
+    struct Clause *clause =  lastClause;
+    printf("\n\n\n--------------------vvvvvvv%cvvvvv------------------------------------------------\n\n\n",clause->type);
+    printf("\n\n\n--------------------vvvvvvv%dvvvvv------------------------------------------------\n\n\n",clauseSize);
+    
+    for(int i = clauseSize; i > 0; i--){
+        if(clause->type == type){
+            int label = clause->label;
+            if(clauseSize>1){
+                if(clause->nextClause == NULL) lastClause = clause->previousClause;      
+                else clause->previousClause->nextClause = clause->nextClause;  
+            }        
+            clauseSize--;
+            return label;
+        }else if(clauseSize > 1){
+            clause = clause->previousClause;
+        }
+    }
+    return 0;
 }
-
 
 
 

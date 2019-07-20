@@ -17,6 +17,7 @@ compile:
 					/usr/bin/gcc -Wall -Wextra -g -o bin/wic \
 					src/main.c \
 					src/symbol-table/SymbolTableManager.c \
+					src/symbol-table/ClauseList.c\
 					src/code-generator/demo.c \
 					build/lex.yy.c build/bwic.tab.c \
 					src/code-generator/StackManager.c

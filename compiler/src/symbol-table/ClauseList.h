@@ -12,4 +12,4 @@ struct Clause{
 
 
 void pushClause(int label, char type);
-int popClause();
+int popClause(char type);
