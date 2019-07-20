@@ -1,11 +1,10 @@
-int a
-a = 1
 
-fun sum (){
-    return 1
+fun sum (int a){
+    a = 1
+    return 1    
 }
 
 fun main (){
     int x
-    x = sum()
+    x = sum(1)
 }

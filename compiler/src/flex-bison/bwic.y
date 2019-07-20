@@ -135,7 +135,7 @@ assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
 
 functionCallParams : INT_VAL {insertValueInStack();}
                    | ID {insertVariableValueInStack();}
-                   | INT_VAL COMMA functionCallParams {insertValueInStack()}
+                   | INT_VAL COMMA functionCallParams {insertValueInStack();}
                    | ID COMMA functionCallParams {insertVariableValueInStack();}
 				   | 
 				   ;

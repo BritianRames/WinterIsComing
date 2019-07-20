@@ -78,8 +78,6 @@ void functionReturn(){
   fprintf(f,"R1 = I(R6 - 0x%x);\n", offset + 4);
   fprintf(f,"R7 = R6;\n"); 
   fprintf(f,"R6 = R1;\n"); 
-  //Go back in Stack
-  fprintf(f,"R7 = R7 + %d;\n", 4 * (function->numberOfParameters + 2 + function->numberOfLocalVariables));
   //Returned value to stack
   moveR7Down();
   fprintf(f,"I(R7) = R0;\n"); 
@@ -122,7 +120,10 @@ void assignValueToVariable(char* variable_id, int value){
     int offset =  getLocalVariableOffset(variable->address);
     //moveR7Down();
     fprintf(f, "I(R6 - %d) = %d;\n", offset, value);    
-  } 
+  } else if(variable->type == 'p'){	  
+    int offset =  getParameterOffset(variable->address);
+    fprintf(f, "I(R6 - %d) = %d;\n", offset, value);  
+  }  
 }
 void declarationGlobalVariable(char* variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
@@ -143,6 +144,9 @@ void putVariableInR0(char *variable_id){
   struct Symbol* variable = getVariableFromSymbolTable(variable_id);
   if (variable->type == "g"){
     putGlobalVariableValueInR0(variable->address);
+  } else if(variable->type = "l"){
+    int offset = getLocalVariableOffset(variable->address);
+    putLocalVariableValueInR0(offset);
   } else if(variable->type = "l"){
     int offset = getLocalVariableOffset(variable->address);
     putLocalVariableValueInR0(offset);
@@ -205,6 +209,10 @@ int getLocalVariableOffset(int position){
     result = 4 * (numberOfParameters + 2 + position);
   }
   return result;
+}
+
+int getParameterOffset(int position){
+  return position * 4;
 }
 
 
