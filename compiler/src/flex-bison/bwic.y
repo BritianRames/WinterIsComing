@@ -102,11 +102,11 @@ declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationG
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
             ;
 
-function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
+function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
          ;
 
-params : INT_TYPE ID params {/*insertVariable($<string>2);*/}
-       | COMMA INT_TYPE ID params
+params : INT_TYPE ID params {insertParameterInSymbolTable($<string>2);}
+       | COMMA INT_TYPE ID params {insertParameterInSymbolTable($<string>3);}
        | /* EMPTY */
        ;
 
@@ -126,17 +126,19 @@ instruction : assignation
 assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID PLUSPLUS    {insertVariableValueInStack($<string>1); insertValueInStack(1); add();assignR0ToVariable($<string>1);}
             | ID MINUSMINUS   {insertVariableValueInStack($<string>1); insertValueInStack(1); substract();assignR0ToVariable($<string>1);}
-            | ID ASSIGN ID PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
+            | ID ASSIGN ID PARENTESIS_OPEN {saveR7inR1();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>3);}
             | ID ASSIGN aritmeticOperation {assignR0ToVariable($<string>1);}
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL 
             | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
             ;  
 
-functionCallParams : INT_VAL 
-                   | ID 
-                   | INT_VAL COMMA functionCallParams 
-                   | ID COMMA functionCallParams
+functionCallParams : INT_VAL {insertValueInStack();}
+                   | ID {insertVariableValueInStack();}
+                   | INT_VAL COMMA functionCallParams {insertValueInStack()}
+                   | ID COMMA functionCallParams {insertVariableValueInStack();}
+				   | 
+				   ;
 
 aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation SUBSTRACT aritmeticOperation {substract();}
@@ -148,9 +150,9 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   ;
 
 
-return : RETURN ID {insertVariableInStack($<number>2);return();}
-       | RETURN INT_VAL {insertValueInStack($<number>2);return;}
-       | RETURN aritmeticOperation {/*insertValueInStack($<number>2);*/}
+return : RETURN ID {printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++variable");}{putVariableInR0($<number>2);}{functionReturn();}
+       | RETURN INT_VAL {printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++value");}{putValueInR0($<number>2);}{functionReturn();}
+       | RETURN aritmeticOperation {printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++operation");}{putOperationResultInR0($<number>2);}{functionReturn();}
        | RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE {printf("TERMINA LLAMADA FUNCION\n");}
        ; 
 

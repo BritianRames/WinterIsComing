@@ -2,7 +2,6 @@
 #include "../symbol-table/SymbolTableManager.h"
 
 FILE *f;
-int label = 2;
 
 void openFile(){
   f = fopen("file.q.c", "w");
@@ -36,53 +35,61 @@ void qEnding() {
 }
 
 /*****Functions********/
-void function(){
-  fprintf(f, "L %d:\n", label);
-  label++;
+void function(char *name){
+  struct Symbol *function = getLastFunctionFromSymbolTable();
+  fprintf(f, "//%s\n", name);
+  fprintf(f, "L %d:\n", function->label);
 }
 
 void mainFunction() {
+  fprintf(f, "//Main\n");
   fprintf(f, "L 1:\n");
   r6EqualsR7();
 }
-// L 2:
-// a = b
-// return c
 
-
-//L 1:
-//GT(2)
-//L 3:
-
-void functionCall(int *parameters, char* function_id){
+void functionCall(char* function_id){ //FunctionCall
   struct Symbol *function = getFunctionFromSymbolTable(function_id); 
-  int returnLabel = label;
-  label ++;
-  fprintf(f, "GT(%d): \n", function->label);
+  int returnLabel = _getNextLabel();
+  fprintf(f, "//Preparamos para operación %s\n", function_id);
+  moveR7Down();
+  fprintf(f, "I(R7) = R6;\n");
+  fprintf(f, "R6 = R1;\n"); //R1 has original R7 of the function
+  moveR7Down();
+  fprintf(f, "I(R7) = %d\n", returnLabel);
+  fprintf(f, "//(Jump)\n", function_id);
+  fprintf(f, "GT(%d)\n", function->label);
   fprintf(f, "L %d:\n", returnLabel);
 
-  r6EqualsR7();
-  for(int i = 0 ;  i < function->numberOfParameters; i++){
-    moveR7Down();
-    insertValueInStack(parameters[i]);
-  }
-  moveR7Down();
-  fprintf(f, "I(R7) = R6 ;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = %d ;\n", returnLabel);
-  for(int i = 0 ; i < function->numberOfLocalVariables; i++){
-    moveR7Down();
-  }
+}
+
+void putParameterValueInStack(int value){ //For each recognized param
+  insertValueInStack(value);
+}
+
+void saveR7inR1(){ //Before inserting params
+  fprintf(f, "R1 = R7;\n");  
 }
 
 void functionReturn(){
+  //Value to return should be un stack top
   struct Symbol *function = getLastFunctionFromSymbolTable();
-  int offset = 4*(function->numberOfLocalVariables + 4);
-  fprintf(f,"R1 = I(R6 + %d);\n", offset);
-  fprintf(f,"GT(R1);\n");
+  int offset = 4*(function->numberOfParameters);
+  fprintf(f, "//(return)\n");
+  fprintf(f,"R1 = I(R6 - 0x%x);\n", offset + 4);
+  fprintf(f,"R7 = R6;\n"); 
+  fprintf(f,"R6 = R1;\n"); 
+  //Go back in Stack
+  fprintf(f,"R7 = R7 + %d;\n", 4 * (function->numberOfParameters + 2 + function->numberOfLocalVariables));
+  //Returned value to stack
+  moveR7Down();
+  fprintf(f,"I(R7) = R0;\n"); 
+  //Go to return label
+  fprintf(f,"R5 = I(R6 - 0x%x);\n", offset + 8);
+  fprintf(f,"GT(R5);\n");
+  fprintf(f, "///////////////////\n");
 }
 
-//hacer rt con gt(R6 + numberPAram + 4)
+//hacer rt con gt(R6 + numberParam + 4)
 
 /*******Stack*********/
 
@@ -128,6 +135,25 @@ void declarationGlobalVariable(char* variable_id){
   }
 }
 
+void putValueInR0(int value){
+  fprintf(f, "R0 = %d;\n", value);  
+}
+
+void putVariableInR0(char *variable_id){
+  struct Symbol* variable = getVariableFromSymbolTable(variable_id);
+  if (variable->type == "g"){
+    putGlobalVariableValueInR0(variable->address);
+  } else if(variable->type = "l"){
+    int offset = getLocalVariableOffset(variable->address);
+    putLocalVariableValueInR0(offset);
+  }
+}
+
+void putOperationResultInR0(){
+  fprintf(f, "R0 = I(R7);\n");  
+}
+
+
 void putR0InGlobalVariable(int address){
   fprintf(f, "I(%d) = R0;\n", address);
 }
@@ -141,7 +167,7 @@ void assignVariableToVariable(char* variable1_id, char* variable2_id){
 
   if (variable1->type == "g"){
     putGlobalVariableValueInR0(variable1->address);
-    moveR7Down();
+    moveR7Down(); //TODO
   } else if(variable1->type = "l"){
     int offset = getLocalVariableOffset(variable1->address);
     putLocalVariableValueInR0(offset);
@@ -202,10 +228,6 @@ void insertVariableValueInStack(char* variable_id){
     fprintf(f, "R0 = I(R6 - %d);\n", offset);
     fprintf(f, "I(R7) = R0;\n");
   }
-}
-
-void putOperationResultInR0(){
-  fprintf(f, "R0 = I(R7);\n");  
 }
 
 void product(){

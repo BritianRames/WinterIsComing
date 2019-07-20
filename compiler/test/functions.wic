@@ -1,0 +1,11 @@
+int a
+a = 1
+
+fun sum (){
+    return 1
+}
+
+fun main (){
+    int x
+    x = sum()
+}

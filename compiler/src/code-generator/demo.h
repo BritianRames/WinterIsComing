@@ -28,6 +28,12 @@ void putVariableAddressInStack(char *variable_id);
 
 void putVariableValueInStack(char *variable_id);
 
+void putValueInR0(int value);
+
+void putVariableInR0(char *variable_id);
+
+void putOperationResultInR0();
+
 /********Assignation*********/
 
 void insertVariableValueInStack(char* variable_id);
@@ -113,3 +119,9 @@ void variableGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
 void notValue(int val);
 
 void notVariable(char *variable_id);
+
+/*******Functions************/
+void functionReturn();
+void functionCall(char *funciton_id);
+void function(char *name);
+
