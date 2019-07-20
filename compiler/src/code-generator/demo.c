@@ -21,7 +21,7 @@ void jumpMain(){
 }
 
 void mainFunction() {
-    fprintf(f, "L %d:\n",_getNextLabel());
+    fprintf(f, "L %d:\n", _getNextLabel());
     r6EqualsR7();
 }
 

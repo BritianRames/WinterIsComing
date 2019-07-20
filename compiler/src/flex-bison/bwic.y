@@ -16,6 +16,8 @@
   int exit_l2;
   int while_l;
   bool marcador = true;
+  int whileExit [0];
+  int whileInter [0];
 %}
 
 %union { int number; char* string; }
@@ -171,7 +173,7 @@ else : {exit_l = printGoToFinalEstructureElse();} ELSE_CLAUSE {printLabelInstruc
       | {printLabelInstruction(else_l);}
       ;
 controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = printHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
-                 | { pushClause(_getNextLabel(),'x');} WHILE_CLAUSE  {printLabelInstruction($<number>1);} PARENTESIS_OPEN logicalOperation {pushClause(printHeaderOfClauseInstruction(),'w');} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {generateGoToWhile(popClause('x'));} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(popClause('w'));}
+                 | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printClause(); printLabelInstruction(popClauseWE());}
 				 ;
 
 logicalOperation : ID logicalOperator ID { switch($2) {
@@ -273,8 +275,15 @@ logicalOperator : EQUALS {$$ = 1;}
 //int main(int argc, char** argv) {
 //  if (argc>1) yyin=fopen(argv[1],"r");
 //  yyparse();
+////}
+//void popArray(char type, int label){
+//	int valor;
+//	if( type == 'w'){
+//		valor = whileExit[sizeof(whileExit)-1];
+//		int newer [sizeof(whileExit)-1] = whileExit;
+//		whileExit;
+//	}
 //}
-
 
 void yyerror (char const *s) {
   fprintf (stderr, "ERROR SINTACTICO [%d]: %s\n", numlin, s);

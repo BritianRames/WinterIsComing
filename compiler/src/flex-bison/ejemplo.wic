@@ -5,15 +5,18 @@ a = 10
 b = 2
 hola = 3
 fun main (){
-    int x
-    a = a * 10 / b + hola
-    x = 1
-    while ( x != 5) {
-        print(210)
-        x++
+    while ( a != 5) {
+        while(b != 10){
+            while (hola != 4){
+                print(3)
+                hola = 4
+            }
+            print(2)
+            b = 10
+        }
+        print(1)
+        a = 5
     }
-    int z
-    z = 333
 }
 
 

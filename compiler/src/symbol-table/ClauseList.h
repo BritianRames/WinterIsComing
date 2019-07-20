@@ -4,12 +4,14 @@
 #include <stdio.h>
 
 struct Clause{
-    char type;
     int label;
     struct Clause *previousClause;
     struct Clause *nextClause;
 };
 
 
-void pushClause(int label, char type);
-int popClause(char type);
+void pushClauseWI(int label);
+int popClauseWI();
+void pushClauseWE(int label);
+int popClauseWE();
+void printClause();
