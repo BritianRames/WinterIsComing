@@ -60,6 +60,7 @@ void functionCall(int *parameters, char* function_id){
   label ++;
   fprintf(f, "GT(%d): \n", function->label);
   fprintf(f, "L %d:\n", returnLabel);
+
   r6EqualsR7();
   for(int i = 0 ;  i < function->numberOfParameters; i++){
     moveR7Down();
@@ -74,7 +75,12 @@ void functionCall(int *parameters, char* function_id){
   }
 }
 
-
+void functionReturn(){
+  struct Symbol *function = getLastFunctionFromSymbolTable();
+  int offset = 4*(function->numberOfLocalVariables + 4);
+  fprintf(f,"R1 = I(R6 + %d);\n", offset);
+  fprintf(f,"GT(R1);\n");
+}
 
 //hacer rt con gt(R6 + numberPAram + 4)
 
