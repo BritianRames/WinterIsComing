@@ -5,7 +5,10 @@ a = 10
 b = 2
 hola = 3
 fun main (){
-    print(1)
+    int x
+    a = a * 10 / b + hola
+    x = a
+    print(210)
 }
 
 

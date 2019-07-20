@@ -15,8 +15,8 @@ void qInitialization() {
 }
 
 void jumpMain(){
-  
-    fprintf(f,"STAT(0)\nSTR(0x11ff0,\"%%d\\n\");\nCODE(0)\n");
+    moveR7Down();
+    fprintf(f,"STAT(0)\nSTR(0x11ff0,\"%%d \\n\");\nCODE(0)\n");
     fprintf(f, "\tGT(1);\n");
 }
 
@@ -138,7 +138,7 @@ void printValue(int value){
   int label = _getNextLabel();
   //saveRegisters();
   fprintf(f,"R0 = %d;\n",label);
-  fprintf(f,"R1 = %d;\n",0x11ff0);
+  fprintf(f,"R1 = 0x%x;\n",0x11ff0);
   fprintf(f,"R2 = %d;\n",value);
   fprintf(f,"GT(-12);\n");
   fprintf(f, "L %d:\n", label);
