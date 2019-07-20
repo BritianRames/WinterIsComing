@@ -105,7 +105,7 @@ void _linkSymbolToSymbolTable(struct Symbol* symbol) {
 
     if(symbol->type == 'f') lastFunc = symbol;
     lastSymbol = symbol;
-    _incrementNumberOfLocalVariablesAndParameters();
+    //_incrementNumberOfLocalVariablesAndParameters(); //REVISA 
     tableSize++;
 }
 

@@ -1,0 +1,10 @@
+int a
+fun main (){
+    a = suma()
+}
+
+suma(){
+    return 1;
+}
+
+
