@@ -1,4 +1,5 @@
 #include "symbol-table/SymbolTableManager.h"
+#include "symbol-table/ClauseList.h"
 #include "code-generator/StackManager.h"
 #include "code-generator/demo.h"
 #include <stdio.h>

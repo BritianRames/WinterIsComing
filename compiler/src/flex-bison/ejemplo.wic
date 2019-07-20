@@ -7,8 +7,21 @@ hola = 3
 fun main (){
     int x
     a = a * 10 / b + hola
-    x = a
-    print(210)
+    x = 1
+    while ( x != 5) {
+        if (x == 4) {
+            print(999)
+            if(hola == 3){
+                print(111)
+            }
+        } else {
+            print(888)
+        }
+        print(210)
+        x++
+    }
+    int z
+    z = 333
 }
 
 

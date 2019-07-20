@@ -154,6 +154,8 @@ void _removeLocalVariablesFromSymbolTable(){
             lastSymbol = currentSymbol->previousSymbol;
             currentSymbol = currentSymbol->previousSymbol;
             tableSize--;
+            lastFunc->numberOfLocalVariables--;
+            moveR7Up();
         } else break;
     }
 }

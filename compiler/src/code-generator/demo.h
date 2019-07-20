@@ -115,3 +115,10 @@ void variableGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
 void notValue(int val);
 
 void notVariable(char *variable_id);
+
+int printHeaderOfClauseInstruction();
+
+void printLabelInstruction(int label);
+
+int printGoToFinalEstructureElse();
+void generateGoToWhile(int etiqueta);

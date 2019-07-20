@@ -126,7 +126,6 @@ instruction : assignation
 assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID PLUSPLUS    {insertVariableValueInStack($<string>1); insertValueInStack(1); add();assignR0ToVariable($<string>1);}
             | ID MINUSMINUS   {insertVariableValueInStack($<string>1); insertValueInStack(1); substract();assignR0ToVariable($<string>1);}
-            | ID ASSIGN ID PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
             | ID ASSIGN aritmeticOperation {assignR0ToVariable($<string>1);}
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
             | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL 
@@ -143,6 +142,7 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation PRODUCT aritmeticOperation {product();}
                   |   aritmeticOperation DIVIDE aritmeticOperation {division();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
+				  |   ID{/*guardamos r7 en r1*/} PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
                   |   INT_VAL {insertValueInStack($<number>1);}
                   |   ID  {insertVariableValueInStack($<string>1);}    
                   ;
@@ -167,16 +167,16 @@ text : STRING_VAL {$$ = $<string>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-else : {/*exit_l2 = exit_l; exit_l = _getNextLabel(); generateGoToInstruction(exit_l); generateLabelInstruction(exit_l2);*/} ELSE_CLAUSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {/*openScopeInSymbolTable();*/} codeSet CURLY_BRACKET_CLOSE {/*closeScopeInSymbolTable(); generateLabelInstruction(exit_l);*/}
-      | {/*generateLabelInstruction(exit_l);*/}
+else : {exit_l = printGoToFinalEstructureElse();} ELSE_CLAUSE {printLabelInstruction(else_l);} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(exit_l);}
+      | {printLabelInstruction(else_l);}
       ;
-controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {/*exit_l = generateHeaderOfClauseInstruction();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); } else
-                 | {/* while_l = _getNextLabel(); generateLabelInstruction(while_l);*/} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {/*exit_l = generateHeaderOfClauseInstruction();*/} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {/*generateGoToInstruction(while_l);*/} CURLY_BRACKET_CLOSE {/*closeScopeInSymbolTable(); generateLabelInstruction(exit_l);*/}
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = printHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
+                 | { $<number>$ = _getNextLabel();} WHILE_CLAUSE  {printLabelInstruction($<number>1);} PARENTESIS_OPEN logicalOperation {exit_l2 = printHeaderOfClauseInstruction();} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {generateGoToWhile($<number>1);} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(exit_l2);}
                  ;
 
 logicalOperation : ID logicalOperator ID { switch($2) {
 					   	case 1:
-							/*generateEqualsVariableToVariable($<string>1, $<string>3);*/
+							/*valueEqualsToVariable($<string>1, $<string>3);*/
 					   		break;
 						case 2:
 							/*generateNotEqualsVariableToVariable($<string>1, $<string>3);*/
@@ -197,10 +197,10 @@ logicalOperation : ID logicalOperator ID { switch($2) {
 					    } }
                  | ID logicalOperator INT_VAL { switch($2) {
 						   case 1:
-						   	/*generateEqualsValueToVariable($<string>1, $<number>3);*/
+						   	valueEqualsToVariable($<string>1, $<number>3);
 						   	break;
 						   case 2:
-						   	/*generateNotEqualsValueToVariable($<string>1, $<number>3);*/
+						   	valueNotEqualToVariable($<string>1, $<number>3);
 						   	break;
 						   case 3:
 						   	/*generateLessValueToVariable($<string>1, $<number>3);*/
@@ -218,7 +218,7 @@ logicalOperation : ID logicalOperator ID { switch($2) {
 					        } }
                  | INT_VAL logicalOperator INT_VAL { switch($2) {
 							   case 1:
-								/*generateEqualsValueToValue($<number>1, $<number>3);*/
+								valueEqualsToValue($<number>1, $<number>3);
 								break;
 							   case 2:
 								/*generateNotEqualsValueToValue($<number>1, $<number>3);*/

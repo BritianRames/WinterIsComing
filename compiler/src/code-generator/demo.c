@@ -11,12 +11,12 @@ void qInitialization() {
     fprintf(f, "#include \"Q.h\"\n\n");
     fprintf(f, "BEGIN\n");
     fprintf(f, "L 0:\n");
+    insertVariableInSymbolTable("STR4PRINT");
+    fprintf(f,"STAT(0)\nSTR(0x11ffc,\"%%d\\n\");\nCODE(0)\n");
     r6EqualsR7();
 }
 
 void jumpMain(){
-    moveR7Down();
-    fprintf(f,"STAT(0)\nSTR(0x11ff0,\"%%d \\n\");\nCODE(0)\n");
     fprintf(f, "\tGT(1);\n");
 }
 
@@ -30,6 +30,7 @@ void goToExit()  {
   //fprintf(f, "printf(\"%%d \\n\", I(R6 - 8));\n");
   //fprintf(f, "printf(\"%%d \\n\", I(R6 - 12));\n");
   //fprintf(f, "printf(\"%%d \\n\", I(R6 - 16));\n");
+  r6EqualsR7();
   fprintf(f, "\tGT(-2);\n");
 }
 
@@ -138,7 +139,7 @@ void printValue(int value){
   int label = _getNextLabel();
   //saveRegisters();
   fprintf(f,"R0 = %d;\n",label);
-  fprintf(f,"R1 = 0x%x;\n",0x11ff0);
+  fprintf(f,"R1 = 0x%x;\n",0x11ffc);
   fprintf(f,"R2 = %d;\n",value);
   fprintf(f,"GT(-12);\n");
   fprintf(f, "L %d:\n", label);
@@ -266,11 +267,11 @@ void valueGreaterEqualsThanValue(int val1, int val2){
 void valueEqualsToVariable(char* variable_id, int val){
   struct Symbol *variable = getVariableFromSymbolTable(variable_id);
   if(variable->type == 'g'){
-    fprintf(f, "\tR0 = I(0x%x) == %d;\n", variable->address, val);
+    fprintf(f, "R0 = I(0x%x) == %d;\n", variable->address, val);
   }
   else if(variable->type == 'l'){
     int offset = getLocalVariableOffset(variable->address);
-    fprintf(f, "\tR0 = I(R6 - 0x%x) == %d;\n", offset, val);
+    fprintf(f, "R0 = I(R6 - 0x%x) == %d;\n", offset, val);
   }
 }
 
@@ -458,4 +459,24 @@ void notVariable(char *variable_id){
     int offset = getLocalVariableOffset(variable->address);
     fprintf(f, "\tR0 = !I(R6 - 0x%x);\n", offset);
   }
+}
+
+int printHeaderOfClauseInstruction(){
+    int etiqueta = _getNextLabel();
+    fprintf(f, "\tIF(!R0) GT(%d);\n", etiqueta);
+    return etiqueta;
+}
+
+int printGoToFinalEstructureElse(){
+    int etiqueta = _getNextLabel();
+    fprintf(f, "\tGT(%d);\n", etiqueta);
+    return etiqueta;
+}
+
+void printLabelInstruction(int label){
+    fprintf(f, "L %d:\n", label);
+}
+
+void generateGoToWhile(int etiqueta){
+    fprintf(f, "\tGT(%d);\n", etiqueta);
 }
