@@ -176,7 +176,7 @@ controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {
                  | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printClause(); printLabelInstruction(popClauseWE());}
 				 ;
 
-logicalOperation : ID logicalOperator ID {variableEqualsToVariable($<string>1, $<string>3, $<string>2);}
+logicalOperation : ID logicalOperator ID {logicalVariableToVariable($<string>1, $<string>3, $<string>2);}
                  | ID logicalOperator INT_VAL { logicalVariableToValue($<string>1, $<number>3, $<string>2);}
                  | INT_VAL logicalOperator INT_VAL { logicalValueToValue($<number>1, $<number>3,$<string>2);}
                  | INT_VAL logicalOperator ID { logicalVariableToValue($<string>3, $<number>1, $<string>2);}

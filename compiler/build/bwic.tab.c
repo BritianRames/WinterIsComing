@@ -496,8 +496,8 @@ static const yytype_uint8 yyrline[] =
      140,   142,   143,   144,   145,   146,   147,   147,   148,   149,
      153,   154,   155,   156,   156,   159,   162,   163,   164,   165,
      168,   169,   172,   172,   172,   172,   173,   175,   175,   175,
-     175,   176,   176,   176,   176,   176,   179,   180,   201,   222,
-     245,   246,   247,   248,   249,   250
+     175,   176,   176,   176,   176,   176,   179,   180,   181,   182,
+     185,   186,   187,   188,   189,   190
 };
 #endif
 
@@ -1657,126 +1657,66 @@ yyreduce:
 
   case 76:
 #line 179 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {variableEqualsToVariable((yyvsp[-2].string), (yyvsp[0].string), (yyvsp[-1].string));}
+    {logicalVariableToVariable((yyvsp[-2].string), (yyvsp[0].string), (yyvsp[-1].string));}
 #line 1662 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
 #line 180 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    { switch((yyvsp[-1].number)) {
-						   case 1:
-						   	valueEqualsToVariable((yyvsp[-2].string), (yyvsp[0].number));
-						   	break;
-						   case 2:
-						   	valueNotEqualToVariable((yyvsp[-2].string), (yyvsp[0].number));
-						   	break;
-						   case 3:
-						   	/*generateLessValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 4:
-						   	/*generateLessEqualsValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 5:
-						   	/*generateGreaterValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 6:
-						   default:
-						   	/*generateGreaterEqualsValueToVariable($<string>1, $<number>3);*/
-						   	break;
-					        } }
-#line 1688 "bwic.tab.c" /* yacc.c:1646  */
+    { logicalVariableToValue((yyvsp[-2].string), (yyvsp[0].number), (yyvsp[-1].string));}
+#line 1668 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 201 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    { switch((yyvsp[-1].number)) {
-							   case 1:
-								valueEqualsToValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							   case 2:
-								valueNotEqualToValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							   case 3:
-								valueSmallerThanValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							   case 4:
-								valueSmallerEqualsThanValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							   case 5:
-								valueGreaterThanValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							   case 6:
-							   default:
-								valueGreaterEqualsThanValue((yyvsp[-2].number), (yyvsp[0].number));
-								break;
-							} }
-#line 1714 "bwic.tab.c" /* yacc.c:1646  */
+#line 181 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    { logicalValueToValue((yyvsp[-2].number), (yyvsp[0].number),(yyvsp[-1].string));}
+#line 1674 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 222 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    { switch((yyvsp[-1].number)) {
-						   case 1:
-							/*generateEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 2:
-							/*generateNotEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 3:
-							/*generateLessValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 4:
-							/*generateLessEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 5:
-							/*generateGreaterValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 6:
-						   default:
-							/*generateGreaterEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						} }
-#line 1740 "bwic.tab.c" /* yacc.c:1646  */
+#line 182 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    { logicalVariableToValue((yyvsp[0].string), (yyvsp[-2].number), (yyvsp[-1].string));}
+#line 1680 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 245 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 185 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = "==";}
-#line 1746 "bwic.tab.c" /* yacc.c:1646  */
+#line 1686 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 246 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 186 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = "!=";}
-#line 1752 "bwic.tab.c" /* yacc.c:1646  */
+#line 1692 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 247 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 187 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = "<";}
-#line 1758 "bwic.tab.c" /* yacc.c:1646  */
+#line 1698 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 248 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 188 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = "<=";}
-#line 1764 "bwic.tab.c" /* yacc.c:1646  */
+#line 1704 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 249 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 189 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = ">";}
-#line 1770 "bwic.tab.c" /* yacc.c:1646  */
+#line 1710 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 250 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 190 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     {(yyval.number) = ">=";}
-#line 1776 "bwic.tab.c" /* yacc.c:1646  */
+#line 1716 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1780 "bwic.tab.c" /* yacc.c:1646  */
+#line 1720 "bwic.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2004,7 +1944,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 253 "src/flex-bison/bwic.y" /* yacc.c:1906  */
+#line 193 "src/flex-bison/bwic.y" /* yacc.c:1906  */
 
 
 //int main(int argc, char** argv) {
