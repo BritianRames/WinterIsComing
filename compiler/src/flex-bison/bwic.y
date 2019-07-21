@@ -5,7 +5,7 @@
   #include <stdbool.h>
   extern FILE *yyin;
   extern int numlin;
-  int yydebug = 1;
+  int yydebug = 0;
   char* box ;
   void yyerror (char const*);
   char* stringWithNewline(char*);
@@ -105,7 +105,7 @@ declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationG
 function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
          ;
 
-params : INT_TYPE ID params {insertParameterInSymbolTable($<string>2);}
+params : INT_TYPE ID params {printf("HOLA");insertParameterInSymbolTable($<string>2);}
        | COMMA INT_TYPE ID params {insertParameterInSymbolTable($<string>3);}
        | /* EMPTY */
        ;
@@ -144,7 +144,7 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation PRODUCT aritmeticOperation {product();}
                   |   aritmeticOperation DIVIDE aritmeticOperation {division();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-            	  |   ID PARENTESIS_OPEN {saveR7inR1();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>3);}
+            	  |   ID PARENTESIS_OPEN {saveR7inR1();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>1);}
                   |   INT_VAL {insertValueInStack($<number>1);}
                   |   ID  {insertVariableValueInStack($<string>1);}    
                   ;

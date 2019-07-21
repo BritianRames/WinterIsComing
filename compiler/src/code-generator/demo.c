@@ -54,9 +54,9 @@ void functionCall(char* function_id){ //FunctionCall
   fprintf(f, "I(R7) = R6;\n");
   fprintf(f, "R6 = R1;\n"); //R1 has original R7 of the function
   moveR7Down();
-  fprintf(f, "I(R7) = %d\n", returnLabel);
+  fprintf(f, "I(R7) = %d;\n", returnLabel);
   fprintf(f, "//(Jump)\n", function_id);
-  fprintf(f, "GT(%d)\n", function->label);
+  fprintf(f, "GT(%d);\n", function->label);
   fprintf(f, "L %d:\n", returnLabel);
 
 }
@@ -74,14 +74,14 @@ void functionReturn(){
   struct Symbol *function = getLastFunctionFromSymbolTable();
   int offset = 4*(function->numberOfParameters);
   fprintf(f, "//(return)\n");
-  fprintf(f,"R1 = I(R6 - 0x%x);\n", offset + 4);
-  fprintf(f,"R7 = R6;\n");
-  fprintf(f,"R6 = R1;\n");
+  fprintf(f,"R1 = I(R6 - 0x%x);\t// R1 = Previous R6\n", offset + 4);
+  fprintf(f,"R5 = I(R6 - 0x%x);\t// R5 = Return label\n", offset + 8);
+  fprintf(f,"R7 = R6;\t// R7 = Previous R7\n");
+  fprintf(f,"R6 = R1;\t// R6 = previous R6\n");
   //Returned value to stack
   moveR7Down();
-  fprintf(f,"I(R7) = R0;\n");
+  fprintf(f,"I(R7) = R0;\t// Place Return value to stack\n");
   //Go to return label
-  fprintf(f,"R5 = I(R6 - 0x%x);\n", offset + 8);
   fprintf(f,"GT(R5);\n");
   fprintf(f, "///////////////////\n");
 }
