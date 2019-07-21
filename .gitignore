@@ -1,0 +1,5 @@
+compiler/build/*
+compiler/bin/*
+compiler/*.output
+compiler/*.q.c
+.vscode/*

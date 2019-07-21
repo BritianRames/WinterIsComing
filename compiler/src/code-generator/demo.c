@@ -49,7 +49,6 @@ void mainFunction() {
 void functionCall(char* function_id){ //FunctionCall
   struct Symbol *function = getFunctionFromSymbolTable(function_id);
   int returnLabel = _getNextLabel();
-  fprintf(f, "//Preparamos para operación %s\n", function_id);
   moveR7Down();
   fprintf(f, "I(R7) = R6;\n");
   fprintf(f, "R6 = R1;\n"); //R1 has original R7 of the function
@@ -66,6 +65,7 @@ void putParameterValueInStack(int value){ //For each recognized param
 }
 
 void saveR7inR1(){ //Before inserting params
+  fprintf(f, "//Preparamos para operación %s\n", function_id);
   fprintf(f, "R1 = R7;\n");
 }
 
@@ -153,7 +153,6 @@ void putVariableInR0(char *variable_id){
 void putOperationResultInR0(){
   fprintf(f, "R0 = I(R7);\n");
 }
-
 
 void putR0InGlobalVariable(int address){
   fprintf(f, "I(%d) = R0;\n", address);
