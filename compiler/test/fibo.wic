@@ -17,4 +17,8 @@ fun main (){
         print(fibo(x))
         x++
     }
+
+    int b
+    b = 10 * 10 / (10 + 10) * 10
+    print(b)
 }
