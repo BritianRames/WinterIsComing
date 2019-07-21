@@ -16,8 +16,6 @@
   int exit_l2;
   int while_l;
   bool marcador = true;
-  int whileExit [0];
-  int whileInter [0];
 %}
 
 %union { int number; char* string; }
@@ -100,15 +98,15 @@ root : declaration END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
-declaration :  INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
+declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
             ;
 
-function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
+function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
          ;
 
-params : INT_TYPE ID params {/*insertVariable($<string>2);*/}
-       | COMMA INT_TYPE ID params
+params : INT_TYPE ID params {insertParameterInSymbolTable($<string>2);}
+       | COMMA INT_TYPE ID params {insertParameterInSymbolTable($<string>3);}
        | /* EMPTY */
        ;
 
@@ -134,25 +132,27 @@ assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
             ;  
 
-functionCallParams : INT_VAL 
-                   | ID 
-                   | INT_VAL COMMA functionCallParams 
-                   | ID COMMA functionCallParams
+functionCallParams : INT_VAL {insertValueInStack();}
+                   | ID {insertVariableValueInStack();}
+                   | INT_VAL COMMA functionCallParams {insertValueInStack();}
+                   | ID COMMA functionCallParams {insertVariableValueInStack();}
+				   |
+				   ;
 
 aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation SUBSTRACT aritmeticOperation {substract();}
                   |   aritmeticOperation PRODUCT aritmeticOperation {product();}
                   |   aritmeticOperation DIVIDE aritmeticOperation {division();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-				  |   ID{/*guardamos r7 en r1*/} PARENTESIS_OPEN functionCallParams PARENTESIS_CLOSE
+            	  |   ID PARENTESIS_OPEN {saveR7inR1();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>3);}
                   |   INT_VAL {insertValueInStack($<number>1);}
                   |   ID  {insertVariableValueInStack($<string>1);}    
                   ;
 
 
-return : RETURN ID {/*returnVariable($<number>2);*/}
-       | RETURN INT_VAL {/*returnValue($<number>2);*/}
-       | RETURN aritmeticOperation {/*returnValue($<number>2);*/}
+return : RETURN ID {printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++variable");}{putVariableInR0($<number>2);}{functionReturn();}
+       | RETURN INT_VAL {printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++value");}{putValueInR0($<number>2);}{functionReturn();}
+       | RETURN aritmeticOperation {printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++operation");}{putOperationResultInR0($<number>2);}{functionReturn();}
        | RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE {printf("TERMINA LLAMADA FUNCION\n");}
        ; 
 
@@ -162,7 +162,7 @@ print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE
 printableElement : ID {/*generatePrintVariable($<string>1);*/}
                  | QUOTE text QUOTE {/*generatePrintString($<string>2);*/}
                  | printableElement SUM printableElement
-				     | INT_VAL {printValue($<number>1);}
+		 | INT_VAL {printValue($<number>1);}
                  ;
 
 text : STRING_VAL {$$ = $<string>1;}
@@ -191,19 +191,6 @@ logicalOperator : EQUALS {$$ = "==";}
                 ;
 
 %%
-
-//int main(int argc, char** argv) {
-//  if (argc>1) yyin=fopen(argv[1],"r");
-//  yyparse();
-////}
-//void popArray(char type, int label){
-//	int valor;
-//	if( type == 'w'){
-//		valor = whileExit[sizeof(whileExit)-1];
-//		int newer [sizeof(whileExit)-1] = whileExit;
-//		whileExit;
-//	}
-//}
 
 void yyerror (char const *s) {
   fprintf (stderr, "ERROR SINTACTICO [%d]: %s\n", numlin, s);

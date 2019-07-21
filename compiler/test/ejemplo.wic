@@ -16,6 +16,8 @@ fun main (){
                 print(2)
                 hola = 4
                 if(hola == b){
+                    int david
+                    david = 8 - b * a
                     print(999)
                 }
             }

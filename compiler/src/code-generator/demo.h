@@ -30,6 +30,12 @@ void putVariableValueInStack(char *variable_id);
 
 void printValue(int value);
 
+void putValueInR0(int value);
+
+void putVariableInR0(char *variable_id);
+
+void putOperationResultInR0();
+
 /********Assignation*********/
 
 void insertVariableValueInStack(char* variable_id);
@@ -92,3 +98,9 @@ void printLabelInstruction(int label);
 
 int printGoToFinalEstructureElse();
 void generateGoToWhile(int etiqueta);
+
+/*******Functions************/
+void functionReturn();
+void functionCall(char *funciton_id);
+void function(char *name);
+
