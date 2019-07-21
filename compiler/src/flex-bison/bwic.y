@@ -94,7 +94,7 @@ root : declaration END_OF_INSTRUCTION root
      | assignation END_OF_INSTRUCTION root
      | {if(marcador){jumpMain(); marcador = false;}} function root
      | END_OF_INSTRUCTION root
-	 | print END_OF_INSTRUCTION root
+     | print END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
@@ -142,7 +142,7 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation PRODUCT aritmeticOperation {product();}
                   |   aritmeticOperation DIVIDE aritmeticOperation {division();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
-            	  |   ID PARENTESIS_OPEN {saveR7inR1();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>1);}
+            	  |   ID PARENTESIS_OPEN {saveR7inR4();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>1);}
                   |   INT_VAL {insertValueInStack($<number>1);}
                   |   ID  {insertVariableValueInStack($<string>1);}    
                   ;

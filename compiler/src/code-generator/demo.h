@@ -108,3 +108,6 @@ void functionReturn();
 void functionCall(char *funciton_id);
 void function(char *name);
 
+void putParameterValueInR0(int offset);
+void putR0InParameter(int offset);
+void saveR7inR4();

@@ -1,9 +1,14 @@
 
 fun sum (int a){
-    return 1    
+    a = 2
+    int b
+    b = 7
+    print(a)
+    return b
 }
 
 fun main (){
     int x
-    x = sum(1)
+    x = sum(5 - 2)
+    print(x)
 }

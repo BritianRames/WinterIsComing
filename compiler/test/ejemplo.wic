@@ -5,30 +5,30 @@ a = 10
 b = 3
 hola = 3
 fun main (){
-    print("abcde")
+    ..print("abcde")
 
-    ..while(hola != 6){
-    ..    print(hola)
-    ..    hola++
-    ..}
-    ..b = 4
-    ..while ( a != 5) {
-    ..    while(b != 10){
-    ..        while (hola != 4){
-    ..            print(2)
-    ..            hola = 4
-    ..            if(hola == b){
-    ..                int david
-    ..                david = 8 - b * a
-    ..                print(david)
-    ..            }
-    ..        }
-    ..        print(3)
-    ..        b++
-    ..    }
-    ..    print(4)
-    ..    a = 5
-    ..}
+    while(hola != 6){
+        print(hola)
+        hola++
+    }
+    b = 4
+    while ( a != 5) {
+        while(b != 10){
+            while (hola != 4){
+                print(2)
+                hola = 4
+                if(hola == b){
+                    int david
+                    david = 8 - b * a
+                    print(david)
+                }
+            }
+            print(3)
+            b++
+        }
+        print(4)
+        a = 5
+    }
 }
 
 
