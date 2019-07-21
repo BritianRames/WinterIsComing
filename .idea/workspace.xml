@@ -31,16 +31,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aca1b1c-243e-4cc3-bb82-d2b948c414f1" name="Default Changelist" comment="[+] Refractor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/Makefile" afterDir="false" />
+    <list default="true" id="1aca1b1c-243e-4cc3-bb82-d2b948c414f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/compiler/file.q.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/file.q.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/demo.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/demo.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/code-generator/demo.h" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/code-generator/demo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/src/symbol-table/SymbolTableManager.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiler/test/fibo.wic" beforeDir="false" afterPath="$PROJECT_DIR$/compiler/test/fibo.wic" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,11 +72,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/demo.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="77" selection-start-line="77" selection-end-line="77" />
+            <state relative-caret-position="325">
+              <caret line="70" column="11" lean-forward="true" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/compiler/test/while-test.wic">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -106,15 +107,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
               <caret line="257" column="26" selection-start-line="257" selection-start-column="26" selection-end-line="257" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/CodePrinter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1410">
-              <caret line="94" column="61" selection-start-line="94" selection-start-column="61" selection-end-line="94" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -230,6 +222,7 @@
         <option value="$PROJECT_DIR$/compiler/src/main.c" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/demo.c" />
         <option value="$PROJECT_DIR$/compiler/src/code-generator/demo.h" />
+        <option value="$PROJECT_DIR$/compiler/test/while-test.wic" />
       </list>
     </option>
   </component>
@@ -269,13 +262,6 @@
               <item name="compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="code-generator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WinterIsComing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WinterIsComing" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="flex-bison" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WinterIsComing" type="b2602c69:ProjectViewProjectNode" />
@@ -351,7 +337,7 @@
       <workItem from="1562718493347" duration="5521000" />
       <workItem from="1563099866486" duration="32562000" />
       <workItem from="1563707443504" duration="5414000" />
-      <workItem from="1563730527291" duration="848000" />
+      <workItem from="1563730527291" duration="938000" />
     </task>
     <task id="LOCAL-00001" summary="[+] Refractor">
       <created>1562722783478</created>
@@ -451,11 +437,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563729980623</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="[+] Refractor">
+      <created>1563731408522</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1563731408522</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82043000" />
+    <option name="totallyTimeSpent" value="82133000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -471,10 +464,10 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25773746" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25773746" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TeamCity" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49893278" visible="true" weight="0.32790446" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.49893278" visible="true" weight="0.32790446" />
       <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49893278" weight="0.32899022" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5010672" side_tool="true" weight="0.32790446" />
       <window_info anchor="bottom" id="Serial Monitor" order="4" />
@@ -598,13 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler/test/while-test.wic">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/descenso-recursivo/Makefile">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -699,8 +685,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/compiler/src/code-generator/demo.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
+        <state relative-caret-position="325">
+          <caret line="70" column="11" lean-forward="true" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler/test/while-test.wic">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
