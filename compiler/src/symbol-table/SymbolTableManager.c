@@ -44,13 +44,13 @@ void insertVariableInSymbolTable(char* id){
 
 }
 
-void insertParameterInSymbolTable(char *id){
+void insertParameterArrayInSymbolTable(char* id) {
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
 
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
-    symbol->array_size = NULL;
+    symbol->array_size = getVariableFromSymbolTable(id)->array_size;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
@@ -65,13 +65,13 @@ void insertParameterInSymbolTable(char *id){
     }
 }
 
-void insertParameterArrayInSymbolTable(char* id) {
+void insertParameterInSymbolTable(char *id){
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
 
     symbol->id = malloc(sizeof(char) * strlen(id));
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
-    symbol->array_size = getVariableFromSymbolTable(id)->array_size;
+    symbol->array_size = NULL;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
