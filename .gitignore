@@ -3,3 +3,4 @@ compiler/bin/*
 compiler/*.output
 compiler/*.q.c
 .vscode/*
+.idea/*
