@@ -210,16 +210,41 @@ int getLocalVariableOffset(int position){
   return result;
 }
 
-void printValue(int value){
+void printR0(){
   int label = _getNextLabel();
   //saveRegisters();
-  fprintf(f,"R0 = %d;\n",label);
-  fprintf(f,"R1 = 0x%x;\n",0x11ffc);
-  fprintf(f,"R2 = %d;\n",value);
-  fprintf(f,"GT(-12);\n");
-  fprintf(f, "L %d:\n", label);
-  //recoverRegisters();
+  fprintf(f,"\t\tR2 = I(R7);\n");
+  moveR7Up();
+  
+  fprintf(f,"\t\tR0 = %d;\n",label);
+  fprintf(f,"\t\tR1 = 0x%x;\n",0x11ffc);
+  fprintf(f,"\t\tGT(-12);\n");
+  fprintf(f, "\t\tL %d:\n", label);
 }
+
+void printString(char* str){
+  int label = _getNextLabel();
+  int str_size = sizeof(str);
+  fprintf(f,"\t\tR5 = R7 - 4;\n");
+  for(int i = 1 ; i<=str_size; i++ ){
+    insertValueInStack(str[i]);
+  }
+  fprintf(f,"\t\tR0 = %d;\n",label);
+  fprintf(f,"\t\tR1 = 0x%x;\n",0x11ffc);
+  fprintf(f,"\t\tR2 = R5;\n");
+  fprintf(f,"\t\tGT(-12);\n");
+  fprintf(f,"\t\tL %d:\n", label);
+  for(int i = 1 ; i<=str_size; i++ ){
+    moveR7Up();
+  }
+}
+
+void insertCharInStack(value){
+  moveR7Down();
+  //fprintf(f, "STR(I(R7),\"%c\");\n", value);
+
+}
+
 
 int getParameterOffset(int position){
     return position * 4;

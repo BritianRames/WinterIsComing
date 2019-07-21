@@ -28,7 +28,9 @@ void putVariableAddressInStack(char *variable_id);
 
 void putVariableValueInStack(char *variable_id);
 
-void printValue(int value);
+void printR0();
+
+void printString(char* str);
 
 void putValueInR0(int value);
 
@@ -37,6 +39,8 @@ void putVariableInR0(char *variable_id);
 void putOperationResultInR0();
 
 /********Assignation*********/
+
+void insertCharInStack(value);
 
 void insertVariableValueInStack(char* variable_id);
 
