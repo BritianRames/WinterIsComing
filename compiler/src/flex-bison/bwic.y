@@ -122,8 +122,8 @@ instruction : assignation
             | declaration
             | return
             | print
-            | CONTINUE {continueCode();}
-            | BREAK {breackCode();}
+            | CONTINUE {closeScopeInSymbolTable(); continueCode();}
+            | BREAK { closeScopeInSymbolTable(); breackCode();}
             ;
 
 assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}

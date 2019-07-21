@@ -7,8 +7,12 @@ hola = 3
 fun main (){
     while(hola != 6){
         if(hola == 5){
+            int zz
+            zz = 1
+            int yy
             ..print(hola)
             ..continue
+            yy = 77
             break
         }
         print(hola)

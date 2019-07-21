@@ -171,7 +171,17 @@ bool _existSymbolInSymbolTable(struct Symbol* symbol){
     return false;
 }
 
-
+void deleteClauseLocalVariables(){
+    struct Symbol* currentSymbol = lastSymbol;
+    for(int i = tableSize; i > 0; i--){
+        if(currentScope == lastSymbol->scope){
+            lastSymbol->previousSymbol->nextSymbol = NULL;
+            lastSymbol = lastSymbol->previousSymbol;
+        } else {
+            break;
+        }
+    }
+}
 
 void _removeLocalVariablesFromSymbolTable(){
     struct Symbol* currentSymbol = lastSymbol;
