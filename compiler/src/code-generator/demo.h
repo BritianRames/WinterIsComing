@@ -72,43 +72,13 @@ void saveRegisters();
 void recoverRegisters();
 
 /*********LogCong-ValueValue***********/
-void valueEqualsToValue(int val1, int val2);
-
-void valueNotEqualToValue(int val1, int val2);
-
-void valueSmallerThanValue(int val1, int val2);
-
-void valueSmallerEqualsThanValue(int val1, int val2);
-
-void valueGreaterThanValue(int val1, int val2);
-
-void valueGreaterEqualsThanValue(int val1, int val2);
+void logicalValueToValue(int val1, int val2, char* logic);
 
 /*********LogCong-ValueVariable***********/
-void valueEqualsToVariable(char* variable_id, int val);
-
-void valueNotEqualToVariable(char* variable_id, int val);
-
-void valueSmallerThanVariable(char* variable_id, int val);
-
-void valueSmallerEqualsThanVariable(char* variable_id, int val);
-
-void valueGreaterThanVariable(char* variable_id, int val);
-
-void valueGreaterEqualsThanVariable(char* variable_id, int val);
+void logicalVariableToValue(char* variable_id, int val, char* logic);
 
 /*********LogCong-VariableVariable***********/
-void variableEqualsToVariable(char* variable1_id, char* variable2_id);
-
-void variableNotEqualsToVariable(char* variable1_id, char* variable2_id);
-
-void variableSmallerThanVariable(char* variable1_id, char* variable2_id);
-
-void variableSmallerEqualsToVariable(char* variable1_id, char* variable2_id);
-
-void variableGraterThanVariable(char* variable1_id, char* variable2_id);
-
-void variableGreaterEqualsThanVariable(char* variable1_id, char* variable2_id);
+void logicalVariableToVariable(char* variable1_id, char* variable2_id, char* logic);
 
 /*******Not operations**********/
 

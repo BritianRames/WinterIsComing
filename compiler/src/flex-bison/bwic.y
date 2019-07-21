@@ -100,7 +100,7 @@ root : declaration END_OF_INSTRUCTION root
      | /* EMPTY */
      ;
 
-declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
+declaration :  INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
             ;
 
@@ -176,98 +176,18 @@ controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {
                  | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printClause(); printLabelInstruction(popClauseWE());}
 				 ;
 
-logicalOperation : ID logicalOperator ID { switch($2) {
-					   	case 1:
-							/*valueEqualsToVariable($<string>1, $<string>3);*/
-					   		break;
-						case 2:
-							/*generateNotEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 3:
-							/*generateLessVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 4:
-							/*generateLessEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 5:
-							/*generateGreaterVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 6:
-						default:
-							/*generateGreaterEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-					    } }
-                 | ID logicalOperator INT_VAL { switch($2) {
-						   case 1:
-						   	valueEqualsToVariable($<string>1, $<number>3);
-						   	break;
-						   case 2:
-						   	valueNotEqualToVariable($<string>1, $<number>3);
-						   	break;
-						   case 3:
-						   	/*generateLessValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 4:
-						   	/*generateLessEqualsValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 5:
-						   	/*generateGreaterValueToVariable($<string>1, $<number>3);*/
-						   	break;
-						   case 6:
-						   default:
-						   	/*generateGreaterEqualsValueToVariable($<string>1, $<number>3);*/
-						   	break;
-					        } }
-                 | INT_VAL logicalOperator INT_VAL { switch($2) {
-							   case 1:
-								valueEqualsToValue($<number>1, $<number>3);
-								break;
-							   case 2:
-								/*generateNotEqualsValueToValue($<number>1, $<number>3);*/
-								break;
-							   case 3:
-								/*generateLessValueToValue($<number>1, $<number>3);*/
-								break;
-							   case 4:
-								/*generateLessEqualsValueToValue($<number>1, $<number>3);*/
-								break;
-							   case 5:
-								/*generateGreaterValueToValue($<number>1, $<number>3);*/
-								break;
-							   case 6:
-							   default:
-								/*generateGreaterEqualsValueToValue($<number>1, $<number>3);*/
-								break;
-							} }
-                 | INT_VAL logicalOperator ID { switch($2) {
-						   case 1:
-							/*generateEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 2:
-							/*generateNotEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 3:
-							/*generateLessValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 4:
-							/*generateLessEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 5:
-							/*generateGreaterValueToVariable($<number>1, $<string>3);*/
-							break;
-						   case 6:
-						   default:
-							/*generateGreaterEqualsValueToVariable($<number>1, $<string>3);*/
-							break;
-						} }
+logicalOperation : ID logicalOperator ID {variableEqualsToVariable($<string>1, $<string>3, $<string>2);}
+                 | ID logicalOperator INT_VAL { logicalVariableToValue($<string>1, $<number>3, $<string>2);}
+                 | INT_VAL logicalOperator INT_VAL { logicalValueToValue($<number>1, $<number>3,$<string>2);}
+                 | INT_VAL logicalOperator ID { logicalVariableToValue($<string>3, $<number>1, $<string>2);}
                  ;
 
-logicalOperator : EQUALS {$$ = 1;}
-                | NOT_EQUALS {$$ = 2;}
-                | LESS {$$ = 3;}
-                | LESS_EQUALS {$$ = 4;}
-                | GREATER {$$ = 5;}
-                | GREATER_EQUALS {$$ = 6;}
+logicalOperator : EQUALS {$$ = "==";}
+                | NOT_EQUALS {$$ = "!=";}
+                | LESS {$$ = "<";}
+                | LESS_EQUALS {$$ = "<=";}
+                | GREATER {$$ = ">";}
+                | GREATER_EQUALS {$$ = ">=";}
                 ;
 
 %%

@@ -487,7 +487,7 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
        0,    91,    91,    91,    95,    96,    97,    97,    98,    99,
      100,   103,   104,   107,   107,   107,   107,   107,   110,   111,
@@ -496,8 +496,8 @@ static const yytype_uint16 yyrline[] =
      140,   142,   143,   144,   145,   146,   147,   147,   148,   149,
      153,   154,   155,   156,   156,   159,   162,   163,   164,   165,
      168,   169,   172,   172,   172,   172,   173,   175,   175,   175,
-     175,   176,   176,   176,   176,   176,   179,   200,   221,   242,
-     265,   266,   267,   268,   269,   270
+     175,   176,   176,   176,   176,   176,   179,   180,   201,   222,
+     245,   246,   247,   248,   249,   250
 };
 #endif
 
@@ -1657,32 +1657,12 @@ yyreduce:
 
   case 76:
 #line 179 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    { switch((yyvsp[-1].number)) {
-					   	case 1:
-							/*valueEqualsToVariable($<string>1, $<string>3);*/
-					   		break;
-						case 2:
-							/*generateNotEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 3:
-							/*generateLessVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 4:
-							/*generateLessEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 5:
-							/*generateGreaterVariableToVariable($<string>1, $<string>3);*/
-							break;
-						case 6:
-						default:
-							/*generateGreaterEqualsVariableToVariable($<string>1, $<string>3);*/
-							break;
-					    } }
-#line 1682 "bwic.tab.c" /* yacc.c:1646  */
+    {variableEqualsToVariable((yyvsp[-2].string), (yyvsp[0].string), (yyvsp[-1].string));}
+#line 1662 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 200 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 180 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     { switch((yyvsp[-1].number)) {
 						   case 1:
 						   	valueEqualsToVariable((yyvsp[-2].string), (yyvsp[0].number));
@@ -1704,37 +1684,37 @@ yyreduce:
 						   	/*generateGreaterEqualsValueToVariable($<string>1, $<number>3);*/
 						   	break;
 					        } }
-#line 1708 "bwic.tab.c" /* yacc.c:1646  */
+#line 1688 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 221 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 201 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     { switch((yyvsp[-1].number)) {
 							   case 1:
 								valueEqualsToValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							   case 2:
-								/*generateNotEqualsValueToValue($<number>1, $<number>3);*/
+								valueNotEqualToValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							   case 3:
-								/*generateLessValueToValue($<number>1, $<number>3);*/
+								valueSmallerThanValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							   case 4:
-								/*generateLessEqualsValueToValue($<number>1, $<number>3);*/
+								valueSmallerEqualsThanValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							   case 5:
-								/*generateGreaterValueToValue($<number>1, $<number>3);*/
+								valueGreaterThanValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							   case 6:
 							   default:
-								/*generateGreaterEqualsValueToValue($<number>1, $<number>3);*/
+								valueGreaterEqualsThanValue((yyvsp[-2].number), (yyvsp[0].number));
 								break;
 							} }
-#line 1734 "bwic.tab.c" /* yacc.c:1646  */
+#line 1714 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 242 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+#line 222 "src/flex-bison/bwic.y" /* yacc.c:1646  */
     { switch((yyvsp[-1].number)) {
 						   case 1:
 							/*generateEqualsValueToVariable($<number>1, $<string>3);*/
@@ -1756,47 +1736,47 @@ yyreduce:
 							/*generateGreaterEqualsValueToVariable($<number>1, $<string>3);*/
 							break;
 						} }
-#line 1760 "bwic.tab.c" /* yacc.c:1646  */
+#line 1740 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 265 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 1;}
-#line 1766 "bwic.tab.c" /* yacc.c:1646  */
+#line 245 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = "==";}
+#line 1746 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 266 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 2;}
-#line 1772 "bwic.tab.c" /* yacc.c:1646  */
+#line 246 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = "!=";}
+#line 1752 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 267 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 3;}
-#line 1778 "bwic.tab.c" /* yacc.c:1646  */
+#line 247 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = "<";}
+#line 1758 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 268 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 4;}
-#line 1784 "bwic.tab.c" /* yacc.c:1646  */
+#line 248 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = "<=";}
+#line 1764 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 269 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 5;}
-#line 1790 "bwic.tab.c" /* yacc.c:1646  */
+#line 249 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = ">";}
+#line 1770 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 270 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {(yyval.number) = 6;}
-#line 1796 "bwic.tab.c" /* yacc.c:1646  */
+#line 250 "src/flex-bison/bwic.y" /* yacc.c:1646  */
+    {(yyval.number) = ">=";}
+#line 1776 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1800 "bwic.tab.c" /* yacc.c:1646  */
+#line 1780 "bwic.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2024,7 +2004,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 273 "src/flex-bison/bwic.y" /* yacc.c:1906  */
+#line 253 "src/flex-bison/bwic.y" /* yacc.c:1906  */
 
 
 //int main(int argc, char** argv) {
