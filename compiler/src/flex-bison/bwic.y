@@ -105,7 +105,7 @@ declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationG
 function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
          ;
 
-params : INT_TYPE ID params {printf("HOLA");insertParameterInSymbolTable($<string>2);}
+params : INT_TYPE ID params {insertParameterInSymbolTable($<string>2);}
        | COMMA INT_TYPE ID params {insertParameterInSymbolTable($<string>3);}
        | /* EMPTY */
        ;
@@ -132,12 +132,10 @@ assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
             ;  
 
-functionCallParams : INT_VAL {insertValueInStack();}
-                   | ID {insertVariableValueInStack();}
-                   | INT_VAL COMMA functionCallParams {insertValueInStack();}
-                   | ID COMMA functionCallParams {insertVariableValueInStack();}
-				   |
-				   ;
+functionCallParams : aritmeticOperation
+	    | aritmeticOperation COMMA functionCallParams
+	    |
+	    ;
 
 aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   aritmeticOperation SUBSTRACT aritmeticOperation {substract();}

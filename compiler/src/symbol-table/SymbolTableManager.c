@@ -53,12 +53,15 @@ void insertParameterInSymbolTable(char *id){
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
-    symbol->address = _getNextParametersAddressFromSymbolTable();
 
     strcpy(symbol->id, id);
 
-    _existSymbolInSymbolTable(symbol) ? printf("Error") : _linkSymbolToSymbolTable(symbol);
-
+    if(_existSymbolInSymbolTable(symbol)) {
+        printf("Error");
+    } else {
+        _linkSymbolToSymbolTable(symbol);
+        symbol->address = _getNextParametersAddressFromSymbolTable();
+    }
 }
 
 void insertFunctionSymbolTable(char *id){
@@ -105,7 +108,6 @@ void _linkSymbolToSymbolTable(struct Symbol* symbol) {
 
     if(symbol->type == 'f') lastFunc = symbol;
     lastSymbol = symbol;
-    //_incrementNumberOfLocalVariablesAndParameters(); //REVISA 
     tableSize++;
 }
 
@@ -116,12 +118,12 @@ void _incrementNumberOfLocalVariablesAndParameters(){
 
 int _getNextLocalVariableAddressFromSymbolTable(){
     lastFunc->numberOfLocalVariables++;
-    return (lastFunc->numberOfLocalVariables);
+    return lastFunc->numberOfLocalVariables;
 }
 
 int _getNextParametersAddressFromSymbolTable(){
-    lastFunc ->numberOfParameters++;
-    return (lastFunc->numberOfParameters + 1);
+    lastFunc->numberOfParameters++;
+    return lastFunc->numberOfParameters;
 }
 
 int _getNextStaticAddressFromSymbolTable() {

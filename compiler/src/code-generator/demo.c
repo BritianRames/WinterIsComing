@@ -54,10 +54,9 @@ void functionCall(char* function_id){ //FunctionCall
   fprintf(f, "R6 = R1;\n"); //R1 has original R7 of the function
   moveR7Down();
   fprintf(f, "I(R7) = %d;\n", returnLabel);
-  fprintf(f, "//(Jump)\n", function_id);
+  fprintf(f, "//(Jump -> %s)\n", function_id);
   fprintf(f, "GT(%d);\n", function->label);
   fprintf(f, "L %d:\n", returnLabel);
-
 }
 
 void putParameterValueInStack(int value){ //For each recognized param
@@ -65,7 +64,7 @@ void putParameterValueInStack(int value){ //For each recognized param
 }
 
 void saveR7inR1(){ //Before inserting params
-  fprintf(f, "//Preparamos para operación %s\n", function_id);
+  fprintf(f, "//Preparamos para CALL\n");
   fprintf(f, "R1 = R7;\n");
 }
 
@@ -190,6 +189,10 @@ void assignR0ToVariable(char *variable_id) {
     int offset = getLocalVariableOffset(variable->address);
     printf("Hey there %d -------------------------------------------------------", variable->address);
     fprintf(f, "I(R6 - %d) = R0;\n", offset);  
+  } else if (variable->type == 'p'){
+      int offset = getParameterOffset(variable->address);
+      printf("Hey there %d -------------------------------------------------------", variable->address);
+      fprintf(f, "I(R6 - %d) = R0;\n", offset);
   }
 }
 
@@ -219,7 +222,7 @@ void printValue(int value){
 }
 
 int getParameterOffset(int position){
-    return position;
+    return position * 4;
 }
 
 /*********Operations*********/
