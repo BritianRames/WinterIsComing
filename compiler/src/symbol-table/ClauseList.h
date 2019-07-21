@@ -19,3 +19,5 @@ void pushClauseIFE(int label);
 int popClauseIFE();
 void pushClauseIF(int label);
 int popClauseIF();
+int readClauseWE();
+int readClauseWI();

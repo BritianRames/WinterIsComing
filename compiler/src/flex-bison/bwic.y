@@ -122,7 +122,8 @@ instruction : assignation
             | declaration
             | return
             | print
-            | BREAK {/*breakCode();*/}
+            | CONTINUE {continueCode();}
+            | BREAK {breackCode();}
             ;
 
 assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}

@@ -1,5 +1,6 @@
 #include "demo.h"
 #include "../symbol-table/SymbolTableManager.h"
+#include "../symbol-table/ClauseList.h"
 
 FILE *f;
 
@@ -27,6 +28,16 @@ void goToExit()  {
 
 void qEnding() {
     fprintf(f, "END\n");
+}
+
+void breackCode(){
+  int etiqueta = readClauseWE();
+  fprintf(f, "\tGT(%d);\n", etiqueta);
+}
+
+void continueCode(){
+  int etiqueta = readClauseWI();
+  fprintf(f, "\tGT(%d);\n", etiqueta);
 }
 
 /*****Functions********/

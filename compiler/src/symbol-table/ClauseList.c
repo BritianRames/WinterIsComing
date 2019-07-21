@@ -112,6 +112,18 @@ int popClauseWE(){
     clauseSizeWE--;
 	return etiqueta;
 }
+int readClauseWE(){
+    //printf("------------------------------->HOLA AMIGO ESTO ES UN PUSH<----------------------------------------------");
+	struct Clause* clause = lastClauseWE;
+	int etiqueta = clause->label;
+	return etiqueta;
+}
+
+int readClauseWI(){
+    struct Clause* clause = lastClauseWI;
+	int etiqueta = clause->label;
+	return etiqueta;
+}
 
 int popClauseIF(){
     struct Clause* clause = lastClauseIF;

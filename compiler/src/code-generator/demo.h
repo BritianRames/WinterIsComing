@@ -15,6 +15,9 @@ void goToExit();
 
 void qEnding();
 
+void breackCode();
+
+void continueCode();
 
 /*******Stack*********/
 
