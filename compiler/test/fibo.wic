@@ -10,39 +10,11 @@ fun fibo (int n){
     }
 }
 
-fun suma(int a, int b) {
-    print(a)
-    print(b)
-    return a + b
-}
-
-fun resta(int c, int d) {
-    return c - d
-}
-
 fun main (){
-    print(3 - 8)
-    int a
-    a = 0
-
     int x
     x = 0
-
-    int count
-    count = 1
-
-    while(x < 20){
+    while (x < 10) {
         print(fibo(x))
-        print(count)
         x++
-        count++
     }
-
-    print(999)
-    print(suma(1, 2))
-    print(resta(10, 100))
-
-    int pepe
-    pepe = x * 5 / fibo(3)
-    print(pepe)
 }

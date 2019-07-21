@@ -19,8 +19,7 @@ compile:
 					src/symbol-table/SymbolTableManager.c \
 					src/symbol-table/ClauseList.c\
 					src/code-generator/demo.c \
-					build/lex.yy.c build/bwic.tab.c \
-					src/code-generator/StackManager.c
+					build/lex.yy.c build/bwic.tab.c
 
 
 

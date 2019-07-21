@@ -354,27 +354,6 @@ void printLabelInstruction(int label){
     fprintf(f, "L %d:\n", label);
 }
 
-/* ARRAY MANAGEMENT */
-void printCreateArray(int addr, int size) {
-    fprintf(f, "\tFIL(P(0x%x),%d,0);\n", addr, size);
-}
-
-void printArrayAssignValue(int addr, int pos, int val) {
-    fprintf(f, "\tI(P(0x%x)) = %d;\n", addr - 4 * pos, pos, val);
-}
-
-void printArrayAssignVariable(int addr1, int pos, int addr2){
-    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(0x%x);\n", addr1, pos, addr2);
-}
-
-void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2) {
-    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(P(0x%x) + 4 * %d);\n", addr1, pos1, addr2, pos2);
-}
-
-void printVariableAssignArray(int address, int array, int pos){
-    fprintf(f, "I(0x%x) = I(P(0x%x) + 4 * %d);\n", address, array, pos);
-}
-
 void printPlusPlusOperation(int address){
   fprintf(f, "I(0x%x) = I(0x%x) + 1;\n", address, address);
 }

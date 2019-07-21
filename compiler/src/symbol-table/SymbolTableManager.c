@@ -8,6 +8,7 @@ int tableSize = 0;
 int currentScope = 0;
 int lastLabel = 1;
 int currentStatCodeSectionNumber = 0;
+int staticPointer = 0x12000;
 
 void insertArrayInSymbolTable(char* id, int size) {
     struct Symbol* symbol = malloc(sizeof(struct Symbol));
@@ -127,7 +128,8 @@ int _getNextParametersAddressFromSymbolTable(){
 }
 
 int _getNextStaticAddressFromSymbolTable() {
-    return getNextStackPointer();
+    staticPointer = staticPointer - 4;
+    return staticPointer;
 }
 
 bool _haveSameType(struct Symbol* symbol1, struct Symbol* symbol2){

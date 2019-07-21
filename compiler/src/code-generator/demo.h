@@ -76,11 +76,6 @@ void division();
 
 void assign();
 
-/********Registers***********/
-void saveRegisters();
-
-void recoverRegisters();
-
 /*********LogCong-ValueValue***********/
 void logicalValueToValue(int val1, int val2, char* logic);
 
@@ -111,3 +106,10 @@ void function(char *name);
 void putParameterValueInR0(int offset);
 void putR0InParameter(int offset);
 void saveR7inR4();
+
+/****Array Management*****/
+void printCreateArray(int addr, int size);
+void printArrayAssignValue(int addr, int pos, int val);
+void printArrayAssignVariable(int addr1, int pos, int addr2);
+void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2);
+void printVariableAssignArray(int address, int array, int pos);

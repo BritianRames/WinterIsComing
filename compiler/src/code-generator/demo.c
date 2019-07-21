@@ -21,10 +21,6 @@ void jumpMain(){
 }
 
 void goToExit()  {
-  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 4));\n");
-  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 8));\n");
-  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 12));\n");
-  //fprintf(f, "printf(\"%%d \\n\", I(R6 - 16));\n");
   r6EqualsR7();
   fprintf(f, "\tGT(-2);\n");
 }
@@ -223,7 +219,6 @@ int getLocalVariableOffset(int position){
 
 void printR0(){
   int label = _getNextLabel();
-  //saveRegisters();
   fprintf(f,"\t\tR2 = I(R7);\n");
   moveR7Up();
   
@@ -238,7 +233,7 @@ void printString(char* str){
   int str_size = sizeof(str);
   fprintf(f,"\t\tR5 = R7 - 4;\n");
   for(int i = 1 ; i<=str_size; i++ ){
-    insertValueInStack(str[i]);
+      insertCharInStack(str[i]);
   }
   fprintf(f,"\t\tR0 = %d;\n",label);
   fprintf(f,"\t\tR1 = 0x%x;\n",0x11ffc);
@@ -252,8 +247,6 @@ void printString(char* str){
 
 void insertCharInStack(value){
   moveR7Down();
-  //fprintf(f, "STR(I(R7),\"%c\");\n", value);
-
 }
 
 int getParameterOffset(int position){
@@ -318,40 +311,6 @@ void division(){
   fprintf(f, "R2 = I(R7);\n");
   fprintf(f, "R3 = R2 / R1;\n");
   fprintf(f, "I(R7) = R3;\n");
-}
-
-/********Registers***********/
-
-void saveRegisters(){
-  moveR7Down();
-  fprintf(f, "I(R7) = R0;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R1;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R2;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R3;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R4;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R5;\n");
-  moveR7Down();
-  fprintf(f, "I(R7) = R6;\n");
-}
-
-void recoverRegisters(){
-  fprintf(f, "R6 = I(R7);\n");
-  moveR7Up();
-  fprintf(f, "R5 = I(R7);\n");
-  moveR7Up();
-  fprintf(f, "R4 = I(R7);\n");
-  moveR7Up();
-  fprintf(f, "R3 = I(R7);\n");
-  moveR7Up();
-  fprintf(f, "R2 = I(R7);\n");
-  moveR7Up();
-  fprintf(f, "R1 = I(R7);\n");
-  moveR7Up();
 }
 
 /*********LogCong-ValueValue***********/
@@ -449,4 +408,25 @@ void putParameterValueInR0(int offset){
 
 void putR0InParameter(int offset){
     fprintf(f, "I(R6 - %d) = R0;\n", offset);
+}
+
+/****Array Management*****/
+void printCreateArray(int addr, int size) {
+    fprintf(f, "\tFIL(P(0x%x),%d,0);\n", addr, size);
+}
+
+void printArrayAssignValue(int addr, int pos, int val) {
+    fprintf(f, "\tI(P(0x%x)) = %d;\n", addr - 4 * pos, pos, val);
+}
+
+void printArrayAssignVariable(int addr1, int pos, int addr2){
+    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(0x%x);\n", addr1, pos, addr2);
+}
+
+void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2) {
+    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(P(0x%x) + 4 * %d);\n", addr1, pos1, addr2, pos2);
+}
+
+void printVariableAssignArray(int address, int array, int pos){
+    fprintf(f, "I(0x%x) = I(P(0x%x) + 4 * %d);\n", address, array, pos);
 }
