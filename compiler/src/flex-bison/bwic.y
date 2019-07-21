@@ -156,13 +156,14 @@ return : RETURN ID {printf("++++++++++++++++++++++++++++++++++++++++++++++++++++
        | RETURN ID PARENTESIS_OPEN {/*functionCall($<string>1,$<string>3);*/} functionCallParams PARENTESIS_CLOSE {printf("TERMINA LLAMADA FUNCION\n");}
        ; 
 
-print : PRINT PARENTESIS_OPEN printableElement PARENTESIS_CLOSE 
+print : PRINT PARENTESIS_OPEN QUOTE STRING_VAL QUOTE PARENTESIS_CLOSE {printString($<string>5);}
+	  | PRINT PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE {printR0();}
       ; 
 
-printableElement : ID {/*generatePrintVariable($<string>1);*/}
+printableElement : ID {printVariable($<string>1);}
                  | QUOTE text QUOTE {/*generatePrintString($<string>2);*/}
                  | printableElement SUM printableElement
-		 | INT_VAL {printValue($<number>1);}
+		 		 | INT_VAL {printValue($<number>1);}
                  ;
 
 text : STRING_VAL {$$ = $<string>1;}
