@@ -1,18 +1,19 @@
 int global[2]
 
 fun suma(int a, int b) {
-    a[0] = 1
     return a + b
 }
 
 fun main() {
-    int array[3]
+    int array[4]
     array[0] = 1
-    array[1] = 2
-    array[2] = 3
     global[0] = 5
     global[1] = 4
+    array[1] = 2
+    array[2] = 10
+    array[3] = array[1 + 1]
+    print(array[3])
 
-    array[0] = suma(array, global[0])
+    ..array[0] = suma(array[0], global[0])
     print(array[0])
 }

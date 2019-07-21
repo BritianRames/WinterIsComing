@@ -61,6 +61,7 @@ void instr () {
 		match(ID);
 		if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS || l == EQUALS){
 			pre_anid_while();
+			anid_while();
 		} else {
 			if(l == ASSIGN){
 				match(ASSIGN);
@@ -84,8 +85,9 @@ void instr () {
 		if(l == LESS || l == GREATER || l == GREATER_EQUALS || l == NOT_EQUALS || l == LESS_EQUALS || l == EQUALS){
 			pre_anid_while();
 		} else {
-			anid_while();
+			
 		}
+		anid_while();
 	}else if(l == INT_TYPE || l == BOOL_TYPE || l == REAL_TYPE){
 		if(l==INT_TYPE){
 			match(INT_TYPE);

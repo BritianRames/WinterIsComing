@@ -171,6 +171,8 @@ bool _existSymbolInSymbolTable(struct Symbol* symbol){
     return false;
 }
 
+
+
 void _removeLocalVariablesFromSymbolTable(){
     struct Symbol* currentSymbol = lastSymbol;
     for(int i = tableSize; i > 0; i--){

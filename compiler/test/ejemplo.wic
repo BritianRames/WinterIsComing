@@ -5,7 +5,6 @@ a = 10
 b = 3
 hola = 3
 fun main (){
-    ..print("abcde")
 
     while(hola != 6){
         print(hola)
@@ -18,7 +17,6 @@ fun main (){
                 print(2)
                 hola = 4
                 if(hola == b){
-                    continue
                     int david
                     david = 8 - b * a
                     print(david)

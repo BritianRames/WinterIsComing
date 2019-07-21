@@ -11,9 +11,9 @@ void openFile(){
 void qInitialization() {
     fprintf(f, "#include \"Q.h\"\n\n");
     fprintf(f, "BEGIN\n");
-    fprintf(f, "L 0:\n");
     insertVariableInSymbolTable("STR4PRINT");
     fprintf(f,"STAT(0)\nSTR(0x11ffc,\"%%d\\n\");\nCODE(0)\n");
+    fprintf(f, "L 0:\n");
     r6EqualsR7();
 }
 
@@ -472,7 +472,7 @@ void insertArrayValueInStack(char* id, int pos) {
     }
 }
 
-void assignR0ToArray(char* id, int pos) {
+void assignR0ToArray(char* id) {
     struct Symbol* symbol = getVariableFromSymbolTable(id);
     int addr = symbol->address;
 
@@ -480,7 +480,7 @@ void assignR0ToArray(char* id, int pos) {
     moveR7Up();
 
     if (symbol->type == 'g') {
-        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R3 = 4 * R0;\n");
         fprintf(f, "R2 = P(0x%x);\n", addr);
         fprintf(f, "R3 = R2 + R3;\n");
         fprintf(f, "I(R3) = R0;\n");
@@ -488,14 +488,14 @@ void assignR0ToArray(char* id, int pos) {
     }
     else if (symbol->type == 'l') {
         int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R3 = 4 * R0;\n");
         fprintf(f, "R2 = P(R6 - %d);\n", offset);
         fprintf(f, "R3 = R2 + R3;\n");
         fprintf(f, "I(R3) = R0;\n");
 //        fprintf(f, "I(P(R6 - %d) + 4 * %d) = R0;\n", offset, pos);
     } else if (symbol->type == 'p') {
         int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R3 = 4 * R0;\n");
         fprintf(f, "R2 = P(R6 - %d);\n", offset);
         fprintf(f, "R3 = R2 + R3;\n");
         fprintf(f, "I(R3) = R0;\n");

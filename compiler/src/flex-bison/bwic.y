@@ -102,7 +102,7 @@ declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationG
             | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); printCreateArray($<string>2);}
             ;
 
-function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
+function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet {putValueInR0(0);functionReturn();} CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();} 
          ;
 
 params : INT_TYPE ID {insertParameterInSymbolTable($<string>2); printf("Se incluye el primero --> %s", $<string>2);} params
@@ -115,7 +115,7 @@ params : INT_TYPE ID {insertParameterInSymbolTable($<string>2); printf("Se inclu
 codeSet : instruction END_OF_INSTRUCTION codeSet
         | controlStructure END_OF_INSTRUCTION codeSet
         | END_OF_INSTRUCTION codeSet
-        | /* EMPTY */
+        | 
         ;
 
 instruction : assignation
@@ -175,7 +175,7 @@ else : {pushClauseIFE(printGoToFinalEstructureElse());} ELSE_CLAUSE {printLabelI
       | {printLabelInstruction(popClauseIF());}
       ;
 controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {pushClauseIF(printHeaderOfClauseInstruction());} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
-                 | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printClause(); printLabelInstruction(popClauseWE());}
+                 | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();closeScopeInSymbolTable();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE { printClause(); printLabelInstruction(popClauseWE());}
 				 ;
 
 logicalOperation : ID logicalOperator ID {logicalVariableToVariable($<string>1, $<string>3, $<string>2);}

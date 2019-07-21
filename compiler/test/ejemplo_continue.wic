@@ -1,0 +1,19 @@
+int a
+int b
+int hola
+a = 10
+b = 3
+hola = 3
+fun main (){
+    while(hola != 6){
+        if(hola == 5){
+            ..print(hola)
+            ..continue
+            break
+        }
+        print(hola)
+        hola++
+    }
+}
+
+
