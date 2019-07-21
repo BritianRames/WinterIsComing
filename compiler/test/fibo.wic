@@ -1,26 +1,48 @@
-int a
-
 fun fibo (int n){
-        if(n == 0){
-            return 0
-        }
+    if(n == 0){
+        return 0
+    }
 
-        if(n == 1){
-            return 1
-        } else{
-            return fibo(n - 1) + fibo(n - 2)
-        }
+    if(n == 1){
+        return 1
+    } else{
+        return fibo(n - 1) + fibo(n - 2)
+    }
+}
+
+fun suma(int a, int b) {
+    print(a)
+    print(b)
+    return a + b
+}
+
+fun resta(int c, int d) {
+    return c - d
 }
 
 fun main (){
+    print(3 - 8)
     int a
     a = 0
+
     int x
     x = 0
-    while(x < 10){
-        a = fibo(x)
-        print(a)
+
+    int count
+    count = 1
+
+    while(x < 20){
+        print(fibo(x))
+        print(count)
         x++
+        count++
     }
 
+    print(999)
+    print(suma(1, 2))
+    print(resta(10, 100))
+
+    int pepe
+    pepe = x * 5 / fibo(3)
+    print(pepe)
 }

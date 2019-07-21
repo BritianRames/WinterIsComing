@@ -72,6 +72,7 @@ void functionReturn(){
   //Value to return should be un stack top
   struct Symbol *function = getLastFunctionFromSymbolTable();
   int offset = 4*(function->numberOfParameters);
+  printSymbolTable();
   fprintf(f, "//(return)\n");
   fprintf(f,"R1 = I(R6 - 0x%x);\t// R1 = Previous R6\n", offset + 4);
   fprintf(f,"R5 = I(R6 - 0x%x);\t// R5 = Return label\n", offset + 8);
