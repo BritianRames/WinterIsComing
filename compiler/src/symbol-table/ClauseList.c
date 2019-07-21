@@ -7,9 +7,14 @@ struct Clause* firstClauseWI;
 struct Clause* lastClauseWI;
 struct Clause* firstClauseWE;
 struct Clause* lastClauseWE;
+struct Clause* firstClauseIF;
+struct Clause* lastClauseIF;
+struct Clause* firstClauseIFE;
+struct Clause* lastClauseIFE;
 int clauseSizeWI = 0;
 int clauseSizeWE = 0;
-
+int clauseSizeIF = 0;
+int clauseSizeIFE = 0;
 
 void pushClauseWI(int label){
     // debug con prints
@@ -45,6 +50,40 @@ void pushClauseWE(int label){
     clauseSizeWE++;
 }
 
+void pushClauseIF(int label){
+    // debug con prints
+    struct Clause* clause = malloc(sizeof(struct Clause));
+    clause->label = label;
+    if(clauseSizeIF == 0){
+        clause->previousClause = NULL;
+        clause->nextClause = NULL;
+        firstClauseIF = clause;
+        lastClauseIF = clause;
+    }else {
+        lastClauseIF->nextClause = clause;
+        clause->previousClause = lastClauseIF;
+        lastClauseIF = clause;
+    }
+    clauseSizeIF++;
+}
+
+void pushClauseIFE(int label){
+    // debug con prints
+    struct Clause* clause = malloc(sizeof(struct Clause));
+    clause->label = label;
+    if(clauseSizeIFE == 0){
+        clause->previousClause = NULL;
+        clause->nextClause = NULL;
+        firstClauseIFE = clause;
+        lastClauseIFE = clause;
+    }else {
+        lastClauseIFE->nextClause = clause;
+        clause->previousClause = lastClauseIFE;
+        lastClauseIFE = clause;
+    }
+    clauseSizeIFE++;
+}
+
 
     
 int popClauseWI(){
@@ -57,6 +96,7 @@ int popClauseWI(){
 	} else if (clauseSizeWI > 1){
 		lastClauseWI = clause->previousClause;
 	}
+    clauseSizeWI--;
 	return etiqueta;
 }
 int popClauseWE(){
@@ -66,11 +106,38 @@ int popClauseWE(){
 	if(clauseSizeWE <= 1){
 		firstClauseWE = NULL;
 		lastClauseWE = NULL;
-	} else if (clauseSizeWI > 1){
+	} else if (clauseSizeWE > 1){
 		lastClauseWE = clause->previousClause;
 	}
+    clauseSizeWE--;
 	return etiqueta;
 }
+
+int popClauseIF(){
+    struct Clause* clause = lastClauseIF;
+	int etiqueta = clause->label;
+	if(clauseSizeIF <= 1){
+		firstClauseIF = NULL;
+		lastClauseIF = NULL;
+	} else if (clauseSizeIF > 1){
+		lastClauseIF = clause->previousClause;
+	}
+    clauseSizeIF--;
+	return etiqueta;
+}
+int popClauseIFE(){
+    struct Clause* clause = lastClauseIFE;
+	int etiqueta = clause->label;
+	if(clauseSizeIFE <= 1){
+		firstClauseIFE = NULL;
+		lastClauseIFE = NULL;
+	} else if (clauseSizeIFE > 1){
+		lastClauseIFE = clause->previousClause;
+	}
+    clauseSizeIFE--;
+	return etiqueta;
+}
+
 
 
 void printClause(){

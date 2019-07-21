@@ -15,3 +15,7 @@ int popClauseWI();
 void pushClauseWE(int label);
 int popClauseWE();
 void printClause();
+void pushClauseIFE(int label);
+int popClauseIFE();
+void pushClauseIF(int label);
+int popClauseIF();

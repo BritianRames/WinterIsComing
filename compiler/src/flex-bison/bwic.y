@@ -169,10 +169,10 @@ text : STRING_VAL {$$ = $<string>1;}
      | ' '  {$$ = $<number>1;}
      ;
 
-else : {exit_l = printGoToFinalEstructureElse();} ELSE_CLAUSE {printLabelInstruction(else_l);} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(exit_l);}
-      | {printLabelInstruction(else_l);}
+else : {pushClauseIFE(printGoToFinalEstructureElse());} ELSE_CLAUSE {printLabelInstruction(popClauseIF());} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printLabelInstruction(popClauseIFE());}
+      | {printLabelInstruction(popClauseIF());}
       ;
-controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {else_l = printHeaderOfClauseInstruction();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
+controlStructure : IF_CLAUSE PARENTESIS_OPEN logicalOperation PARENTESIS_CLOSE {pushClauseIF(printHeaderOfClauseInstruction());} CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet CURLY_BRACKET_CLOSE {closeScopeInSymbolTable();} else
                  | { int label = _getNextLabel(); printLabelInstruction(label); pushClauseWI(label);} WHILE_CLAUSE PARENTESIS_OPEN logicalOperation {int label = printHeaderOfClauseInstruction(); pushClauseWE(label);} PARENTESIS_CLOSE CURLY_BRACKET_OPEN END_OF_INSTRUCTION {openScopeInSymbolTable();} codeSet {printClause();generateGoToWhile(popClauseWI());} CURLY_BRACKET_CLOSE {closeScopeInSymbolTable(); printClause(); printLabelInstruction(popClauseWE());}
 				 ;
 

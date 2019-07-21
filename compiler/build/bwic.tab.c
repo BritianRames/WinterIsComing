@@ -1579,13 +1579,13 @@ yyreduce:
 
   case 62:
 #line 172 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {exit_l = printGoToFinalEstructureElse();}
+    {pushClauseIFE(printGoToFinalEstructureElse());}
 #line 1584 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 172 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {printLabelInstruction(else_l);}
+    {printLabelInstruction(popClauseIF());}
 #line 1590 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1597,19 +1597,19 @@ yyreduce:
 
   case 65:
 #line 172 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {closeScopeInSymbolTable(); printLabelInstruction(exit_l);}
+    {closeScopeInSymbolTable(); printLabelInstruction(popClauseIFE());}
 #line 1602 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
 #line 173 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {printLabelInstruction(else_l);}
+    {printLabelInstruction(popClauseIF());}
 #line 1608 "bwic.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
 #line 175 "src/flex-bison/bwic.y" /* yacc.c:1646  */
-    {else_l = printHeaderOfClauseInstruction();}
+    {pushClauseIF(printHeaderOfClauseInstruction());}
 #line 1614 "bwic.tab.c" /* yacc.c:1646  */
     break;
 

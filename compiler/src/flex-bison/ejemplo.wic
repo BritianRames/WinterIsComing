@@ -5,22 +5,26 @@ a = 10
 b = 3
 hola = 3
 fun main (){
-    while(hola != a){
-        print(11)
+    while(hola != 6){
+        print(1)
+        hola++
     }
-
-    ..while ( a != 5) {
-    ..    while(b != 10){
-    ..        while (hola != 4){
-    ..            print(3)
-    ..            hola = 4
-    ..        }
-    ..        print(2)
-    ..        b = 10
-    ..    }
-    ..    print(1)
-    ..    a = 5
-    ..}
+    b = 4
+    while ( a != 5) {
+        while(b != 10){
+            while (hola != 4){
+                print(2)
+                hola = 4
+                if(hola == b){
+                    print(999)
+                }
+            }
+            print(3)
+            b++
+        }
+        print(4)
+        a = 5
+    }
 }
 
 
