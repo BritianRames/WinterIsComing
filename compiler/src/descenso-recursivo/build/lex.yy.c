@@ -879,7 +879,7 @@ YY_RULE_SETUP
 {
                                 BEGIN(CHECK_LVL);
                                 yyless(0);
-                                //printf("%s is a END_OF_INSTR\n", yytext);
+                                printf("%s is a END_OF_INSTR\n", yytext);
                                 numlin++;
                                 return END_OF_INSTR;
                               }
