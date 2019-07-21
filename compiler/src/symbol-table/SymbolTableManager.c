@@ -17,7 +17,7 @@ void insertArrayInSymbolTable(char* id, int size) {
     symbol->label = NULL;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
-    symbol->array_size = 4*size;
+    symbol->array_size = size;
     symbol->type = symbol->scope == 0 ? 'g' : 'l';
     symbol->address = symbol->type == 'g' ? _getNextStaticAddressFromSymbolTable() : _getNextLocalVariableAddressFromSymbolTable();
 
@@ -51,6 +51,27 @@ void insertParameterInSymbolTable(char *id){
     symbol->nextSymbol = NULL;
     symbol->label = NULL;
     symbol->array_size = NULL;
+    symbol->numberOfLocalVariables = NULL;
+    symbol->scope = currentScope;
+    symbol->type = 'p';
+
+    strcpy(symbol->id, id);
+
+    if(_existSymbolInSymbolTable(symbol)) {
+        printf("Error");
+    } else {
+        _linkSymbolToSymbolTable(symbol);
+        symbol->address = _getNextParametersAddressFromSymbolTable();
+    }
+}
+
+void insertParameterArrayInSymbolTable(char* id) {
+    struct Symbol* symbol = malloc(sizeof(struct Symbol));
+
+    symbol->id = malloc(sizeof(char) * strlen(id));
+    symbol->nextSymbol = NULL;
+    symbol->label = NULL;
+    symbol->array_size = getVariableFromSymbolTable(id)->array_size;
     symbol->numberOfLocalVariables = NULL;
     symbol->scope = currentScope;
     symbol->type = 'p';
@@ -214,7 +235,7 @@ struct Symbol* getVariableFromSymbolTable(char* id){
     struct Symbol* currentSymbol = lastSymbol;
     printf("symbol: %s, %c\n", currentSymbol->id, currentSymbol->type);
     for(int i = tableSize; i > 0; i--){
-        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' | currentSymbol->type =='l' | currentSymbol->type == 'p')){
+        if(strcmp(currentSymbol->id, id) == 0 && (currentSymbol->type == 'g' || currentSymbol->type =='l' || currentSymbol->type == 'p')){
             return currentSymbol;
         }
         currentSymbol = currentSymbol->previousSymbol;

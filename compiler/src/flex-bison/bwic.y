@@ -5,7 +5,7 @@
   #include <stdbool.h>
   extern FILE *yyin;
   extern int numlin;
-  int yydebug = 0;
+  int yydebug = 1;
   char* box ;
   void yyerror (char const*);
   char* stringWithNewline(char*);
@@ -99,7 +99,7 @@ root : declaration END_OF_INSTRUCTION root
      ;
 
 declaration : INT_TYPE ID {insertVariableInSymbolTable($<string>2); declarationGlobalVariable($<string>2);}
-            | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); }
+            | INT_TYPE ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayInSymbolTable($<string>2, $<number>4); printCreateArray($<string>2); printSymbolTable(); }
             ;
 
 function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<string>2)==0){mainFunction();}else{function($<string>2);}} PARENTESIS_OPEN {openScopeInSymbolTable();} params {closeScopeInSymbolTable();} PARENTESIS_CLOSE {openScopeInSymbolTable();} CURLY_BRACKET_OPEN END_OF_INSTRUCTION codeSet CURLY_BRACKET_CLOSE END_OF_INSTRUCTION {closeScopeInSymbolTable();}
@@ -107,6 +107,8 @@ function : FUN ID {insertFunctionSymbolTable($<string>2); if(strcmp("main", $<st
 
 params : INT_TYPE ID {insertParameterInSymbolTable($<string>2); printf("Se incluye el primero --> %s", $<string>2);} params
        | COMMA INT_TYPE ID params {insertParameterInSymbolTable($<string>3); printf("Se incluye el segundo --> %s", $<string>2);}
+       | INT_TYPE ID SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE { insertParameterArrayInSymbolTable($<string>2); } params
+       | COMMA INT_TYPE ID SQUARE_BRACKET_OPEN SQUARE_BRACKET_CLOSE params { insertParameterArrayInSymbolTable($<string>2); }
        | /* EMPTY */
        ;
 
@@ -127,10 +129,9 @@ assignation : ID ASSIGN INT_VAL {assignValueToVariable($<string>1,$<number>3);}
             | ID PLUSPLUS    {insertVariableValueInStack($<string>1); insertValueInStack(1); add();assignR0ToVariable($<string>1);}
             | ID MINUSMINUS   {insertVariableValueInStack($<string>1); insertValueInStack(1); substract();assignR0ToVariable($<string>1);}
             | ID ASSIGN aritmeticOperation {assignR0ToVariable($<string>1);}
-            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN ID 
-            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL 
-            | ID ASSIGN ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE
-            ;  
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN INT_VAL { assignValueToArray($<string>1, $<number>3, $<number>6); }
+            | ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE ASSIGN aritmeticOperation { assignR0ToArray($<string>1, $<number>3); }
+            ;
 
 functionCallParams : aritmeticOperation
 	    | aritmeticOperation COMMA functionCallParams
@@ -144,7 +145,8 @@ aritmeticOperation :  aritmeticOperation SUM aritmeticOperation {add();}
                   |   PARENTESIS_OPEN aritmeticOperation PARENTESIS_CLOSE
             	  |   ID PARENTESIS_OPEN {saveR7inR4();} functionCallParams PARENTESIS_CLOSE {functionCall($<string>1);}
                   |   INT_VAL {insertValueInStack($<number>1);}
-                  |   ID  {insertVariableValueInStack($<string>1);}    
+                  |   ID  {insertVariableValueInStack($<string>1);}
+                  |   ID SQUARE_BRACKET_OPEN INT_VAL SQUARE_BRACKET_CLOSE { insertArrayValueInStack($<string>1, $<number>3); }
                   ;
 
 

@@ -19,6 +19,7 @@ struct Symbol{
 void insertArrayInSymbolTable(char* id, int size);
 void insertVariableInSymbolTable(char* id);
 void insertParameterInSymbolTable(char *id);
+void insertParameterArrayInSymbolTable(char* id);
 void insertFunctionSymbolTable(char *id);
 void _linkSymbolToSymbolTable(struct Symbol* symbol);
 void _incrementNumberOfLocalVariablesAndParameters();

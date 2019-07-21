@@ -167,7 +167,7 @@ void assignVariableToVariable(char* variable1_id, char* variable2_id) {
 
     if (variable1->type == 'g') {
         putGlobalVariableValueInR0(variable1->address);
-        moveR7Down(); //TODO (christian dice que esta bien)
+        moveR7Down();
     } else if (variable1->type == 'l') {
         int offset = getLocalVariableOffset(variable1->address);
         putLocalVariableValueInR0(offset);
@@ -411,22 +411,108 @@ void putR0InParameter(int offset){
 }
 
 /****Array Management*****/
-void printCreateArray(int addr, int size) {
-    fprintf(f, "\tFIL(P(0x%x),%d,0);\n", addr, size);
+void printCreateArray(char* id) {
+    struct Symbol* symbol = getVariableFromSymbolTable(id);
+    int addr = symbol->address;
+    int size = symbol->array_size * 4;
+    int label = _getNextLabel();
+    fprintf(f, "R0 = %d;\n", label);
+    fprintf(f, "R1 = %d;\n", size);
+    fprintf(f, "GT(new_);\n");
+    printLabelInstruction(label);
+
+    moveR7Down();
+    if (symbol->type == 'g') fprintf(f, "I(0x%x) = R0;\n", addr);
+    else if (symbol->type == 'l') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "I(R6 - %d) = R0;\n", offset);
+    } else if (symbol->type == 'p') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "I(R6 - %d) = R0;\n", offset);
+    }
 }
 
-void printArrayAssignValue(int addr, int pos, int val) {
-    fprintf(f, "\tI(P(0x%x)) = %d;\n", addr - 4 * pos, pos, val);
+void insertArrayValueInStack(char* id, int pos) {
+    struct Symbol* symbol = getVariableFromSymbolTable(id);
+    int addr = symbol->address;
+
+    moveR7Down();
+    if (symbol->type == 'g') {
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(0x%x);\n", addr);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "R3 = I(R3);\n");
+        fprintf(f, "I(R7) = R3;\n");
+    }
+    else if (symbol->type == 'l') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "R3 = I(R3);\n");
+        fprintf(f, "I(R7) = R3;\n");
+    } else if (symbol->type == 'p') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "R3 = I(R3);\n");
+        fprintf(f, "I(R7) = R3;\n");
+    }
 }
 
-void printArrayAssignVariable(int addr1, int pos, int addr2){
-    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(0x%x);\n", addr1, pos, addr2);
+void assignR0ToArray(char* id, int pos) {
+    struct Symbol* symbol = getVariableFromSymbolTable(id);
+    int addr = symbol->address;
+
+    putOperationResultInR0();
+    moveR7Up();
+
+    if (symbol->type == 'g') {
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(0x%x);\n", addr);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = R0;\n");
+//        fprintf(f, "I(P(0x%x) + 4 * %d) = R0;\n", addr, pos);
+    }
+    else if (symbol->type == 'l') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = R0;\n");
+//        fprintf(f, "I(P(R6 - %d) + 4 * %d) = R0;\n", offset, pos);
+    } else if (symbol->type == 'p') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = R0;\n");
+//        fprintf(f, "I(P(R6 - %d) + 4 * %d) = R0;\n", offset, pos);
+    }
 }
 
-void printArrayAssignArray(int addr1, int pos1, int addr2, int pos2) {
-    fprintf(f, "\tI(P(0x%x) - 4 * %d) = I(P(0x%x) + 4 * %d);\n", addr1, pos1, addr2, pos2);
-}
+void assignValueToArray(char* id, int pos, int val) {
+    struct Symbol* symbol = getVariableFromSymbolTable(id);
+    int addr = symbol->address;
 
-void printVariableAssignArray(int address, int array, int pos){
-    fprintf(f, "I(0x%x) = I(P(0x%x) + 4 * %d);\n", address, array, pos);
+    if (symbol->type == 'g') {
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(0x%x);\n", addr);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = %d;\n", val);
+    }
+    else if (symbol->type == 'l') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = %d;\n", val);
+    } else if (symbol->type == 'p') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R3 = 4 * %d;\n", pos);
+        fprintf(f, "R2 = P(R6 - %d);\n", offset);
+        fprintf(f, "R3 = R2 + R3;\n");
+        fprintf(f, "I(R3) = %d;\n", val);
+    }
 }
