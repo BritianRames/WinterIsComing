@@ -3,8 +3,7 @@ int counter
 fun main() {
     counter = 0
     while (counter <= 10) {
+        print(counter)
         counter = counter + 1
     }
-    int a
-    a = 3
 }
