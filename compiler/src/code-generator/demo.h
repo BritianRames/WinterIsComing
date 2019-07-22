@@ -112,6 +112,6 @@ void saveR7inR4();
 
 /****Array Management*****/
 void printCreateArray(char* id);
-void insertArrayValueInStack(char* id, int pos);
-void assignR0ToArray(char* id);
-void assignValueToArray(char* id, int pos, int val);
+void insertArrayValueInStack(char* id);
+void assignOperationResult(char* id);
+void assignValueToArray(char* id, int val);

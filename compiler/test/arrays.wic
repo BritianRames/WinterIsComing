@@ -1,19 +1,18 @@
-int global[2]
-
-fun suma(int a, int b) {
-    return a + b
+fun assign(int c) {
+    int local[4]
+    local[0] = 3
+    local[1] = 2
+    local[1+2] = 1 + local[1 - 1 * 2 + 1] * 2 + c
+    int a
+    a = local[3]
+    return a
 }
 
 fun main() {
-    int array[4]
-    array[0] = 1
-    global[0] = 5
-    global[1] = 4
-    array[1] = 2
-    array[2] = 10
-    array[3] = array[1 + 1]
-    print(array[3])
-
-    ..array[0] = suma(array[0], global[0])
-    print(array[0])
+    int local[2]
+    local[0] = 19
+    local[1] = 21
+    int a
+    a = assign(local[local[1] - local[0] - 1])
+    print(a)
 }

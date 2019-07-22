@@ -8,23 +8,13 @@ fun fibo (int n){
     } else{
         return fibo(n - 1) + fibo(n - 2)
     }
-    n = 44
 }
 
 fun main (){
     int x
-    x = 0
-    while (x < 10) {
-        int y
-        int c
+    x = 1
+    while (x < 15) {
         print(fibo(x))
         x++
-        break
-        c = 99
-        y = x
     }
-
-    int b
-    b = 5 * 4 / (3 + 2) * 10
-    print(b)
 }

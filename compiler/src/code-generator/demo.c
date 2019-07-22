@@ -427,6 +427,9 @@ void printCreateArray(char* id) {
     int addr = symbol->address;
     int size = symbol->array_size * 4;
     int label = _getNextLabel();
+
+    fprintf(f, "// Create array \n");
+
     fprintf(f, "R0 = %d;\n", label);
     fprintf(f, "R1 = %d;\n", size);
     fprintf(f, "GT(new_);\n");
@@ -443,87 +446,110 @@ void printCreateArray(char* id) {
     }
 }
 
-void insertArrayValueInStack(char* id, int pos) {
+void insertArrayValueInStack(char* id) {
     struct Symbol* symbol = getVariableFromSymbolTable(id);
     int addr = symbol->address;
-
-    moveR7Down();
+    fprintf(f, "// Insert array value in stack\n");
     if (symbol->type == 'g') {
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(0x%x);\n", addr);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "R3 = I(R3);\n");
-        fprintf(f, "I(R7) = R3;\n");
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(0x%x);\t// Get array base address\n", addr);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R0 = I(R0);\t// Load array value in R0\n");
+        fprintf(f, "I(R7) = R0;\t// Load array value in stack\n");
     }
     else if (symbol->type == 'l') {
         int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "R3 = I(R3);\n");
-        fprintf(f, "I(R7) = R3;\n");
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(R6 - %d);// Get array base address from stack offset\n", offset);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R0 = I(R0);\t// Load array value in R0\n");
+        fprintf(f, "I(R7) = R0;\t// Load array value in stack\n");
     } else if (symbol->type == 'p') {
-        int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "R3 = I(R3);\n");
-        fprintf(f, "I(R7) = R3;\n");
+        int offset = getParameterOffset(addr);
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(R6 - %d);// Get array base address from stack offset\n", offset);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R0 = I(R0);\t// Load array value in R0\n");
+        fprintf(f, "I(R7) = R0;\t// Load array value in stack\n");
     }
 }
 
-void assignR0ToArray(char* id) {
+void assignOperationResult(char* id) {
     struct Symbol* symbol = getVariableFromSymbolTable(id);
     int addr = symbol->address;
 
-    putOperationResultInR0();
+    if (symbol->type == 'g') {
+        fprintf(f, "R0 = I(R7 + 4);\t// Get index from stack\n");
+        fprintf(f, "R1 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "R0 = P(0x%x);\t// Get array base address\n", addr);
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R1 = I(R7);\t// Save the value of the arithmetic operation\n");
+        fprintf(f, "I(R0) = R1;\t // Save the value in array\n");
+    }
+    else if (symbol->type == 'l') {
+        int offset = getLocalVariableOffset(addr);
+        fprintf(f, "R0 = I(R7 + 4);\t// Get index from stack\n");
+        fprintf(f, "R1 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "R0 = P(R6 - %d);\t// Get array base address\n", offset);
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R1 = I(R7);\t// Save the value of the arithmetic operation\n");
+        fprintf(f, "I(R0) = R1;\t // Save the value in array\n");
+    } else if (symbol->type == 'p') {
+        int offset = getParameterOffset(addr);
+        fprintf(f, "R0 = I(R7 + 4);\t// Get index from stack\n");
+        fprintf(f, "R1 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "R0 = P(R6 - %d);\t// Get array base address\n", offset);
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        fprintf(f, "R1 = I(R7);\t// Save the value of the arithmetic operation\n");
+        fprintf(f, "I(R0) = R1;\t // Save the value in array\n");
+    }
+
     moveR7Up();
-
-    if (symbol->type == 'g') {
-        fprintf(f, "R3 = 4 * R0;\n");
-        fprintf(f, "R2 = P(0x%x);\n", addr);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = R0;\n");
-//        fprintf(f, "I(P(0x%x) + 4 * %d) = R0;\n", addr, pos);
-    }
-    else if (symbol->type == 'l') {
-        int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * R0;\n");
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = R0;\n");
-//        fprintf(f, "I(P(R6 - %d) + 4 * %d) = R0;\n", offset, pos);
-    } else if (symbol->type == 'p') {
-        int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * R0;\n");
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = R0;\n");
-//        fprintf(f, "I(P(R6 - %d) + 4 * %d) = R0;\n", offset, pos);
-    }
+    moveR7Up();
 }
 
-void assignValueToArray(char* id, int pos, int val) {
+void assignValueToArray(char* id, int val) {
     struct Symbol* symbol = getVariableFromSymbolTable(id);
     int addr = symbol->address;
 
+    fprintf(f, "// Assign value to array\n");
     if (symbol->type == 'g') {
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(0x%x);\n", addr);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = %d;\n", val);
-    }
-    else if (symbol->type == 'l') {
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(0x%x);\t// Get array base address\n", addr);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        moveR7Up();
+        fprintf(f, "I(R0) = %d;\t// Assign value to array\n", val);
+    } else if (symbol->type == 'l') {
         int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = %d;\n", val);
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(R6 - %d);// Get array base address from stack offset\n", offset);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        moveR7Up();
+        fprintf(f, "I(R0) = %d;\t// Assign value to array\n", val);
     } else if (symbol->type == 'p') {
-        int offset = getLocalVariableOffset(addr);
-        fprintf(f, "R3 = 4 * %d;\n", pos);
-        fprintf(f, "R2 = P(R6 - %d);\n", offset);
-        fprintf(f, "R3 = R2 + R3;\n");
-        fprintf(f, "I(R3) = %d;\n", val);
+        int offset = getParameterOffset(addr);
+        fprintf(f, "R0 = I(R7);\t// Get index from stack\n");
+        fprintf(f, "R0 = 4 * R0;\t// Calculate offset from base address\n");
+        fprintf(f, "I(R7) = R0;\t// Save array offset\n");
+        fprintf(f, "R0 = P(R6 - %d);// Get array base address from stack offset\n", offset);
+        fprintf(f, "R1 = I(R7);\t // Load offset from stack\n");
+        fprintf(f, "R0 = R0 + R1;\t// Calculate array element position\n");
+        moveR7Up();
+        fprintf(f, "I(R0) = %d;\t// Assign value to array\n", val);
     }
 }
