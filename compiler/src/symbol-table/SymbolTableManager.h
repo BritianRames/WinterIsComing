@@ -38,5 +38,4 @@ struct Symbol* getFunctionFromSymbolTable(char* id);
 struct Symbol* getLastFunctionFromSymbolTable();
 void printSymbolTable();
 int getCurrentScopeFromSymbolTable();
-
 struct Symbol* getVariableFromSymbolTable(char* id);
